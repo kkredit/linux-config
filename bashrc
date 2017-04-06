@@ -116,19 +116,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# if the shared folder is not yet mounted, mount it
-if [ -z "$(mount | grep shared)" ]
-then
-	sudo mount -t vboxsf -o uid=$UID,gid=$(id -g) \
-					LinuxShared ~/shared
-    # and specify the dns servers, because that also needs to be done
-    sudo cp ~/shared/16.04specific/network_scripts/dns /etc/resolv.conf
-	echo "The shared folder is now mounted."
-#else
-#	echo "The shared folder is already mounted."
-#	clear
-fi
-
 #create function to "cd" and "ls" in one command, "cs"
 function cs() {
     new_directory="$*";
@@ -168,3 +155,9 @@ export PS1="\[\033[32;1m\]\u@\H\[\033[31;1m\] [\w]\[\033[35;1m\] \
 \[\033[34;1m\]\[\033[33;1m\]\$(prompt_ps1_git_branch)\[\033[34;1m\]\n\$ \[\033[0m\]"
 
 alias dos2unixr='find . -type f -exec dos2unix {} \;'
+
+if [[ 1 -eq $(ls -a /home/$(whoami) | grep .bashrc_local | wc -l) ]]
+then
+    source /home/$(whoami)/.bashrc_local
+fi
+
