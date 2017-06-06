@@ -155,6 +155,7 @@ export PS1="\[\033[32;1m\]\u@\H\[\033[31;1m\] [\w]\[\033[35;1m\] \
 \[\033[34;1m\]\[\033[33;1m\]\$(prompt_ps1_git_branch)\[\033[34;1m\]\n\$ \[\033[0m\]"
 
 alias dos2unixr='find . -type f -exec dos2unix {} \;'
+alias unix2dosr='find . -type f -exec unix2dos {} \;'
 
 if [[ 1 -eq $(ls -a /home/$(whoami) | grep .bashrc_local | wc -l) ]]
 then
