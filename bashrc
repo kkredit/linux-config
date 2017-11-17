@@ -157,6 +157,15 @@ export PS1="\[\033[32;1m\]\u@\H\[\033[31;1m\] [\w]\[\033[35;1m\] \
 alias dos2unixr='find . -type f -exec dos2unix {} \;'
 alias unix2dosr='find . -type f -exec unix2dos {} \;'
 
+alias gitc='git commit'
+alias gitcp='git cherry-pick'
+alias gitco='git checkout'
+alias gitf='git fetch'
+alias gitl='git log'
+alias gitd='git diff'
+
+export VSLICKXNOPLUSNEWMSG=1
+
 if [[ 1 -eq $(ls -a /home/$(whoami) | grep .bashrc_local | wc -l) ]]
 then
     source /home/$(whoami)/.bashrc_local
