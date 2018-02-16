@@ -1,0 +1,17 @@
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet manual
+  up ip link set eth0 up
+
+auto br0
+iface br0 inet static
+  address 172.27.5.36
+  netmask 255.255.0.0
+  network 172.27.0.0
+  broadcast 172.27.255.255
+  gateway 172.27.0.12
+  dns-nameservers 8.8.8.8
+  bridge_ports eth0
+
