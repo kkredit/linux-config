@@ -171,3 +171,5 @@ then
     source /home/$(whoami)/.bashrc_local
 fi
 
+# source gerrit commands
+source /home/$(whoami)/.gerritrc

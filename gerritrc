@@ -1,0 +1,73 @@
+function list_contains() {
+    # Grabbed this from: https://stackoverflow.com/questions/8063228/how-do-i-check-if-a-variable-exists-in-a-list-in-bash
+    local item="$1"
+    local list="$2"
+    if [[ $list =~ (^|[[:space:]])"$item"($|[[:space:]]) ]] ; then
+        # yes, list include item
+        result=0
+    else
+        result=1
+    fi
+    return $result
+}
+ 
+export GERRITUSER=<username>
+export GERRITSRVR=<server>
+export GERRITPORT=<port>
+ 
+alias gerrit_shell="ssh $GERRITUSER@$GERRITSRVR"
+ 
+function gerrit_ssh (){
+    ssh -p $GERRITPORT $GERRITUSER@$GERRITSRVR $*
+}
+ 
+function gerrit_ssh_cmd (){
+    gerrit_ssh gerrit $*
+}
+ 
+function git_current_change_id (){
+    git show -s | grep -Po '(?<=Change-Id: ).+'
+}
+ 
+function gerrit_query_current (){
+    gerrit_ssh_cmd query $(git_current_change_id)
+}
+ 
+function gerrit_current_project (){
+    gerrit_query_current | grep -Po '(?<=project: ).+'
+}
+ 
+function gerrit_ls_groups () {
+    gerrit_ssh_cmd ls-groups
+}
+ 
+function gerrit_set_review_group (){
+    local group=$1
+    local current_project=$(gerrit_current_project)
+    local gerrit_groups=$(gerrit_ls_groups)
+ 
+    if $(list_contains $group "$gerrit_groups"); then
+        echo "Setting $group to review $current_project"
+        gerrit_ssh_cmd set-reviewers --project $current_project --add $group $(git_current_change_id)
+    else
+        echo "$group does not exist in the groups returned"
+        echo "The following exist:"
+        for g in $gerrit_groups
+        do
+            echo "Group [$g] exists"
+        done
+    fi
+}
+ 
+function gerrit_get_commit_hooks(){
+    if [ ! -d ".git" ]; then
+        echo "Change to directory with \".git\""
+        return 1
+    fi
+    scp -p  -P $GERRITPORT $GERRITUSER@$GERRITSRVR:hooks/commit-msg .git/hooks/commit-msg
+    if [ $? -eq 0 ]; then
+        echo "Sucessfully downlaoded gerrit commit message hook"
+    else
+        echo "Error downloading gerrit commit message hook"
+    fi
+}
