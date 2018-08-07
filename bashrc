@@ -143,7 +143,7 @@ function cls() {
 }
 
 function mdv() {
-    pandoc -f markdown $1 | lynx -stdin -vikeys
+    pandoc -f markdown $1 | lynx -stdin -scrollbar -vikeys
 }
 
 prompt_ps1_git_branch () {
