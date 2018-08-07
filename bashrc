@@ -142,6 +142,10 @@ function cls() {
     clear && ls
 }
 
+function mdv() {
+    pandoc -f markdown $1 | lynx -stdin -vikeys
+}
+
 prompt_ps1_git_branch () {
     if [[ -e /usr/bin/git && "$PCGB_LAST_WD" != "$PWD" ]]; then
         current_git_branch=$(git branch 2>/dev/null | grep '^\*' | sed -e 's/^..//');
