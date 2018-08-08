@@ -146,6 +146,16 @@ function mdv() {
     pandoc -f markdown $1 | lynx -stdin -scrollbar -vikeys
 }
 
+function mdvo() {
+    docker run --rm -v $(pwd):/local -p 1234:1234 --name mdv -t mdv:latest /bin/sh -c "grip /local/$1 0.0.0.0:1234" &
+    sleep 4
+    firefox http://0.0.0.0:1234 &
+}
+
+function mdvc() {
+    docker stop mdv
+}
+
 prompt_ps1_git_branch () {
     if [[ -e /usr/bin/git && "$PCGB_LAST_WD" != "$PWD" ]]; then
         current_git_branch=$(git branch 2>/dev/null | grep '^\*' | sed -e 's/^..//');
