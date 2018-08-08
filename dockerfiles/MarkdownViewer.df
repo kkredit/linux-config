@@ -1,0 +1,7 @@
+FROM python:3-stretch
+
+# Install grip
+# https://github.com/joeyespo/grip
+RUN pip install grip
+EXPOSE 1234
+
