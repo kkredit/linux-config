@@ -146,6 +146,12 @@ function mdv() {
     pandoc -f markdown $1 | lynx -stdin -scrollbar -vikeys
 }
 
+function mdvf() {
+    pandoc -f markdown $1 > $1.html
+    firefox $1.html
+    rm $1.html
+}
+
 function mdvo() {
     docker run --rm -v $(pwd):/local -p 1234:1234 --name mdv -t mdv:latest /bin/sh -c "grip /local/$1 0.0.0.0:1234" &
     sleep 4
