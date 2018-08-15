@@ -7,8 +7,10 @@
     st = status
     br = branch
     hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
-    tree = log --all --graph --decorate --oneline
-    tree-simple = log --all --graph --decorate --oneline --simplify-by-decoration
+    tree = log-compact --all --graph --decorate
+    tree-simple = log-compact --all --graph --decorate --simplify-by-decoration
 [core]
     editor = vim
+[log-compact]
+    defaults = --two-initials --abbrev=8
 

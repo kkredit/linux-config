@@ -11,3 +11,4 @@ if [ ! -f $HOME/.gitconfig ]; then
     install -m 644 gitconfig $HOME/.gitconfig
 fi
 
+sudo install -m 755 git-log-compact /usr/local/bin/git-log-compact
