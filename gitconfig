@@ -1,11 +1,14 @@
 [credential]
-	helper = cache
+    helper = cache
 [alias]
-	co = checkout
-	ci = commit
+    co = checkout
+    ci = commit
     cp = cherry-pick
-	st = status
-	br = branch
-	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+    st = status
+    br = branch
+    hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+    tree = log --all --graph --decorate --oneline
+    tree-simple = log --all --graph --decorate --oneline --simplify-by-decoration
 [core]
-	editor = vim
+    editor = vim
+
