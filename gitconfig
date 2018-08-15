@@ -1,5 +1,5 @@
 [credential]
-    helper = cache
+    helper = cache --timeout=3600
 [alias]
     co = checkout
     ci = commit
