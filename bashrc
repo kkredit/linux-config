@@ -143,7 +143,7 @@ function cls() {
 }
 
 function mdv() {
-    pandoc -f markdown $1 | lynx -stdin -scrollbar -vikeys
+    pandoc -f markdown $1 | lynx -stdin -scrollbar -vikeys -nocolor
 }
 
 function mdvf() {
