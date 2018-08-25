@@ -186,10 +186,11 @@ alias gitd='git diff'
 
 export VSLICKXNOPLUSNEWMSG=1
 
-if [[ 1 -eq $(ls -a /home/$(whoami) | grep .bashrc_local | wc -l) ]]
-then
+if [ -e ~/.bashrc_local ]; then
     source /home/$(whoami)/.bashrc_local
 fi
 
 # source gerrit commands
-source /home/$(whoami)/.gerritrc
+if [ -e ~/.gerritrc ]; then
+    source /home/$(whoami)/.gerritrc
+fi

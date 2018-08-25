@@ -4,7 +4,8 @@ install -m 644 bashrc $HOME/.bashrc
 install -m 644 vimrc $HOME/.vimrc
 
 if [ ! -f $HOME/.gerritrc ]; then
-    install -m 644 gerritrc $HOME/.gerritrc
+    #install -m 644 gerritrc $HOME/.gerritrc
+    echo .gerritrc not installed by default
 fi
 
 if [ ! -f $HOME/.gitconfig ]; then
