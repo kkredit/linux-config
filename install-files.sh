@@ -2,6 +2,8 @@
 
 install -m 644 bashrc $HOME/.bashrc
 install -m 644 vimrc $HOME/.vimrc
+install -m 644 xinitrc $HOME/.xinitrc
+install -m 644 Xmodmap $HOME/.Xmodmap
 
 if [ ! -f $HOME/.gerritrc ]; then
     #install -m 644 gerritrc $HOME/.gerritrc
