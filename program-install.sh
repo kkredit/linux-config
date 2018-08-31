@@ -51,4 +51,12 @@ if [[ 0 < $# ]]; then
         sudo tee -a /etc/apt/sources.list.d/signal-xenial.list > /dev/null
     sudo apt update && sudo apt install signal-desktop
 
+    # Pigdin w/Facebook chat plugin
+    sudo apt-get install -y \
+        libcanberra-gtk-module:i386 \
+        pigdin
+    curl -s http://download.opensuse.org/repositories/home:/jgeboski/xUbuntu_$(lsb_release -rs)/Release.key | \
+        sudo apt-key add -
+    sudo apt update && sudo apt install purple-facebook
+
 fi
