@@ -15,7 +15,8 @@ sudo apt-get install -y \
     lynx \
     gcc \
     curl \
-    tree
+    tree \
+    net-tools
 
 # Map /bin/sh to /bin/bash
 sudo mv /bin/sh /bin/sh.bak
