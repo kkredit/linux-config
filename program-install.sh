@@ -1,5 +1,7 @@
 #!/bin/bash
 
+UBU_REL=$(lsb_release -cs)
+
 # Preliminary update
 sudo apt-get update && sudo apt-get upgrade -y
 sudo apt-get autoremove
@@ -11,7 +13,8 @@ sudo apt-get install -y \
     tmux \
     pandoc \
     lynx \
-    gcc
+    gcc \
+    curl
 
 # Map /bin/sh to /bin/bash
 sudo mv /bin/sh /bin/sh.bak
@@ -23,7 +26,7 @@ sudo apt-get install -y \
 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository \
-    "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    "deb [arch=amd64] https://download.docker.com/linux/ubuntu $UBU_REL stable"
 sudo apt-get update
 sudo apt-get install -y \
     docker-ce
@@ -37,3 +40,9 @@ echo "deb http://repo.sinew.in/ stable main" | \
 wget -O - https://dl.sinew.in/keys/enpass-linux.key | sudo apt-key add -
 sudo apt-get update
 sudo apt-get install -y enpass
+
+# Signal
+curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
+echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | \
+    sudo tee -a /etc/apt/sources.list.d/signal-xenial.list > /dev/null
+sudo apt update && sudo apt install signal-desktop
