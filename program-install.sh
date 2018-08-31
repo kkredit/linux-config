@@ -14,35 +14,41 @@ sudo apt-get install -y \
     pandoc \
     lynx \
     gcc \
-    curl
+    curl \
+    tree
 
 # Map /bin/sh to /bin/bash
 sudo mv /bin/sh /bin/sh.bak
 sudo ln -s /bin/bash /bin/sh
 
-# Docker
-sudo apt-get install -y \
-    apt-transport-https ca-certificates curl software-properties-common
+# Non-trivial installs; perform if called with argument
+if [[ 0 < $# ]]; then
 
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository \
-    "deb [arch=amd64] https://download.docker.com/linux/ubuntu $UBU_REL stable"
-sudo apt-get update
-sudo apt-get install -y \
-    docker-ce
+    # Docker
+    sudo apt-get install -y \
+        apt-transport-https ca-certificates curl software-properties-common
 
-sudo groupadd docker
-sudo usermod -aG docker $USER
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    sudo add-apt-repository \
+        "deb [arch=amd64] https://download.docker.com/linux/ubuntu $UBU_REL stable"
+    sudo apt-get update
+    sudo apt-get install -y \
+        docker-ce
 
-# Enpass
-echo "deb http://repo.sinew.in/ stable main" | \
-    sudo tee /etc/apt/sources.list.d/enpass.list > /dev/null
-wget -O - https://dl.sinew.in/keys/enpass-linux.key | sudo apt-key add -
-sudo apt-get update
-sudo apt-get install -y enpass
+    sudo groupadd docker
+    sudo usermod -aG docker $USER
 
-# Signal
-curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
-echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | \
-    sudo tee -a /etc/apt/sources.list.d/signal-xenial.list > /dev/null
-sudo apt update && sudo apt install signal-desktop
+    # Enpass
+    echo "deb http://repo.sinew.in/ stable main" | \
+        sudo tee /etc/apt/sources.list.d/enpass.list > /dev/null
+    wget -O - https://dl.sinew.in/keys/enpass-linux.key | sudo apt-key add -
+    sudo apt-get update
+    sudo apt-get install -y enpass
+
+    # Signal
+    curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
+    echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | \
+        sudo tee -a /etc/apt/sources.list.d/signal-xenial.list > /dev/null
+    sudo apt update && sudo apt install signal-desktop
+
+fi
