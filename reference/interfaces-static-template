@@ -7,11 +7,11 @@ iface eth0 inet manual
 
 auto br0
 iface br0 inet static
-  address 172.27.5.36
+  address a.b.c.d
   netmask 255.255.0.0
-  network 172.27.0.0
-  broadcast 172.27.255.255
-  gateway 172.27.0.12
-  dns-nameservers 8.8.8.8
+  network a.b.0.0
+  broadcast a.b.255.255
+  gateway a.b.e.f
+  dns-nameservers 1.1.1.1
   bridge_ports eth0
 
