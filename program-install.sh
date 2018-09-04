@@ -16,7 +16,8 @@ sudo apt-get install -y \
     gcc \
     curl \
     tree \
-    net-tools
+    net-tools \
+    tldr
 
 # Map /bin/sh to /bin/bash
 sudo mv /bin/sh /bin/sh.bak

@@ -1,0 +1,4 @@
+#!/bin/bash
+DEF_ROUTE=$(route | grep default | awk '{ print $8 }')
+LAN_IP=$(ifconfig $DEF_ROUTE | grep 'inet ' | awk '{ print $2 }')
+echo $LAN_IP
