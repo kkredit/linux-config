@@ -23,6 +23,6 @@ PROG_FILES=( \
     )
 
 for FILE in "${PROG_FILES[@]}"; do
-    sudo install -m 755 $FILES_DIR/$FILE /usr/local/bin/$FILE
-    sudo chown $USER:$USER /usr/local/bin/$FILE
+    mkdir -p $HOME/usr/bin
+    install -m 755 $FILES_DIR/$FILE $HOME/usr/bin/$FILE
 done
