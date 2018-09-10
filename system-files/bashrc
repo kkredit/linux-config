@@ -138,6 +138,10 @@ function cgs() {
     clear && git status
 }
 
+function cgt {
+    clear && git tree
+}
+
 function cls() {
     clear && ls
 }
