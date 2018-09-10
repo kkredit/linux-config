@@ -10,7 +10,7 @@ install -m 644 $FILES_DIR/tmux.conf $HOME/.tmux.conf
 
 if [ ! -f $HOME/.gerritrc ]; then
     #install -m 644 $FILES_DIR/gerritrc $HOME/.gerritrc
-    echo .gerritrc not installed by default
+    echo ".gerritrc not installed by default"
 fi
 
 if [ ! -f $HOME/.gitconfig ]; then
@@ -20,6 +20,7 @@ fi
 PROG_FILES=( \
     git-log-compact \
     lan-ip \
+    wan-ip \
     )
 
 for FILE in "${PROG_FILES[@]}"; do
