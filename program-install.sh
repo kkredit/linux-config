@@ -1,6 +1,17 @@
 #!/bin/bash
 
 UBU_REL=$(lsb_release -cs)
+ARGS=$(echo "$@" | tr '[:upper:]' '[:lower:]')
+
+has_arg() {
+    if [[ 1 = $(echo $ARGS | grep "all" | wc -l) ]]; then
+        true
+    elif [[ 1 = $(echo $ARGS | grep $1 | wc -l) ]]; then
+        true
+    else
+        false
+    fi
+}
 
 # Preliminary update
 sudo apt-get update && sudo apt-get upgrade -y
@@ -23,9 +34,7 @@ sudo apt-get install -y \
 sudo mv /bin/sh /bin/sh.bak
 sudo ln -s /bin/bash /bin/sh
 
-# Non-trivial installs; perform if called with argument
-if [[ 0 < $# ]]; then
-
+if has_arg "docker"; then
     # Docker
     sudo apt-get install -y \
         apt-transport-https ca-certificates curl software-properties-common
@@ -39,20 +48,26 @@ if [[ 0 < $# ]]; then
 
     sudo groupadd docker
     sudo usermod -aG docker $USER
+fi
 
+if has_arg "enpass"; then
     # Enpass
     echo "deb http://repo.sinew.in/ stable main" | \
         sudo tee /etc/apt/sources.list.d/enpass.list > /dev/null
     wget -O - https://dl.sinew.in/keys/enpass-linux.key | sudo apt-key add -
     sudo apt-get update
     sudo apt-get install -y enpass
+fi
 
+if has_arg "signal"; then
     # Signal
     curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
     echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | \
         sudo tee -a /etc/apt/sources.list.d/signal-xenial.list > /dev/null
     sudo apt update && sudo apt install signal-desktop
+fi
 
+if has_arg "pigdin"; then
     # Pigdin w/Facebook chat plugin
     sudo apt-get install -y \
         libcanberra-gtk-module:i386 \
@@ -60,5 +75,5 @@ if [[ 0 < $# ]]; then
     curl -s http://download.opensuse.org/repositories/home:/jgeboski/xUbuntu_$(lsb_release -rs)/Release.key | \
         sudo apt-key add -
     sudo apt update && sudo apt install purple-facebook
-
 fi
+
