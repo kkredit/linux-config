@@ -8,7 +8,7 @@ set smarttab
 
 " Display & format
 set number
-set textwidth=80
+set textwidth=100
 set wrapmargin=2
 set showmatch
 

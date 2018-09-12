@@ -40,8 +40,10 @@ if has_arg "docker"; then
         apt-transport-https ca-certificates curl software-properties-common
 
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-    sudo add-apt-repository \
-        "deb [arch=amd64] https://download.docker.com/linux/ubuntu $UBU_REL stable"
+    APT_REPO="https://download.docker.com/linux/ubuntu"
+    if [[ 0 = $(apt-cache policy | grep "$APT_REPO" | wc -l) ]]; then
+        sudo add-apt-repository "deb [arch=amd64] $APT_REPO $UBU_REL stable"
+    fi
     sudo apt-get update
     sudo apt-get install -y \
         docker-ce
