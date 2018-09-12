@@ -8,9 +8,14 @@
     br = branch
     hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
     tree = log-compact --all --graph --decorate
+    t = log-compact --all --graph --decorate
     tree-simple = log-compact --all --graph --decorate --simplify-by-decoration
+    ts = log-compact --all --graph --decorate --simplify-by-decoration
 [core]
     editor = vim
 [log-compact]
     defaults = --two-initials --abbrev=8
-
+[user]
+    name = Kevin Kredit
+[push]
+    default = simple
