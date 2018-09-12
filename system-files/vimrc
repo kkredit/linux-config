@@ -1,7 +1,30 @@
-filetype plugin indent on
-" show existing tab with 4 spaces width
+" Indentation & tabs
+set autoindent
+set smartindent
 set tabstop=4
-" when indenting with '>', use 4 spaces width
 set shiftwidth=4
-" On pressing tab, insert 4 spaces
 set expandtab
+set smarttab
+
+" Display & format
+set number
+set textwidth=80
+set wrapmargin=2
+set showmatch
+
+" Search
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+" Browse and scroll
+set scrolloff=5
+set laststatus=2
+
+" Spell
+set spell spelllang=en_us
+
+" Miscellaneous
+set undofile
+
