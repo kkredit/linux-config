@@ -1,0 +1,19 @@
+<options emulation="CUA">
+	<profile n="eventtab_profiles.emulation-CUA" version="1">
+		<p n="'S-F6'" v="resync"/>
+		<p n="'C-'''" v="quick-highlight"/>
+		<p n="'C-;'" v="clear-highlights"/>
+		<p n="'A-,'" v="push-bookmark"/>
+		<p n="'A-/'" v="preview-tag"/>
+		<p n="'A-B'" v="beautify"/>
+		<p n="'A-C'" v="toggle-comment"/>
+		<p n="'A-S'" v="togglecase-selection"/>
+		<p n="'A-`'" v="align-equals"/>
+		<p n="'A-LEFT'" v="back"/>
+		<p n="'A-RIGHT'" v="forward"/>
+		<p n="'C-A-.'" v="push-def"/>
+		<p n="'MBUTTON-DOWN'" v="beautify"/>
+		<p n="'A-P'" v="preprocess"/>
+		<p n="'A-\'" v="show-all"/>
+	</profile>
+</options>
