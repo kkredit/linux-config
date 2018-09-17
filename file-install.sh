@@ -21,9 +21,10 @@ PROG_FILES=( \
     git-log-compact \
     lan-ip \
     wan-ip \
+    diff-so-fancy \
     )
 
+mkdir -p $HOME/usr/bin
 for FILE in "${PROG_FILES[@]}"; do
-    mkdir -p $HOME/usr/bin
     install -m 755 $FILES_DIR/$FILE $HOME/usr/bin/$FILE
 done
