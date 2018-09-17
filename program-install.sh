@@ -17,6 +17,11 @@ has_arg() {
 sudo apt-get update && sudo apt-get upgrade -y
 sudo apt-get autoremove
 
+if has_arg "update"; then
+    # update only; exit
+    exit $?
+fi
+
 # Basic tools
 sudo apt-get install -y \
     vim \
