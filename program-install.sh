@@ -33,7 +33,8 @@ sudo apt-get install -y \
     curl \
     tree \
     net-tools \
-    tldr
+    tldr \
+    pdfgrep
 
 # Map /bin/sh to /bin/bash
 sudo mv /bin/sh /bin/sh.bak
