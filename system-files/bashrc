@@ -170,6 +170,14 @@ function greppdf() {
     find . -iname "*.pdf" -exec pdfgrep "$1" {} +
 }
 
+function mdtopdf() {
+    pandoc -o $(echo $1 | sed s/.md/.pdf/) $1
+}
+
+function mdtodocx() {
+    pandoc -o $(echo $1 | sed s/.md/.docx/) $1
+}
+
 prompt_ps1_git_branch () {
     if [[ -e /usr/bin/git && "$PCGB_LAST_WD" != "$PWD" ]]; then
         current_git_branch=$(git branch 2>/dev/null | grep '^\*' | sed -e 's/^..//');
