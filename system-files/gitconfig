@@ -2,8 +2,11 @@
     helper = cache --timeout=3600
 [alias]
     co = checkout
-    ci = commit
+    cm = commit -m
+    cam = commit -am
+    pu = push
     cp = cherry-pick
+    rb = rebase
     st = status
     br = branch
     hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short

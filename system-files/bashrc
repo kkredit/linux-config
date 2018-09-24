@@ -139,7 +139,7 @@ function cgs() {
 }
 
 function cgt {
-    clear && git tree
+    clear && git tree-simple
 }
 
 function cls() {
