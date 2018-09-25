@@ -146,6 +146,10 @@ function cls() {
     clear && ls
 }
 
+function mkcd() {
+    mkdir $1 && cd $1
+}
+
 function mdv() {
     pandoc -f markdown $1 | lynx -stdin -scrollbar -vikeys -nocolor
 }
