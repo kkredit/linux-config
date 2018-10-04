@@ -34,6 +34,7 @@ sudo apt-get install -y \
     tree \
     net-tools \
     tldr \
+    htop \
     pdfgrep
 
 # Google repo
