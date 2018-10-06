@@ -11,9 +11,9 @@ function list_contains() {
     return $result
 }
  
-export GERRITUSER=<username>
-export GERRITSRVR=<server>
-export GERRITPORT=<port>
+#export GERRITUSER=<username>
+#export GERRITSRVR=<server>
+#export GERRITPORT=<port>
  
 alias gerrit_shell="ssh $GERRITUSER@$GERRITSRVR"
  

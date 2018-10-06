@@ -10,8 +10,7 @@ install -m 644 $FILES_DIR/Xmodmap ~/.Xmodmap
 install -m 644 $FILES_DIR/tmux.conf ~/.tmux.conf
 
 if [ ! -f ~/.gerritrc ]; then
-    #install -m 644 $FILES_DIR/gerritrc ~/.gerritrc
-    echo ".gerritrc not installed by default"
+    install -m 644 $FILES_DIR/gerritrc ~/.gerritrc
 fi
 
 if [ ! -f ~/.gitconfig ]; then
@@ -33,9 +32,9 @@ done
 if [ ! -d submodules ]; then
     git submodule init
 fi
-git submodule update
+git submodule update &> /dev/null
 
-printf 'y\ny\nn\n' | ./submodules/fzf/install
+printf 'y\ny\nn\n' | ./submodules/fzf/install &> /dev/null
 install -m 755 submodules/diff-so-fancy/diff-so-fancy ~/bin/diff-so-fancy
 cp -r submodules/diff-so-fancy/lib ~/bin/
 install -m 755 submodules/git-log-compact/git-log-compact \
