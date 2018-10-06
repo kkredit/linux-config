@@ -209,4 +209,6 @@ if [ -e ~/.gerritrc ]; then
     source /home/$(whoami)/.gerritrc
 fi
 
-PATH=$PATH:$HOME/usr/bin
+PATH=$PATH:$HOME/bin
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

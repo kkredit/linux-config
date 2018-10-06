@@ -46,11 +46,13 @@ sudo mv /bin/sh /bin/sh.bak
 sudo ln -s /bin/bash /bin/sh
 
 if has_arg "bat"; then
-    echo "Download latest amd64 package from opened page and exit Firefox"
+    echo "Download latest amd64 package from opened page and replace the copy"
+    echo "in system-files/"
     firefox https://github.com/sharkdp/bat/releases
-    sudo dpkg -i ~/Downloads/bat_*_amd64.deb
-    rm ~/Downloads/bat_*_amd64.deb
 fi
+
+# Bat (https://github.com/sharkdp/bat)
+sudo dpkg -i system-files/bat*.deb
 
 if has_arg "docker"; then
     # Docker
