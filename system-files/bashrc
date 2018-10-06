@@ -201,14 +201,14 @@ alias tm=tmux
 export VSLICKXNOPLUSNEWMSG=1
 
 if [ -e ~/.bashrc_local ]; then
-    source /home/$(whoami)/.bashrc_local
+    source ~/.bashrc_local
 fi
 
 # source gerrit commands
 if [ -e ~/.gerritrc ]; then
-    source /home/$(whoami)/.gerritrc
+    source ~/.gerritrc
 fi
 
-PATH=$PATH:$HOME/bin
+PATH=$PATH:~/bin
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

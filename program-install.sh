@@ -38,8 +38,8 @@ sudo apt-get install -y \
     pdfgrep
 
 # Google repo
-curl https://storage.googleapis.com/git-repo-downloads/repo > ~/usr/bin/repo
-chmod a+x ~/usr/bin/repo
+curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+chmod a+x ~/bin/repo
 
 # Map /bin/sh to /bin/bash
 sudo mv /bin/sh /bin/sh.bak
