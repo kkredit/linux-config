@@ -1,9 +1,12 @@
 [submodule "submodules/fzf"]
 	path = submodules/fzf
 	url = https://github.com/junegunn/fzf.git
+	shallow = true
 [submodule "submodules/diff-so-fancy"]
 	path = submodules/diff-so-fancy
 	url = https://github.com/so-fancy/diff-so-fancy.git
+	shallow = true
 [submodule "submodules/git-log-compact"]
 	path = submodules/git-log-compact
 	url = https://github.com/mackyle/git-log-compact.git
+	shallow = true
