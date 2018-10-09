@@ -33,6 +33,7 @@ done
 # Submodules files
 if [ ! -d submodules ]; then
     git submodule init
+    git submodule update --init --force --remote
 fi
 git submodule update &> /dev/null
 
