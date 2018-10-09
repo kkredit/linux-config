@@ -22,6 +22,7 @@ fi
 PROG_FILES=( \
     lan-ip \
     wan-ip \
+    git-author-rewrite.sh \
     )
 
 mkdir -p ~/bin
