@@ -62,14 +62,14 @@ function mdvo() {
 }
 
 function serial() {
+    BAUD=115200
     if [[ $# < 1 ]]; then
-        echo "Usage: serial [baud_rate]"
-        return
+        BAUD=$1
     fi
 
     for TTY in $(ls /dev/ttyS?); do
         START=$(date +%s)
-        screen $TTY $1
+        screen $TTY $BAUD
         END=$(date +%s)
         if [[ $(expr $END - $START) > 1 ]]; then
             break
