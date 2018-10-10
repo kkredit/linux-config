@@ -9,6 +9,7 @@ export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(vim {})+abort'"
 alias www='python3 -m http.server --bind localhost --cgi 8000'
 alias sshkeygen='ssh-keygen -t rsa'
 alias sshkeyinstall='ssh-copy-id -i ~/.ssh/id_rsa.pub'
+alias g='git'
 
 #create function to "cd" and "ls" in one command, "cs"
 function cs() {
