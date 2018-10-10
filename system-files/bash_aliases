@@ -61,3 +61,18 @@ function mdvo() {
     firefox http://0.0.0.0:1234 &
 }
 
+function serial() {
+    if [[ $# < 1 ]]; then
+        echo "Usage: serial [baud_rate]"
+        return
+    fi
+
+    for TTY in $(ls /dev/ttyS?); do
+        START=$(date +%s)
+        screen $TTY $1
+        END=$(date +%s)
+        if [[ $(expr $END - $START) > 1 ]]; then
+            break
+        fi
+    done
+}
