@@ -1,6 +1,7 @@
 [credential]
     helper = cache --timeout=3600
 [alias]
+    d = diff
     co = checkout
     cm = commit -m
     cam = commit -am
