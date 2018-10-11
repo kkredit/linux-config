@@ -63,7 +63,7 @@ function mdvo() {
 
 function serial() {
     BAUD=115200
-    if [[ $# < 1 ]]; then
+    if [[ $# > 0 ]]; then
         BAUD=$1
     fi
     if [[ ! -d /run/screen ]]; then
@@ -72,8 +72,10 @@ function serial() {
     fi
 
     for TTY in $(ls /dev/ttyS? /dev/ttyUSB? 2> /dev/null); do
-        sudo chmod 666 $TTY
-        stty -F $TTY $BAUD 2> /dev/null
+        if [[ 666 != $(stat -c %a $TTY) ]]; then
+            sudo chmod 666 $TTY
+        fi
+        stty -F $TTY &> /dev/null
         if [[ $? = 0 ]]; then
             screen $TTY $BAUD
             break
