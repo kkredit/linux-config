@@ -75,8 +75,10 @@ function serial() {
         if [[ 666 != $(stat -c %a $TTY) ]]; then
             sudo chmod 666 $TTY
         fi
+        echo "Trying $TTY"
         stty -F $TTY &> /dev/null
         if [[ $? = 0 ]]; then
+            echo "Connecting to $TTY"
             screen $TTY $BAUD
             break
         fi
