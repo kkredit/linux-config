@@ -71,7 +71,7 @@ function serial() {
         sudo chmod 777 /run/screen
     fi
 
-    for TTY in $(ls /dev/ttyS?); do
+    for TTY in $(ls /dev/ttyS? /dev/ttyUSB? 2> /dev/null); do
         sudo chmod 666 $TTY
         stty -F $TTY $BAUD 2> /dev/null
         if [[ $? = 0 ]]; then
