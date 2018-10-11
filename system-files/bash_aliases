@@ -66,12 +66,16 @@ function serial() {
     if [[ $# < 1 ]]; then
         BAUD=$1
     fi
+    if [[ ! -d /run/screen ]]; then
+        sudo mkdir -p /run/screen
+        sudo chmod 777 /run/screen
+    fi
 
     for TTY in $(ls /dev/ttyS?); do
-        START=$(date +%s)
-        screen $TTY $BAUD
-        END=$(date +%s)
-        if [[ $(expr $END - $START) > 1 ]]; then
+        sudo chmod 666 $TTY
+        stty -F $TTY $BAUD 2> /dev/null
+        if [[ $? = 0 ]]; then
+            screen $TTY $BAUD
             break
         fi
     done
