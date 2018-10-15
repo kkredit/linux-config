@@ -2,20 +2,20 @@
 # Generic C Makefile
 # ------------------------------------------------
 
-TARGET   = prog
-SRCDIR   = src
-OBJDIR   = bin
-BINDIR   = bin
+TARGET   := prog
+SRCDIR   := src
+OBJDIR   := bin
+BINDIR   := ../../cgi-bin
 
-CC       = gcc
-CFLAGS   = -std=c99 -Wall -I.
+CC       := gcc
+CFLAGS   := -std=c99 -Wall -I.
 
-LINKER   = gcc
-LFLAGS   = -Wall -I. -lm
+LINKER   := gcc
+LFLAGS   := -Wall -I.
 
 SOURCES  := $(wildcard $(SRCDIR)/*.c)
 INCLUDES := $(wildcard $(SRCDIR)/*.h)
-OBJECTS  := $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
+OBJECTS  := $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SOURCES))
 
 .PHONY: all clean compile
 default: all
@@ -25,8 +25,7 @@ all: $(BINDIR)/$(TARGET)
 compile: $(OBJECTS)
 
 clean:
-	rm -rf $(OBJDIR)
-	rm -rf $(BINDIR)
+	rm -f $(OBJECTS) $(BINDIR)/$(TARGET)
 
 $(BINDIR)/$(TARGET): $(OBJECTS)
 	mkdir -p $(BINDIR)
