@@ -61,6 +61,10 @@ function mdvo() {
     firefox http://0.0.0.0:1234 &
 }
 
+function mdvc() {
+    docker stop mdv
+}
+
 function serial() {
     BAUD=115200
     if [[ $# > 0 ]]; then
