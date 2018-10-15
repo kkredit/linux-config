@@ -23,11 +23,19 @@ set smartcase
 set scrolloff=5
 set laststatus=2
 
-" Spell
-set spell spelllang=en_us
-
 " Miscellaneous
 set undofile
 
 " Colors
 colors murphy
+
+" Spell
+set spell spelllang=en_us
+hi clear SpellBad
+hi SpellBad cterm=underline ctermfg=red
+hi clear SpellCap
+hi SpellCap cterm=underline ctermfg=blue
+hi clear SpellLocal
+hi SpellLocal cterm=underline ctermfg=green
+hi clear SpellRare
+hi SpellRare cterm=underline ctermfg=yellow
