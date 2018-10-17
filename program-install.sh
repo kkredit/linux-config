@@ -72,6 +72,13 @@ if has_arg "docker"; then
     sudo usermod -aG docker $USER
 fi
 
+if has_arg "wireshark"; then
+    # Wireshark
+    sudo apt-get install -y wireshark
+    sudo dpkg-reconfigure wireshark-common
+    sudo usermod -a -G wireshark $USER
+fi
+
 if has_arg "enpass"; then
     # Enpass
     echo "deb http://repo.sinew.in/ stable main" | \
