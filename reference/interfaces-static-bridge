@@ -1,0 +1,17 @@
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet manual
+  up ip link set eth0 up
+
+auto br0
+iface br0 inet static
+  address YOUR_IP
+  netmask NETMASK
+  network NETWORK
+  broadcast BROADCAST
+  gateway GATEWAY
+  dns-nameservers NAMESERVERS
+  dns-search SEARCH_DOMAINS
+  bridge_ports eth0
