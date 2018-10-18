@@ -6,6 +6,7 @@ set shiftwidth=4
 set expandtab
 set smarttab
 autocmd FileType make setlocal noexpandtab
+set pastetoggle=<C-p>
 
 " Display & format
 set number
