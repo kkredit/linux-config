@@ -9,6 +9,7 @@ autocmd FileType make setlocal noexpandtab
 
 " Display & format
 set number
+set relativenumber " produces hybrid numbers
 set textwidth=100
 set wrapmargin=2
 set showmatch
