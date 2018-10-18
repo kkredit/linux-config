@@ -34,7 +34,8 @@ sudo apt-get install -y \
     tree \
     net-tools \
     htop \
-    pdfgrep
+    pdfgrep \
+    screen
 
 sudo apt-get install -y tldr
 
