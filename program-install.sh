@@ -33,9 +33,10 @@ sudo apt-get install -y \
     curl \
     tree \
     net-tools \
-    tldr \
     htop \
     pdfgrep
+
+sudo apt-get install -y tldr
 
 # Google repo
 curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
