@@ -1,3 +1,6 @@
+" Colors
+colors murphy
+
 " Indentation & tabs
 set autoindent
 set smartindent
@@ -25,12 +28,6 @@ set smartcase
 set scrolloff=5
 set laststatus=2
 
-" Miscellaneous
-set undofile
-
-" Colors
-colors murphy
-
 " Spell
 set spell spelllang=en_us
 hi clear SpellBad
@@ -41,3 +38,14 @@ hi clear SpellLocal
 hi SpellLocal cterm=underline ctermfg=green
 hi clear SpellRare
 hi SpellRare cterm=underline ctermfg=yellow
+
+" Highlight whitespace at ends of lines
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+" Miscellaneous
+set undofile
