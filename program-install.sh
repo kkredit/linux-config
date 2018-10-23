@@ -43,9 +43,13 @@ sudo apt-get install -y tldr
 curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
 chmod a+x ~/bin/repo
 
-# Map /bin/sh to /bin/bash
-sudo mv /bin/sh /bin/sh.bak
-sudo ln -s /bin/bash /bin/sh
+if has_arg "bash"; then
+    # Map /bin/sh to /bin/bash
+    if [[ ! -f /bin/sh.bak ]]; then
+        sudo mv /bin/sh /bin/sh.bak
+        sudo ln -s /bin/bash /bin/sh
+    fi
+fi
 
 if has_arg "bat"; then
     echo "Download latest amd64 package from opened page and replace the copy"
