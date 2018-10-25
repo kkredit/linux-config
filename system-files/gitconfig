@@ -2,6 +2,9 @@
     helper = cache --timeout=3600
 [alias]
     d = diff
+    l = log
+    l2 = log -n2
+    l4 = log -n4
     co = checkout
     cm = commit -m
     cam = commit -am
