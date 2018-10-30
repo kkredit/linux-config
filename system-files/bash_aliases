@@ -75,7 +75,7 @@ function serial() {
         sudo chmod 777 /run/screen
     fi
 
-    TTYS=($(ls /dev/ttyUSB? 2> /dev/null) $(ls /dev/ttyS? 2> /dev/null))
+    TTYS="$(ls /dev/ttyUSB? 2> /dev/null) $(ls /dev/ttyS? 2> /dev/null)"
     for TTY in $TTYS; do
         if [[ 666 != $(stat -c %a $TTY) ]]; then
             sudo chmod 666 $TTY
