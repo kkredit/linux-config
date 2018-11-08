@@ -22,7 +22,7 @@
     ts = log-compact --all --graph --decorate --simplify-by-decoration
 [core]
     editor = vim
-    pager = diff-so-fancy | less --tabs=4 -RFX
+    pager = diff-so-fancy | sed 's/\t/≫   /g' | less --tabs=4 -RFX
 [log-compact]
     defaults = --two-initials --abbrev=8
 [user]
