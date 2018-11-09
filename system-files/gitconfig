@@ -15,7 +15,7 @@
     rb = rebase
     st = status
     br = branch
-    hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+    hist = log-compact --graph --decorate
     tree = log-compact --all --graph --decorate
     t = log-compact --all --graph --decorate
     tree-simple = log-compact --all --graph --decorate --simplify-by-decoration
