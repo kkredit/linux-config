@@ -28,6 +28,12 @@ set smartcase
 set scrolloff=5
 set laststatus=2
 
+" Open at same line as was last opened
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g'\"" | endif
+endif
+
 " Spell
 set spell spelllang=en_us
 hi clear SpellBad
