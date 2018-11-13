@@ -17,6 +17,11 @@ set relativenumber " produces hybrid numbers
 set textwidth=100
 set wrapmargin=2
 set showmatch
+if exists('+colorcolumn')
+  set colorcolumn=101
+else
+  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>100v.\+', -1)
+endif
 
 " Search
 set hlsearch
