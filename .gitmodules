@@ -10,3 +10,7 @@
 	path = submodules/git-log-compact
 	url = https://github.com/mackyle/git-log-compact.git
 	shallow = true
+[submodule "submodules/bash-git-prompt"]
+	path = submodules/bash-git-prompt
+	url = https://github.com/magicmonty/bash-git-prompt
+	shallow = true

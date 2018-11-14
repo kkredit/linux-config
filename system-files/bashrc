@@ -116,17 +116,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-prompt_ps1_git_branch () {
-    if [[ -e /usr/bin/git && "$PCGB_LAST_WD" != "$PWD" ]]; then
-        current_git_branch=$(git branch 2>/dev/null | grep '^\*' | sed -e 's/^..//');
-        PCB_LAST_WD=$PWD;
-    fi;
-    if [[ "$current_git_branch" != "" ]]; then
-        echo -e " [${current_git_branch}]";
-    fi
-}
-export PS1="\[\033[32;1m\]\u@\H\[\033[31;1m\] [\w]\[\033[35;1m\] \
-\[\033[34;1m\]\[\033[33;1m\]\$(prompt_ps1_git_branch)\[\033[34;1m\]\n\$ \[\033[0m\]"
+source ~/.bash_prompt
 
 export VSLICKXNOPLUSNEWMSG=1
 
