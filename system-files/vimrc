@@ -9,11 +9,11 @@ set shiftwidth=4
 set expandtab
 set smarttab
 autocmd FileType make setlocal noexpandtab
-set pastetoggle=<C-p>
 
 " Display & format
 set number
 set relativenumber " produces hybrid numbers
+:nmap <C-p> :set number!<LF> :set relativenumber!<LF> :set paste!<LF> :<ESC>
 set textwidth=100
 set wrapmargin=2
 set showmatch
