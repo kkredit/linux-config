@@ -39,9 +39,8 @@ done
 # Submodules files
 if [ ! -d submodules ]; then
     git submodule init
-    git submodule update --init --force --remote
 fi
-git submodule update &> /dev/null
+git submodule update --init --force --remote &> /dev/null
 
 printf 'y\ny\nn\n' | ./submodules/fzf/install &> /dev/null
 install -m 755 submodules/diff-so-fancy/diff-so-fancy ~/bin/diff-so-fancy
