@@ -16,6 +16,7 @@
     st = status
     br = branch
     top = rev-parse --show-toplevel
+    orphan = checkout --orphan orphan
     hist = log-compact --graph --decorate
     tree = log-compact --all --graph --decorate
     t = log-compact --all --graph --decorate
