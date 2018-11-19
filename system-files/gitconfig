@@ -15,6 +15,7 @@
     rb = rebase
     st = status
     br = branch
+    top = rev-parse --show-toplevel
     hist = log-compact --graph --decorate
     tree = log-compact --all --graph --decorate
     t = log-compact --all --graph --decorate
