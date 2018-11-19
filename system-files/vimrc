@@ -13,7 +13,7 @@ autocmd FileType make setlocal noexpandtab
 " Display & format
 set number
 set relativenumber " produces hybrid numbers
-:nmap <C-p> :set number!<LF> :set relativenumber!<LF> :set paste!<LF> :<ESC>
+:nmap <C-p> :set number!<CR> :set relativenumber!<CR> :set paste!<CR> :<ESC>
 set textwidth=100
 set wrapmargin=2
 set showmatch
