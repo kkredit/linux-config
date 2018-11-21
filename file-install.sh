@@ -1,14 +1,7 @@
 #!/bin/bash
 
-# Determine if WSL
-WSL=0
-if [[ $(uname -a | grep Microsoft | wc -l) > 0 ]]; then
-    WSL=1
-fi
-
 # Plain files
 FILES_DIR=system-files
-WSL_DIR=system-files-wsl
 
 install -m 644 $FILES_DIR/bashrc ~/.bashrc
 install -m 644 $FILES_DIR/bash_aliases ~/.bash_aliases
@@ -17,11 +10,7 @@ if [[ -e ~/.bash-git-prompt ]]; then
     rm ~/.bash-git-prompt
 fi;
 ln -s $(pwd)/submodules/bash-git-prompt ~/.bash-git-prompt
-if [[ $WSL ]]; then
-    install -m 644 $WSL_DIR/custom.bgptheme ~/.git-prompt-colors.sh
-else
-    install -m 644 $FILES_DIR/custom.bgptheme ~/.git-prompt-colors.sh
-fi
+install -m 644 $FILES_DIR/custom.bgptheme ~/.git-prompt-colors.sh
 install -m 644 $FILES_DIR/vimrc ~/.vimrc
 install -m 644 $FILES_DIR/xinitrc ~/.xinitrc
 install -m 644 $FILES_DIR/Xmodmap ~/.Xmodmap
