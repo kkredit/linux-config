@@ -9,8 +9,9 @@ GIT_PROMPT_SHOW_UNTRACKED_FILES=no # (no|normal|all); determines counting of unt
 # GIT_PROMPT_STATUS_COMMAND=gitstatus_pre-1.7.10.sh # uncomment to support Git older than 1.7.10
 
 # set custom prompt start and end sequences
+Time12a="\$(date +%H:%M)"
 GIT_PROMPT_START="\[\033[32;1m\]\u@\H\[\033[31;1m\] [\w]\[\033[35;1m\]\[\033[0m\]"
-GIT_PROMPT_END="\[\033[34;1m\]\n\$ \[\033[0m\]"
+GIT_PROMPT_END="\n_LAST_COMMAND_INDICATOR_ \[\033[34;1m\]${Time12a} \$ \[\033[0m\]"
 
 # use custom theme specified in file GIT_PROMPT_THEME_FILE (default ~/.git-prompt-colors.sh)
 GIT_PROMPT_THEME=Custom
