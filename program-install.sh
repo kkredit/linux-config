@@ -1,17 +1,7 @@
 #!/bin/bash
+source helper_scripts/has-arg.sh
 
 UBU_REL=$(lsb_release -cs)
-ARGS=$(echo "$@" | tr '[:upper:]' '[:lower:]')
-
-has_arg() {
-    if [[ 1 = $(echo $ARGS | grep "all" | wc -l) ]]; then
-        true
-    elif [[ 1 = $(echo $ARGS | grep $1 | wc -l) ]]; then
-        true
-    else
-        false
-    fi
-}
 
 # Preliminary update
 sudo apt-get update && sudo apt-get upgrade -y

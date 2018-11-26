@@ -1,4 +1,5 @@
 #!/bin/bash
+source helper_scripts/has-arg.sh
 
 # Plain files
 FILES_DIR=system-files
@@ -39,8 +40,10 @@ done
 # Submodules files
 if [ ! -d submodules ]; then
     git submodule init
+    git submodule update --init --force --remote &> /dev/null
+elif has_arg "update"; then
+    git submodule update --init --force --remote &> /dev/null
 fi
-git submodule update --init --force --remote &> /dev/null
 
 printf 'y\ny\nn\n' | ./submodules/fzf/install &> /dev/null
 install -m 755 submodules/diff-so-fancy/diff-so-fancy ~/bin/diff-so-fancy
