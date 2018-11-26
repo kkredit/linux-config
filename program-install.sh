@@ -43,12 +43,12 @@ fi
 
 if has_arg "bat"; then
     echo "Download latest amd64 package from opened page and replace the copy"
-    echo "in system-files/"
+    echo "in system_files/"
     firefox https://github.com/sharkdp/bat/releases
 fi
 
 # Bat (https://github.com/sharkdp/bat)
-sudo dpkg -i system-files/bat*.deb
+sudo dpkg -i system_files/bat*.deb
 
 if has_arg "docker"; then
     # Docker

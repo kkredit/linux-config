@@ -2,7 +2,7 @@
 source helper_scripts/has-arg.sh
 
 # Plain files
-FILES_DIR=system-files
+FILES_DIR=system_files
 
 install -m 644 $FILES_DIR/bashrc ~/.bashrc
 install -m 644 $FILES_DIR/bash_aliases ~/.bash_aliases
