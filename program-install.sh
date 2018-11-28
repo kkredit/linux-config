@@ -15,10 +15,8 @@ fi
 # Basic tools
 sudo apt-get install -y \
     vim \
-    aspell \
     git \
     tmux \
-    pandoc \
     lynx \
     gcc \
     curl \
@@ -33,6 +31,14 @@ sudo apt-get install -y tldr
 # Google repo
 curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
 chmod a+x ~/bin/repo
+
+if has_arg "writing"; then
+    sudo apt-get install -y \
+        aspell \
+        aiksaurus \
+        python3-proselint \
+        pandoc
+fi
 
 if has_arg "bash"; then
     # Map /bin/sh to /bin/bash
