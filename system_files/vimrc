@@ -49,6 +49,7 @@ hi clear SpellLocal
 hi SpellLocal cterm=underline ctermfg=green
 hi clear SpellRare
 hi SpellRare cterm=underline ctermfg=yellow
+:nmap <C-l> :w!<CR>:!aspell check %<CR>:e! %<CR>
 
 " Highlight whitespace at ends of lines
 highlight ExtraWhitespace ctermbg=red guibg=red

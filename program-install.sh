@@ -15,6 +15,7 @@ fi
 # Basic tools
 sudo apt-get install -y \
     vim \
+    aspell \
     git \
     tmux \
     pandoc \
