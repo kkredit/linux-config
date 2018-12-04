@@ -24,6 +24,7 @@ fi
 if [ ! -f ~/.gitconfig ]; then
     install -m 644 $FILES_DIR/gitconfig ~/.gitconfig
 fi
+install -m 644 $FILES_DIR/gitignore_global ~/.gitignore_global
 
 # Program files
 PROG_FILES=( \
