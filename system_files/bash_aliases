@@ -48,6 +48,15 @@ function mkcd() {
     mkdir $1 && cd $1
 }
 
+function showme() {
+    set -x && $@ && set +x
+}
+
+# I want this to be in my gitconfig!
+function gitread() {
+    git show $1..HEAD --reverse
+}
+
 function mdv() {
     pandoc -f markdown $1 | lynx -stdin -scrollbar -vikeys -nocolor
 }
