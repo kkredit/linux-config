@@ -25,7 +25,8 @@ sudo apt-get install -y \
     htop \
     pdfgrep \
     screen \
-    repo
+    repo \
+    dos2unix
 
 sudo apt-get install -y tldr
 
