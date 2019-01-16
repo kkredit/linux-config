@@ -24,13 +24,10 @@ sudo apt-get install -y \
     net-tools \
     htop \
     pdfgrep \
-    screen
+    screen \
+    repo
 
 sudo apt-get install -y tldr
-
-# Google repo
-curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
-chmod a+x ~/bin/repo
 
 if has_arg "writing"; then
     sudo apt-get install -y \
