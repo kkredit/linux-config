@@ -19,6 +19,9 @@
     top = rev-parse --show-toplevel
     orphan = checkout --orphan orphan
     hist = log-compact --graph --decorate
+    h = log-compact --graph --decorate
+    h2 = log-compact --graph --decorate -2
+    h4 = log-compact --graph --decorate -4
     tree = log-compact --all --graph --decorate
     t = log-compact --all --graph --decorate
     tree-simple = log-compact --all --graph --decorate --simplify-by-decoration
