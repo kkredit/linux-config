@@ -10,6 +10,7 @@
     co = checkout
     cm = commit -m
     cam = commit -am
+    fixup = commit --amend
     pu = push
     cp = cherry-pick
     rb = rebase
