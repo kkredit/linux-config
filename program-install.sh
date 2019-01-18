@@ -57,6 +57,17 @@ if has_arg "bat"; then
     rm bat*
 fi
 
+if has_arg "ruby"; then
+    curl -sSL https://get.rvm.io | bash -s -- --ignore-dotfiles
+    echo "source $HOME/.rvm/scripts/rvm" >> ~/.bashrc_local
+    echo "rvm_autoupdate_flag=2" >> ~/.rvmrc
+
+    source $HOME/.rvm/scripts/rvm
+    RUBY_VER=ruby-head
+    rvm install $RUBY_VER
+    rvm use $RUBY_VER
+fi
+
 if has_arg "docker"; then
     # Docker
     sudo apt-get install -y \
