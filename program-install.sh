@@ -46,8 +46,8 @@ if has_arg "bash"; then
     fi
 fi
 
-# Bat (https://github.com/sharkdp/bat)
 if has_arg "bat"; then
+    # Bat (https://github.com/sharkdp/bat)
     curl -s https://api.github.com/repos/sharkdp/bat/releases/latest \
         | grep "browser_download_url.*amd64.deb" \
         | cut -d : -f 2,3 \
