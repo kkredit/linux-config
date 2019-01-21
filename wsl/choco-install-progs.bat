@@ -12,7 +12,7 @@ set PACKAGES= ^
     ^
     notepadplusplus ^
     hexedit ^
-    meld ^
+    winmerge ^
     atom ^
     boostnote ^
     ^
