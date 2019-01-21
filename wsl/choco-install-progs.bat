@@ -9,6 +9,7 @@ set PACKAGES= ^
     filezilla ^
     windirstat ^
     autohotkey.portable ^
+    sharpkeys ^
     ^
     notepadplusplus ^
     hexedit ^
