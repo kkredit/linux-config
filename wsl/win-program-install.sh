@@ -3,25 +3,32 @@
 
 # Setup
 WIN_USER=$(powershell.exe '$env:UserName' | sed 's/\r//g')
-WSL_DKTP="/mnt/c/Users/$WIN_USER/Desktop/"
+WSL_DKTP="/mnt/c/Users/$WIN_USER/Desktop"
 WIN_DKTP="C:\\Users\\$WIN_USER\\Desktop"
 
-INST_CHOCO=install-choco.bat
-RUN_CHOCO=choco-install-progs.bat
+BAT_DIR=bat_scripts
+INST_CHOCO=win-install-choco.bat
+RUN_CHOCO=choco-install-packages.bat
+PACKAGES=packages.txt
 
-unix2dos -n $INST_CHOCO $WSL_DKTP/$INST_CHOCO > /dev/null
-unix2dos -n $RUN_CHOCO $WSL_DKTP/$RUN_CHOCO > /dev/null
+# Function that executes CMD in an elevated prompt
+function run_elevated() {
+    powershell.exe -Command "Start-Process -Wait cmd -ArgumentList \"/C $@\" -Verb RunAs"
+}
+
+# Copy files so CMD can easily see them
+echo "Copying necessary files to desktop"
+unix2dos -n $BAT_DIR/$INST_CHOCO $WSL_DKTP/$INST_CHOCO &> /dev/null
+unix2dos -n $BAT_DIR/$RUN_CHOCO $WSL_DKTP/$RUN_CHOCO &> /dev/null
+unix2dos -n $PACKAGES $WSL_DKTP/$PACKAGES &> /dev/null
 
 # Install chocolatey
-powershell.exe -Command \
-    "Start-Process cmd -ArgumentList \"/C $WIN_DKTP\\$INST_CHOCO\" -Verb RunAs"
+echo "Installing chocolatey..."
+run_elevated "$WIN_DKTP\\$INST_CHOCO"
 
-# Install my windows programs
-echo "Waiting 15 seconds for install to complete..."
-sleep 15
-powershell.exe -Command \
-    "Start-Process cmd -ArgumentList \"/K $WIN_DKTP\\$RUN_CHOCO\" -Verb RunAs"
+# Install packages
+echo "Installing packages..."
+run_elevated "$WIN_DKTP\\$RUN_CHOCO"
 
-# Teardown
-echo "Don't forget to delete the Desktop copy of chocolatey-install.bat"
-echo "once the install is complete!"
+# Cleanup
+rm $WSL_DKTP/$INST_CHOCO $WSL_DKTP/$RUN_CHOCO $WSL_DKTP/$PACKAGES

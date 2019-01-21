@@ -1,0 +1,22 @@
+# Web
+googlechrome
+firefox
+
+# Utilities
+enpass.install
+adobereader
+7zip.install
+filezilla
+windirstat
+autohotkey.portable
+sharpkeys
+
+# Editors
+notepadplusplus
+hexedit
+winmerge
+atom
+boostnote
+
+# Dev tools
+virtualbox
