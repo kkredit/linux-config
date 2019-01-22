@@ -1,4 +1,9 @@
 
+# Purpose
+*Install Windows programs from your bash prompt.*
+
+Launch a script, get coffee, have all your necessary Windows programs installed.
+
 # Chocolatey
 [Chocolatey](https://chocolatey.org/) is a package manager for Windows. This set of scripts is
 intended to automate new Windows program installs using Chocolatey. A collection of available
