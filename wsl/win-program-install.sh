@@ -17,7 +17,7 @@ function run_elevated() {
 }
 
 # Copy files so CMD can easily see them
-echo "Copying necessary files to desktop"
+echo "Copying necessary files to desktop..."
 unix2dos -n $BAT_DIR/$INST_CHOCO $WSL_DKTP/$INST_CHOCO &> /dev/null
 unix2dos -n $BAT_DIR/$RUN_CHOCO $WSL_DKTP/$RUN_CHOCO &> /dev/null
 unix2dos -n $PACKAGES $WSL_DKTP/$PACKAGES &> /dev/null
@@ -32,3 +32,4 @@ run_elevated "$WIN_DKTP\\$RUN_CHOCO"
 
 # Cleanup
 rm $WSL_DKTP/$INST_CHOCO $WSL_DKTP/$RUN_CHOCO $WSL_DKTP/$PACKAGES
+echo "Done!"
