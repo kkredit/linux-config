@@ -68,6 +68,16 @@ if has_arg "ruby"; then
     rvm use $RUBY_VER
 fi
 
+if has_arg "python"; then
+    sudo apt install python-pip
+
+    # Virtual environments: see https://realpython.com/python-virtual-environments-a-primer/
+    pip install --user \
+        virtualenv \
+        virtualenvwrapper
+    echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc_local
+fi
+
 if has_arg "docker"; then
     # Docker
     sudo apt-get install -y \
