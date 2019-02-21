@@ -75,7 +75,13 @@ if has_arg "python"; then
     pip install --user \
         virtualenv \
         virtualenvwrapper
-    echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc_local
+    echo "source virtualenvwrapper.sh" >> ~/.bashrc_local
+fi
+
+if has_arg "latex"; then
+    sudo apt install -y \
+        texstudio \
+        texlive-latex-extra
 fi
 
 if has_arg "docker"; then
