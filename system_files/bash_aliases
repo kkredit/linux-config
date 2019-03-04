@@ -24,8 +24,13 @@ function try-again() {
     fi
     COMMAND=$(echo $(history -p !!) | sed s/$1/$2/g)
     if [[ $? == 0 ]]; then
-        echo "Trying again as: \"$COMMAND\""
-        $COMMAND
+        if [[ $COMMAND == *"sudo"* ]]; then
+            echo "NOTICE: not running because contains \"sudo\""
+            echo "Your modified command is: \"$COMMAND\""
+        else
+            echo "Trying again as: \"$COMMAND\""
+            $COMMAND
+        fi
     fi
 }
 alias ta='try-again'
