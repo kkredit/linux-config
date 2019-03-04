@@ -14,3 +14,7 @@
 	path = submodules/bash-git-prompt
 	url = https://github.com/magicmonty/bash-git-prompt
 	shallow = true
+[submodule "submodules/tldr"]
+	path = submodules/tldr
+	url = https://github.com/raylee/tldr
+	shallow = true

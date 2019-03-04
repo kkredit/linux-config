@@ -28,8 +28,6 @@ sudo apt-get install -y \
     repo \
     dos2unix
 
-sudo apt-get install -y tldr
-
 if has_arg "writing"; then
     sudo apt-get install -y \
         aspell \
