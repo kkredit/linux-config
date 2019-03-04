@@ -18,9 +18,15 @@ alias findd='find . -type d -iname'
 
 # try-again: repeat the last command, but with an edit
 function try-again() {
+    if [[ $# != 2 ]]; then
+        echo "Usage: try-again WORD REPLACEMENT"
+        return 1
+    fi
     COMMAND=$(echo $(history -p !!) | sed s/$1/$2/g)
-    echo "Trying again as: \"$COMMAND\""
-    $COMMAND
+    if [[ $? == 0 ]]; then
+        echo "Trying again as: \"$COMMAND\""
+        $COMMAND
+    fi
 }
 alias ta='try-again'
 
