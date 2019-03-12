@@ -1,2 +1,5 @@
 # vim
 *.un~
+
+# latex
+*.synctex.gz
