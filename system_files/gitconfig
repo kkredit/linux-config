@@ -25,6 +25,8 @@
     h4 = log-compact --graph --decorate -4
     tree = log-compact --all --graph --decorate
     t = log-compact --all --graph --decorate
+    t4 = log-compact --all --graph --decorate -4
+    t8 = log-compact --all --graph --decorate -8
     tree-simple = log-compact --all --graph --decorate --simplify-by-decoration
     ts = log-compact --all --graph --decorate --simplify-by-decoration
 [core]
