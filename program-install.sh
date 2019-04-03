@@ -86,7 +86,8 @@ fi
 if has_arg "latex"; then
     sudo apt install -y \
         texstudio \
-        texlive-latex-extra
+        texlive-latex-extra \
+        texlive-science # for IEEE papers
 fi
 
 if has_arg "docker"; then
