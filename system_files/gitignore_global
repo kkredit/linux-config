@@ -1,5 +1,10 @@
+# general
+*.log
+*.pdf
+
 # vim
 *.un~
 
 # latex
 *.synctex.gz
+*.aux
