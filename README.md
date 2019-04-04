@@ -33,3 +33,7 @@ Running this script requires root privileges.
 # Sharing
 You are 100% free to use anything from this repo. It has proven very handy for me. Always open to
 additional tips and pull requests as well.
+
+# Wishlist
+- Separate the mechanism from the content so that this becomes more modular, and improvements easily
+  shared
