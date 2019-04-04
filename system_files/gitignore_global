@@ -4,6 +4,7 @@
 
 # vim
 *.un~
+*.swp
 
 # latex
 *.synctex.gz
