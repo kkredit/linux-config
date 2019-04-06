@@ -41,8 +41,14 @@ if has_arg "keys"; then
     sudo apt-get install -y \
         gnome-tweak-tool
     gnome-tweaks &
+    echo
     echo "Now got to keyboard -> additional layout options"
-if
+    echo
+    echo "For pointer speed, do something like"
+    echo "  xinput list; xinput list-props \"Your touchpad\";"
+    echo "  xinput set-prop \"Your touchpad\" \"Accel setting\""
+    echo "see also https://superuser.com/questions/229839/reduce-laptop-touch-pad-sensitivity-in-ubuntu"
+fi
 
 if has_arg "bash"; then
     # Map /bin/sh to /bin/bash
