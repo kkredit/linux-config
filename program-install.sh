@@ -71,7 +71,7 @@ if has_arg "react"; then
     sudo apt install npm
     curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
     sudo apt-get install -y nodejs
-    npm install -g create-react-app
+    sudo npm install -g create-react-app
 fi
 
 if has_arg "python"; then
