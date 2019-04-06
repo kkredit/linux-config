@@ -1,5 +1,5 @@
 [credential]
-    helper = cache --timeout=3600
+    helper = store
 [alias]
     d = diff
     ds = diff --cached
@@ -29,6 +29,8 @@
     t8 = log-compact --all --graph --decorate -8
     tree-simple = log-compact --all --graph --decorate --simplify-by-decoration
     ts = log-compact --all --graph --decorate --simplify-by-decoration
+    ieee = config user.email k.kredit.us@ieee.org
+    dw = config user.email kevin.kredit@dornerworks.com
 [core]
     editor = vim
     pager = diff-so-fancy | perl -pe 's/\t/»\\e[1D\t/g' | less --tabs=4 -RFX
