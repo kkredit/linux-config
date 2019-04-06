@@ -19,6 +19,7 @@ sudo apt-get install -y \
     tmux \
     lynx \
     gcc \
+    make \
     curl \
     tree \
     net-tools \
