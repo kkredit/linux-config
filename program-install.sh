@@ -71,13 +71,15 @@ fi
 
 if has_arg "ruby"; then
     curl -sSL https://get.rvm.io | bash -s -- --ignore-dotfiles
-    echo "source $HOME/.rvm/scripts/rvm" >> ~/.bashrc_local
     echo "rvm_autoupdate_flag=2" >> ~/.rvmrc
-
     source $HOME/.rvm/scripts/rvm
-    RUBY_VER=ruby-head
+
+    rvm install ruby-head
+    RUBY_VER=2.6.0
     rvm install $RUBY_VER
     rvm use $RUBY_VER
+    echo "source $HOME/.rvm/scripts/rvm" >> ~/.bashrc_local
+    echo "rvm use $RUBY_VER" >> ~/.bashrc_local
 fi
 
 if has_arg "react"; then
