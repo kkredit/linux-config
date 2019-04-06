@@ -37,6 +37,13 @@ if has_arg "writing"; then
         pandoc
 fi
 
+if has_arg "keys"; then
+    sudo apt-get install -y \
+        gnome-tweak-tool
+    gnome-tweaks &
+    echo "Now got to keyboard -> additional layout options"
+if
+
 if has_arg "bash"; then
     # Map /bin/sh to /bin/bash
     if [[ ! -f /bin/sh.bak ]]; then
