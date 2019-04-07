@@ -79,7 +79,7 @@ if has_arg "ruby"; then
     rvm install $RUBY_VER
     rvm use $RUBY_VER
     echo "source $HOME/.rvm/scripts/rvm" >> ~/.bashrc_local
-    echo "rvm use $RUBY_VER" >> ~/.bashrc_local
+    echo "rvm use $RUBY_VER > /dev/null" >> ~/.bashrc_local
 fi
 
 if has_arg "react"; then
