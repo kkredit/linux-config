@@ -15,7 +15,7 @@ To install programs, run
 ```sh
 ./program-install.sh [update | all | some-prog]
 ```
-The `update` option causes it to quit after to an `apt update/upgrade` sequence. `all` or
+The `update` option causes it to quit after to an `apt-get update/upgrade` sequence. `all` or
 `some-prog` causes the script to install one or more less used or more complex program installs,
 such as `ruby` for an RVM installation or `Wireshark` to install the program and manage the groups.
 Running this script requires root privileges.

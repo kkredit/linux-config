@@ -81,14 +81,14 @@ if has_arg "ruby"; then
 fi
 
 if has_arg "react"; then
-    sudo apt install npm
+    sudo apt-get install npm
     curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
     sudo apt-get install -y nodejs
     sudo npm install -g create-react-app
 fi
 
 if has_arg "python"; then
-    sudo apt install python-pip
+    sudo apt-get install python-pip
 
     # Virtual environments: see https://realpython.com/python-virtual-environments-a-primer/
     pip install --user \
@@ -98,7 +98,7 @@ if has_arg "python"; then
 fi
 
 if has_arg "latex"; then
-    sudo apt install -y \
+    sudo apt-get install -y \
         texstudio \
         texlive-latex-extra \
         texlive-science # for IEEE papers
@@ -141,9 +141,9 @@ fi
 if has_arg "signal"; then
     # Signal
     curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
-    echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | \
+    echo "deb [arch=amd64] https://updates.signal.org/desktop/apt-get xenial main" | \
         sudo tee -a /etc/apt/sources.list.d/signal-xenial.list > /dev/null
-    sudo apt update && sudo apt install signal-desktop
+    sudo apt-get update && sudo apt-get install signal-desktop
 fi
 
 if has_arg "pigdin"; then
@@ -153,6 +153,6 @@ if has_arg "pigdin"; then
         pigdin
     curl -s http://download.opensuse.org/repositories/home:/jgeboski/xUbuntu_$(lsb_release -rs)/Release.key | \
         sudo apt-key add -
-    sudo apt update && sudo apt install purple-facebook
+    sudo apt-get update && sudo apt-get install purple-facebook
 fi
 
