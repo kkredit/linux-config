@@ -16,7 +16,7 @@ alias krep='grep -rniIs'
 alias findf='find . -type f -iname'
 alias findd='find . -type d -iname'
 
-function setup_ruby() {
+function ruby_setup() {
     source ~/.rvm/scripts/rvm
     rvm use 2.6.0
 }
