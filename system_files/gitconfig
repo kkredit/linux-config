@@ -35,6 +35,8 @@
     editor = vim
     pager = diff-so-fancy | perl -pe 's/\t/»\\e[1D\t/g' | less --tabs=4 -RFX
     excludesfile = ~/.gitignore_global
+[rebase]
+    autoSquash = true
 [log-compact]
     defaults = --two-initials --abbrev=8
 [user]
