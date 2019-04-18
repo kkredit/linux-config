@@ -1,11 +1,12 @@
 #!/bin/bash
 source helper_scripts/has-arg.sh
+source helper_scripts/install.sh
 
 UBU_REL=$(lsb_release -cs)
 
 # Preliminary update
-sudo apt-get update && sudo apt-get upgrade -y
-sudo apt-get autoremove
+sudo-pkg-mgr update && sudo-pkg-mgr upgrade -y
+sudo-pkg-mgr autoremove
 
 if has_arg "update"; then
     # update only; exit
@@ -13,7 +14,7 @@ if has_arg "update"; then
 fi
 
 # Basic tools
-sudo apt-get install -y \
+sudo-pkg-mgr install -y \
     vim \
     git \
     tmux \
@@ -30,7 +31,7 @@ sudo apt-get install -y \
     dos2unix
 
 if has_arg "writing"; then
-    sudo apt-get install -y \
+    sudo-pkg-mgr install -y \
         aspell \
         aiksaurus \
         python3-proselint \
@@ -38,7 +39,7 @@ if has_arg "writing"; then
 fi
 
 if has_arg "keys"; then
-    sudo apt-get install -y \
+    sudo-pkg-mgr install -y \
         gnome-tweak-tool
     gnome-tweaks &
     echo
@@ -81,14 +82,14 @@ if has_arg "ruby"; then
 fi
 
 if has_arg "react"; then
-    sudo apt-get install npm
+    sudo-pkg-mgr install npm
     curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
-    sudo apt-get install -y nodejs
+    sudo-pkg-mgr install -y nodejs
     sudo npm install -g create-react-app
 fi
 
 if has_arg "python"; then
-    sudo apt-get install python-pip
+    sudo-pkg-mgr install python-pip
 
     # Virtual environments: see https://realpython.com/python-virtual-environments-a-primer/
     pip install --user \
@@ -98,7 +99,7 @@ if has_arg "python"; then
 fi
 
 if has_arg "latex"; then
-    sudo apt-get install -y \
+    sudo-pkg-mgr install -y \
         texstudio \
         texlive-latex-extra \
         texlive-science # for IEEE papers
@@ -106,7 +107,7 @@ fi
 
 if has_arg "docker"; then
     # Docker
-    sudo apt-get install -y \
+    sudo-pkg-mgr install -y \
         apt-transport-https ca-certificates curl software-properties-common
 
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -114,8 +115,8 @@ if has_arg "docker"; then
     if [[ 0 = $(apt-cache policy | grep "$APT_REPO" | wc -l) ]]; then
         sudo add-apt-repository "deb [arch=amd64] $APT_REPO $UBU_REL stable"
     fi
-    sudo apt-get update
-    sudo apt-get install -y \
+    sudo-pkg-mgr update
+    sudo-pkg-mgr install -y \
         docker-ce
 
     sudo groupadd docker
@@ -124,7 +125,7 @@ fi
 
 if has_arg "wireshark"; then
     # Wireshark
-    sudo apt-get install -y wireshark
+    sudo-pkg-mgr install -y wireshark
     sudo dpkg-reconfigure wireshark-common
     sudo usermod -a -G wireshark $USER
 fi
@@ -134,8 +135,8 @@ if has_arg "enpass"; then
     echo "deb http://repo.sinew.in/ stable main" | \
         sudo tee /etc/apt/sources.list.d/enpass.list > /dev/null
     wget -O - https://dl.sinew.in/keys/enpass-linux.key | sudo apt-key add -
-    sudo apt-get update
-    sudo apt-get install -y enpass
+    sudo-pkg-mgr update
+    sudo-pkg-mgr install -y enpass
 fi
 
 if has_arg "signal"; then
@@ -143,16 +144,16 @@ if has_arg "signal"; then
     curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
     echo "deb [arch=amd64] https://updates.signal.org/desktop/apt-get xenial main" | \
         sudo tee -a /etc/apt/sources.list.d/signal-xenial.list > /dev/null
-    sudo apt-get update && sudo apt-get install signal-desktop
+    sudo-pkg-mgr update && sudo-pkg-mgr install signal-desktop
 fi
 
 if has_arg "pigdin"; then
     # Pigdin w/Facebook chat plugin
-    sudo apt-get install -y \
+    sudo-pkg-mgr install -y \
         libcanberra-gtk-module:i386 \
         pigdin
     curl -s http://download.opensuse.org/repositories/home:/jgeboski/xUbuntu_$(lsb_release -rs)/Release.key | \
         sudo apt-key add -
-    sudo apt-get update && sudo apt-get install purple-facebook
+    sudo-pkg-mgr update && sudo-pkg-mgr install purple-facebook
 fi
 
