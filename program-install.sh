@@ -81,6 +81,24 @@ if has_arg "ruby"; then
     rvm use $RUBY_VER
 fi
 
+if has_arg "postgresql"; then
+    sudo-pkg-mgr install -y
+        libpq-dev \
+        postgresql-client-common \
+        postgresql-client \
+        postgresql
+    echo "If running with Ruby on Rails, do a"
+    echo "  \"gem install pg -v '1.1.4' --source 'https://rubygems.org'\""
+    echo
+    echo "To run, do"
+    echo "  \"sudo service postgresql start\""
+    echo "  \"sudo -u postgres psql -c \"ALTER USER postgres PASSWORD 'postgres';\""
+    echo "  <do stuff>"
+    echo "  \"sudo service postgresql stop\""
+    echo "To test, do"
+    echo "  \"psql -p 5432 -h localhost -U postgres\""
+fi
+
 if has_arg "react"; then
     sudo-pkg-mgr install npm
     curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
