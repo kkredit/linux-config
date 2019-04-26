@@ -23,8 +23,10 @@
     h = log-compact --graph --decorate
     h2 = log-compact --graph --decorate -2
     h4 = log-compact --graph --decorate -4
+    h8 = log-compact --graph --decorate -8
     tree = log-compact --all --graph --decorate
     t = log-compact --all --graph --decorate
+    t2 = log-compact --all --graph --decorate -2
     t4 = log-compact --all --graph --decorate -4
     t8 = log-compact --all --graph --decorate -8
     tree-simple = log-compact --all --graph --decorate --simplify-by-decoration
