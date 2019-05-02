@@ -8,7 +8,7 @@
  */
 
 #ifndef TPL_PUBLIC_H
-#define	TPL_PUBLIC_H
+#define TPL_PUBLIC_H
 
 #ifdef __cplusplus
 extern "C" {
