@@ -82,6 +82,10 @@ function showme() {
 function gitread() {
     git show $1..HEAD --reverse
 }
+function gitrecover() {
+    git fsck --unreachable | grep commit | cut -d\  -f3 | \
+        xargs git log --merges --no-walk --grep=WIP
+}
 
 function mdv() {
     pandoc -f markdown $1 | lynx -stdin -scrollbar -vikeys -nocolor
