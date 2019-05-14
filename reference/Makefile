@@ -5,7 +5,7 @@
 TARGET   := prog
 SRCDIR   := src
 OBJDIR   := bin
-BINDIR   := ../../cgi-bin
+BINDIR   := bin
 
 CC       := gcc
 CFLAGS   := -std=c99 -Wall -I.
