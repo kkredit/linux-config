@@ -4,7 +4,9 @@
     d = diff
     ds = diff --cached
     dc = diff --cached
+    sns = show --name-status
     l = log
+    lns = log --name-status
     l2 = log -n2
     l4 = log -n4
     co = checkout
