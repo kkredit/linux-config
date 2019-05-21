@@ -35,6 +35,7 @@
     ts = log-compact --all --graph --decorate --simplify-by-decoration
     ieee = config user.email k.kredit.us@ieee.org
     dw = config user.email kevin.kredit@dornerworks.com
+    patchify = format-patch HEAD~..HEAD
 [core]
     editor = vim
     pager = diff-so-fancy | perl -pe 's/\t/»\\e[1D\t/g' | less --tabs=4 -RFX
