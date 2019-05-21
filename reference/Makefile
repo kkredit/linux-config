@@ -7,11 +7,22 @@ SRCDIR   := src
 OBJDIR   := bin
 BINDIR   := bin
 
+WARNINGS := \
+	-Wall -Wextra -Wpedantic -Werror \
+	-Wlogical-op -Waggregate-return -Wfloat-equal -Wcast-align \
+	-Wparentheses -Wmissing-braces -Wconversion -Wsign-conversion \
+	-Wwrite-strings -Wunknown-pragmas -Wunused-macros \
+	-Wnested-externs -Wpointer-arith -Wswitch -Wredundant-decls \
+	-Wreturn-type -Wshadow -Wstrict-prototypes -Wunused -Wuninitialized \
+	-Wdeclaration-after-statement -Wmissing-prototypes \
+	-Wmissing-declarations -Wundef -fstrict-aliasing -Wstrict-aliasing=3 \
+	-Wformat=2 -Wsuggest-attribute=pure -Wsuggest-attribute=const
+
 CC       := gcc
-CFLAGS   := -std=c99 -Wall -I.
+CFLAGS   := -std=c99 $(WARNINGS) -I.
 
 LINKER   := gcc
-LFLAGS   := -Wall -I.
+LFLAGS   := $(WARNINGS) -I.
 
 SOURCES  := $(wildcard $(SRCDIR)/*.c)
 INCLUDES := $(wildcard $(SRCDIR)/*.h)
