@@ -16,6 +16,7 @@ alias krep='grep -rniIs'
 alias findf='find . -type f -iname'
 alias findd='find . -type d -iname'
 alias dd='dd status=progress'
+alias recent='ls -lct $(find . -type f -iname "*") | less'
 
 function ruby_setup() {
     source ~/.rvm/scripts/rvm
