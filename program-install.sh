@@ -116,6 +116,14 @@ if has_arg "python"; then
     echo "source virtualenvwrapper.sh" >> ~/.bashrc_local
 fi
 
+if has_arg "grip"; then
+    if [[ "" == $(which pip) ]]; then
+        echo "install python pip first; '$0 python'"
+        exit 1
+    fi
+    pip install --user grip
+fi
+
 if has_arg "latex"; then
     sudo-pkg-mgr install -y \
         texstudio \
