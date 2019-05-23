@@ -2,6 +2,9 @@
 *.log
 *.pdf
 
+# dirs
+/workspace/
+
 # vim
 *.un~
 *.swp
