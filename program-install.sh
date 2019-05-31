@@ -31,6 +31,7 @@ sudo-pkg-mgr install -y \
     dos2unix
 
 if has_arg "git"; then
+    # This adds a new remote repo that hosts more up-to-date versions of git
     sudo add-apt-repository ppa:git-core/ppa
     sudo-pkg-mgr update && sudo-pkg-mgr upgrade git -y
 fi
