@@ -30,6 +30,11 @@ sudo-pkg-mgr install -y \
     repo \
     dos2unix
 
+if has_arg "git"; then
+    sudo add-apt-repository ppa:git-core/ppa
+    sudo-pkg-mgr update && sudo-pkg-mgr upgrade git -y
+fi
+
 if has_arg "writing"; then
     sudo-pkg-mgr install -y \
         aspell \
