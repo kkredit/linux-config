@@ -32,6 +32,7 @@
     t2 = log-compact --all --graph --decorate -2
     t4 = log-compact --all --graph --decorate -4
     t8 = log-compact --all --graph --decorate -8
+    rt = log-compact --all --graph --decorate -8
     tree-simple = log-compact --all --graph --decorate --simplify-by-decoration
     ts = log-compact --all --graph --decorate --simplify-by-decoration
     ieee = config user.email k.kredit.us@ieee.org
