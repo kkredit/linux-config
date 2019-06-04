@@ -21,6 +21,10 @@ alias recent='ls -lct $(find . -type f -iname "*") | less'
 alias mdv='grip -b'
 alias mde='grip --export'
 
+function gclone() {
+    git clone https://github.com/kkredit/$1
+}
+
 function ruby_setup() {
     source ~/.rvm/scripts/rvm
     rvm use 2.6.0
