@@ -39,6 +39,8 @@
     dw = config user.email kevin.kredit@dornerworks.com
     patchify = format-patch -1
     no-update = update-index --assume-unchanged
+    url = remote show -n origin
+    rs = remote show -n
 [core]
     editor = vim
     pager = diff-so-fancy | perl -pe 's/\t/»\\e[1D\t/g' | less --tabs=4 -RFX
