@@ -5,6 +5,7 @@
     ds = diff --cached
     dc = diff --cached
     sns = show --name-status
+    dns = diff --name-status
     l = log
     lns = log --name-status
     l2 = log -n2
