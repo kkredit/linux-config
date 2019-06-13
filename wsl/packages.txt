@@ -10,6 +10,7 @@ filezilla
 windirstat
 autohotkey.portable
 sharpkeys
+win32diskimager
 
 # Editors
 notepadplusplus
