@@ -1,6 +1,5 @@
 
 if [[ ! -f ~/.gerritrc ]]; then
-
     return 0
 fi
 
@@ -31,6 +30,7 @@ function list_contains() {
 }
 
 alias gerrit_shell="ssh $GERRITUSER@$GERRITSRVR"
+
 function gerrit_ssh (){
     ssh -p $GERRITPORT $GERRITUSER@$GERRITSRVR $*
 }
