@@ -16,9 +16,7 @@ install -m 644 $FILES_DIR/vimrc ~/.vimrc
 install -m 644 $FILES_DIR/xinitrc ~/.xinitrc
 install -m 644 $FILES_DIR/Xmodmap ~/.Xmodmap
 install -m 644 $FILES_DIR/tmux.conf ~/.tmux.conf
-if [ ! -f ~/.gerritrc ]; then
-    install -m 644 $FILES_DIR/gerritrc ~/.gerritrc
-fi
+install -m 644 $FILES_DIR/gerrit_functions.sh ~/.gerrit_functions.sh
 install -m 644 $FILES_DIR/gitconfig ~/.gitconfig
 install -m 644 $FILES_DIR/gitignore_global ~/.gitignore_global
 

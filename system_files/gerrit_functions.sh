@@ -1,3 +1,22 @@
+
+if [[ ! -f ~/.gerritrc ]]; then
+
+    return 0
+fi
+
+source ~/.gerritrc
+
+if [[ -z "$GERRITUSER" ]] || [[ -z "$GERRITSRVR" ]] ||
+    [[ -z "$GERRITPORT" ]] || [[ -z "$GERRITWEBPORT" ]]
+then
+    echo "NOTE: ~/.gerritrc must have the following:"
+    echo "   export GERRITUSER=username (e.g. kevinkredit)"
+    echo "   export GERRITSRVR=server (e.g. gerritcodereview)"
+    echo "   export GERRITPORT=port (e.g. 29418)"
+    echo "   export GERRITWEBPORT=port (e.g. 8080)"
+    return 1
+fi
+
 function list_contains() {
     # Grabbed this from: https://stackoverflow.com/questions/8063228/how-do-i-check-if-a-variable-exists-in-a-list-in-bash
     local item="$1"
@@ -11,13 +30,7 @@ function list_contains() {
     return $result
 }
 
-export GERRITUSER=kevinkredit
-export GERRITSRVR=gerritcodereview
-export GERRITPORT=29418
-export GERRITWEBPORT=8080
-
 alias gerrit_shell="ssh $GERRITUSER@$GERRITSRVR"
-
 function gerrit_ssh (){
     ssh -p $GERRITPORT $GERRITUSER@$GERRITSRVR $*
 }
@@ -28,6 +41,14 @@ function gerrit_ssh_cmd (){
 
 function git_current_change_id (){
     git show -s | grep -Po '(?<=Change-Id: ).+'
+}
+
+function git_log_change_ids (){
+    if [[ $# != 2 ]]; then
+        echo "Error: enter 'git_log_change_ids LATEST_COMMIT FOR_BRANCH'"
+        return 1
+    fi
+    git log gerrit/$2..$1 | grep -Po '(?<=Change-Id: ).+'
 }
 
 function gerrit_query_current (){
@@ -43,13 +64,17 @@ function gerrit_ls_groups () {
 }
 
 function gerrit_set_review_group (){
+    if [[ $# != 3 ]]; then
+        echo "Error: enter 'gerrit_set_review_group GROUP LATEST_COMMIT FOR_BRANCH'"
+        return 1
+    fi
     local group=$1
     local current_project=$(gerrit_current_project)
     local gerrit_groups=$(gerrit_ls_groups)
 
     if $(list_contains $group "$gerrit_groups"); then
         echo "Setting $group to review $current_project"
-        gerrit_ssh_cmd set-reviewers --project $current_project --add $group $(git_current_change_id)
+        gerrit_ssh_cmd set-reviewers --project $current_project --add $group $(git_log_change_ids $2 $3)
     else
         echo "$group does not exist in the groups returned"
         echo "The following exist:"
@@ -104,5 +129,5 @@ function gpush() {
         return 1
     fi
     git push gerrit $1:refs/for/$2%topic=$3
-    gerrit_set_review_group $4
+    gerrit_set_review_group $4 $1 $2
 }

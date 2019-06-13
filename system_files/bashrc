@@ -124,9 +124,7 @@ if [ -f ~/.bashrc_local ]; then
 fi
 
 # source gerrit commands
-if [ -f ~/.gerritrc ]; then
-    source ~/.gerritrc
-fi
+source ~/.gerrit_functions.sh
 
 PATH=$PATH:~/bin
 
