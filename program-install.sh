@@ -25,6 +25,7 @@ sudo-pkg-mgr install -y \
     tree \
     net-tools \
     htop \
+    ncdu \
     pdfgrep \
     screen \
     repo \
