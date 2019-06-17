@@ -21,10 +21,6 @@ alias recent='ls -lct $(find . -type f -iname "*") | less'
 alias mdv='grip -b'
 alias mde='grip --export'
 
-function gclone() {
-    git clone https://github.com/kkredit/$1
-}
-
 function ruby_setup() {
     source ~/.rvm/scripts/rvm
     rvm use 2.6.0
@@ -85,15 +81,6 @@ function mkcd() {
 
 function showme() {
     set -x && $@ && set +x
-}
-
-# I want this to be in my gitconfig!
-function gitread() {
-    git show $1..HEAD --reverse
-}
-function gitrecover() {
-    git fsck --unreachable | grep commit | cut -d\  -f3 | \
-        xargs git log --merges --no-walk --grep=WIP
 }
 
 function serial() {

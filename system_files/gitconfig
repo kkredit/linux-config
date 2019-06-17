@@ -1,6 +1,7 @@
 [credential]
     helper = store
 [alias]
+    f = fetch
     d = diff
     ds = diff --cached
     dc = diff --cached
@@ -39,9 +40,14 @@
     ieee = config user.email k.kredit.us@ieee.org
     dw = config user.email kevin.kredit@dornerworks.com
     patchify = format-patch -1
-    no-update = update-index --assume-unchanged
-    url = remote show -n origin
+    assume = update-index --assume-unchanged
+    unassume = update-index --no-assume-unchanged
+    assumed = !git ls-files -v | grep ^h | cut -c 3-
+    url = !git remote show -n origin | grep URL
     rs = remote show -n
+    read = !git show $1..HEAD --reverse
+    recover = !git fsck --unreachable | grep commit | cut -d' ' -f3 | xargs git log --merges --no-walk --grep=WIP
+    clonemy = !git clone https://github.com/kkredit/$1
 [core]
     editor = vim
     pager = diff-so-fancy | perl -pe 's/\t/»\\e[1D\t/g' | less --tabs=4 -RFX
