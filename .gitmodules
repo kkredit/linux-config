@@ -18,3 +18,7 @@
 	path = submodules/tldr
 	url = https://github.com/raylee/tldr
 	shallow = true
+[submodule "submodules/autojump"]
+	path = submodules/autojump
+	url = https://github.com/wting/autojump
+	shallow = true

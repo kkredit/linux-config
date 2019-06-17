@@ -129,3 +129,5 @@ source ~/.gerrit_functions.sh
 PATH=$PATH:~/bin
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[[ -s /home/kevin/.autojump/etc/profile.d/autojump.sh ]] && \
+    source /home/kevin/.autojump/etc/profile.d/autojump.sh
