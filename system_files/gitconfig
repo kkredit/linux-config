@@ -1,7 +1,6 @@
 [credential]
     helper = store
 [alias]
-    f = fetch
     d = diff
     ds = diff --cached
     dc = diff --cached
@@ -16,6 +15,8 @@
     ca = commit -a
     cam = commit -am
     amend = commit --amend
+    f = fetch
+    pl = pull
     pu = push
     cp = cherry-pick
     rb = rebase
