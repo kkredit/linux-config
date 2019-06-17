@@ -33,7 +33,7 @@ for FILE in "${PROG_FILES[@]}"; do
 done
 
 # Submodules files
-if [ ! -d submodules ]; then
+if [[ 0 == $(find submodules/ -type f | wc -l) ]]; then
     git submodule init
     git submodule update --init --force --remote &> /dev/null
 elif has_arg "update"; then
