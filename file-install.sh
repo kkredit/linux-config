@@ -33,11 +33,14 @@ for FILE in "${PROG_FILES[@]}"; do
 done
 
 # Submodules files
+DO_UPDATE=0
 if [[ 0 == $(find submodules/ -type f | wc -l) ]]; then
     git submodule init
     git submodule update --init --force --remote &> /dev/null
+    DO_UPDATE=1
 elif has_arg "update"; then
     git submodule update --init --force --remote &> /dev/null
+    DO_UPDATE=1
 fi
 
 printf 'y\ny\nn\n' | ./submodules/fzf/install &> /dev/null
@@ -46,7 +49,7 @@ cp -r submodules/diff-so-fancy/lib ~/bin/
 install -m 755 submodules/git-log-compact/git-log-compact \
     ~/bin/git-log-compact
 install -m 755 submodules/tldr/tldr ~/bin/tldr
-if has_arg "update"; then
+if [[ 1 == $DO_UPDATE ]]; then
     pushd submodules/autojump > /dev/null
     ./install.py > /dev/null
     popd > /dev/null
