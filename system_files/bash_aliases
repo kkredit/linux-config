@@ -20,6 +20,7 @@ alias dd='dd status=progress'
 alias recent='ls -lct $(find . -type f -iname "*") | less'
 alias mdv='grip -b'
 alias mde='grip --export'
+alias usage=ncdu
 
 function ruby_setup() {
     source ~/.rvm/scripts/rvm
