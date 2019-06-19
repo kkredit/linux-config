@@ -21,7 +21,6 @@ such as `ruby` for an RVM installation or `Wireshark` to install the program and
 Running this script requires root privileges.
 
 # File Structure
-- `dockerfiles/`: store reference Dockerfiles along with build/install scripts
 - `helper_scripts/`: store helper bash functions used within this repo
 - `reference/`: store handy template files, like a basic C Makefile, a static IP address interfaces
   file, etc
