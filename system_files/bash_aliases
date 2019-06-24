@@ -164,3 +164,27 @@ extract () {
          echo "'$1' is not a valid file"
      fi
 }
+
+# For long running commands.  Use like so:
+#   sleep 10; alert
+function alert() {
+
+    if [[ 0 == $? ]]; then
+        ALERT_TITLE="Command Success"
+        TERM_MSG_COLOR=$green
+    else
+        ALERT_TITLE="Command Error"
+        TERM_MSG_COLOR=$red
+    fi
+
+    COMMAND="$(history | tail -n1 | sed -e 's/^\s    *[0-9]\+\s*//;s/[;&|]\s*alert$//')"
+
+    notify-send --urgency=low -i "$ALERT_TITLE" "$COMMAND"
+
+    echo -e "$TERM_MSG_COLOR"
+    echo "==============================================================================="
+    echo "$ALERT_TITLE:"
+    echo "$COMMAND"
+    echo "==============================================================================="
+    echo -e $no_color
+}
