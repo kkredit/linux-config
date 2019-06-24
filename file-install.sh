@@ -22,8 +22,6 @@ install -m 644 $FILES_DIR/gitignore_global ~/.gitignore_global
 
 # Program files
 PROG_FILES=( \
-    lan-ip \
-    wan-ip \
     git-author-rewrite.sh \
     )
 

@@ -21,6 +21,9 @@ alias recent='ls -lct $(find . -type f -iname "*") | less'
 alias mdv='grip -b'
 alias mde='grip --export'
 alias usage=ncdu
+alias whatsmyip='printf "$(curl -s ipecho.net/plain)\n"'
+alias wan-ip='whatsmyip'
+alias lan-ip="hostname -I | awk '{print $1}'"
 
 function ruby_setup() {
     source ~/.rvm/scripts/rvm
