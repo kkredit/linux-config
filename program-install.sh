@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 source helper_scripts/has-arg.sh
 source helper_scripts/install.sh
 
