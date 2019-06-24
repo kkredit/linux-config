@@ -20,16 +20,6 @@ install -m 644 $FILES_DIR/gerrit_functions.sh ~/.gerrit_functions.sh
 install -m 644 $FILES_DIR/gitconfig ~/.gitconfig
 install -m 644 $FILES_DIR/gitignore_global ~/.gitignore_global
 
-# Program files
-PROG_FILES=( \
-    git-author-rewrite.sh \
-    )
-
-mkdir -p ~/bin
-for FILE in "${PROG_FILES[@]}"; do
-    install -m 755 $FILES_DIR/$FILE ~/bin/$FILE
-done
-
 # Submodules files
 DO_UPDATE=0
 if [[ 0 == $(find submodules/ -type f | wc -l) ]]; then
@@ -41,6 +31,7 @@ elif has_arg "update"; then
     DO_UPDATE=1
 fi
 
+mkdir -p ~/bin
 printf 'y\ny\nn\n' | ./submodules/fzf/install &> /dev/null
 install -m 755 submodules/diff-so-fancy/diff-so-fancy ~/bin/diff-so-fancy
 cp -r submodules/diff-so-fancy/lib ~/bin/
