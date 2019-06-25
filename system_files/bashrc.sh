@@ -88,3 +88,5 @@ sourceIfPresent ~/.autojump/etc/profile.d/autojump.sh
 # set environment variables
 PATH=$PATH:~/bin
 export VSLICKXNOPLUSNEWMSG=1
+# add support for ctrl+o to open selected file in vim
+export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(vim {})+abort'"

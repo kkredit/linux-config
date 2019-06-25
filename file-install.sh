@@ -6,6 +6,7 @@ FILES_DIR=system_files
 
 install -m 644 $FILES_DIR/bashrc.sh ~/.bashrc
 install -m 644 $FILES_DIR/bash_aliases.sh ~/.bash_aliases
+install -m 644 $FILES_DIR/bash_functions.sh ~/.bash_functions
 install -m 644 $FILES_DIR/bash_prompt.sh ~/.bash_prompt
 if [[ -e ~/.bash-git-prompt ]]; then
     rm ~/.bash-git-prompt
