@@ -1,5 +1,11 @@
 # ~/.bash_aliases
 
+alias ls="ls $COLOR_AUTO -F"
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+alias grep="grep $COLOR_AUTO"
+
 alias dos2unixr='find . -type f -exec dos2unix {} \;'
 alias unix2dosr='find . -type f -exec unix2dos {} \;'
 alias tm=tmux

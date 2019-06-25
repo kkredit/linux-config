@@ -12,6 +12,7 @@ if [[ -e ~/.bash-git-prompt ]]; then
 fi
 ln -s $(pwd)/submodules/bash-git-prompt ~/.bash-git-prompt
 install -m 644 $FILES_DIR/custom.bgptheme ~/.git-prompt-colors.sh
+install -m 644 $FILES_DIR/dircolors.sh ~/.dircolors
 install -m 644 $FILES_DIR/vimrc ~/.vimrc
 install -m 644 $FILES_DIR/xinitrc ~/.xinitrc
 install -m 644 $FILES_DIR/Xmodmap ~/.Xmodmap
