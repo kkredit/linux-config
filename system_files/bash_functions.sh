@@ -112,10 +112,12 @@ extract () {
 function alert() {
 
     if [[ 0 == $? ]]; then
-        ALERT_TITLE="SUCCESS"
+        ALERT_TITLE="terminal"
+        SUMMARY="SUCCESS"
         TERM_MSG_COLOR=$green
     else
-        ALERT_TITLE="ERROR"
+        ALERT_TITLE="error"
+        SUMMARY="SUCCESS"
         TERM_MSG_COLOR=$red
     fi
 
@@ -125,7 +127,7 @@ function alert() {
 
     echo -e "$TERM_MSG_COLOR"
     echo "==============================================================================="
-    echo "$ALERT_TITLE:"
+    echo "SUMMARY:"
     echo "$COMMAND"
     echo "==============================================================================="
     echo -e $no_color
