@@ -47,7 +47,8 @@
     url = !git remote show -n origin | grep URL
     rs = remote show -n
     read = !git show $1..HEAD --reverse
-    recover = !git fsck --unreachable | grep commit | cut -d' ' -f3 | xargs git log --merges --no-walk --grep=WIP
+    recover = "!git fsck --unreachable | grep commit | cut -d' ' -f3 | \
+                xargs git log --merges --no-walk --grep=WIP"
     clonemy = !git clone https://github.com/kkredit/$1
     newpush = !git push --set-upstream origin $(git branch | grep \\* | awk '{print $2}')
     submodule-rm = "!f() { \
