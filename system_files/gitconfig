@@ -50,6 +50,15 @@
     recover = !git fsck --unreachable | grep commit | cut -d' ' -f3 | xargs git log --merges --no-walk --grep=WIP
     clonemy = !git clone https://github.com/kkredit/$1
     newpush = !git push --set-upstream origin $(git branch | grep \\* | awk '{print $2}')
+    submodule-rm = "!f() { \
+                        SM=\"$(echo $1 | sed s,/*$,,)\"; \
+                        git rm --cached $SM; \
+                        rm -r $SM; \
+                        git config -f .gitmodules --remove-section submodule.$SM; \
+                        git config -f .git/config --remove-section submodule.$SM; \
+                        git add .gitmodules; \
+                    }; \
+                    f"
 [core]
     editor = vim
     pager = diff-so-fancy | perl -pe 's/\t/»\\e[1D\t/g' | less --tabs=4 -RFX
