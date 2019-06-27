@@ -1,15 +1,7 @@
 [credential]
     helper = store
 [alias]
-    d = diff
-    ds = diff --cached
-    dc = diff --cached
-    sns = show --name-status
-    dns = diff --name-status
-    l = log
-    lns = log --name-status
-    l2 = log -n2
-    l4 = log -n4
+    # operations
     co = checkout
     cm = commit -m
     ca = commit -a
@@ -22,8 +14,16 @@
     rb = rebase
     st = status
     br = branch
-    top = rev-parse --show-toplevel
-    orphan = checkout --orphan orphan
+
+    # diff and log
+    d = diff
+    ds = diff --cached
+    dc = diff --cached
+    sns = show --name-status
+    dns = diff --name-status
+    lns = log --name-status
+    l = log
+    rl = log -n4
     hist = log-compact --graph --decorate
     h = log-compact --graph --decorate
     re = log-compact --graph --decorate -8
@@ -32,36 +32,21 @@
     rt = log-compact --all --graph --decorate -8
     tree-simple = log-compact --all --graph --decorate --simplify-by-decoration
     ts = log-compact --all --graph --decorate --simplify-by-decoration
+
+    # handy
+    top = rev-parse --show-toplevel
+    orphan = checkout --orphan orphan
     ieee = config user.email k.kredit.us@ieee.org
     dw = config user.email kevin.kredit@dornerworks.com
     patchify = format-patch -1
     assume = update-index --assume-unchanged
     unassume = update-index --no-assume-unchanged
     assumed = !git ls-files -v | grep ^h | cut -c 3-
-    url = "!f() { \
-                BR=\"origin\"; \
-                if [ $# -gt 0 ]; then \
-                    BR=\"$1\"; \
-                fi; \
-                echo $BR; \
-                git remote show -n $BR | grep URL; \
-            }; \
-            f"
-    rs = remote show -n
     read = !git show $1..HEAD --reverse
     recover = "!git fsck --unreachable | grep commit | cut -d' ' -f3 | \
                 xargs git log --merges --no-walk --grep=WIP"
     clonemy = !git clone https://github.com/kkredit/$1
     newpush = !git push --set-upstream origin $(git branch | grep \\* | awk '{print $2}')
-    submodule-rm = "!f() { \
-                        SM=\"$(echo $1 | sed s,/*$,,)\"; \
-                        git rm --cached $SM; \
-                        rm -r $SM; \
-                        git config -f .gitmodules --remove-section submodule.$SM; \
-                        git config -f .git/config --remove-section submodule.$SM; \
-                        git add .gitmodules; \
-                    }; \
-                    f"
 [core]
     editor = vim
     pager = diff-so-fancy | perl -pe 's/\t/»\\e[1D\t/g' | less --tabs=4 -RFX
@@ -88,3 +73,24 @@
     old = red bold
     new = green bold
     whitespace = red reverse
+[alias]
+    # functions
+    url = "!f() { \
+                BR=\"origin\"; \
+                if [ $# -gt 0 ]; then \
+                    BR=\"$1\"; \
+                fi; \
+                echo $BR; \
+                git remote show -n $BR | grep URL; \
+            }; \
+            f"
+
+    submodule-rm = "!f() { \
+                        SM=\"$(echo $1 | sed s,/*$,,)\"; \
+                        git rm --cached $SM; \
+                        rm -r $SM; \
+                        git config -f .gitmodules --remove-section submodule.$SM; \
+                        git config -f .git/config --remove-section submodule.$SM; \
+                        git add .gitmodules; \
+                    }; \
+                    f"
