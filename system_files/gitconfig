@@ -38,7 +38,15 @@
     assume = update-index --assume-unchanged
     unassume = update-index --no-assume-unchanged
     assumed = !git ls-files -v | grep ^h | cut -c 3-
-    url = !git remote show -n origin | grep URL
+    url = "!f() { \
+                BR=\"origin\"; \
+                if [ $# -gt 0 ]; then \
+                    BR=\"$1\"; \
+                fi; \
+                echo $BR; \
+                git remote show -n $BR | grep URL; \
+            }; \
+            f"
     rs = remote show -n
     read = !git show $1..HEAD --reverse
     recover = "!git fsck --unreachable | grep commit | cut -d' ' -f3 | \
