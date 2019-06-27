@@ -27,3 +27,5 @@ alias usage=ncdu
 alias whatsmyip='printf "$(curl -s ipecho.net/plain)\n"'
 alias wan-ip='whatsmyip'
 alias lan-ip="hostname -I | awk '{print $1}'"
+alias sai='sudo apt-get install'
+
