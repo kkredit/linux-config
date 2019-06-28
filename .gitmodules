@@ -22,6 +22,3 @@
 	path = submodules/autojump
 	url = https://github.com/wting/autojump
 	shallow = true
-[submodule "submodules/graphene"]
-	path = submodules/graphene
-	url = https://github.com/atsepkov/Graphene
