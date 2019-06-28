@@ -88,7 +88,8 @@
     submodule-rm = "!f() { \
                         SM=\"$(echo $1 | sed s,/*$,,)\"; \
                         git rm --cached $SM; \
-                        rm -r $SM; \
+                        yes | rm -r $SM; \
+                        yes | rm -r .git/modules/$SM; \
                         git config -f .gitmodules --remove-section submodule.$SM; \
                         git config -f .git/config --remove-section submodule.$SM; \
                         git add .gitmodules; \
