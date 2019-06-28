@@ -106,11 +106,23 @@ if has_arg "postgresql"; then
     echo "  \"psql -p 5432 -h localhost -U postgres\""
 fi
 
-if has_arg "react"; then
+if has_arg "node"; then
     sudo-pkg-mgr install npm
     curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
     sudo-pkg-mgr install -y nodejs
-    sudo npm install -g create-react-app
+    sudo chown -R $USER:$(id -gn $USER) ~/.config
+    sudo chown -R $USER:$(id -gn $USER) /usr/lib/node_modules/
+    export NODE_PATH='/usr/lib/node_modules'
+    echo "export NODE_PATH='/usr/lib/node_modules'" >> ~/.bashrc_local
+    # should be able to 'npm install -g' without sudo now
+fi
+
+if has_arg "react"; then
+    if [[ "" == $(which npm) ]]; then
+        echo "install node first; '$0 node'"
+        exit 1
+    fi
+    npm install -g create-react-app
 fi
 
 if has_arg "python"; then
