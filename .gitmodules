@@ -29,3 +29,6 @@
 [submodule "submodules/rails_completion"]
 	path = submodules/rails_completion
 	url = https://github.com/lewstherin/rails_completion
+[submodule "submodules/forgit"]
+	path = submodules/forgit
+	url = https://github.com/wfxr/forgit
