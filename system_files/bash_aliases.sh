@@ -8,6 +8,7 @@ alias grep="grep $COLOR_AUTO"
 alias dos2unixr='find . -type f -exec dos2unix {} \;'
 alias unix2dosr='find . -type f -exec unix2dos {} \;'
 alias tm=tmux
+alias cat='bat --plain'
 alias preview="fzf --preview 'bat --color \"always\" {}'"
 alias www='python3 -m http.server --bind localhost --cgi 8000'
 alias sshkeygen='ssh-keygen -t rsa'
