@@ -17,7 +17,7 @@ To install programs, run
 ```
 The `update` option causes it to quit after to an `apt-get update/upgrade` sequence. `all` or
 `some-prog` causes the script to install one or more less used or more complex program installs,
-such as `ruby` for an RVM installation or `Wireshark` to install the program and manage the groups.
+such as `ruby` for an RVM installation or `wireshark` to install the program and manage the groups.
 Running this script requires root privileges.
 
 # File Structure
@@ -30,9 +30,8 @@ Running this script requires root privileges.
 - `wsl/`: scripts and files that make sense only in the WSL environment
 
 # Sharing
-You are 100% free to use anything from this repo. It has proven very handy for me. Always open to
-additional tips and pull requests as well.
+You are 100% free to use anything from this repo. Please share with my your tips and tricks as well.
 
-# Wishlist
-- Separate the mechanism from the content so that this becomes more modular, and improvements easily
-  shared
+I've considered making this more modular so that it could be easily forked and shared, but I find
+that the real value is in making your config your own. Fork or copy this repo, then tear out my
+content and replace it with your own as you build it up over time.
