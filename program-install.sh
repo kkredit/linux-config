@@ -18,8 +18,6 @@ sudo-pkg-mgr install -y \
     git \
     tmux \
     lynx \
-    gcc \
-    make \
     curl \
     tree \
     net-tools \
@@ -29,6 +27,13 @@ sudo-pkg-mgr install -y \
     screen \
     repo \
     dos2unix
+
+if has_arg "dev"; then
+    sudo-pkg-mgr install -y \
+        gcc \
+        make \
+        lcov
+fi
 
 if has_arg "git"; then
     # This adds a new remote repo that hosts more up-to-date versions of git
