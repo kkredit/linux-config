@@ -132,3 +132,29 @@ function alert() {
     echo "==============================================================================="
     echo -e $no_color
 }
+
+function mount-img() {
+    if [[ 2 != $# ]]; then
+        echo "Usage: mount-img PATH/TO/IMAGE PATH/TO/MOUNT"
+        return 1
+    else
+        IMAGE=$1
+        MNTPT=$2
+    fi
+
+    echo "fdisk -l $IMAGE :"
+    echo "==============================================================================="
+    fdisk -l $IMAGE
+    echo "==============================================================================="
+
+    BLK_SIZE=$(fdisk -l $IMAGE | grep Units | awk '{print $8}')
+    START_BLK=$(fdisk -l $IMAGE | tail -1 | awk '{print $2}')
+    OFFSET=$(( BLK_SIZE * START_BLK ))
+
+    echo
+    echo "Block size = $BLK_SIZE;"
+    echo "Start block = $START_BLK;"
+    echo "Therefore offset = $OFFSET."
+    echo "Try:"
+    echo "    sudo mount -o loop,offset=$OFFSET $IMAGE $MNTPT"
+}
