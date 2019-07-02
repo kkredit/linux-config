@@ -1,8 +1,7 @@
 # ~/.bash_functions
 
-function ruby_setup() {
-    source ~/.rvm/scripts/rvm
-    rvm use 2.6.0
+function title() {
+    echo -ne "\033]0;$1\007"
 }
 
 # create function "cs" to "cd" and "ls" in one command
@@ -28,6 +27,11 @@ function mkcd() {
 
 function showme() {
     set -x && $@ && set +x
+}
+
+function ruby_setup() {
+    source ~/.rvm/scripts/rvm
+    rvm use 2.6.0
 }
 
 function serial() {
