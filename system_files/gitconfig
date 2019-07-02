@@ -8,6 +8,7 @@
     cam = commit -am
     amend = commit --amend
     f = fetch
+    p = pull
     pl = pull
     pu = push
     cp = cherry-pick
