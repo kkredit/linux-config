@@ -4,6 +4,19 @@ function title() {
     echo -ne "\033]0;$1\007"
 }
 
+function rand_in_range() {
+    if [[ 2 != $# ]]; then
+        echo "Usage: rand_in_range FLOOR_INCLUSIVE CEILING_INCLUSIVE"
+        return 1
+    else
+        FLOOR=$1
+        CEILING=$2
+    fi
+    RANGE=$(( CEILING - FLOOR + 1 ))
+    RESULT=$(( (RANDOM % RANGE) + FLOOR ))
+    echo $RESULT
+}
+
 # create function "cs" to "cd" and "ls" in one command
 function cs() {
     new_directory="$*"
