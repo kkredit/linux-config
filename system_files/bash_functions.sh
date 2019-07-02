@@ -65,7 +65,7 @@ function dive() {
 function git-author-rewrite() {
     if [[ $# < 2 ]]; then
         echo Usage: git-author-rewrite OLD_EMAIL NEW_EMAIL
-        exit
+        return 1
     fi
 
     git filter-branch --env-filter '
