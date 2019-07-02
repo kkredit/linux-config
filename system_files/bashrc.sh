@@ -90,3 +90,11 @@ PATH=$PATH:~/bin
 export VSLICKXNOPLUSNEWMSG=1
 # add support for ctrl+o to open selected file in vim
 export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(vim {})+abort'"
+
+# print a quote or fortune, for fun
+if [[ $(which fortune) ]] && [[ $(type rand_in_range 2>/dev/null) ]]; then
+    PROB_ONE_IN=4
+    if [[ "1" == $(rand_in_range 1 $PROB_ONE_IN) ]]; then
+        fortune -c
+    fi
+fi
