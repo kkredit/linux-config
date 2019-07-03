@@ -45,3 +45,16 @@ if [[ 1 == $DO_UPDATE ]]; then
     ./install.py > /dev/null
     popd > /dev/null
 fi
+
+# Other
+if [[ 1 == $DO_UPDATE ]]; then
+    # Bat (https://github.com/sharkdp/bat)
+    curl -s https://api.github.com/repos/sharkdp/bat/releases/latest \
+        | grep "browser_download_url.*x86_64-unknown-linux-gnu.tar.gz" \
+        | cut -d : -f 2,3 \
+        | tr -d \" \
+        | wget -qi -
+    tar -xf bat*linux-gnu.tar.gz
+    cp -r bat*linux-gnu/bat bat*linux-gnu/bat.1 bat*linux-gnu/autocomplete ~/bin/
+    rm -rf bat*linux-gnu*
+fi

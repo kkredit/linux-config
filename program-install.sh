@@ -71,17 +71,6 @@ if has_arg "bash"; then
     fi
 fi
 
-if has_arg "bat"; then
-    # Bat (https://github.com/sharkdp/bat)
-    curl -s https://api.github.com/repos/sharkdp/bat/releases/latest \
-        | grep "browser_download_url.*amd64.deb" \
-        | cut -d : -f 2,3 \
-        | tr -d \" \
-        | wget -qi -
-    sudo dpkg -i bat_*amd64.deb
-    rm bat*
-fi
-
 if has_arg "ruby"; then
     curl -sSL https://get.rvm.io | bash -s -- --ignore-dotfiles
     echo "rvm_autoupdate_flag=2" >> ~/.rvmrc
