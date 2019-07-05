@@ -13,6 +13,7 @@
     pu = push
     cp = cherry-pick
     rb = rebase
+    s = show
     st = status
     br = branch
 
