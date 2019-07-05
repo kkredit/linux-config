@@ -176,6 +176,8 @@ if has_arg "enpass"; then
     wget -O - https://dl.sinew.in/keys/enpass-linux.key | sudo apt-key add -
     sudo-pkg-mgr update
     sudo-pkg-mgr install -y enpass
+    xdg-open https://www.enpass.io/downloads/#extensions
+    echo "NOTICE: Install the Firefox extension from the browser."
 fi
 
 if has_arg "signal"; then
