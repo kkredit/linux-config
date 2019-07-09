@@ -1,7 +1,7 @@
 # ~/.bash_aliases
 
 alias ls="ls $COLOR_AUTO -F"
-alias ll='ls -alF'
+alias ll='ls -alFh'
 alias la='ls -A'
 alias l='ls -CF'
 alias grep="grep $COLOR_AUTO"
