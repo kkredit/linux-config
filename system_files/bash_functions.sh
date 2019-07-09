@@ -178,4 +178,6 @@ function mount-img() {
     echo "Therefore offset = $OFFSET."
     echo "Try:"
     echo "    sudo mount -o loop,offset=$OFFSET $IMAGE $MNTPT"
+    echo "or:"
+    echo "    sudo mount -o loop,offset=$OFFSET $IMAGE $MNTPT -t sysfs"
 }
