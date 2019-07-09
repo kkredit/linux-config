@@ -47,6 +47,10 @@ function ruby_setup() {
     rvm use 2.6.0
 }
 
+function libdeps() {
+    objdump -p $1 | grep NEEDED
+}
+
 function serial() {
     BAUD=115200
     if [[ $# > 0 ]]; then
