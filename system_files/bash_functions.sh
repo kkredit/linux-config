@@ -181,3 +181,19 @@ function mount-img() {
     echo "or:"
     echo "    sudo mount -o loop,offset=$OFFSET $IMAGE $MNTPT -t sysfs"
 }
+
+function dtb2dts() {
+    if [[ 2 != $# ]]; then
+        echo "Usage: dtb2dts PATH/TO/DTB PATH/TO/DTS"
+        return 1
+    fi
+    dtc -I dtb -O dts -o $2 $1
+}
+
+function dts2dtb() {
+    if [[ 2 != $# ]]; then
+        echo "Usage: dts2dtb PATH/TO/DTS PATH/TO/DTB"
+        return 1
+    fi
+    dtc -I dts -O dtb -o $2 $1
+}
