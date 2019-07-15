@@ -1,5 +1,6 @@
 # ~/.bash_aliases
 
+alias sbrc='source ~/.bashrc'
 alias ls="ls $COLOR_AUTO -F"
 alias ll='ls -alFh'
 alias la='ls -A'
