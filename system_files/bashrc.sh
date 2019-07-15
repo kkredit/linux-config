@@ -70,6 +70,7 @@ if [ -x /usr/bin/dircolors ]; then
     light_cyan='\e[1;36m'
     white='\e[1;37m'
     no_color='\e[0m'
+    nc='\e[0m'
 fi
 
 # source other files
