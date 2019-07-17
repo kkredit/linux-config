@@ -23,6 +23,7 @@
     d = diff
     ds = diff --cached
     dc = diff --cached
+    do = !git diff origin/$(git rev-parse --abbrev-ref HEAD)
     sns = show --name-status
     dns = diff --name-status
     lns = log --name-status
