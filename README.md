@@ -30,7 +30,7 @@ Running this script requires root privileges.
 - `wsl/`: scripts and files that make sense only in the WSL environment
 
 # Sharing
-You are 100% free to use anything from this repo. Please share with my your tips and tricks as well.
+You are 100% free to use anything from this repo. Please contribute your tips and tricks as well.
 
 I've considered making this more modular so that it could be easily forked and shared, but I find
 that the real value is in making your config your own. Fork or copy this repo, then tear out my
