@@ -51,6 +51,10 @@ function libdeps() {
     objdump -p $1 | grep NEEDED
 }
 
+function screenkill() {
+    screen -X -S $1 kill
+}
+
 function serial() {
     BAUD=115200
     if [[ $# > 0 ]]; then
