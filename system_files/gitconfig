@@ -9,6 +9,7 @@
     cam = commit -am
     amend = commit --amend
     f = fetch
+    fp = fetch --prune
     p = pull
     pl = pull
     pu = push
