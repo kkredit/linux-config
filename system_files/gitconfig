@@ -63,6 +63,8 @@
     defaults = --two-initials --abbrev=8
 [user]
     name = Kevin Kredit
+[github]
+    user = kkredit
 [push]
     default = simple
 [color]
