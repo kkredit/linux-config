@@ -16,6 +16,8 @@ function run_elevated() {
 # Download VBox
 VBOX_DOWNLOAD_URL=$(curl -s https://www.virtualbox.org/wiki/Downloads | \
                     grep -i "windows hosts" | cut -d'"' -f4)
+touch ~/.wget-hsts
+chmod 600 ~/.wget-hsts
 wget -O $WSL_DKTP/$VBOX_INSTALLER $VBOX_DOWNLOAD_URL
 
 # Run installer
