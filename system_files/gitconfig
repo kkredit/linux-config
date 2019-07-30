@@ -48,6 +48,7 @@
     assume = update-index --assume-unchanged
     unassume = update-index --no-assume-unchanged
     assumed = !git ls-files -v | grep ^h | cut -c 3-
+    istracked = ls-files --error-unmatch
     read = !git show $1..HEAD --reverse
     recover = "!git fsck --unreachable | grep commit | cut -d' ' -f3 | \
                 xargs git log --merges --no-walk --grep=WIP"
