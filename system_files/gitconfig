@@ -25,9 +25,9 @@
     ds = diff --cached
     dc = diff --cached
     do = !git diff origin/$(git rev-parse --abbrev-ref HEAD)
-    sns = show --name-status
-    dns = diff --name-status
-    lns = log --name-status
+    sns = show --compact-summary  # --name-status for old versions of git
+    dns = diff --compact-summary  # --name-status for old versions of git
+    lns = log --compact-summary  # --name-status for old versions of git
     l = log
     rl = log -n4
     hist = log-compact --graph --decorate
