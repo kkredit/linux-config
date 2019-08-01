@@ -3,7 +3,7 @@
 # git alias autocompletions; see
 # https://stackoverflow.com/questions/11466991/git-aliases-command-line-autocompletion-of-branch-names
 function _git_read() {
-    __git_checkout
+    __git_show
 }
 
 function _git_url() {
@@ -16,7 +16,7 @@ function _git_submodule-rm() {
 
 function _git_brun() {
     case "$cword" in
-        2 | 4) _git_checkout;;
+        2 | 4) _git_show;;
         3) __gitcomp_direct "$(printf 'lns\nsns\nread\n')";;
     esac
 }
