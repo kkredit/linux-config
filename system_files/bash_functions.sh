@@ -1,5 +1,27 @@
 # ~/.bash_functions
 
+# git alias autocompletions; see
+# https://stackoverflow.com/questions/11466991/git-aliases-command-line-autocompletion-of-branch-names
+function _git_read() {
+    __git_checkout
+}
+
+function _git_url() {
+    __gitcomp_direct "$(git remote show)"
+}
+
+function _git_submodule-rm() {
+    __gitcom_direct "$(git config --file .gitmodules --get-regexp path | awk '{ print $2 }')"
+}
+
+function _git_brun() {
+    case "$cword" in
+        2 | 4) _git_checkout;;
+        3) __gitcomp_direct "$(printf 'lns\nsns\nread\n')";;
+    esac
+}
+
+# normal functions
 function title() {
     echo -ne "\033]0;$1\007"
 }
