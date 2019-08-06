@@ -3,7 +3,7 @@
 # git alias autocompletions; see
 # https://stackoverflow.com/questions/11466991/git-aliases-command-line-autocompletion-of-branch-names
 function _git_read() {
-    __git_show
+    _git_show
 }
 
 function _git_url() {
@@ -11,7 +11,7 @@ function _git_url() {
 }
 
 function _git_submodule-rm() {
-    __gitcom_direct "$(git config --file .gitmodules --get-regexp path | awk '{ print $2 }')"
+    __gitcomp_direct "$(git config --file .gitmodules --get-regexp path | awk '{ print $2 }')"
 }
 
 function _git_brun() {
