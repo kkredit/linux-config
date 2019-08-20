@@ -2,6 +2,10 @@
 
 # git alias autocompletions; see
 # https://stackoverflow.com/questions/11466991/git-aliases-command-line-autocompletion-of-branch-names
+function _git_log-compact() {
+    _git_log
+}
+
 function _git_read() {
     _git_show
 }
