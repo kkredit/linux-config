@@ -2,7 +2,7 @@
 
 # git alias autocompletions; see
 # https://stackoverflow.com/questions/11466991/git-aliases-command-line-autocompletion-of-branch-names
-function _git_log-compact() {
+function _git_log_compact() {
     _git_log
 }
 
@@ -14,7 +14,7 @@ function _git_url() {
     __gitcomp_direct "$(git remote show)"
 }
 
-function _git_submodule-rm() {
+function _git_submodule_rm() {
     __gitcomp_direct "$(git config --file .gitmodules --get-regexp path | awk '{ print $2 }')"
 }
 
