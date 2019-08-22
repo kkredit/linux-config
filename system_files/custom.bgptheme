@@ -10,8 +10,8 @@ override_git_prompt_colors() {
 
   ## These are the color definitions used by gitprompt.sh
   GIT_PROMPT_BASE_COLOR="${Blue}"
-  GIT_PROMPT_PREFIX="${GIT_PROMPT_BASE_COLOR}["                 # start of the git info string
-  GIT_PROMPT_SUFFIX="${GIT_PROMPT_BASE_COLOR}]"                 # the end of the git info string
+  GIT_PROMPT_PREFIX="${GIT_PROMPT_BASE_COLOR}("                 # start of the git info string
+  GIT_PROMPT_SUFFIX="${GIT_PROMPT_BASE_COLOR})"                 # the end of the git info string
   GIT_PROMPT_SEPARATOR="${GIT_PROMPT_BASE_COLOR}|"              # separates each item
 
   GIT_PROMPT_BRANCH="${BoldYellow}"        # the git branch that is active in the current directory
