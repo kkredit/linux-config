@@ -72,8 +72,8 @@ if [ -x /usr/bin/dircolors ]; then
     no_color='\e[0m'
     nc='\e[0m'
 
-    ALL_COLORS=(black red green yellow blue purple cyan light_grey dark_grey light_red light_green \
-                orange light_blue light_purple light_cyan white no_color nc)
+    ALL_COLORS=(red light_red orange yellow light_green green light_cyan cyan light_blue blue \
+                light_purple purple black dark_grey light_grey white no_color nc)
     function colors() {
         for COLOR in "${ALL_COLORS[@]}"; do
             echo -e "${!COLOR} $COLOR $nc"
