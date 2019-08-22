@@ -76,7 +76,7 @@ if [ -x /usr/bin/dircolors ]; then
                 light_purple purple black dark_grey light_grey white no_color nc)
     function colors() {
         for COLOR in "${ALL_COLORS[@]}"; do
-            echo -e "${!COLOR} $COLOR $nc"
+            echo -ne "${!COLOR}" && echo -n "${!COLOR} " && echo -e "$COLOR $nc"
         done
     }
 fi
