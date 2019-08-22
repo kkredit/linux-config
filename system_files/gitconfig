@@ -14,6 +14,7 @@
     pl = pull
     pu = push
     cp = cherry-pick
+    rv = revert
     rb = rebase
     rbo = !git rebase origin/$(git rev-parse --abbrev-ref HEAD)
     s = show
