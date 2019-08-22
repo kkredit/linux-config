@@ -71,6 +71,14 @@ if [ -x /usr/bin/dircolors ]; then
     white='\[\e[1;37m\]'
     no_color='\[\e[0m\]'
     nc='\[\e[0m\]'
+
+    ALL_COLORS=(black red green yellow blue purple cyan light_grey dark_grey light_red light_green \
+                orange light_blue light_purple light_cyan white no_color nc)
+    function colors() {
+        for COLOR in "${ALL_COLORS[@]}"; do
+            echo -e "${!COLOR} $COLOR $nc"
+        done
+    }
 fi
 
 # source other files
