@@ -92,16 +92,25 @@ function screenkillall() {
 }
 
 function serial() {
-    BAUD=115200
-    if [[ $# > 0 ]]; then
-        BAUD=$1
-    fi
+    local BAUD=115200
+    local DEV_NUM=1
+    local OPTIND
+    while getopts "hb:n:" opt; do
+        case $opt in
+            h) echo "Usage: serial (-b BAUD_RATE) (-n DEVICE_NUM)"; return ;;
+            b) BAUD=$OPTARG ;;
+            n) DEV_NUM=$OPTARG; echo "Waiting for device $OPTARG" ;;
+        esac
+    done
+
     if [[ ! -d /run/screen ]]; then
         sudo mkdir -p /run/screen
         sudo chmod 777 /run/screen
     fi
 
-    TTYS="$(ls /dev/ttyUSB? 2> /dev/null) $(ls /dev/ttyS? 2> /dev/null)"
+    TTYS="$(ls /dev/ttyUSB? 2> /dev/null) \
+          $(ls /dev/ttyS* | perl -e 'print sort { length($a) <=> length($b) } <>')"
+    CURRENT_DEV_NUM=0
     for TTY in $TTYS; do
         if [[ 666 != $(stat -c %a $TTY) ]]; then
             sudo chmod 666 $TTY
@@ -109,9 +118,13 @@ function serial() {
         echo "Trying $TTY"
         stty -F $TTY &> /dev/null
         if [[ $? = 0 ]]; then
-            echo "Connecting to $TTY"
-            screen $TTY $BAUD
-            break
+            CURRENT_DEV_NUM=$((CURRENT_DEV_NUM + 1))
+            echo $TTY worked, current count is $CURRENT_DEV_NUM
+            if [[ $CURRENT_DEV_NUM == $DEV_NUM ]]; then
+                echo "Connecting to $TTY"
+                #screen $TTY $BAUD
+                break
+            fi
         fi
     done
 }
