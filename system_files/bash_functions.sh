@@ -31,7 +31,7 @@ function title() {
 }
 
 function highlight() {
-    grep --color=auto "$1\|$"
+    GREP_COLORS="mt=01;36" grep --color=auto -i "$1\|$"
 }
 alias hl=highlight
 
