@@ -34,6 +34,7 @@
     hist = log-compact --graph --decorate
     h = log-compact --graph --decorate
     re = log-compact --graph --decorate -8
+    today = log-compact --graph --decorate --since="4AM"
     tree = log-compact --all --graph --decorate
     t = log-compact --all --graph --decorate
     rt = log-compact --all --graph --decorate -8
