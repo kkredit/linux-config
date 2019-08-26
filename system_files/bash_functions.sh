@@ -237,3 +237,12 @@ function dts2dtb() {
     fi
     dtc -I dts -O dtb -o $2 $1
 }
+
+function md2pdf() {
+    if [[ 1 != $# ]] || [[ ! -f $1 ]]; then
+        echo "Usage: md2pdf PATH/TO/FILE.MD"
+        return 1
+    fi
+    PDF_NAME="${1%.*}.pdf"
+    pandoc -s -o $PDF_NAME $1
+}
