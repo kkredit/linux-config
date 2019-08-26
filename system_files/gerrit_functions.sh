@@ -117,6 +117,13 @@ function gerrit_setup() {
     git fetch gerrit
 }
 
+function gerrit_setup_repo() {
+    repo forall "\
+        PROJ=$(git remote show -n $(git remote show -n | head -1) | grep Fetch | \
+               rev | cut -d/ -f -2 | rev); \
+        gerrit_setup $PROJ"
+}
+
 function gerrit_teardown() {
     gerrit_rm_commit_hook
     git remote remove gerrit
