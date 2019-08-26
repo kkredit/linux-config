@@ -127,7 +127,7 @@ function serial() {
             echo $TTY worked, current count is $CURRENT_DEV_NUM
             if [[ $CURRENT_DEV_NUM == $DEV_NUM ]]; then
                 echo "Connecting to $TTY"
-                #screen $TTY $BAUD
+                screen $TTY $BAUD
                 break
             fi
         fi
