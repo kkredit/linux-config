@@ -30,6 +30,11 @@ function title() {
     echo -ne "\033]0;$1\007"
 }
 
+function highlight() {
+    grep --color=auto "$1\|$"
+}
+alias hl=highlight
+
 function rand_in_range() {
     if [[ 2 != $# ]]; then
         echo "Usage: rand_in_range FLOOR_INCLUSIVE CEILING_INCLUSIVE"
