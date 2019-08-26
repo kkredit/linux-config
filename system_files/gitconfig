@@ -87,12 +87,15 @@
 [alias]
     # functions
     url = "!f() { \
-                BR=\"origin\"; \
                 if [ $# -gt 0 ]; then \
-                    BR=\"$1\"; \
+                    REMOTES=\"$1\"; \
+                else \
+                    REMOTES=\"$(git remote show -n)\"; \
                 fi; \
-                echo $BR; \
-                git remote show -n $BR | grep URL; \
+                for REMOTE in $REMOTES; do \
+                    echo $REMOTE; \
+                    git remote show -n $REMOTE | grep URL; \
+                done \
             }; f"
 
     submodule-rm = "!f() { \
