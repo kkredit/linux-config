@@ -222,6 +222,27 @@ function mount-img() {
     echo "    sudo mount -o loop,offset=$OFFSET $IMAGE $MNTPT -t sysfs"
 }
 
+function tftpserve() {
+    TFTP_DIR=/tftpboot
+    TFTP_CONFIG_DIR=/var/lib/tftpboot
+
+    if [[ ! $(which tftp) ]]; then
+        sudo apt-get install tftpd-hpa
+        if [[ ! -L $TFTP_DIR ]]; then
+            sudo ln -s $TFTP_CONFIG_DIR $TFTP_DIR
+            sudo chown -R $USER /var/lib/tftpboot
+        fi
+        sudo sed -i 's/--secure/--secure --create/g' /etc/default/tftpd-hpa
+        sudo service tftpd-hpa restart
+    fi
+    if [[ ! $(service tftpd-hpa status | grep -i running) ]]; then
+        sudo service tftpd-hpa restart
+    fi
+    service tftpd-hpa status | head -n99 #without pipe, waits for input
+    echo
+    echo "Your TFTP dir: $TFTP_DIR"
+}
+
 function dtb2dts() {
     if [[ 2 != $# ]]; then
         echo "Usage: dtb2dts PATH/TO/DTB PATH/TO/DTS"
