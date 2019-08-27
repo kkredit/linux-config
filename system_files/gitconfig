@@ -56,7 +56,6 @@
     recover = "!git fsck --unreachable | grep commit | cut -d' ' -f3 | \
                 xargs git log --merges --no-walk --grep=WIP"
     clonemy = !git clone https://github.com/kkredit/$1
-    newpush = !git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)
 [core]
     editor = vim
     pager = diff-so-fancy | perl -pe 's/\t/»\\e[1D\t/g' | less --tabs=4 -RFX
@@ -87,6 +86,14 @@
     whitespace = red reverse
 [alias]
     # functions
+    newpush = "!f() { \
+                    REMOTE=origin; \
+                    if [[ $# == 1 ]]; then \
+                       REMOTE=$1; \
+                    fi; \
+                    git push --set-upstream $REMOTE $(git rev-parse --abbrev-ref HEAD); \
+                }; f"
+
     url = "!f() { \
                 if [ $# -gt 0 ]; then \
                     REMOTES=\"$1\"; \
