@@ -88,6 +88,11 @@
     whitespace = red reverse
 [alias]
     # functions
+    alias = "!f() { \
+                  git config --get-regexp alias | grep -i \"alias.$1 \" | \
+                      sed \"s/alias.$1 /$1 = /g\" | sed 's/;  /\\n /g'; \
+              }; f"
+
     newpush = "!f() { \
                     REMOTE=origin; \
                     if [[ $# == 1 ]]; then \
