@@ -248,7 +248,7 @@ function tftpserve() {
         sudo apt-get install tftpd-hpa
         if [[ ! -L $TFTP_DIR ]]; then
             sudo ln -s $TFTP_CONFIG_DIR $TFTP_DIR
-            sudo chown -R $USER /var/lib/tftpboot
+            sudo chown -R $USER $TFTP_CONFIG_DIR
         fi
         sudo sed -i 's/--secure/--secure --create/g' /etc/default/tftpd-hpa
         sudo service tftpd-hpa restart
