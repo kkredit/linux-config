@@ -14,6 +14,10 @@ function _git_url() {
     __gitcomp_direct "$(git remote show)"
 }
 
+function _git_newpush() {
+    __gitcomp_direct "$(git remote show)"
+}
+
 function _git_submodule_rm() {
     __gitcomp_direct "$(git config --file .gitmodules --get-regexp path | awk '{ print $2 }')"
 }
