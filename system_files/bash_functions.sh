@@ -245,14 +245,14 @@ function mount-img() {
 }
 
 function tftpserve() {
-    TFTP_DIR=/tftpboot
-    TFTP_CONFIG_DIR=/var/lib/tftpboot
-
     if [[ ! $(which tftp) ]]; then
+        TFTP_DIR=/tftpboot
+        TFTP_CONFIG_DIR=/var/lib/tftpboot
+
         sudo apt-get install tftpd-hpa
         if [[ ! -L $TFTP_DIR ]]; then
             sudo ln -s $TFTP_CONFIG_DIR $TFTP_DIR
-            sudo chown -R $USER $TFTP_CONFIG_DIR
+            sudo chown -R $USER:$USER $TFTP_CONFIG_DIR
         fi
         sudo sed -i 's/--secure/--secure --create/g' /etc/default/tftpd-hpa
         sudo service tftpd-hpa restart
@@ -261,6 +261,10 @@ function tftpserve() {
         sudo service tftpd-hpa restart
     fi
     service tftpd-hpa status | head -n99 #without pipe, waits for input
+    TFTP_DIR=$(cat /etc/default/tftpd-hpa | grep TFTP_DIRECTORY | cut -d\" -f2)
+    if [[ $(ls -l /tftpboot | grep $TFTP_DIR) ]]; then
+        TFTP_DIR="/tftpboot"
+    fi
     echo
     echo "Your TFTP dir: $TFTP_DIR"
 }
