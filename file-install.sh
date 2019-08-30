@@ -45,6 +45,9 @@ if [[ 1 == $DO_UPDATE ]]; then
     ./install.py > /dev/null
     popd > /dev/null
 fi
+if [[ ! -L ~/bin/graphene ]]; then
+    ln -s $(pwd)/submodules/graphene ~/bin/graphene
+fi
 
 # Other
 if [[ 1 == $DO_UPDATE ]]; then

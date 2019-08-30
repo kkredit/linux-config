@@ -35,4 +35,5 @@ alias sai='sudo apt-get install'
 alias o='xdg-open'
 alias nowhitespace=$'sed -i \'s/[[:space:]]*$//\''
 alias nws=nowhitespace
+alias ddg='graphene ddg'
 
