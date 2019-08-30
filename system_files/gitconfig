@@ -89,8 +89,9 @@
 [alias]
     # functions
     alias = "!f() { \
-                  git config --get-regexp alias | grep -i \"alias.$1 \" | \
-                      sed \"s/alias.$1 /$1 = /g\" | sed 's/;  /\\n /g'; \
+                  git config --get-regexp alias | grep -i "alias.$1 " | \
+                      sed \"s/alias.$1 /$1 = /g\" | sed -E 's/ ( ){4,}/\\n&/g' | \
+                      sed 's/;\\n/\\n/g'; \
               }; f"
 
     newpush = "!f() { \
