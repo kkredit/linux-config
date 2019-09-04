@@ -109,7 +109,8 @@
                     REMOTES=\"$(git remote show -n)\"; \
                 fi; \
                 CUR_BR=$(git rev-parse --abbrev-ref HEAD); \
-                CUR_REM=$(git branch -vv | grep -E \"? $CUR_BR\" | cut -d[ -f2 | cut -d/ -f1); \
+                CUR_REM=$(git branch -vv | grep -E \"? ${CUR_BR}\\s\" \
+                          | cut -d[ -f2 | cut -d/ -f1); \
                 for REMOTE in $REMOTES; do \
                     if [[ $CUR_REM == $REMOTE ]]; then \
                         echo -en \"\\e[1;32m${REMOTE}\\e[0m\"; \
