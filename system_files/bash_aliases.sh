@@ -36,4 +36,5 @@ alias o='xdg-open'
 alias nowhitespace=$'sed -i \'s/[[:space:]]*$//\''
 alias nws=nowhitespace
 alias ddg='graphene ddg'
+alias explorer='nautilus .'
 
