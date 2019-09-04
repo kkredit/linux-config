@@ -112,6 +112,10 @@ function serial() {
         esac
     done
 
+    if [[ ! $(groups | grep dialout) ]]; then
+        sudo usermod -a -G dialout $USER
+    fi
+
     if [[ ! -d /run/screen ]]; then
         sudo mkdir -p /run/screen
         sudo chmod 777 /run/screen
@@ -121,9 +125,6 @@ function serial() {
           $(ls /dev/ttyS* | perl -e 'print sort { length($a) <=> length($b) } <>')"
     CURRENT_DEV_NUM=0
     for TTY in $TTYS; do
-        if [[ 666 != $(stat -c %a $TTY) ]]; then
-            sudo chmod 666 $TTY
-        fi
         echo "Trying $TTY"
         stty -F $TTY &> /dev/null
         if [[ $? = 0 ]]; then
