@@ -104,7 +104,7 @@
 
     url = "!f() { \
                 if [ $# -gt 0 ]; then \
-                    REMOTES=\"$1\"; \
+                    REMOTES=\"$@\"; \
                 else \
                     REMOTES=\"$(git remote show -n)\"; \
                 fi; \
