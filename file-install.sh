@@ -3,7 +3,7 @@ source helper_scripts/source-all-helpers.sh
 
 # Plain files
 FILES_DIR=system_files
-WSL_DIR=wsl
+WSL_FILES_DIR=wsl/files
 
 install -m 644 $FILES_DIR/bashrc.sh ~/.bashrc
 install -m 644 $FILES_DIR/bash_aliases.sh ~/.bash_aliases
@@ -14,7 +14,7 @@ if [[ -e ~/.bash-git-prompt ]]; then
 fi
 ln -s $(pwd)/submodules/bash-git-prompt ~/.bash-git-prompt
 if [[ $(uname -a | grep -i microsoft) ]]; then
-    install -m 644 $WSL_DIR/bashrc_wsl.sh ~/.bashrc_wsl
+    install -m 644 $WSL_FILES_DIR/bashrc_wsl.sh ~/.bashrc_wsl
 fi
 install -m 644 $FILES_DIR/custom.bgptheme ~/.git-prompt-colors.sh
 install -m 644 $FILES_DIR/dircolors.sh ~/.dircolors
