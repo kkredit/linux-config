@@ -294,3 +294,7 @@ function md2pdf() {
     PDF_NAME="${1%.*}.pdf"
     pandoc -s -o $PDF_NAME $1
 }
+
+function winpath2wsl() {
+    echo $1 | sed 's,\\,/,g' | sed -E 's,([A-Z]):,/mnt/\L\1,g'
+}
