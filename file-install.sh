@@ -14,7 +14,7 @@ if [[ -e ~/.bash-git-prompt ]]; then
 fi
 ln -s $(pwd)/submodules/bash-git-prompt ~/.bash-git-prompt
 if [[ $(uname -a | grep -i microsoft) ]]; then
-    install -m 644 $WSL_DIR/wsl_bashrc.sh ~/.wsl_bashrc
+    install -m 644 $WSL_DIR/bashrc_wsl.sh ~/.bashrc_wsl
 fi
 install -m 644 $FILES_DIR/custom.bgptheme ~/.git-prompt-colors.sh
 install -m 644 $FILES_DIR/dircolors.sh ~/.dircolors

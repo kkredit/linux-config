@@ -90,7 +90,7 @@ sourceIfPresent ~/.bash_aliases
 sourceIfPresent ~/.bash_functions
 sourceIfPresent ~/.bash_prompt
 sourceIfPresent ~/.bashrc_local
-sourceIfPresent ~/.wsl_bashrc
+sourceIfPresent ~/.bashrc_wsl
 sourceIfPresent ~/.gerrit_functions.sh
 sourceIfPresent ~/.fzf.bash
 sourceIfPresent ~/.autojump/etc/profile.d/autojump.sh
