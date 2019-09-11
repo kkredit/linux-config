@@ -90,6 +90,7 @@ sourceIfPresent ~/.bash_aliases
 sourceIfPresent ~/.bash_functions
 sourceIfPresent ~/.bash_prompt
 sourceIfPresent ~/.bashrc_local
+sourceIfPresent ~/.wsl_bashrc
 sourceIfPresent ~/.gerrit_functions.sh
 sourceIfPresent ~/.fzf.bash
 sourceIfPresent ~/.autojump/etc/profile.d/autojump.sh
@@ -99,6 +100,9 @@ PATH=$PATH:~/bin:~/bin/graphene
 export VSLICKXNOPLUSNEWMSG=1
 # add support for ctrl+o to open selected file in vim
 export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(vim {})+abort'"
+if [[ $(uname -a | grep -i microsoft) ]]; then
+    WSL=1
+fi
 
 # print a quote or fortune, for fun
 if [[ $(which fortune) ]] && [[ $(type rand_in_range 2>/dev/null) ]]; then

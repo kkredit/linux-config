@@ -2,34 +2,24 @@
 # WSL only -- use "chocolatey" to install Windows programs
 
 # Setup
-WIN_USER=$(powershell.exe '$env:UserName' | sed 's/\r//g')
-WSL_DKTP="/mnt/c/Users/$WIN_USER/Desktop"
-WIN_DKTP="C:\\Users\\$WIN_USER\\Desktop"
-
 BAT_DIR=bat_scripts
 INST_CHOCO=win-install-choco.bat
 RUN_CHOCO=choco-install-packages.bat
 PACKAGES=packages.txt
 
-# Function that executes CMD in an elevated prompt
-function run_elevated() {
-    powershell.exe -Command "Start-Process -Wait cmd -ArgumentList \"/C $@\" -Verb RunAs"
-}
-
-# Copy files so CMD can easily see them
-echo "Copying necessary files to desktop..."
-unix2dos -n $BAT_DIR/$INST_CHOCO $WSL_DKTP/$INST_CHOCO &> /dev/null
-unix2dos -n $BAT_DIR/$RUN_CHOCO $WSL_DKTP/$RUN_CHOCO &> /dev/null
-unix2dos -n $PACKAGES $WSL_DKTP/$PACKAGES &> /dev/null
-
 # Install chocolatey
-echo "Installing chocolatey..."
-run_elevated "$WIN_DKTP\\$INST_CHOCO"
+run_bat_elevated $BAT_DIR/$INST_CHOCO
 
 # Install packages
 echo "Installing packages..."
-run_elevated "$WIN_DKTP\\$RUN_CHOCO"
+unix2dos -n $PACKAGES $WSL_DKTP/$PACKAGES &> /dev/null
+run_bat_elevated $BAT_DIR/$RUN_CHOCO
+rm $WSL_DKTP/$PACKAGES
+
+# Configure WSLtty (see https://github.com/mintty/wsltty)
+echo "Configuring WSLtty..."
+run_cmd "C:\\Users\\kevinkredit\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\WSLtty\\add default to context menu"
+unix2dos -n config_wsltty $(winpath2wsl $APPDATA)/wsltty/config &> /dev/null
 
 # Cleanup
-rm $WSL_DKTP/$INST_CHOCO $WSL_DKTP/$RUN_CHOCO $WSL_DKTP/$PACKAGES
 echo "Done!"

@@ -3,6 +3,7 @@ googlechrome
 firefox
 
 # Utilities
+wsltty
 enpass.install
 adobereader
 7zip.install

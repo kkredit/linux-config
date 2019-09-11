@@ -1,0 +1,14 @@
+# To use common configuration in %APPDATA%\mintty, simply remove this file
+Locale=en_US
+CtrlShiftShortcuts=yes
+Columns=112
+Rows=28
+Term=xterm-256color
+ThemeFile=xterm
+Transparency=low
+OpaqueWhenFocused=no
+CursorType=block
+Font=Ubuntu Mono
+FontHeight=12
+BellType=0
+BackgroundColour=22,22,22
