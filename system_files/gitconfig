@@ -138,7 +138,7 @@
                     SMNAME=$(echo $SM | cut -d. -f2); \
                     SMPATH=$(git config --file .gitmodules --get-regexp path | grep $SMNAME | \
                              awk '{ print $2 }'); \
-                    if [[ \"\" != \"$(git diff -- $SMPATH)\" ]]; then \
+                    if [ -n \"$(git diff -- $SMPATH)\" ]; then \
                         echo Bumping submodule $SMNAME at path $SMPATH; \
                         git add $SMPATH; \
                         git commit -m \"Bump submodule $SMNAME\"; \
