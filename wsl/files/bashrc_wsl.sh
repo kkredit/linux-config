@@ -6,7 +6,7 @@ WIN_DKTP="C:\\Users\\$WIN_USER\\Desktop"
 export WIN_USER WSL_DKTP WIN_DKTP
 
 function winpath2wsl() {
-    echo $1 | sed 's,\\,/,g' | sed -E 's,([A-Z]):,/mnt/\L\1,g'
+    echo $1 | sed 's,\\,/,g' | sed 's, ,\\ ,g' | sed -E 's,([A-Z]):,/mnt/\L\1,g'
 }
 
 function run_cmd() {
