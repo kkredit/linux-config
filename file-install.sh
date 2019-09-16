@@ -38,7 +38,7 @@ function INST_FILE() { install -m 644 $@; }
 function GET_FILE() { install -m 644 $@; }
 if [[ $(uname -a | grep -i microsoft) ]]; then
     VSC_CONF_DIR=$(winpath2wsl "$APPDATA\\VSCodium\\User")
-    RUN_VSC='run_cmd vscodium'
+    RUN_VSC='run_cmd codium'
     function INST_FILE() { unix2dos -n $1 $2 2>/dev/null; }
     function GET_FILE() { dos2unix -n $1 $2 2>/dev/null; chmod 644 $2; }
 fi
@@ -56,7 +56,7 @@ then
     $RUN_VSC --list-extensions > $FILES_DIR/VSCodium/extensions.txt
     echo "Local VSCodium extensions different than tracked. List updated here."
     echo "Determine desired list of extensions and run"
-    echo "    cat $FILES_DIR/VSCodium/extensions.txt | xargs -n 1 $RUN_VSC --install-extension"
+    echo "    cat $FILES_DIR/VSCodium/extensions.txt | xargs -n 1 codium --install-extension"
 fi
 
 # Submodules files
