@@ -14,7 +14,6 @@
     "files.exclude": {
         "*.un~": true
     },
-    "editor.lineNumbers": "interval",
     "editor.tabCompletion": "on",
     "editor.formatOnPaste": true,
     "editor.suggest.localityBonus": true,
