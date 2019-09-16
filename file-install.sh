@@ -26,9 +26,7 @@ install -m 644 $FILES_DIR/gitignore_global ~/.gitignore_global
 # WSL files
 if [[ $(uname -a | grep -i microsoft) ]]; then
     install -m 644 $WSL_FILES_DIR/bashrc_wsl.sh ~/.bashrc_wsl
-    unix2dos -n $FILES_DIR/gitconfig config 2>/dev/null
-    sed -i 's,~/.gitignore_global,C:/ProgramData/Git/gitignore_global,g' config
-    mv config $(winpath2wsl 'C:/ProgramData/Git/config')
+    unix2dos -n $FILES_DIR/gitconfig_windows $(winpath2wsl 'C:/ProgramData/Git/config') 2>/dev/null
     unix2dos -n $FILES_DIR/gitignore_global $(winpath2wsl 'C:/ProgramData/Git/gitignore_global') \
         2>/dev/null
 fi
