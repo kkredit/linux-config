@@ -13,9 +13,6 @@ if [[ -e ~/.bash-git-prompt ]]; then
     rm ~/.bash-git-prompt
 fi
 ln -s $(pwd)/submodules/bash-git-prompt ~/.bash-git-prompt
-if [[ $(uname -a | grep -i microsoft) ]]; then
-    install -m 644 $WSL_FILES_DIR/bashrc_wsl.sh ~/.bashrc_wsl
-fi
 install -m 644 $FILES_DIR/custom.bgptheme ~/.git-prompt-colors.sh
 install -m 644 $FILES_DIR/dircolors.sh ~/.dircolors
 install -m 644 $FILES_DIR/vimrc ~/.vimrc
@@ -25,6 +22,16 @@ install -m 644 $FILES_DIR/tmux.conf ~/.tmux.conf
 install -m 644 $FILES_DIR/gerrit_functions.sh ~/.gerrit_functions.sh
 install -m 644 $FILES_DIR/gitconfig ~/.gitconfig
 install -m 644 $FILES_DIR/gitignore_global ~/.gitignore_global
+
+# WSL files
+if [[ $(uname -a | grep -i microsoft) ]]; then
+    install -m 644 $WSL_FILES_DIR/bashrc_wsl.sh ~/.bashrc_wsl
+    unix2dos -n $FILES_DIR/gitconfig config 2>/dev/null
+    sed -i 's,~/.gitignore_global,C:/ProgramData/Git/gitignore_global,g' config
+    mv config $(winpath2wsl 'C:/ProgramData/Git/config')
+    unix2dos -n $FILES_DIR/gitignore_global $(winpath2wsl 'C:/ProgramData/Git/gitignore_global') \
+        2>/dev/null
+fi
 
 # Submodules files
 DO_UPDATE=0
