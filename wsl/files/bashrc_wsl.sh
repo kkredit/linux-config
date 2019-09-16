@@ -10,10 +10,14 @@ function winpath2wsl() {
 }
 
 function run_cmd() {
+    cmd.exe /C $@
+}
+
+function run_ps() {
     powershell.exe -Command "Start-Process -Wait cmd -ArgumentList \"/C $@\""
 }
 
-function run_cmd_elevated() {
+function run_ps_elevated() {
     powershell.exe -Command "Start-Process -Wait cmd -ArgumentList \"/C $@\" -Verb RunAs"
 }
 
@@ -28,7 +32,7 @@ function run_bat() {
     FILENAME=$(basename $FILE)
 
     unix2dos -n $FILE $WSL_DKTP/$FILENAME &> /dev/null
-    run_cmd "$WIN_DKTP\\$FILENAME"
+    run_ps "$WIN_DKTP\\$FILENAME"
     rm $WSL_DKTP/$FILENAME
 }
 
@@ -43,7 +47,7 @@ function run_bat_elevated() {
     FILENAME=$(basename $FILE)
 
     unix2dos -n $FILE $WSL_DKTP/$FILENAME &> /dev/null
-    run_cmd_elevated "$WIN_DKTP\\$FILENAME"
+    run_ps_elevated "$WIN_DKTP\\$FILENAME"
     rm $WSL_DKTP/$FILENAME
 }
 
@@ -51,4 +55,4 @@ function choco() {
     powershell.exe -Command "Start-Process cmd -ArgumentList \"/C choco $@\" -Verb RunAs"
 }
 
-export -f winpath2wsl run_cmd run_cmd_elevated run_bat run_bat_elevated choco
+export -f winpath2wsl run_cmd run_ps run_ps_elevated run_bat run_bat_elevated choco

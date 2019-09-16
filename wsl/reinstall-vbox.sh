@@ -10,7 +10,7 @@ chmod 600 ~/.wget-hsts
 wget -O $WSL_DKTP/$VBOX_INSTALLER $VBOX_DOWNLOAD_URL
 
 # Run installer
-run_cmd_elevated "$WIN_DKTP\\$VBOX_INSTALLER"
+run_ps_elevated "$WIN_DKTP\\$VBOX_INSTALLER"
 
 # Cleanup
 rm $WSL_DKTP/$VBOX_INSTALLER
