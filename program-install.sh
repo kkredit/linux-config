@@ -30,6 +30,7 @@ sudo-pkg-mgr install -y \
 
 if has_arg "dev"; then
     sudo-pkg-mgr install -y \
+        vscodium \
         gcc \
         g++ \
         make \
