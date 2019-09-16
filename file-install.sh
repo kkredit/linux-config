@@ -32,8 +32,8 @@ if [[ $(uname -a | grep -i microsoft) ]]; then
 fi
 
 # VSCodium
-VSC_CONF_DIR=~/.config/Code/User
-RUN_VSC=vscodium
+VSC_CONF_DIR=~/.config/VSCodium/User
+RUN_VSC=codium
 function INST_FILE() { install -m 644 $@; }
 function GET_FILE() { install -m 644 $@; }
 if [[ $(uname -a | grep -i microsoft) ]]; then
@@ -56,7 +56,7 @@ then
     $RUN_VSC --list-extensions > $FILES_DIR/VSCodium/extensions.txt
     echo "Local VSCodium extensions different than tracked. List updated here."
     echo "Determine desired list of extensions and run"
-    echo "    cat $FILES_DIR/VSCodium/extensions.txt | xargs -n 1 vscodium --install-extension"
+    echo "    cat $FILES_DIR/VSCodium/extensions.txt | xargs -n 1 $RUN_VSC --install-extension"
 fi
 
 # Submodules files

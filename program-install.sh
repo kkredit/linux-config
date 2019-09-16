@@ -30,11 +30,18 @@ sudo-pkg-mgr install -y \
 
 if has_arg "dev"; then
     sudo-pkg-mgr install -y \
-        vscodium \
         gcc \
         g++ \
         make \
         lcov
+fi
+
+if has_arg "vscodium"; then
+    wget -qO - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg | \
+        sudo apt-key add -
+    echo 'deb https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/repos/debs/ vscodium main' |\
+        sudo tee --append /etc/apt/sources.list.d/vscodium.list
+    sudo-pkg-mgr update && sudo-pkg-mgr install codium
 fi
 
 if has_arg "git"; then
