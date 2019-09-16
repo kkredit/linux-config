@@ -1,0 +1,27 @@
+{
+    "cSpell.userWords": [
+        "camkes",
+        "dorner",
+        "mkdir",
+        "qemu",
+        "repo",
+        "works",
+        "zynq"
+    ],
+    "workbench.colorTheme": "Solarized Light",
+    "editor.wordWrap": "bounded",
+    "editor.wordWrapColumn": 100,
+    "files.exclude": {
+        "*.un~": true
+    },
+    "editor.lineNumbers": "interval",
+    "editor.tabCompletion": "on",
+    "editor.formatOnPaste": true,
+    "editor.suggest.localityBonus": true,
+    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\wsl.exe",
+    "editor.minimap.maxColumn": 100,
+    "editor.minimap.renderCharacters": false,
+    "window.newWindowDimensions": "inherit",
+    "scm.diffDecorationsGutterWidth": 2,
+    "terminal.external.linuxExec": "xterm-256color"
+}
