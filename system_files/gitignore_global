@@ -4,6 +4,7 @@
 
 # dirs
 /workspace/
+/.vscode/
 
 # vim
 *.un~
