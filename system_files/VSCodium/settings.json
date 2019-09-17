@@ -18,6 +18,7 @@
     "editor.formatOnPaste": true,
     "editor.suggest.localityBonus": true,
     "terminal.integrated.shell.windows": "C:\\Windows\\System32\\wsl.exe",
+    "git.path": "C:\\wsl\\bin\\wslgit.exe",
     "editor.minimap.maxColumn": 100,
     "editor.minimap.renderCharacters": false,
     "window.newWindowDimensions": "inherit",

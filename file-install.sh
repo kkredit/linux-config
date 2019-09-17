@@ -42,7 +42,7 @@ if [[ $(uname -a | grep -i microsoft) ]]; then
     function INST_FILE() { unix2dos -n $1 $2 2>/dev/null; }
     function GET_FILE() { dos2unix -n $1 $2 2>/dev/null; chmod 644 $2; }
 fi
-if [[ ! -d $VSC_CONF_DIR/settings.json ]] ||
+if [[ ! -f $VSC_CONF_DIR/settings.json ]] ||
    [[ $(stat -c %Y $VSC_CONF_DIR/settings.json) < \
       $(git log -1 --pretty=format:'%ct' -- system_files/VSCodium/settings.json) ]]
 then
@@ -99,4 +99,11 @@ if [[ 1 == $DO_UPDATE ]]; then
     tar -xf bat*linux-gnu.tar.gz
     cp -r bat*linux-gnu/bat bat*linux-gnu/bat.1 bat*linux-gnu/autocomplete ~/bin/
     rm -rf bat*linux-gnu*
+
+    # WSLgit (https://github.com/andy-5/wslgit)
+    URL="https://github.com$(curl -s https://github.com/andy-5/wslgit/releases | \
+            grep "releases/download/*.*.*/wslgit.exe" | head -1 | cut -d\" -f2)"
+    wget -q $URL
+    mkdir -p $(winpath2wsl "C:/wsl/bin")
+    mv wslgit.exe $(winpath2wsl "C:/wsl/bin")/
 fi
