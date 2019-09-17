@@ -2,10 +2,10 @@
     "cSpell.userWords": [
         "camkes",
         "dorner",
+        "kredit",
         "mkdir",
         "qemu",
         "repo",
-        "works",
         "zynq"
     ],
     "workbench.colorTheme": "Solarized Light",
@@ -22,5 +22,15 @@
     "editor.minimap.renderCharacters": false,
     "window.newWindowDimensions": "inherit",
     "scm.diffDecorationsGutterWidth": 2,
-    "terminal.external.linuxExec": "xterm-256color"
+    "terminal.external.linuxExec": "xterm-256color",
+    "editor.rulers": [
+        80,
+        120
+    ],
+    "[python]": {
+        "editor.rulers": [
+            79,
+            120
+        ]
+    }
 }
