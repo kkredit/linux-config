@@ -55,4 +55,16 @@ function choco() {
     powershell.exe -Command "Start-Process cmd -ArgumentList \"/C choco $@\" -Verb RunAs"
 }
 
-export -f winpath2wsl run_cmd run_ps run_ps_elevated run_bat run_bat_elevated choco
+function wincp_headers() {
+    BASE=$(winpath2wsl 'C:\wsl')
+    if [ ! -d $BASE ]; then
+        echo "Create dir '$BASE' first"
+        return 1
+    fi
+    mkdir -p $BASE/usr
+    mkdir -p $BASE/usr/local
+    cp -r /usr/include $BASE/usr
+    cp -r /usr/local/include $BASE/usr/local
+}
+
+export -f winpath2wsl run_cmd run_ps run_ps_elevated run_bat run_bat_elevated choco wincp_headers
