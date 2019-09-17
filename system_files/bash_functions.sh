@@ -30,6 +30,17 @@ function _git_brun() {
 }
 
 # normal functions
+function vscode_proj_init_c() {
+    mkdir -p .vscode
+    BASE_PATH=~/git/linux-config/system_files/VSCodium
+    if [[ "1" == "$WSL" ]]; then
+        dos2unix -n $BASE_PATH/c_cpp_properties_win.json .vscode/c_cpp_properties.json
+    else
+        cp ~/git/linux-config/system_files/VSCodium/c_cpp_properties_linux.json \
+          .vscode/c_cpp_properties.json
+    fi
+}
+
 function title() {
     echo -ne "\033]0;$1\007"
 }
