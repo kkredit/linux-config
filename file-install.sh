@@ -31,36 +31,6 @@ if [[ $(uname -a | grep -i microsoft) ]]; then
         2>/dev/null
 fi
 
-# VSCodium
-VSC_CONF_DIR=~/.config/VSCodium/User
-RUN_VSC=codium
-function INST_FILE() { install -m 644 $@; }
-function GET_FILE() { install -m 644 $@; }
-if [[ $(uname -a | grep -i microsoft) ]]; then
-    VSC_CONF_DIR=$(winpath2wsl "$APPDATA\\VSCodium\\User")
-    RUN_VSC='run_cmd codium'
-    function INST_FILE() { unix2dos -n $1 $2 2>/dev/null; }
-    function GET_FILE() { dos2unix -n $1 $2 2>/dev/null; chmod 644 $2; }
-fi
-if [[ ! -f $VSC_CONF_DIR/settings.json ]] ||
-   [[ $(stat -c %Y $VSC_CONF_DIR/settings.json) < \
-      $(git log -1 --pretty=format:'%ct' -- system_files/VSCodium/settings.json) ]]
-then
-    mkdir -p $VSC_CONF_DIR
-    INST_FILE $FILES_DIR/VSCodium/settings.json $VSC_CONF_DIR/settings.json
-else
-    GET_FILE $VSC_CONF_DIR/settings.json $FILES_DIR/VSCodium/settings.json
-    echo "Local VSCodium settings newer than tracked. Settings copied here."
-fi
-if [[ "$($RUN_VSC --list-extensions | sed 's/\r//g')" != \
-      "$(cat $FILES_DIR/VSCodium/extensions.txt)" ]]
-then
-    $RUN_VSC --list-extensions > $FILES_DIR/VSCodium/extensions.txt
-    echo "Local VSCodium extensions different than tracked. List updated here."
-    echo "Determine desired list of extensions and run"
-    echo "    cat $FILES_DIR/VSCodium/extensions.txt | xargs -n 1 codium --install-extension"
-fi
-
 # Submodules files
 DO_UPDATE=0
 if [[ 0 == $(find submodules/ -type f | wc -l) ]]; then
@@ -107,5 +77,37 @@ if [[ 1 == $DO_UPDATE ]]; then
         wget -q $URL
         mkdir -p $(winpath2wsl "C:/wsl/bin")
         mv wslgit.exe $(winpath2wsl "C:/wsl/bin")/
+    fi
+
+    # VSCodium
+    if [[ $(which codium) ]]; then
+        VSC_CONF_DIR=~/.config/VSCodium/User
+        RUN_VSC=codium
+        function INST_FILE() { install -m 644 $@; }
+        function GET_FILE() { install -m 644 $@; }
+        if [[ $(uname -a | grep -i microsoft) ]]; then
+            VSC_CONF_DIR=$(winpath2wsl "$APPDATA\\VSCodium\\User")
+            RUN_VSC='run_cmd codium'
+            function INST_FILE() { unix2dos -n $1 $2 2>/dev/null; }
+            function GET_FILE() { dos2unix -n $1 $2 2>/dev/null; chmod 644 $2; }
+        fi
+        if [[ ! -f $VSC_CONF_DIR/settings.json ]] ||
+           [[ $(stat -c %Y $VSC_CONF_DIR/settings.json) < \
+              $(git log -1 --pretty=format:'%ct' -- system_files/VSCodium/settings.json) ]]
+        then
+            mkdir -p $VSC_CONF_DIR
+            INST_FILE $FILES_DIR/VSCodium/settings.json $VSC_CONF_DIR/settings.json
+        else
+            GET_FILE $VSC_CONF_DIR/settings.json $FILES_DIR/VSCodium/settings.json
+            echo "Local VSCodium settings newer than tracked. Settings copied here."
+        fi
+        if [[ "$($RUN_VSC --list-extensions | sed 's/\r//g')" != \
+              "$(cat $FILES_DIR/VSCodium/extensions.txt)" ]]
+        then
+            $RUN_VSC --list-extensions > $FILES_DIR/VSCodium/extensions.txt
+            echo "Local VSCodium extensions different than tracked. List updated here."
+            echo "Determine desired list of extensions and run"
+            echo "    cat $FILES_DIR/VSCodium/extensions.txt | xargs -n 1 codium --install-extension"
+        fi
     fi
 fi
