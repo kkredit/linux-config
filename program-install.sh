@@ -42,6 +42,8 @@ if has_arg "vscodium"; then
     echo 'deb https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/repos/debs/ vscodium main' |\
         sudo tee --append /etc/apt/sources.list.d/vscodium.list
     sudo-pkg-mgr update && sudo-pkg-mgr install codium
+    FILES_DIR=system_files
+    cat $FILES_DIR/VSCodium/extensions.txt | xargs -n 1 codium --install-extension
 fi
 
 if has_arg "git"; then
