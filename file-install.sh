@@ -42,13 +42,15 @@ if [[ $(uname -a | grep -i microsoft) ]]; then
     function INST_FILE() { unix2dos -n $1 $2 2>/dev/null; }
     function GET_FILE() { dos2unix -n $1 $2 2>/dev/null; chmod 644 $2; }
 fi
-if [[ $(stat -c %Y $VSC_CONF_DIR/settings.json) > \
+if [[ ! -d $VSC_CONF_DIR/settings.json ]] ||
+   [[ $(stat -c %Y $VSC_CONF_DIR/settings.json) < \
       $(git log -1 --pretty=format:'%ct' -- system_files/VSCodium/settings.json) ]]
 then
+    mkdir -p $VSC_CONF_DIR
+    INST_FILE $FILES_DIR/VSCodium/settings.json $VSC_CONF_DIR/settings.json
+else
     GET_FILE $VSC_CONF_DIR/settings.json $FILES_DIR/VSCodium/settings.json
     echo "Local VSCodium settings newer than tracked. Settings copied here."
-else
-    INST_FILE $FILES_DIR/VSCodium/settings.json $VSC_CONF_DIR/settings.json
 fi
 if [[ "$($RUN_VSC --list-extensions | sed 's/\r//g')" != \
       "$(cat $FILES_DIR/VSCodium/extensions.txt)" ]]
