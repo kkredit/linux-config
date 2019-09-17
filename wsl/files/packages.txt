@@ -12,12 +12,12 @@ windirstat
 autohotkey.portable
 sharpkeys
 win32diskimager
+drawio
 
 # Editors
 notepadplusplus
 hexedit
 winmerge
-atom
 vscodium
 
 # Dev tools
