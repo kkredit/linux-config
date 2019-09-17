@@ -101,9 +101,11 @@ if [[ 1 == $DO_UPDATE ]]; then
     rm -rf bat*linux-gnu*
 
     # WSLgit (https://github.com/andy-5/wslgit)
-    URL="https://github.com$(curl -s https://github.com/andy-5/wslgit/releases | \
-            grep "releases/download/*.*.*/wslgit.exe" | head -1 | cut -d\" -f2)"
-    wget -q $URL
-    mkdir -p $(winpath2wsl "C:/wsl/bin")
-    mv wslgit.exe $(winpath2wsl "C:/wsl/bin")/
+    if [[ "1" == "$WSL" ]]; then
+        URL="https://github.com$(curl -s https://github.com/andy-5/wslgit/releases | \
+                grep "releases/download/*.*.*/wslgit.exe" | head -1 | cut -d\" -f2)"
+        wget -q $URL
+        mkdir -p $(winpath2wsl "C:/wsl/bin")
+        mv wslgit.exe $(winpath2wsl "C:/wsl/bin")/
+    fi
 fi
