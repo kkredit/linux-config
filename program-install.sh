@@ -33,7 +33,8 @@ if has_arg "dev"; then
         gcc \
         g++ \
         make \
-        lcov
+        lcov \
+        libc6-dev-i386
 fi
 
 if has_arg "vscodium"; then
