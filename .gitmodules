@@ -25,3 +25,8 @@
 [submodule "submodules/graphene"]
 	path = submodules/graphene
 	url = https://github.com/kkredit/Graphene
+	shallow = true
+[submodule "submodules/vscode-simple-vim"]
+	path = submodules/vscode-simple-vim
+	url = https://github.com/kkredit/vscode-simple-vim
+	shallow = true
