@@ -91,16 +91,18 @@ if [[ 1 == $DO_UPDATE ]]; then
             function INST_FILE() { unix2dos -n $1 $2 2>/dev/null; }
             function GET_FILE() { dos2unix -n $1 $2 2>/dev/null; chmod 644 $2; }
         fi
-        if [[ ! -f $VSC_CONF_DIR/settings.json ]] ||
-           [[ $(stat -c %Y $VSC_CONF_DIR/settings.json) < \
-              $(git log -1 --pretty=format:'%ct' -- system_files/VSCodium/settings.json) ]]
-        then
-            mkdir -p $VSC_CONF_DIR
-            INST_FILE $FILES_DIR/VSCodium/settings.json $VSC_CONF_DIR/settings.json
-        else
-            GET_FILE $VSC_CONF_DIR/settings.json $FILES_DIR/VSCodium/settings.json
-            echo "Local VSCodium settings newer than tracked. Settings copied here."
-        fi
+        for FILE in keybindings.json settings.json; do
+            if [[ ! -f $VSC_CONF_DIR/$FILE ]] ||
+               [[ $(stat -c %Y $VSC_CONF_DIR/$FILE) < \
+                  $(git log -1 --pretty=format:'%ct' -- system_files/VSCodium/$FILE) ]]
+            then
+                mkdir -p $VSC_CONF_DIR
+                INST_FILE $FILES_DIR/VSCodium/$FILE $VSC_CONF_DIR/$FILE
+            else
+                GET_FILE $VSC_CONF_DIR/$FILE $FILES_DIR/VSCodium/$FILE
+                echo "Local VSCodium $FILE settings newer than tracked. Settings copied here."
+            fi
+        done
         if [[ "$($RUN_VSC --list-extensions | sed 's/\r//g')" != \
               "$(cat $FILES_DIR/VSCodium/extensions.txt)" ]]
         then
