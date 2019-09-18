@@ -5,10 +5,6 @@ WSL_DKTP="/mnt/c/Users/$WIN_USER/Desktop"
 WIN_DKTP="C:\\Users\\$WIN_USER\\Desktop"
 export WIN_USER WSL_DKTP WIN_DKTP
 
-function winpath2wsl() {
-    echo $1 | sed 's,\\,/,g' | sed 's, ,\\ ,g' | sed -E 's,([A-Z]):,/mnt/\L\1,g'
-}
-
 function run_cmd() {
     cmd.exe /C $@
 }
@@ -56,7 +52,7 @@ function choco() {
 }
 
 function wincp_headers() {
-    BASE=$(winpath2wsl 'C:\wsl')
+    BASE=$(wslpath 'C:\wsl')
     if [ ! -d $BASE ]; then
         echo "Create dir '$BASE' first"
         return 1
@@ -67,4 +63,4 @@ function wincp_headers() {
     cp -r /usr/local/include $BASE/usr/local
 }
 
-export -f winpath2wsl run_cmd run_ps run_ps_elevated run_bat run_bat_elevated choco wincp_headers
+export -f run_cmd run_ps run_ps_elevated run_bat run_bat_elevated choco wincp_headers

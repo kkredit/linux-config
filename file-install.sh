@@ -27,8 +27,8 @@ install -m 644 $FILES_DIR/gitignore_global ~/.gitignore_global
 if [[ $(uname -a | grep -i microsoft) ]]; then
     WSL=1
     install -m 644 $WSL_FILES_DIR/bashrc_wsl.sh ~/.bashrc_wsl
-    unix2dos -n $FILES_DIR/gitconfig_windows $(winpath2wsl 'C:/ProgramData/Git/config') 2>/dev/null
-    unix2dos -n $FILES_DIR/gitignore_global $(winpath2wsl 'C:/ProgramData/Git/gitignore_global') \
+    unix2dos -n $FILES_DIR/gitconfig_windows $(wslpath 'C:/ProgramData/Git/config') 2>/dev/null
+    unix2dos -n $FILES_DIR/gitignore_global $(wslpath 'C:/ProgramData/Git/gitignore_global') \
         2>/dev/null
 fi
 
@@ -76,8 +76,8 @@ if [[ 1 == $DO_UPDATE ]]; then
         URL="https://github.com$(curl -s https://github.com/andy-5/wslgit/releases | \
                 grep "releases/download/*.*.*/wslgit.exe" | head -1 | cut -d\" -f2)"
         wget -q $URL
-        mkdir -p $(winpath2wsl "C:/wsl/bin")
-        mv wslgit.exe $(winpath2wsl "C:/wsl/bin")/
+        mkdir -p $(wslpath "C:/wsl/bin")
+        mv wslgit.exe $(wslpath "C:/wsl/bin")/
     fi
 
     # VSCodium
@@ -87,7 +87,7 @@ if [[ 1 == $DO_UPDATE ]]; then
         function INST_FILE() { install -m 644 $@; }
         function GET_FILE() { install -m 644 $@; }
         if [[ "1" == "$WSL" ]]; then
-            VSC_CONF_DIR=$(winpath2wsl "$APPDATA\\VSCodium\\User")
+            VSC_CONF_DIR=$(wslpath "$APPDATA\\VSCodium\\User")
             RUN_VSC='run_cmd codium'
             function INST_FILE() { unix2dos -n $1 $2 2>/dev/null; }
             function GET_FILE() { dos2unix -n $1 $2 2>/dev/null; chmod 644 $2; }
