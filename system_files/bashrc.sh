@@ -106,7 +106,7 @@ fi
 
 # print a quote or fortune, for fun
 if [[ $(which fortune) ]] && [[ $(type rand_in_range 2>/dev/null) ]]; then
-    PROB_ONE_IN=4
+    PROB_ONE_IN=10
     if [[ "1" == $(rand_in_range 1 $PROB_ONE_IN) ]]; then
         fortune literature
     fi
