@@ -12,7 +12,7 @@
     "editor.wordWrap": "on",
     "editor.wordWrapColumn": 100,
     "files.exclude": {
-        "*.un~": true
+        "**/*.un~": true
     },
     "editor.tabCompletion": "on",
     "editor.formatOnPaste": true,
@@ -34,5 +34,6 @@
             120
         ]
     },
-    "simpleVim.normalModeCursorStyle": "block"
+    "simpleVim.normalModeCursorStyle": "block",
+    "search.useGlobalIgnoreFiles": true
 }
