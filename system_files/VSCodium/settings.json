@@ -9,7 +9,7 @@
         "zynq"
     ],
     "workbench.colorTheme": "Solarized Light",
-    "editor.wordWrap": "bounded",
+    "editor.wordWrap": "on",
     "editor.wordWrapColumn": 100,
     "files.exclude": {
         "*.un~": true
@@ -33,5 +33,6 @@
             79,
             120
         ]
-    }
+    },
+    "simpleVim.normalModeCursorStyle": "block"
 }
