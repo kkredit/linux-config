@@ -25,6 +25,7 @@ install -m 644 $FILES_DIR/gitignore_global ~/.gitignore_global
 
 # WSL files
 if [[ $(uname -a | grep -i microsoft) ]]; then
+    WSL=1
     install -m 644 $WSL_FILES_DIR/bashrc_wsl.sh ~/.bashrc_wsl
     unix2dos -n $FILES_DIR/gitconfig_windows $(winpath2wsl 'C:/ProgramData/Git/config') 2>/dev/null
     unix2dos -n $FILES_DIR/gitignore_global $(winpath2wsl 'C:/ProgramData/Git/gitignore_global') \
@@ -85,7 +86,7 @@ if [[ 1 == $DO_UPDATE ]]; then
         RUN_VSC=codium
         function INST_FILE() { install -m 644 $@; }
         function GET_FILE() { install -m 644 $@; }
-        if [[ $(uname -a | grep -i microsoft) ]]; then
+        if [[ "1" == "$WSL" ]]; then
             VSC_CONF_DIR=$(winpath2wsl "$APPDATA\\VSCodium\\User")
             RUN_VSC='run_cmd codium'
             function INST_FILE() { unix2dos -n $1 $2 2>/dev/null; }
@@ -106,7 +107,6 @@ if [[ 1 == $DO_UPDATE ]]; then
                 fi
             fi
         done
-        set -x
         if [[ "$($RUN_VSC --list-extensions | grep -v simple-vim | sed 's/\r//g')" != \
               "$(cat $FILES_DIR/VSCodium/extensions.txt)" ]]
         then
@@ -116,11 +116,15 @@ if [[ 1 == $DO_UPDATE ]]; then
             echo "Determine desired list of extensions and run"
             echo "    cat $FILES_DIR/VSCodium/extensions.txt | xargs -n 1 codium --install-extension"
         fi
-        set +x
         URL="https://github.com$(curl -s https://github.com/kkredit/vscode-simple-vim/releases | \
                 grep simple-vim-*.*.*.vsix | grep href | cut -d\" -f2)"
         wget -q $URL
-        codium --install-extension simple-vim-?.?.?.vsix >/dev/null
-        rm simple-vim-?.?.?.vsix
+        mv simple-vim-?.?.?.vsix $VSC_CONF_DIR/
+        if [[ "1" == "$WSL" ]]; then
+            $RUN_VSC --install-extension $(wslpath -w $VSC_CONF_DIR/simple-vim-?.?.?.vsix) >/dev/null
+        else
+            $RUN_VSC --install-extension $VSC_CONF_DIR/simple-vim-?.?.?.vsix >/dev/null
+        fi
+        rm $VSC_CONF_DIR/simple-vim-?.?.?.vsix
     fi
 fi
