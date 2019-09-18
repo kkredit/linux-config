@@ -2,4 +2,5 @@ DavidAnson.vscode-markdownlint
 ms-vscode-remote.remote-wsl
 ms-vscode.cpptools
 streetsidesoftware.code-spell-checker
+ybaumes.highlight-trailing-white-spaces
 yzhang.markdown-all-in-one
