@@ -106,13 +106,21 @@ if [[ 1 == $DO_UPDATE ]]; then
                 fi
             fi
         done
-        if [[ "$($RUN_VSC --list-extensions | sed 's/\r//g')" != \
+        set -x
+        if [[ "$($RUN_VSC --list-extensions | grep -v simple-vim | sed 's/\r//g')" != \
               "$(cat $FILES_DIR/VSCodium/extensions.txt)" ]]
         then
-            $RUN_VSC --list-extensions > $FILES_DIR/VSCodium/extensions.txt
+            $RUN_VSC --list-extensions | grep -v simple-vim | sed 's/\r//g' > \
+                $FILES_DIR/VSCodium/extensions.txt
             echo "Local VSCodium extensions different than tracked. List updated here."
             echo "Determine desired list of extensions and run"
             echo "    cat $FILES_DIR/VSCodium/extensions.txt | xargs -n 1 codium --install-extension"
         fi
+        set +x
+        URL="https://github.com$(curl -s https://github.com/kkredit/vscode-simple-vim/releases | \
+                grep simple-vim-*.*.*.vsix | grep href | cut -d\" -f2)"
+        wget -q $URL
+        codium --install-extension simple-vim-?.?.?.vsix >/dev/null
+        rm simple-vim-?.?.?.vsix
     fi
 fi

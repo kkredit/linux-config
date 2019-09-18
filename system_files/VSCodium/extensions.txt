@@ -1,5 +1,4 @@
 DavidAnson.vscode-markdownlint
-jpotterm.simple-vim
 ms-vscode-remote.remote-wsl
 ms-vscode.cpptools
 streetsidesoftware.code-spell-checker
