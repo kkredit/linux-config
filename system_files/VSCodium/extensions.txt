@@ -1,5 +1,6 @@
 DavidAnson.vscode-markdownlint
 ms-vscode.cpptools
+rsbondi.highlight-words
 streetsidesoftware.code-spell-checker
 vscode-icons-team.vscode-icons
 ybaumes.highlight-trailing-white-spaces

@@ -55,5 +55,33 @@
     {
         "key": "ctrl+shift+-",
         "command": "-workbench.action.navigateForward"
+    },
+    {
+        "key": "ctrl+]",
+        "command": "-editor.action.indentLines",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+]",
+        "command": "-markdown.extension.onIndentLines",
+        "when": "editorTextFocus && !suggestWidgetVisible && editorLangId == 'markdown'"
+    },
+    {
+        "key": "ctrl+[",
+        "command": "-editor.action.outdentLines",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+[",
+        "command": "-markdown.extension.onOutdentLines",
+        "when": "editorTextFocus && !suggestWidgetVisible && editorLangId == 'markdown'"
+    },
+    {
+        "key": "ctrl+[",
+        "command": "highlightwords.removeAllHighlights"
+    },
+    {
+        "key": "ctrl+]",
+        "command": "highlightwords.addHighlight"
     }
 ]
