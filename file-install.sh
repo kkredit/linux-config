@@ -96,7 +96,9 @@ if [[ 1 == $DO_UPDATE ]]; then
         for FILE in keybindings.json settings.json; do
             if [[ ! -f $VSC_CONF_DIR/$FILE ]]; then
                 INST_FILE $FILES_DIR/VSCodium/$FILE $VSC_CONF_DIR/$FILE
-            elif [[ "" != "$(diff $VSC_CONF_DIR/$FILE system_files/VSCodium/$FILE)" ]]; then
+            elif [[ "" != "$(diff --strip-trailing-cr $VSC_CONF_DIR/$FILE \
+                                                      $FILES_DIR/VSCodium/$FILE)" ]]
+            then
                 if [[ $(stat -c %Y $VSC_CONF_DIR/$FILE) < \
                       $(git log -1 --pretty=format:'%ct' -- system_files/VSCodium/$FILE) ]]
                 then
