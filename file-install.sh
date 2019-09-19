@@ -116,7 +116,8 @@ if [[ 1 == $DO_UPDATE ]]; then
                 $FILES_DIR/VSCodium/extensions.txt
             echo "Local VSCodium extensions different than tracked. List updated here."
             echo "Determine desired list of extensions and run"
-            echo "    cat $FILES_DIR/VSCodium/extensions.txt | xargs -n 1 codium --install-extension"
+            echo "    cat system_files/VSCodium/extensions.txt | "
+            echo "        xargs -n 1 -I {} bash -c \"$RUN_VSC --install-extension \\\$1\" _ {}"
         fi
         URL="https://github.com$(curl -s https://github.com/kkredit/vscode-simple-vim/releases | \
                 grep simple-vim-*.*.*.vsix | grep href | cut -d\" -f2)"
