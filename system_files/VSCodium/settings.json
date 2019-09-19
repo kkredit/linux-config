@@ -8,7 +8,6 @@
         "repo",
         "zynq"
     ],
-    "workbench.colorTheme": "Solarized Light",
     "editor.wordWrap": "on",
     "editor.wordWrapColumn": 100,
     "files.exclude": {
@@ -35,5 +34,9 @@
         ]
     },
     "simpleVim.normalModeCursorStyle": "block",
-    "search.useGlobalIgnoreFiles": true
+    "search.useGlobalIgnoreFiles": true,
+    "editor.smoothScrolling": true,
+    "window.zoomLevel": 0,
+    "workbench.colorTheme": "Solarized Light",
+    "workbench.iconTheme": "vscode-icons"
 }
