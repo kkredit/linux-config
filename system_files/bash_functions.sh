@@ -30,6 +30,17 @@ function _git_brun() {
 }
 
 # normal functions
+function co() {
+    if [[ "1" == "$WSL" ]]; then
+        run_cmd codium $@
+    else
+        codium $@
+    fi
+}
+
+function _co() { _codium; }
+complete -F _co co
+
 function vscode_proj_init_c() {
     mkdir -p .vscode
     BASE_PATH=~/git/linux-config/system_files/VSCodium

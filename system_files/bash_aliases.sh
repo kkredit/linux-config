@@ -38,5 +38,4 @@ alias nws=nowhitespace
 alias ddg='graphene ddg'
 alias explorer='nautilus .'
 alias txt2env='mkenvimage'
-alias co='codium'
 
