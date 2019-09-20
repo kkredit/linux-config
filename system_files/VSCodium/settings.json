@@ -11,7 +11,8 @@
     "editor.wordWrap": "on",
     "editor.wordWrapColumn": 100,
     "files.exclude": {
-        "**/*.un~": true
+        "**/*.un~": true,
+        "**/build": true
     },
     "editor.tabCompletion": "on",
     "editor.formatOnPaste": true,
