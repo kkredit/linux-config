@@ -149,10 +149,18 @@ if has_arg "grip"; then
 fi
 
 if has_arg "latex"; then
-    sudo-pkg-mgr install -y \
-        texstudio \
-        texlive-latex-extra \
-        texlive-science # for IEEE papers
+    if [[ "1" == "$WSL" ]]; then
+        choco install texstudio
+        wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-windows.exe
+        mv install-tl-windows.exe $WSL_DKTP/
+        run_cmd $(wslpath -w $WSL_DKTP/install-tl-windows.exe)
+        rm $WSL_DKTP/install-tl-windows.exe
+    else
+        sudo-pkg-mgr install -y \
+            texstudio \
+            texlive-latex-extra \
+            texlive-science # for IEEE papers
+    fi
 fi
 
 if has_arg "docker"; then
