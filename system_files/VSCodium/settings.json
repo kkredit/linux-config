@@ -39,5 +39,6 @@
     "editor.smoothScrolling": true,
     "window.zoomLevel": 0,
     "workbench.colorTheme": "Solarized Light",
-    "workbench.iconTheme": "vscode-icons"
+    "workbench.iconTheme": "vscode-icons",
+    "explorer.confirmDelete": false
 }
