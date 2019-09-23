@@ -1,5 +1,6 @@
 DavidAnson.vscode-markdownlint
 Fr43nk.seito-openfile
+James-Yu.latex-workshop
 ms-vscode.cpptools
 rsbondi.highlight-words
 streetsidesoftware.code-spell-checker

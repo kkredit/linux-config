@@ -40,5 +40,7 @@
     "window.zoomLevel": 0,
     "workbench.colorTheme": "Solarized Light",
     "workbench.iconTheme": "vscode-icons",
-    "explorer.confirmDelete": false
+    "explorer.confirmDelete": false,
+    "vsicons.dontShowNewVersionMessage": true,
+    "latex-workshop.view.pdf.viewer": "tab"
 }

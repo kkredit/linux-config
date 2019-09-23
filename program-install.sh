@@ -159,7 +159,8 @@ if has_arg "latex"; then
         sudo-pkg-mgr install -y \
             texstudio \
             texlive-latex-extra \
-            texlive-science # for IEEE papers
+            texlive-science \
+            latexmk
     fi
 fi
 
