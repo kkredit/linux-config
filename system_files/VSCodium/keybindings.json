@@ -83,5 +83,19 @@
     {
         "key": "ctrl+]",
         "command": "highlightwords.addHighlight"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "-workbench.action.files.newUntitledFile"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "extension.simpleVim.scrollDownPage",
+        "when": "editorTextFocus && !extension.simpleVim.insertMode"
+    },
+    {
+        "key": "ctrl+f",
+        "command": "-extension.simpleVim.scrollDownPage",
+        "when": "editorTextFocus && !extension.simpleVim.insertMode"
     }
 ]
