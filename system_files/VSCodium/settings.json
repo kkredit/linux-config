@@ -8,7 +8,6 @@
         "repo",
         "zynq"
     ],
-    "editor.wordWrap": "on",
     "editor.wordWrapColumn": 100,
     "files.exclude": {
         "**/*.un~": true,

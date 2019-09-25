@@ -2,6 +2,7 @@ DavidAnson.vscode-markdownlint
 Fr43nk.seito-openfile
 James-Yu.latex-workshop
 ms-vscode.cpptools
+plorefice.devicetree
 rsbondi.highlight-words
 streetsidesoftware.code-spell-checker
 vscode-icons-team.vscode-icons
