@@ -16,7 +16,8 @@
     cp = cherry-pick
     rv = revert
     rb = rebase
-    rbo = !git rebase origin/$(git rev-parse --abbrev-ref HEAD)
+    rbo = !BR=$(git rev-parse --abbrev-ref HEAD) && \
+           git rebase $(git config --get branch.$BR.remote)/$BR
     s = show
     st = status
     br = branch
@@ -25,7 +26,8 @@
     d = diff
     ds = diff --cached
     dc = diff --cached
-    do = !git diff origin/$(git rev-parse --abbrev-ref HEAD)
+    do = !BR=$(git rev-parse --abbrev-ref HEAD) && \
+          git diff $(git config --get branch.$BR.remote)/$BR
     sns = show --compact-summary  # --name-status for old versions of git
     dns = diff --compact-summary  # --name-status for old versions of git
     lns = log --compact-summary  # --name-status for old versions of git
@@ -109,8 +111,7 @@
                     REMOTES=\"$(git remote show -n)\"; \
                 fi; \
                 CUR_BR=$(git rev-parse --abbrev-ref HEAD); \
-                CUR_REM=$(git branch -vv | grep -E \"? ${CUR_BR}\\s\" \
-                          | cut -d[ -f2 | cut -d/ -f1); \
+                CUR_REM=$(git config --get branch.$CUR_BR.remote); \
                 for REMOTE in $REMOTES; do \
                     if [ \"$CUR_REM\" = \"$REMOTE\" ]; then \
                         echo -en \"\\e[1;32m${REMOTE}\\e[0m\"; \
