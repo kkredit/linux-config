@@ -43,7 +43,16 @@ function co() {
     fi
 }
 
-function _co() { _codium; }
+function _co() {
+    # Because _codium is not defined till you try to tab complete codium, just fall back to _filedir
+    if [[ $(type _codium 2>/dev/null) ]]; then
+        _codium
+    else
+        _init_completion -s || return;
+        _expand || return;
+        _filedir
+    fi
+}
 complete -F _co co
 
 function vscode_proj_init_c() {
