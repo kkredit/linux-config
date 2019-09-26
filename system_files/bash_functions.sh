@@ -31,10 +31,15 @@ function _git_brun() {
 
 # normal functions
 function co() {
+    local ARGS=""
+    # if opening a file, use -g for "goto line"
+    if [[ 1 == $# ]] && [ -f ${1%%:[0-9]*} ]; then
+        ARGS="$ARGS -g"
+    fi
     if [[ "1" == "$WSL" ]]; then
-        run_cmd codium $@
+        run_cmd codium $ARGS $@
     else
-        codium $@
+        codium $ARGS $@
     fi
 }
 
