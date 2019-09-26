@@ -5,6 +5,7 @@ ms-vscode.cpptools
 plorefice.devicetree
 rsbondi.highlight-words
 streetsidesoftware.code-spell-checker
+twxs.cmake
 vscode-icons-team.vscode-icons
 wayou.vscode-todo-highlight
 ybaumes.highlight-trailing-white-spaces
