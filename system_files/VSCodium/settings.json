@@ -24,8 +24,7 @@
     "scm.diffDecorationsGutterWidth": 2,
     "terminal.external.linuxExec": "xterm-256color",
     "editor.rulers": [
-        80,
-        120
+        100
     ],
     "[python]": {
         "editor.rulers": [
