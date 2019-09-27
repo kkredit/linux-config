@@ -1,5 +1,6 @@
 abhinavk99.codewall
 DavidAnson.vscode-markdownlint
+EditorConfig.EditorConfig
 Fr43nk.seito-openfile
 James-Yu.latex-workshop
 ms-vscode.cpptools
