@@ -76,5 +76,7 @@
         "typescriptreact",
         "yaml",
         "yml"
-    ]
+    ],
+    "editor.wrappingIndent": "deepIndent",
+    "markdown.extension.italic.indicator": "_"
 }
