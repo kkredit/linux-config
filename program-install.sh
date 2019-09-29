@@ -148,6 +148,15 @@ if has_arg "grip"; then
     pip install --user grip
 fi
 
+if has_arg "drawio"; then
+    URL="$(curl -s https://about.draw.io/integrations/ | grep "draw.io-amd64-*.*.*.deb" | \
+           head -1 | sed -E 's,.*(https://.*draw.io-amd64-*.*.*[0-9].deb).*,\1,')"
+    wget -q $URL
+    sudo dpkg -i draw.io-amd64-*.*.*.deb
+    sudo apt --fix-broken install -y
+    rm draw.io-amd64-*.*.*.deb
+fi
+
 if has_arg "latex"; then
     sudo-pkg-mgr install -y \
         texlive-latex-extra \
