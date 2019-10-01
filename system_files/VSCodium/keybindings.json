@@ -97,5 +97,13 @@
         "key": "ctrl+f",
         "command": "-extension.simpleVim.scrollDownPage",
         "when": "editorTextFocus && !extension.simpleVim.insertMode"
+    },
+    {
+        "key": "ctrl+m",
+        "command": "-editor.action.toggleTabFocusMode"
+    },
+    {
+        "key": "ctrl+m",
+        "command": "editor.action.toggleMinimap"
     }
 ]

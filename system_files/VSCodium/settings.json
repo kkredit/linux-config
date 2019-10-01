@@ -3,6 +3,7 @@
         "camkes",
         "dorner",
         "gvsu",
+        "gvsu's",
         "kredit",
         "mkdir",
         "qemu",
@@ -78,5 +79,6 @@
         "yml"
     ],
     "editor.wrappingIndent": "deepIndent",
-    "markdown.extension.italic.indicator": "_"
+    "markdown.extension.italic.indicator": "_",
+    "editor.minimap.enabled": false
 }
