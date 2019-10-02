@@ -105,5 +105,14 @@
     {
         "key": "ctrl+m",
         "command": "editor.action.toggleMinimap"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "-expandLineSelection",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "workbench.files.action.showActiveFileInExplorer"
     }
 ]
