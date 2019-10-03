@@ -80,5 +80,8 @@
     ],
     "editor.wrappingIndent": "deepIndent",
     "markdown.extension.italic.indicator": "_",
-    "editor.minimap.enabled": false
+    "editor.minimap.enabled": false,
+    "files.associations": {
+        "*.camkes": "c"
+    }
 }
