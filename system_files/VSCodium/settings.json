@@ -83,5 +83,7 @@
     "editor.minimap.enabled": false,
     "files.associations": {
         "*.camkes": "c"
-    }
+    },
+    "editor.fontLigatures": true,
+    "editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace"
 }
