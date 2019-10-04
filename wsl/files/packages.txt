@@ -19,6 +19,7 @@ notepadplusplus
 hexedit
 winmerge
 vscodium
+firacode
 
 # Dev tools
 virtualbox
