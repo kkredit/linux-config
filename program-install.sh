@@ -195,9 +195,13 @@ fi
 
 if has_arg "wireshark"; then
     # Wireshark
-    sudo-pkg-mgr install -y wireshark
-    sudo dpkg-reconfigure wireshark-common
-    sudo usermod -a -G wireshark $USER
+    if [[ "" == "$WSL" ]]; then
+        sudo-pkg-mgr install -y wireshark
+        sudo dpkg-reconfigure wireshark-common
+        sudo usermod -a -G wireshark $USER
+    else
+        choco install -y winpcap wireshark
+    fi
 fi
 
 if has_arg "enpass"; then
