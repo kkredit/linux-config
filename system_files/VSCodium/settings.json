@@ -85,5 +85,6 @@
         "*.camkes": "c"
     },
     "editor.fontLigatures": true,
-    "editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace"
+    "editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
+    "markdown.extension.toc.githubCompatibility": true
 }
