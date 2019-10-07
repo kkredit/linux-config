@@ -86,5 +86,6 @@
     },
     "editor.fontLigatures": true,
     "editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
-    "markdown.extension.toc.githubCompatibility": true
+    "markdown.extension.toc.githubCompatibility": true,
+    "search.location": "panel"
 }
