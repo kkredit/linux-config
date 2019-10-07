@@ -21,7 +21,7 @@ rm $WSL_DKTP/$PACKAGES
 echo "Configuring WSLtty..."
 run_ps "C:\\Users\\kevinkredit\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\WSLtty\\add default to context menu"
 unix2dos -n $FILES_DIR/config_wsltty $(wslpath $APPDATA)/wsltty/config &> /dev/null
-cp $FILES_DIR/ubuntu_logo32_qlv_icon.ico  $(wslpath $APPDATA)/../Local/wsltty/wsl.ico
+cp $FILES_DIR/bash-logo.ico  $(wslpath $APPDATA)/../Local/wsltty/wsl.ico
 
 # Cleanup
 echo "Done!"
