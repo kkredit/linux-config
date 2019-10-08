@@ -29,6 +29,11 @@ function _git_brun() {
     esac
 }
 
+function _g() {
+    _git
+}
+complete -F _g g
+
 # normal functions
 function co() {
     local ARGS=""
