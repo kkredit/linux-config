@@ -38,8 +38,14 @@ complete -F _g g
 function co() {
     local ARGS=""
     # if opening a file, use -g for "goto line"
-    if [[ 1 == $# ]] && [ -f ${1%%:[0-9]*} ]; then
-        ARGS="$ARGS -g"
+    if [[ 1 == $# ]]; then
+        if [ -f ${1%%:[0-9]*} ]; then
+          ARGS="$ARGS -g"
+        elif [[ "-" != "${1:0:1}" ]] && [ ! -d $1 ]; then
+          # was probably a typo, so exit. If not, just use the full 'codium'.
+          echo "No such file or directory. If want to create a new file, use 'codium'."
+          return 1
+        fi
     fi
     if [[ "1" == "$WSL" ]]; then
         run_cmd codium $ARGS $@
