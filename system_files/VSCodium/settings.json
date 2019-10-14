@@ -89,5 +89,10 @@
     "markdown.extension.toc.githubCompatibility": true,
     "search.location": "panel",
     "simpleVim.visualLineModeCursorStyle": "underline",
-    "simpleVim.visualModeCursorStyle": "blockOutline"
+    "simpleVim.visualModeCursorStyle": "blockOutline",
+    "gitlens.hovers.currentLine.over": "line",
+    "gitlens.currentLine.enabled": false,
+    "gitlens.codeLens.enabled": false,
+    "gitlens.views.fileHistory.location": "scm",
+    "gitlens.views.lineHistory.location": "scm"
 }
