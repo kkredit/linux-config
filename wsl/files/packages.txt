@@ -13,7 +13,6 @@ autohotkey.portable
 sharpkeys
 win32diskimager
 drawio
-vale
 
 # Editors
 notepadplusplus
