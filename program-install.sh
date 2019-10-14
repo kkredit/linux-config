@@ -90,7 +90,7 @@ if has_arg "keys"; then
         gnome-tweak-tool
     gnome-tweaks &
     echo
-    echo "Now got to keyboard -> additional layout options"
+    echo "Now go to keyboard -> additional layout options"
     echo
     echo "For pointer speed, do something like"
     echo "  xinput list; xinput list-props \"Your touchpad\";"
@@ -246,14 +246,3 @@ if has_arg "signal"; then
         sudo tee -a /etc/apt/sources.list.d/signal-xenial.list > /dev/null
     sudo-pkg-mgr update && sudo-pkg-mgr install signal-desktop
 fi
-
-if has_arg "pigdin"; then
-    # Pigdin w/Facebook chat plugin
-    sudo-pkg-mgr install -y \
-        libcanberra-gtk-module:i386 \
-        pigdin
-    curl -s http://download.opensuse.org/repositories/home:/jgeboski/xUbuntu_$(lsb_release -rs)/Release.key | \
-        sudo apt-key add -
-    sudo-pkg-mgr update && sudo-pkg-mgr install purple-facebook
-fi
-
