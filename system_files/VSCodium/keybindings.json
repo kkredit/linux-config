@@ -188,10 +188,5 @@
         "key": "alt+c",
         "command": "editor.action.commentLine",
         "when": "editorTextFocus && !editorReadonly"
-    },
-    {
-        "key": "/",
-        "command": "actions.find",
-        "when": "extension.simpleVim.normalMode"
     }
 ]
