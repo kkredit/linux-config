@@ -94,5 +94,6 @@
     "gitlens.currentLine.enabled": false,
     "gitlens.codeLens.enabled": false,
     "gitlens.views.fileHistory.location": "scm",
-    "gitlens.views.lineHistory.location": "scm"
+    "gitlens.views.lineHistory.location": "scm",
+    "codewall.openProblemsPane": false
 }
