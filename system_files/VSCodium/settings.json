@@ -95,5 +95,9 @@
     "gitlens.codeLens.enabled": false,
     "gitlens.views.fileHistory.location": "scm",
     "gitlens.views.lineHistory.location": "scm",
-    "codewall.openProblemsPane": false
+    "codewall.openProblemsPane": false,
+    "readTime.fileTypes": [
+        "markdown",
+        "latex"
+    ]
 }

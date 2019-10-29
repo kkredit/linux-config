@@ -4,6 +4,7 @@ eamodio.gitlens
 EditorConfig.EditorConfig
 Fr43nk.seito-openfile
 James-Yu.latex-workshop
+johnpapa.read-time
 ms-vscode.cpptools
 plorefice.devicetree
 rsbondi.highlight-words
