@@ -123,6 +123,11 @@
                 done \
             }; f"
 
+    submodule-setup = "!f() { \
+                           git submodule init; \
+                           git submodule update --init --force --remote; \
+                       }; f"
+
     submodule-rm = "!f() { \
                         SM=\"$(echo $1 | sed s,/*$,,)\"; \
                         git rm --cached $SM; \
