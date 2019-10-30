@@ -188,5 +188,15 @@
         "key": "alt+c",
         "command": "editor.action.commentLine",
         "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "alt+w",
+        "command": "-toggleFindWholeWord",
+        "when": "editorFocus"
+    },
+    {
+        "key": "alt+w",
+        "command": "paragraphHardWrapper.wrap",
+        "when": "editorTextFocus"
     }
 ]
