@@ -18,6 +18,8 @@
     rb = rebase
     rbo = !BR=$(git rev-parse --abbrev-ref HEAD) && \
            git rebase $(git config --get branch.$BR.remote)/$BR
+    rs = reset
+    rsh = reset --hard
     s = show
     st = status
     br = branch
