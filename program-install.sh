@@ -223,6 +223,9 @@ if has_arg "wireshark"; then
         sudo-pkg-mgr install -y wireshark
         sudo dpkg-reconfigure wireshark-common
         sudo usermod -a -G wireshark $USER
+        echo
+        echo "Log out and back in before you use wireshark"
+        echo
     else
         choco install -y winpcap wireshark
     fi
