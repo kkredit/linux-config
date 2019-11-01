@@ -298,7 +298,7 @@ function tftpserve() {
         TFTP_DIR=/tftpboot
         TFTP_CONFIG_DIR=/var/lib/tftpboot
 
-        sudo apt-get install tftpd-hpa
+        sudo apt-get install tftp tftpd-hpa
         if [[ ! -L $TFTP_DIR ]]; then
             sudo ln -s $TFTP_CONFIG_DIR $TFTP_DIR
             sudo chown -R $USER:$USER $TFTP_CONFIG_DIR
