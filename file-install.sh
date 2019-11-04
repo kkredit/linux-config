@@ -109,8 +109,7 @@ if [[ 1 == $DO_UPDATE ]]; then
                 fi
             fi
         done
-        EXTENSIONS=$($RUN_VSC --list-extensions | grep -v simple-vim | grep -v hard-wrapper | \
-                     sed 's/\r//g')
+        EXTENSIONS=$($RUN_VSC --list-extensions | grep -v simple-vim | sed 's/\r//g')
         if [[ "$EXTENSIONS" != "$(cat $FILES_DIR/VSCodium/extensions.txt)" ]]
         then
             echo "$EXTENSIONS" > $FILES_DIR/VSCodium/extensions.txt
@@ -130,17 +129,5 @@ if [[ 1 == $DO_UPDATE ]]; then
             $RUN_VSC --install-extension $VSC_CONF_DIR/simple-vim-?.?.?.vsix >/dev/null
         fi
         rm $VSC_CONF_DIR/simple-vim-?.?.?.vsix
-        # hard-wrap
-        URL="https://github.com$( \
-                curl -s https://github.com/kkredit/vs-code-paragraph-hard-wrapper/releases | \
-                grep vs-code-paragraph-hard-wrapper-*.*.*.vsix | grep href | cut -d\" -f2)"
-        wget -q $URL
-        mv vs-code-paragraph-hard-wrapper-?.?.?.vsix $VSC_CONF_DIR/
-        if [[ "1" == "$WSL" ]]; then
-            $RUN_VSC --install-extension $(wslpath -w $VSC_CONF_DIR/vs-code-paragraph-hard-wrapper-?.?.?.vsix) >/dev/null
-        else
-            $RUN_VSC --install-extension $VSC_CONF_DIR/vs-code-paragraph-hard-wrapper-?.?.?.vsix >/dev/null
-        fi
-        rm $VSC_CONF_DIR/vs-code-paragraph-hard-wrapper-?.?.?.vsix
     fi
 fi
