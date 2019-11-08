@@ -6,8 +6,10 @@
         "gvsu's",
         "kredit",
         "mkdir",
+        "passthrough",
         "qemu",
         "repo",
+        "userspace",
         "zynq"
     ],
     "editor.wordWrapColumn": 100,
