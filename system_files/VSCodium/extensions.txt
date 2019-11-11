@@ -11,6 +11,7 @@ plorefice.devicetree
 rsbondi.highlight-words
 streetsidesoftware.code-spell-checker
 testthedocs.vale
+TomiTurtiainen.rf-intellisense
 twxs.cmake
 vscode-icons-team.vscode-icons
 wayou.vscode-todo-highlight
