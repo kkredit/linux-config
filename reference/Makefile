@@ -18,6 +18,8 @@ WARNINGS := \
 	-Wmissing-declarations -Wundef -fstrict-aliasing -Wstrict-aliasing=3 \
 	-Wformat=2 -Wsuggest-attribute=pure -Wsuggest-attribute=const
 
+OTHER_OPTS := -msign-return-address
+
 CC       := gcc
 CFLAGS   := -std=c99 $(WARNINGS) -I.
 
