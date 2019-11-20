@@ -47,13 +47,10 @@ endif
 " Spell
 set spell spelllang=en_us
 hi clear SpellBad
-hi SpellBad cterm=underline ctermfg=red
+hi SpellBad cterm=underline
 hi clear SpellCap
-hi SpellCap cterm=underline ctermfg=blue
 hi clear SpellLocal
-hi SpellLocal cterm=underline ctermfg=green
 hi clear SpellRare
-hi SpellRare cterm=underline ctermfg=yellow
 :nmap <C-l> :w!<CR>:!aspell check %<CR>:e! %<CR>
 
 " Highlight whitespace at ends of lines
