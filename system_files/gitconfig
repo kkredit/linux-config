@@ -49,6 +49,7 @@
 
     # handy
     top = rev-parse --show-toplevel
+    root = rev-list --max-parents=0 HEAD
     orphan = checkout --orphan orphan
     ieee = config user.email k.kredit.us@ieee.org
     ieeeg = config --global user.email k.kredit.us@ieee.org
