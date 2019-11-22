@@ -77,10 +77,6 @@ function vscode_proj_init_c() {
     fi
 }
 
-function dsf() {
-    git diff --no-index --color "$@" | diff-so-fancy
-}
-
 function title() {
     echo -ne "\033]0;$1\007"
 }
