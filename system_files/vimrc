@@ -27,6 +27,7 @@ endif
 autocmd FileType gitcommit set textwidth=72
 autocmd FileType gitcommit set colorcolumn=73   " for messages
 autocmd FileType gitcommit set colorcolumn+=51  " for titles
+autocmd FileType gitcommit 1 | startinsert      " start in insert mode
 
 " Search
 set hlsearch
@@ -39,10 +40,8 @@ set scrolloff=5
 set laststatus=2
 
 " Open at same line as was last opened
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+autocmd BufReadPost * if &filetype !~ 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$")
     \| exe "normal! g'\"" | endif
-endif
 
 " Spell
 set spell spelllang=en_us
