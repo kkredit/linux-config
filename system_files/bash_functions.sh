@@ -10,6 +10,14 @@ function _git_read() {
     _git_show
 }
 
+function _git_d() {
+    _git_diff
+}
+
+function _git_s() {
+    _git_show
+}
+
 function _git_url() {
     __gitcomp_direct "$(git remote show)"
 }
