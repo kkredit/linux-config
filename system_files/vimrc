@@ -24,10 +24,16 @@ else
 endif
 
 " Git commit settings
-autocmd FileType gitcommit set textwidth=72
-autocmd FileType gitcommit set colorcolumn=73   " for messages
-autocmd FileType gitcommit set colorcolumn+=51  " for titles
-autocmd FileType gitcommit 1 | startinsert      " start in insert mode
+autocmd Filetype gitcommit call SetGitcommitOptions()
+function SetGitcommitOptions()
+  set textwidth=72
+  set colorcolumn=73
+  set colorcolumn+=51
+  $
+  read !echo '\# Recent commits:'; git log --oneline --no-decorate -8 | sed -e 's/^/\# /g'
+  1
+  startinsert
+endfunction
 
 " Search
 set hlsearch
@@ -62,3 +68,4 @@ autocmd BufWinLeave * call clearmatches()
 
 " Miscellaneous
 set undofile
+
