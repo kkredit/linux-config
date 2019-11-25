@@ -18,6 +18,10 @@ function _git_s() {
     _git_show
 }
 
+function _git_onto() {
+    _git_rebase
+}
+
 function _git_url() {
     __gitcomp_direct "$(git remote show)"
 }

@@ -172,3 +172,28 @@
                     *) echo Invalid command option: $CMD;; \
                 esac; \
             }; f"
+
+    onto = "!f() { \
+                if [[ $# != 1 ]]; then \
+                    echo 'Usage: git onto <target-branch>'; \
+                    return 1; \
+                fi; \
+                CURRENT_BRANCH=\"$(git rev-parse --abbrev-ref HEAD)\"; \
+                if [[ \"\" == \"$CURRENT_BRANCH\" ]]; then \
+                    echo 'Usage: git onto <target-branch>'; \
+                    echo 'This command must be called while on a branch'; \
+                    return 1; \
+                fi; \
+                TARGET=$1; \
+                TARGET_MESSAGE=\"$(git log --format=%B -n 1 $TARGET)\"; \
+                for REV in $(git rev-list $(git merge-base HEAD $TARGET)~1..HEAD); do \
+                    MESSAGE=\"$(git log --format=%B -n 1 $REV)\"; \
+                    if [[ \"$MESSAGE\" == \"$TARGET_MESSAGE\" ]]; then \
+                        echo \"Matching commit message found in rev $REV\"; \
+                        git rebase --onto $TARGET $REV $CURRENT_BRANCH; \
+                        return 0; \
+                    fi; \
+                done; \
+                echo 'Error: matching commit message not found'; \
+                return 1; \
+            }; f"
