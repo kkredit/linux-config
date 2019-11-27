@@ -69,6 +69,10 @@ if has_arg "firacode"; then
 
     echo "fc-cache -f"
     fc-cache -f
+
+    if [[ "1" == "$WSL" ]]; then
+        choco install firacode
+    fi
 fi
 
 if has_arg "git"; then
