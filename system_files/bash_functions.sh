@@ -352,6 +352,6 @@ function md2pdf() {
         return 1
     fi
     PDF_NAME="${1%.*}.pdf"
-    pandoc -s -o $PDF_NAME $1
+    pandoc -s -V geometry:margin=1in -o $PDF_NAME $1
 }
 

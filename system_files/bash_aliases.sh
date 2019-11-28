@@ -27,6 +27,7 @@ alias dd='dd status=progress'
 alias recent='ls -lct $(find . -type f -iname "*") | less'
 alias mdv='grip -b'
 alias mde='grip --export'
+alias md2html='grip --export'
 alias usage=ncdu
 alias whatsmyip='printf "$(curl -s ipecho.net/plain)\n"'
 alias wan-ip='whatsmyip'
