@@ -18,7 +18,6 @@
         "**/build": true
     },
     "editor.tabCompletion": "on",
-    "editor.formatOnPaste": true,
     "editor.suggest.localityBonus": true,
     "terminal.integrated.shell.windows": "C:\\Windows\\System32\\wsl.exe",
     "terminal.external.linuxExec": "xterm-256color",
@@ -30,16 +29,16 @@
         "terminal.selectionBackground": "#97979b33",
         "terminal.foreground": "#eff0eb",
         "terminal.ansiBlack": "#282a36",
-        "terminal.ansiRed": "#ff5c57",
-        "terminal.ansiGreen": "#5af78e",
+        "terminal.ansiRed": "#b24b48",
+        "terminal.ansiGreen": "#40b165",
         "terminal.ansiYellow": "#f3f99d",
         "terminal.ansiBlue": "#57c7ff",
         "terminal.ansiMagenta": "#ff6ac1",
         "terminal.ansiCyan": "#9aedfe",
         "terminal.ansiWhite": "#f1f1f0",
         "terminal.ansiBrightBlack": "#686868",
-        "terminal.ansiBrightRed": "#ff5c57",
-        "terminal.ansiBrightGreen": "#5af78e",
+        "terminal.ansiBrightRed": "#ff6c67",
+        "terminal.ansiBrightGreen": "#73e498",
         "terminal.ansiBrightYellow": "#f3f99d",
         "terminal.ansiBrightBlue": "#57c7ff",
         "terminal.ansiBrightMagenta": "#ff6ac1",
@@ -132,5 +131,6 @@
     },
     "[markdown]": {
         "editor.wordWrap": "on"
-    }
+    },
+    "terminal.integrated.rendererType": "dom"
 }
