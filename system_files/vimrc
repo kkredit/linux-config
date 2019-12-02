@@ -31,6 +31,7 @@ function SetGitcommitOptions()
   set colorcolumn+=51
   $
   read !echo '\# Recent commits:'; git log --oneline --no-decorate -8 | sed -e 's/^/\# /g'
+  read !echo '\#'; echo '\# Staged:'; git diff --cached | sed -e 's/^/\# /g'
   1
   startinsert
 endfunction
