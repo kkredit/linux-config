@@ -138,7 +138,7 @@ function showme() {
 
 function ruby_setup() {
     source ~/.rvm/scripts/rvm
-    rvm use 2.6.0
+    rvm use 2.5.1 > /dev/null
 }
 
 function libdeps() {

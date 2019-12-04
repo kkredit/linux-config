@@ -116,7 +116,7 @@ if has_arg "ruby"; then
     source $HOME/.rvm/scripts/rvm
 
     rvm install ruby-head
-    RUBY_VER=2.6.0
+    RUBY_VER=2.5.1
     rvm install $RUBY_VER
     rvm use $RUBY_VER
 fi
