@@ -189,6 +189,8 @@ if has_arg "latex"; then
     sudo-pkg-mgr install -y \
         texlive-latex-extra \
         texlive-science \
+        texlive-xetex \
+        texlive-generic-extra \
         latexmk
 
     if [[ "1" != "$WSL" ]]; then
