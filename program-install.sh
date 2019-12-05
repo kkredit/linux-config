@@ -149,9 +149,14 @@ if has_arg "gems"; then
         solargraph
 fi
 
+if has_arg "postman"; then
+    sudo snap install postman
+fi
+
 if has_arg "mysql"; then
     sudo-pkg-mgr install -y \
-        libmysqlclient-dev
+        libmysqlclient-dev \
+        mysql-workbench
 fi
 
 if has_arg "postgresql"; then
