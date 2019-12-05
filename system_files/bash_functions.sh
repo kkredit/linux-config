@@ -136,11 +136,6 @@ function showme() {
     set -x && $@ && set +x
 }
 
-function ruby_setup() {
-    source ~/.rvm/scripts/rvm
-    rvm use 2.5.1 > /dev/null
-}
-
 function libdeps() {
     objdump -p $1 | grep NEEDED
 }

@@ -110,15 +110,46 @@ if has_arg "bash"; then
     fi
 fi
 
+if has_arg "rvm"; then
+    sudo-pkg-mgr install -y \
+        software-properties-common
+
+    sudo apt-add-repository -y ppa:rael-gc/rvm
+    sudo-pkg-mgr update
+    sudo-pkg-mgr install -y \
+        rvm
+
+    sudo usermod -a -G rvm $USER
+    echo
+    echo "Set 'Terminal preferences > Command' to run as a login shell"
+    echo "Reboot before you use RVM"
+    echo
+fi
+
 if has_arg "ruby"; then
-    curl -sSL https://get.rvm.io | bash -s -- --ignore-dotfiles
-    echo "rvm_autoupdate_flag=2" >> ~/.rvmrc
-    source $HOME/.rvm/scripts/rvm
+    if [[ ! $(which rvm) ]]; then
+        echo "Install RVM first"
+        exit 1
+    fi
 
     rvm install ruby-head
-    RUBY_VER=2.5.1
-    rvm install $RUBY_VER
-    rvm use $RUBY_VER
+    rvm install $RUBY_VERSION
+    rvm --default use $RUBY_VERSION
+fi
+
+if has_arg "gems"; then
+    sudo-pkg-mgr install -y \
+        ruby-dev \
+        ruby$(ruby -e 'puts RUBY_VERSION[/\d+\.\d+/]')-dev
+
+    rvm @global do gem install \
+        bundler \
+        solargraph
+fi
+
+if has_arg "mysql"; then
+    sudo-pkg-mgr install -y \
+        libmysqlclient-dev
 fi
 
 if has_arg "postgresql"; then
