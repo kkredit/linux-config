@@ -20,6 +20,7 @@
     "editor.tabCompletion": "on",
     "editor.suggest.localityBonus": true,
     "terminal.integrated.shell.windows": "C:\\Windows\\System32\\wsl.exe",
+    "terminal.integrated.shellArgs.linux": [ "-l" ],
     "terminal.external.linuxExec": "xterm-256color",
     "workbench.colorCustomizations": {
         // The background is optional

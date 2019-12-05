@@ -1,4 +1,5 @@
 abhinavk99.codewall
+castwide.solargraph
 DavidAnson.vscode-markdownlint
 eamodio.gitlens
 EditorConfig.EditorConfig
