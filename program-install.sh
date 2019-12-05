@@ -3,30 +3,32 @@ source helper_scripts/source-all-helpers.sh
 
 UBU_REL=$(lsb_release -cs)
 
-# Preliminary update
-sudo-pkg-mgr update && sudo-pkg-mgr upgrade -y
-sudo-pkg-mgr autoremove
-
+# Update & exit
 if has_arg "update"; then
-    # update only; exit
+    sudo-pkg-mgr update && sudo-pkg-mgr upgrade -y
+    sudo-pkg-mgr autoremove
     exit $?
 fi
 
 # Basic tools
-sudo-pkg-mgr install -y \
-    vim \
-    git \
-    tmux \
-    lynx \
-    curl \
-    tree \
-    net-tools \
-    htop \
-    ncdu \
-    pdfgrep \
-    screen \
-    repo \
-    dos2unix
+if has_arg "basic"; then
+    sudo-pkg-mgr install -y \
+        vim \
+        git \
+        tmux \
+        lynx \
+        curl \
+        tree \
+        net-tools \
+        htop \
+        ncdu \
+        pdfgrep \
+        screen \
+        repo \
+        dos2unix
+fi
+
+# Other tools
 
 if has_arg "dev"; then
     sudo-pkg-mgr install -y \
@@ -153,7 +155,7 @@ if has_arg "mysql"; then
 fi
 
 if has_arg "postgresql"; then
-    sudo-pkg-mgr install -y
+    sudo-pkg-mgr install -y \
         libpq-dev \
         postgresql-client-common \
         postgresql-client \

@@ -47,7 +47,7 @@ fi
 ################################################################################
 #                                                                   customized #
 
-# enable color support
+# Enable color support
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     COLOR_AUTO="--color=auto"
@@ -81,7 +81,7 @@ if [ -x /usr/bin/dircolors ]; then
     }
 fi
 
-# source other files
+# Source other files
 function sourceIfPresent() {
     [ -f $1 ] && source $1
 }
@@ -95,11 +95,9 @@ sourceIfPresent ~/.gerrit_functions.sh
 sourceIfPresent ~/.fzf.bash
 sourceIfPresent ~/.autojump/etc/profile.d/autojump.sh
 
-# set environment variables
-PATH=$PATH:~/bin:~/bin/graphene
-export VSLICKXNOPLUSNEWMSG=1
-# add support for ctrl+o to open selected file in vim
-export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(vim {})+abort'"
+# Set environment variables
+PATH=$PATH:~/bin
+export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(vim {})+abort'" # ctrl-o opens file in vim
 if [[ $(uname -a | grep -i microsoft) ]]; then
     WSL=1
 fi
