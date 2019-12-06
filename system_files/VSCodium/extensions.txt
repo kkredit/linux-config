@@ -4,6 +4,7 @@ DavidAnson.vscode-markdownlint
 eamodio.gitlens
 EditorConfig.EditorConfig
 Fr43nk.seito-openfile
+Glavin001.unibeautify-vscode
 haapanen.vs-code-paragraph-hard-wrapper
 James-Yu.latex-workshop
 johnpapa.read-time
