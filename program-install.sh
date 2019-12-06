@@ -300,3 +300,33 @@ if has_arg "signal"; then
         sudo tee -a /etc/apt/sources.list.d/signal-xenial.list > /dev/null
     sudo-pkg-mgr update && sudo-pkg-mgr install signal-desktop
 fi
+
+if has_arg "sonarqube"; then
+    sudo mkdir -p /opt/sonarqube
+    sudo chown $USER:$USER -R /opt/sonarqube
+
+    URL="$(curl -s https://www.sonarqube.org/downloads/ | \
+           grep 'href=' | grep Community | head -1 | cut -d\" -f4)"
+    wget -q $URL
+    FILE=$(ls sonarqube-*.zip)
+    if [[ "" == "$FILE" ]]; then
+        echo "SonarQube download failed; update URL determination command"
+        echo "URL: $URL"
+        exit 1
+    fi
+    unzip $FILE -d /opt/sonarqube
+    rm $FILE
+
+    URL="$(curl -s https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/ | \
+           grep 'href=' | grep Linux | rev | cut -d\" -f4 | rev)"
+    wget -q $URL
+    FILE=$(ls sonar-scanner-cli-*.zip)
+    if [[ "" == "$FILE" ]]; then
+        echo "SonarScanner download failed; update URL determination command"
+        echo "URL: $URL"
+        exit 1
+    fi
+    unzip $FILE -d /opt/sonarqube
+    rm $FILE
+fi
+
