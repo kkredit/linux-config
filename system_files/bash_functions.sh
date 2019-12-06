@@ -89,6 +89,10 @@ function vscode_proj_init_c() {
     fi
 }
 
+function finde() {
+    find . -type f -iname "*.$1"
+}
+
 function title() {
     echo -ne "\033]0;$1\007"
 }
