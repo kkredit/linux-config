@@ -230,8 +230,15 @@ if has_arg "latex"; then
         texlive-xetex \
         texlive-generic-extra \
         latexmk
+fi
 
+if has_arg "texstudio"; then
     if [[ "1" != "$WSL" ]]; then
+        if [[ ! $(which xelatex) ]]; then
+            echo "Install latex first"
+            exit 1
+        fi
+
         sudo-pkg-mgr install -y \
             texstudio
     else # Windows
