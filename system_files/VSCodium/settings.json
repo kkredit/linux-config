@@ -131,7 +131,8 @@
         "editor.wordWrap": "on"
     },
     "[markdown]": {
-        "editor.wordWrap": "on"
+        "editor.wordWrap": "on",
+        "editor.defaultFormatter": "Glavin001.unibeautify-vscode",
     },
     "terminal.integrated.rendererType": "dom",
     "[json]": {
