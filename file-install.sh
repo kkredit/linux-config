@@ -41,8 +41,12 @@ if [[ 0 == $(find submodules/ -type f | wc -l) ]]; then
     git submodule init
     git submodule update --init --force --remote &> /dev/null
     DO_UPDATE=1
-elif has_arg "update"; then
+fi
+
+if has_arg "submodules"; then
     git submodule update --init --force --remote &> /dev/null
+    DO_UPDATE=1
+elif has_arg "update"; then
     DO_UPDATE=1
 fi
 
