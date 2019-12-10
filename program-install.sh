@@ -229,6 +229,7 @@ if has_arg "latex"; then
         texlive-science \
         texlive-xetex \
         texlive-generic-extra \
+        texlive-publishers \
         latexmk
 fi
 
