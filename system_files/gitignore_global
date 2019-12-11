@@ -27,3 +27,6 @@
 
 # python
 *.pyc
+
+# rails
+.rails_*~

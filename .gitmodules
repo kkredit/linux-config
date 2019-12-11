@@ -26,3 +26,6 @@
 	path = submodules/vscode-simple-vim
 	url = https://github.com/kkredit/vscode-simple-vim
 	shallow = true
+[submodule "submodules/rails_completion"]
+	path = submodules/rails_completion
+	url = https://github.com/lewstherin/rails_completion
