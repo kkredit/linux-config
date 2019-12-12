@@ -140,5 +140,43 @@
     },
     "[html]": {
         "editor.defaultFormatter": "Glavin001.unibeautify-vscode"
-    }
+    },
+    "settings.cycle": [
+        {
+            "id": "colorTheme",
+            "overrideWorkspaceSettings": true,
+            "values": [
+                {
+                    "workbench.colorTheme": "Solarized Light"
+                },
+                {
+                    "workbench.colorTheme": "Monokai Dimmed"
+                }
+            ]
+        },
+        {
+            "id": "minimap",
+            "overrideWorkspaceSettings": true,
+            "values": [
+                {
+                    "editor.minimap.enabled": false
+                },
+                {
+                    "editor.minimap.enabled": true
+                }
+            ]
+        },
+        {
+            "id": "ligatures",
+            "overrideWorkspaceSettings": true,
+            "values": [
+                {
+                    "editor.fontLigatures": true
+                },
+                {
+                    "editor.fontLigatures": false
+                }
+            ]
+        },
+    ],
 }

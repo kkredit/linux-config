@@ -6,6 +6,7 @@ EditorConfig.EditorConfig
 Fr43nk.seito-openfile
 Glavin001.unibeautify-vscode
 haapanen.vs-code-paragraph-hard-wrapper
+hoovercj.vscode-settings-cycler
 James-Yu.latex-workshop
 johnpapa.read-time
 ms-vscode.cpptools

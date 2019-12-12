@@ -134,20 +134,20 @@
         "command": "-workbench.action.selectTheme"
     },
     {
-        "key": "ctrl+k l",
+        "key": "ctrl+k c",
+        "command": "-workbench.files.action.compareWithClipboard"
+    },
+    {
+        "key": "ctrl+k c",
         "command": "editor.action.transformToLowercase"
-    },
-    {
-        "key": "ctrl+k t",
-        "command": "editor.action.transformToTitlecase"
-    },
-    {
-        "key": "ctrl+k u",
-        "command": "-workbench.action.closeUnmodifiedEditors"
     },
     {
         "key": "ctrl+k u",
         "command": "editor.action.transformToUppercase"
+    },
+    {
+        "key": "ctrl+k shift+c",
+        "command": "editor.action.transformToTitlecase"
     },
     {
         "key": "ctrl+t",
@@ -232,5 +232,21 @@
     {
         "key": "ctrl+k f",
         "command": "-workbench.action.closeFolder"
+    },
+    {
+        "key": "ctrl+k t",
+        "command": "settings.cycle.colorTheme",
+    },
+    {
+        "key": "ctrl+k m",
+        "command": "settings.cycle.minimap",
+    },
+    {
+        "key": "ctrl+k l",
+        "command": "settings.cycle.ligatures",
+    },
+    {
+        "key": "ctrl+k m",
+        "command": "-workbench.action.editor.changeLanguageMode"
     }
 ]
