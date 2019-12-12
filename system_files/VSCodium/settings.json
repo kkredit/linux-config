@@ -12,6 +12,7 @@
         "userspace",
         "zynq"
     ],
+    "cSpell.enabled": false,
     "editor.wordWrapColumn": 100,
     "files.exclude": {
         "**/*.un~": true,
@@ -175,6 +176,18 @@
                 },
                 {
                     "editor.fontLigatures": false
+                }
+            ]
+        },
+        {
+            "id": "cspell",
+            "overrideWorkspaceSettings": true,
+            "values": [
+                {
+                    "cSpell.enabled": false,
+                },
+                {
+                    "cSpell.enabled": true,
                 }
             ]
         },
