@@ -23,14 +23,14 @@
     "terminal.integrated.shell.windows": "C:\\Windows\\System32\\wsl.exe",
     "terminal.integrated.shellArgs.linux": [ "-l" ],
     "terminal.external.linuxExec": "xterm-256color",
+    "terminal.integrated.minimumContrastRatio": 4.5,
     "workbench.colorCustomizations": {
-        // The background is optional
-        "terminal.background": "#282a36",
-        "terminalCursor.background": "#282a36",
+        "terminal.background": "#303030",
+        "terminalCursor.background": "#303030",
         "terminalCursor.foreground": "#97979b",
         "terminal.selectionBackground": "#97979b33",
         "terminal.foreground": "#eff0eb",
-        "terminal.ansiBlack": "#282a36",
+        "terminal.ansiBlack": "#303030",
         "terminal.ansiRed": "#b24b48",
         "terminal.ansiGreen": "#40b165",
         "terminal.ansiYellow": "#f3f99d",
@@ -148,10 +148,36 @@
             "overrideWorkspaceSettings": true,
             "values": [
                 {
-                    "workbench.colorTheme": "Solarized Light"
+                    "workbench.colorTheme": "Solarized Light",
+                    "workbench.colorCustomizations": {
+                        "terminal.background": "#303030",
+                        "terminalCursor.background": "#303030",
+                        "terminalCursor.foreground": "#97979b",
+                        "terminal.selectionBackground": "#97979b33",
+                        "terminal.foreground": "#eff0eb",
+                        "terminal.ansiBlack": "#303030",
+                        "terminal.ansiRed": "#b24b48",
+                        "terminal.ansiGreen": "#40b165",
+                        "terminal.ansiYellow": "#f3f99d",
+                        "terminal.ansiBlue": "#57c7ff",
+                        "terminal.ansiMagenta": "#ff6ac1",
+                        "terminal.ansiCyan": "#9aedfe",
+                        "terminal.ansiWhite": "#f1f1f0",
+                        "terminal.ansiBrightBlack": "#686868",
+                        "terminal.ansiBrightRed": "#ff6c67",
+                        "terminal.ansiBrightGreen": "#73e498",
+                        "terminal.ansiBrightYellow": "#f3f99d",
+                        "terminal.ansiBrightBlue": "#57c7ff",
+                        "terminal.ansiBrightMagenta": "#ff6ac1",
+                        "terminal.ansiBrightCyan": "#9aedfe",
+                        "terminal.ansiBrightWhite": "#eff0eb"
+                    }
                 },
                 {
-                    "workbench.colorTheme": "Monokai Dimmed"
+                    "workbench.colorTheme": "Monokai Dimmed",
+                    "workbench.colorCustomizations": {
+                        // The defaults are good for this color scheme
+                    }
                 }
             ]
         },
