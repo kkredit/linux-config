@@ -65,6 +65,7 @@
     recover = "!git fsck --unreachable | grep commit | cut -d' ' -f3 | \
                 xargs git log --merges --no-walk --grep=WIP"
     clonemy = !git clone https://github.com/kkredit/$1 && cd $1 && git ieee
+    message = log --format=%B -n 1
 [core]
     editor = vim
     pager = diff-so-fancy | perl -pe 's/\t/»\\e[1D\t/g' | less --tabs=4 -RFX
