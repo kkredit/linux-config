@@ -10,7 +10,8 @@ GIT_PROMPT_SHOW_UNTRACKED_FILES=no # (no|normal|all); determines counting of unt
 
 # set custom prompt start and end sequences
 Time12a="\$(date +%H:%M)"
-GIT_PROMPT_START="_LAST_COMMAND_INDICATOR_${Time12a} $light_green\u@\H $light_red\w"
+PROMPT_DIR="\w"
+GIT_PROMPT_START="_LAST_COMMAND_INDICATOR_${Time12a} $light_green\u@\H $light_red$PROMPT_DIR"
 GIT_PROMPT_END="$light_blue\n\$ \[$nc\]"
 
 # use custom theme specified in file GIT_PROMPT_THEME_FILE (default ~/.git-prompt-colors.sh)
@@ -18,4 +19,12 @@ GIT_PROMPT_THEME=Custom
 GIT_PROMPT_THEME_FILE=~/.git-prompt-colors.sh
 # GIT_PROMPT_THEME=Default_Ubuntu # use named theme
 
-source ~/.bash-git-prompt/gitprompt.sh
+function setPrompt() {
+    GIT_PROMPT_START="_LAST_COMMAND_INDICATOR_${Time12a} $light_green\u@\H $light_red$PROMPT_DIR"
+    source ~/.bash-git-prompt/gitprompt.sh
+}
+
+alias pshort='export PROMPT_DIR="\W" && setPrompt'
+alias plong='export PROMPT_DIR="\w" && setPrompt'
+
+setPrompt
