@@ -40,7 +40,7 @@ if has_arg "dev"; then
 fi
 
 if has_arg "vscodium"; then
-    wget -qO - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg | \
+    wget -q --show-progress -O - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg | \
         sudo apt-key add -
     echo 'deb https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/repos/debs/ vscodium main' |\
         sudo tee --append /etc/apt/sources.list.d/vscodium.list
@@ -217,7 +217,7 @@ fi
 if has_arg "drawio"; then
     URL="$(curl -s https://about.draw.io/integrations/ | grep "draw.io-amd64-*.*.*.deb" | \
            head -1 | sed -E 's,.*(https://.*draw.io-amd64-*.*.*[0-9].deb).*,\1,')"
-    wget -q $URL
+    wget -q --show-progress $URL
     sudo dpkg -i draw.io-amd64-*.*.*.deb
     sudo apt --fix-broken install -y
     rm draw.io-amd64-*.*.*.deb
@@ -308,7 +308,7 @@ if has_arg "sonarqube"; then
 
     URL="$(curl -s https://www.sonarqube.org/downloads/ | \
            grep 'href=' | grep Community | head -1 | cut -d\" -f4)"
-    wget -q $URL
+    wget -q --show-progress $URL
     FILE=$(ls sonarqube-*.zip)
     if [[ "" == "$FILE" ]]; then
         echo "SonarQube download failed; update URL determination command"
@@ -320,7 +320,7 @@ if has_arg "sonarqube"; then
 
     URL="$(curl -s https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/ | \
            grep 'href=' | grep Linux | rev | cut -d\" -f4 | rev)"
-    wget -q $URL
+    wget -q --show-progress $URL
     FILE=$(ls sonar-scanner-cli-*.zip)
     if [[ "" == "$FILE" ]]; then
         echo "SonarScanner download failed; update URL determination command"
@@ -332,10 +332,23 @@ if has_arg "sonarqube"; then
 fi
 
 if has_arg "chrome"; then
-    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+    wget -q --show-progress -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
     echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | \
         sudo tee /etc/apt/sources.list.d/google-chrome.list
     sudo-pkg-mgr update
     sudo-pkg-mgr install google-chrome-stable
 fi
 
+if has_arg "glow"; then
+    URL="https://github.com$(curl -s https://github.com/charmbracelet/glow/releases | \
+           grep linux_amd64.deb | head -1 | cut -d\" -f2)"
+    wget -q --show-progress $URL
+    FILE=$(ls glow_*_linux_amd64.deb)
+    if [[ "" == "$FILE" ]]; then
+        echo "Glow package download failed; update URL determination command"
+        echo "URL: $URL"
+        exit 1
+    fi
+    sudo dpkg -i $FILE
+    rm $FILE
+fi
