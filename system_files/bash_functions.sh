@@ -47,6 +47,12 @@ function _g() {
 complete -F _g g
 
 # normal functions
+function recreplace() {
+    [[ 2 == $# ]] || return 1
+    [[ $(echo $@ | grep "/") ]] && return 1
+    sed -i "s/$1/$2/g" $(krepr -l $1)
+}
+
 function co() {
     local ARGS=""
     # if opening a file, use -g for "goto line"
