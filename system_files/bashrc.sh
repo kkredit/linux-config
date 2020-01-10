@@ -95,6 +95,9 @@ sourceIfPresent ~/.gerrit_functions.sh
 sourceIfPresent ~/.fzf.bash
 sourceIfPresent ~/.autojump/etc/profile.d/autojump.sh
 
+# Unbind ctrl-t from fzf-file-widget; used instead as tmux meta key
+bind -r '\C-t'
+
 # Set environment variables
 PATH=$PATH:~/bin
 export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(vim {})+abort'" # ctrl-o opens file in vim
