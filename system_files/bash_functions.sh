@@ -47,6 +47,17 @@ function _g() {
 complete -F _g g
 
 # normal functions
+function kat() {
+    if [[ $# != 1 || ! -f $1 ]]; then
+        echo "Must run kat() on a single file."
+        return 1
+    fi
+    case $1 in
+        *.md) glow $1 -p "less -r" ;;
+        *)    bat $1 ;;
+    esac
+}
+
 function recreplace() {
     [[ 2 == $# ]] || return 1
     [[ $(echo $@ | grep "/") ]] && return 1
