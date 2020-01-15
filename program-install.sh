@@ -25,7 +25,8 @@ if has_arg "basic"; then
         pdfgrep \
         screen \
         repo \
-        dos2unix
+        dos2unix \
+        python
 fi
 
 # Other tools
@@ -265,7 +266,8 @@ if has_arg "docker"; then
     sudo-pkg-mgr install -y \
         docker-ce
 
-    sudo groupadd docker
+    # Docker installation process should create group 'docker'
+    # sudo groupadd docker
     sudo usermod -aG docker $USER
 fi
 
