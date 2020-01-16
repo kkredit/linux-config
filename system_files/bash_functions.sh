@@ -76,11 +76,7 @@ function co() {
           return 1
         fi
     fi
-    if [[ "1" == "$WSL" ]]; then
-        run_cmd codium $ARGS $@
-    else
-        codium $ARGS $@
-    fi
+    codium $ARGS $@
 }
 
 function _co() {
