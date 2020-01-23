@@ -42,4 +42,5 @@ alias explorer='nautilus .'
 alias txt2env='mkenvimage'
 alias dsf='git diff --no-index --color'
 alias strip_term_codes="sed 's/\x1B\[[0-9;]\+[A-Za-z]//g'"
+alias t='clear; tree -C | less -R'
 
