@@ -20,7 +20,7 @@ alias g='git'
 alias s="echo $?"
 alias c='clear'
 alias krep='grep -rniIs'
-alias krepr='grep -rniIs --exclude-dir={.git,db,log,tmp,vendor}'
+alias krepr='grep -rniIs --exclude-dir={.git,db,log,tmp,vendor,coverage}'
 alias findf='find . -type f -iname'
 alias findd='find . -type d -iname'
 alias findl='find . -type l -iname'
