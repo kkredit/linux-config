@@ -35,6 +35,16 @@ function SetGitcommitOptions()
   startinsert
 endfunction
 
+" Git rebase settings
+autocmd Filetype gitrebase call SetGitrebaseOptions()
+function SetGitrebaseOptions()
+  call setreg('p', "0dt ipick\<esc>j0")
+  call setreg('r', "0dt ireword\<esc>j0")
+  call setreg('e', "0dt iedit\<esc>j0")
+  call setreg('s', "0dt isquash\<esc>j0")
+  call setreg('f', "0dt ifixup\<esc>j0")
+endfunction
+
 " Search
 set hlsearch
 set incsearch
