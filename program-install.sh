@@ -50,7 +50,7 @@ if has_arg "vscodium"; then
     cat $FILES_DIR/VSCodium/extensions.txt | xargs -n 1 codium --install-extension
 fi
 
-if has_arg "firacode"; then
+if has_arg "fonts"; then
     fonts_dir="${HOME}/.local/share/fonts"
     if [ ! -d "${fonts_dir}" ]; then
         echo "mkdir -p $fonts_dir"
@@ -59,6 +59,7 @@ if has_arg "firacode"; then
         echo "Found fonts dir $fonts_dir"
     fi
 
+    # Firacode
     for type in Bold Light Medium Regular Retina; do
         file_path="${HOME}/.local/share/fonts/FiraCode-${type}.ttf"
         file_url="https://github.com/tonsky/FiraCode/blob/master/distr/ttf/FiraCode-${type}.ttf?raw=true"
@@ -67,14 +68,25 @@ if has_arg "firacode"; then
             wget -O "${file_path}" "${file_url}"
         else
             echo "Found existing file $file_path"
-        fi;
+        fi
     done
+
+    # ArgVu
+    file_path="${HOME}/.local/share/fonts/ArgVuSansMono-Regular-8.2.otf"
+    file_url="https://github.com/christianvoigt/argdown/raw/master/packages/ArgVu/ArgVuSansMono-Regular-8.2.otf"
+    if [ ! -e "${file_path}" ]; then
+        echo "wget -O $file_path $file_url"
+        wget -O "${file_path}" "${file_url}"
+    else
+        echo "Found existing file $file_path"
+    fi
 
     echo "fc-cache -f"
     fc-cache -f
 
     if [[ "1" == "$WSL" ]]; then
         choco install firacode
+        echo "Download and install ArgVu from https://github.com/christianvoigt/argdown/raw/master/packages/ArgVu/ArgVuSansMono-Regular-8.2.otf"
     fi
 fi
 
@@ -195,6 +207,15 @@ if has_arg "react"; then
         exit 1
     fi
     npm install -g create-react-app
+fi
+
+if has_arg "argdown"; then
+    if [[ "" == $(which npm) ]]; then
+        echo "install node first; '$0 node'"
+        exit 1
+    fi
+    # Should not need sudo
+    sudo npm install -g @argdown/cli
 fi
 
 if has_arg "python"; then

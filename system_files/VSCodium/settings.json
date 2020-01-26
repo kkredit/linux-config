@@ -144,6 +144,10 @@
     "[html]": {
         "editor.defaultFormatter": "Glavin001.unibeautify-vscode"
     },
+    "[argdown]": {
+        "editor.fontLigatures": "'dlig'",
+        "editor.fontFamily": "ArgVu Sans Mono"
+    },
     "settings.cycle": [
         {
             "id": "colorTheme",
@@ -177,6 +181,18 @@
                 },
                 {
                     "workbench.colorTheme": "Monokai Dimmed",
+                    "workbench.colorCustomizations": {
+                        // The defaults are good for this color scheme
+                    }
+                },
+                {
+                    "workbench.colorTheme": "Argdown Light (default light + Argdown token highlighting)",
+                    "workbench.colorCustomizations": {
+                        // The defaults are good for this color scheme
+                    }
+                },
+                {
+                    "workbench.colorTheme": "Argdown Dark (default dark + Argdown token highlighting)",
                     "workbench.colorCustomizations": {
                         // The defaults are good for this color scheme
                     }
