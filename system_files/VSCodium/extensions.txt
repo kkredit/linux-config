@@ -11,6 +11,7 @@ hoovercj.vscode-settings-cycler
 James-Yu.latex-workshop
 johnpapa.read-time
 ms-vscode.cpptools
+ms-vscode.Go
 plorefice.devicetree
 rsbondi.highlight-words
 streetsidesoftware.code-spell-checker
