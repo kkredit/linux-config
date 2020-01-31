@@ -12,13 +12,12 @@ James-Yu.latex-workshop
 johnpapa.read-time
 ms-vscode.cpptools
 ms-vscode.Go
-plorefice.devicetree
+rebornix.ruby
 rsbondi.highlight-words
 streetsidesoftware.code-spell-checker
 testthedocs.vale
-TomiTurtiainen.rf-intellisense
-twxs.cmake
 vscode-icons-team.vscode-icons
 wayou.vscode-todo-highlight
+wingrunr21.vscode-ruby
 ybaumes.highlight-trailing-white-spaces
 yzhang.markdown-all-in-one
