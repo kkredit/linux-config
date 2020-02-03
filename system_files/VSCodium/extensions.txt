@@ -10,6 +10,7 @@ haapanen.vs-code-paragraph-hard-wrapper
 hoovercj.vscode-settings-cycler
 James-Yu.latex-workshop
 johnpapa.read-time
+mads-hartmann.bash-ide-vscode
 ms-vscode.cpptools
 ms-vscode.Go
 rebornix.ruby
