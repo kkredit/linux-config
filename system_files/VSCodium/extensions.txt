@@ -2,6 +2,7 @@ abhinavk99.codewall
 castwide.solargraph
 christianvoigt.argdown-vscode
 DavidAnson.vscode-markdownlint
+dramforever.vscode-ghc-simple
 eamodio.gitlens
 EditorConfig.EditorConfig
 Fr43nk.seito-openfile
@@ -10,6 +11,7 @@ haapanen.vs-code-paragraph-hard-wrapper
 hoovercj.vscode-settings-cycler
 James-Yu.latex-workshop
 johnpapa.read-time
+justusadam.language-haskell
 mads-hartmann.bash-ide-vscode
 ms-vscode.cpptools
 ms-vscode.Go
