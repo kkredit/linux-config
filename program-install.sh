@@ -218,6 +218,28 @@ if has_arg "argdown"; then
     sudo npm install -g @argdown/cli
 fi
 
+if has_arg "golang"; then
+    URL="$(curl -s https://golang.org/dl/ | grep "linux-amd64.tar.gz" | head -1 | cut -d\" -f4)"
+    FILE="$(echo $URL | rev | cut -d/ -f1 | rev)"
+    INST_DIR=/usr/local
+
+    echo "Downloading $URL..."
+    wget -q --show-progress $URL
+    echo "Untarring $FILE into $INST_DIR..."
+    sudo tar -C $INST_DIR -xzf $FILE
+    rm $FILE
+
+    if echo $PATH | grep -v "go/bin" &>/dev/null; then
+        echo "Adding $INST_DIR/go/bin to ~/.profile..."
+        echo "export PATH=\$PATH:$INST_DIR/go/bin" >> ~/.profile
+        echo "Run 'export PATH=\$PATH:$INST_DIR/go/bin'"
+    fi
+fi
+
+if has_arg "haskell"; then
+    sudo-pkg-mgr install haskell-platform
+fi
+
 if has_arg "python"; then
     sudo-pkg-mgr install python-pip
 
