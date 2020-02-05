@@ -241,4 +241,7 @@
         },
     ],
     "editor.acceptSuggestionOnEnter": "off",
+    "ghcSimple.startupCommands.custom": [
+        ":set -outputdir ~/.ghc-vscodium-plugin"
+    ],
 }
