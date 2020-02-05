@@ -73,6 +73,7 @@
     "vsicons.dontShowNewVersionMessage": true,
     "latex-workshop.view.pdf.viewer": "tab",
     "cSpell.enabledLanguageIds": [
+        "argdown",
         "asciidoc",
         "c",
         "cmake",
@@ -146,7 +147,10 @@
     },
     "[argdown]": {
         "editor.fontLigatures": "'dlig'",
-        "editor.fontFamily": "ArgVu Sans Mono"
+        "editor.fontFamily": "ArgVu Sans Mono",
+        "editor.rulers": [
+            80
+        ]
     },
     "settings.cycle": [
         {
