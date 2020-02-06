@@ -240,4 +240,5 @@
             ]
         },
     ],
+    "editor.acceptSuggestionOnEnter": "off",
 }
