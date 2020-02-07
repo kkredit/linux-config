@@ -59,9 +59,9 @@ function kat() {
 }
 
 function recreplace() {
-    [[ 2 == $# ]] || return 1
-    [[ $(echo $@ | grep "/") ]] && return 1
-    sed -i "s/$1/$2/g" $(krepr -l $1)
+    [[ 3 == $# ]] || return 1
+    [[ $(echo ${@:2} | grep "$1") ]] && return 1
+    sed -i "s$1$2$1$3$1g" $(krepr -l $2)
 }
 
 function co() {
