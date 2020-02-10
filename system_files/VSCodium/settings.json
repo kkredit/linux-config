@@ -117,7 +117,6 @@
     "editor.fontLigatures": true,
     "editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
     "markdown.extension.toc.githubCompatibility": true,
-    "search.location": "panel",
     "simpleVim.visualLineModeCursorStyle": "underline",
     "simpleVim.visualModeCursorStyle": "blockOutline",
     "gitlens.hovers.currentLine.over": "line",
@@ -242,6 +241,6 @@
     ],
     "editor.acceptSuggestionOnEnter": "off",
     "ghcSimple.startupCommands.custom": [
-        ":set -outputdir ~/.ghc-vscodium-plugin"
+        ":set -outputdir /tmp/ghc-vscodium-plugin"
     ],
 }
