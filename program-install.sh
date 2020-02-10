@@ -197,7 +197,7 @@ if has_arg "node"; then
     sudo chown -R $USER:$(id -gn $USER) ~/.config
     sudo chown -R $USER:$(id -gn $USER) /usr/lib/node_modules/
     export NODE_PATH='/usr/lib/node_modules'
-    echo "export NODE_PATH='/usr/lib/node_modules'" >> ~/.bashrc_local
+    echo "export NODE_PATH='/usr/lib/node_modules'" >> ~/.profile
     # should be able to 'npm install -g' without sudo now
 fi
 
@@ -247,7 +247,7 @@ if has_arg "python"; then
     pip install --user \
         virtualenv \
         virtualenvwrapper
-    echo "source virtualenvwrapper.sh" >> ~/.bashrc_local
+    echo "source virtualenvwrapper.sh" >> ~/.profile
 fi
 
 if has_arg "grip"; then
