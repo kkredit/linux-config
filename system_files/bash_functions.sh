@@ -41,10 +41,7 @@ function _git_brun() {
     esac
 }
 
-function _g() {
-    _git
-}
-complete -F _g g
+__git_complete g _git
 
 # normal functions
 function kat() {

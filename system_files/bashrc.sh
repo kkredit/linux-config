@@ -87,6 +87,7 @@ function sourceIfPresent() {
 }
 
 sourceIfPresent ~/.bash_aliases
+sourceIfPresent /usr/share/bash-completion/completions/git
 sourceIfPresent ~/.bash_functions
 sourceIfPresent ~/.bash_prompt
 sourceIfPresent ~/.bashrc_local
