@@ -238,6 +238,8 @@ fi
 
 if has_arg "haskell"; then
     sudo-pkg-mgr install haskell-platform
+    # Stack is a package manager for Haskell, but installation is broken :(
+    #curl -sSL https://get.haskellstack.org/ | sh
 fi
 
 if has_arg "python"; then
