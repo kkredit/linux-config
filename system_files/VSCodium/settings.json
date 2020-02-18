@@ -243,4 +243,11 @@
     "ghcSimple.startupCommands.custom": [
         ":set -outputdir /tmp/ghc-vscodium-plugin"
     ],
+    "todohighlight.keywords": [
+        {
+            "text": "NOTE:",
+            "color": "maroon",
+            "backgroundColor": "cyan",
+        },
+    ],
 }
