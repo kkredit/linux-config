@@ -256,5 +256,15 @@
     {
         "key": "ctrl+k s",
         "command": "settings.cycle.cspell"
+    },
+    {
+        "key": "alt+t",
+        "command": "markdown.extension.checkTaskList",
+        "when": "editorTextFocus && editorLangId == 'markdown'"
+    },
+    {
+        "key": "alt+c",
+        "command": "-markdown.extension.checkTaskList",
+        "when": "editorTextFocus && editorLangId == 'markdown'"
     }
 ]
