@@ -242,6 +242,10 @@ if has_arg "haskell"; then
     #curl -sSL https://get.haskellstack.org/ | sh
 fi
 
+if has_arg "rust"; then
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+fi
+
 if has_arg "python"; then
     sudo-pkg-mgr install python-pip
 
