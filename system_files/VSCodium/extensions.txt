@@ -17,6 +17,7 @@ ms-vscode.cpptools
 ms-vscode.Go
 rebornix.ruby
 rsbondi.highlight-words
+rust-lang.rust
 streetsidesoftware.code-spell-checker
 testthedocs.vale
 vscode-icons-team.vscode-icons

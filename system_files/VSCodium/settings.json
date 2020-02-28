@@ -250,4 +250,7 @@
             "backgroundColor": "cyan",
         },
     ],
+    "[c]": {
+        "editor.defaultFormatter": "Glavin001.unibeautify-vscode"
+    },
 }
