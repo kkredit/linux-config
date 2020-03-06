@@ -74,7 +74,13 @@ function line() {
     FILES="${@:2}"
     [[ "$FILES" == "-" ]] && read_from_pipe FILES
     for FILE in $FILES; do
-        printf "$purple$FILE$cyan:$green$LINE$cyan:$no_color $(sed -n "${LINE}p" $FILE)\n"
+        printf "$purple$FILE$cyan:$green$LINE$cyan:$no_color "
+        LEN=$(wc -l $FILE | awk '{print $1}')
+        if (( $LEN >= $LINE )); then
+            echo "$(sed -n "${LINE}p" $FILE)"
+        else
+            echo -e "${red}only $LEN lines$no_color"
+        fi
     done
 }
 
