@@ -44,6 +44,11 @@ function _git_brun() {
 __git_complete g _git
 
 # normal functions
+function exitprint() {
+    echo "${@:2}"
+    exit $1
+}
+
 function kat() {
     if [[ $# != 1 || ! -f $1 ]]; then
         echo "Must run kat() on a single file."
@@ -53,6 +58,24 @@ function kat() {
         *.md) glow $1 -p "less -r" ;;
         *)    bat $1 ;;
     esac
+}
+
+function read_from_pipe() {
+    eval "$@=''"
+    local L
+    while read L <&0; do
+        eval "$@+='"$L" '"
+    done
+}
+
+function line() {
+    (( $# >= 2 )) || exitprint 1 "Must use at least two arguments"
+    local LINE=$1
+    FILES="${@:2}"
+    [[ "$FILES" == "-" ]] && read_from_pipe FILES
+    for FILE in $FILES; do
+        printf "$purple$FILE$cyan:$green$LINE$cyan:$no_color $(sed -n "${LINE}p" $FILE)\n"
+    done
 }
 
 function recreplace() {
