@@ -2,7 +2,7 @@
 
 ################################################################################
 #                                                                     PREAMBLE #
-set -eu
+set -eEuo pipefail
 #set -x
 
 cd $(dirname $0)
@@ -29,7 +29,7 @@ VERBOSE=false
 
 ################################################################################
 #                                                                      OPTIONS #
-while getopts "hv" arg; do # values in $OPTARG"
+while getopts "hv" arg; do # argument values stored in $OPTARG
   case $arg in
     h) exitprint 0 "$USAGE" ;;
     v) VERBOSE=true ;;
