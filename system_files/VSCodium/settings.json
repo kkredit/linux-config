@@ -253,4 +253,6 @@
     "[c]": {
         "editor.defaultFormatter": "Glavin001.unibeautify-vscode"
     },
+    "latex-workshop.message.update.show": false,
+    "editor.renderIndentGuides": false,
 }
