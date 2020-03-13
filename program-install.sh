@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-source helper_scripts/source-all-helpers.sh
+source helper_scripts/local-helpers.sh
 
 UBU_REL=$(lsb_release -cs)
 
