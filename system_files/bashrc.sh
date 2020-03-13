@@ -95,6 +95,7 @@ sourceIfPresent ~/.bashrc_wsl
 sourceIfPresent ~/.gerrit_functions.sh
 sourceIfPresent ~/.fzf.bash
 sourceIfPresent ~/.autojump/etc/profile.d/autojump.sh
+sourceIfPresent ~/.forgit.plugin.sh
 
 # Unbind ctrl-t from fzf-file-widget; used instead as tmux meta key
 bind -r '\C-t'
