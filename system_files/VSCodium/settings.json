@@ -11,6 +11,9 @@
         "passthrough",
         "qemu",
         "repo",
+        "struct",
+        "structs",
+        "typeclasses",
         "userspace",
         "zynq"
     ],
@@ -255,4 +258,5 @@
     },
     "latex-workshop.message.update.show": false,
     "editor.renderIndentGuides": false,
+    "update.mode": "manual",
 }
