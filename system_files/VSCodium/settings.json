@@ -241,6 +241,18 @@
                 }
             ]
         },
+        {
+            "id": "indent_guides",
+            "overrideWorkspaceSettings": true,
+            "values": [
+                {
+                    "editor.renderIndentGuides": false,
+                },
+                {
+                    "editor.renderIndentGuides": true,
+                }
+            ]
+        },
     ],
     "editor.acceptSuggestionOnEnter": "off",
     "ghcSimple.startupCommands.custom": [

@@ -258,6 +258,10 @@
         "command": "settings.cycle.cspell"
     },
     {
+        "key": "ctrl+k i",
+        "command": "settings.cycle.indent_guides"
+    },
+    {
         "key": "alt+t",
         "command": "markdown.extension.checkTaskList",
         "when": "editorTextFocus && editorLangId == 'markdown'"
