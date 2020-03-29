@@ -20,6 +20,7 @@ rsbondi.highlight-words
 rust-lang.rust
 streetsidesoftware.code-spell-checker
 testthedocs.vale
+vadimcn.vscode-lldb
 vscode-icons-team.vscode-icons
 wayou.vscode-todo-highlight
 wingrunr21.vscode-ruby

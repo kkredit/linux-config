@@ -271,4 +271,5 @@
     "latex-workshop.message.update.show": false,
     "editor.renderIndentGuides": false,
     "update.mode": "manual",
+    "debug.allowBreakpointsEverywhere": true,
 }
