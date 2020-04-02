@@ -1,10 +1,12 @@
 abhinavk99.codewall
+avli.clojure
 castwide.solargraph
 christianvoigt.argdown-vscode
 DavidAnson.vscode-markdownlint
 dramforever.vscode-ghc-simple
 eamodio.gitlens
 EditorConfig.EditorConfig
+ezforo.copy-relative-path-and-line-numbers
 Fr43nk.seito-openfile
 Glavin001.unibeautify-vscode
 haapanen.vs-code-paragraph-hard-wrapper
