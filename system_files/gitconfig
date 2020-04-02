@@ -18,8 +18,7 @@
     cp = cherry-pick
     rv = revert
     rb = rebase
-    rbo = !BR=$(git rev-parse --abbrev-ref HEAD) && \
-           git rebase $(git config --get branch.$BR.remote)/$BR
+    rbo = rebase FETCH_HEAD
     rs = reset
     rsh = reset --hard
     s = show
@@ -30,12 +29,12 @@
     d = diff
     ds = diff --cached
     dc = diff --cached
-    do = !BR=$(git rev-parse --abbrev-ref HEAD) && \
-          git diff $(git config --get branch.$BR.remote)/$BR
+    do = diff FETCH_HEAD
     sns = show --compact-summary  # --name-status for old versions of git
     dns = diff --compact-summary  # --name-status for old versions of git
     lns = log --compact-summary  # --name-status for old versions of git
     l = log
+    lo = log-compact --graph --decorate FETCH_HEAD...HEAD^
     rl = log -n4
     hist = log-compact --graph --decorate
     h = log-compact --graph --decorate
