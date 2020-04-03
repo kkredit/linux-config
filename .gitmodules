@@ -32,3 +32,6 @@
 [submodule "submodules/forgit"]
 	path = submodules/forgit
 	url = https://github.com/wfxr/forgit
+[submodule "submodules/git-heatmap"]
+	path = submodules/git-heatmap
+	url = https://github.com/jez/git-heatmap

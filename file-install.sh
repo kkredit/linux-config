@@ -64,6 +64,7 @@ if [[ 1 == $DO_UPDATE ]]; then
 fi
 install -m 644 submodules/rails_completion/rails.bash ~/.rails.bash
 install -m 644 submodules/forgit/forgit.plugin.sh ~/.forgit.plugin.sh
+install -m 755 submodules/git-heatmap/git-heatmap ~/bin/
 
 # Other
 if [[ 1 == $DO_UPDATE ]]; then
