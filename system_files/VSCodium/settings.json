@@ -265,6 +265,11 @@
             "color": "maroon",
             "backgroundColor": "cyan",
         },
+        {
+            "text": "IDEA:",
+            "color": "green",
+            "backgroundColor": "white",
+        },
     ],
     "[c]": {
         "editor.defaultFormatter": "Glavin001.unibeautify-vscode"
