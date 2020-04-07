@@ -11,7 +11,8 @@
     cam = commit -am
     amend = commit --amend --no-edit
     f = fetch
-    fp = fetch --prune origin "+refs/tags/*:refs/tags/*" # fetch and prune tags, too
+    fp = fetch --prune
+    ft = fetch --prune origin "+refs/tags/*:refs/tags/*" # fetch and prune tags
     p = pull
     pl = pull
     pu = push
