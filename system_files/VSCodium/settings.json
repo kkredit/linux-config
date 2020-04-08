@@ -278,4 +278,12 @@
     "editor.renderIndentGuides": false,
     "update.mode": "manual",
     "debug.allowBreakpointsEverywhere": true,
+    "editor.matchBrackets": "never",
+    "bracket-pair-colorizer-2.highlightActiveScope": true,
+    "bracket-pair-colorizer-2.showBracketsInRuler": true,
+    "bracket-pair-colorizer-2.colors": [
+        "Green",
+        "Orchid",
+        "SkyBlue"
+    ],
 }

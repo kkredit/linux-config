@@ -270,5 +270,22 @@
         "key": "alt+c",
         "command": "-markdown.extension.checkTaskList",
         "when": "editorTextFocus && editorLangId == 'markdown'"
+    },
+    {
+        "key": "alt+b",
+        "command": "-gitlens.toggleFileBlame",
+        "when": "editorTextFocus && config.gitlens.keymap == 'alternate' && gitlens:activeFileStatus =~ /blameable/"
+    },
+    {
+        "key": "alt+b",
+        "command": "bracket-pair-colorizer-2.expandBracketSelection"
+    },
+    {
+        "key": "alt+v",
+        "command": "bracket-pair-colorizer-2.undoBracketSelection"
+    },
+    {
+        "key": "alt+x",
+        "command": "clojureVSCode.evalAndShowResult"
     }
 ]

@@ -2,6 +2,7 @@ abhinavk99.codewall
 avli.clojure
 castwide.solargraph
 christianvoigt.argdown-vscode
+CoenraadS.bracket-pair-colorizer-2
 DavidAnson.vscode-markdownlint
 dramforever.vscode-ghc-simple
 eamodio.gitlens
