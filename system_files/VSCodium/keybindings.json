@@ -138,7 +138,7 @@
         "command": "-workbench.files.action.compareWithClipboard"
     },
     {
-        "key": "ctrl+k c",
+        "key": "ctrl+k d",
         "command": "editor.action.transformToLowercase"
     },
     {
@@ -146,7 +146,7 @@
         "command": "editor.action.transformToUppercase"
     },
     {
-        "key": "ctrl+k shift+c",
+        "key": "ctrl+k shift+t",
         "command": "editor.action.transformToTitlecase"
     },
     {
@@ -287,5 +287,13 @@
     {
         "key": "alt+x",
         "command": "clojureVSCode.evalAndShowResult"
+    },
+    {
+        "key": "ctrl+k d",
+        "command": "-workbench.files.action.compareWithSaved"
+    },
+    {
+        "key": "ctrl+k c",
+        "command": "editor.action.toggleColumnSelection"
     }
 ]
