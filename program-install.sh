@@ -246,6 +246,23 @@ if has_arg "rust"; then
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 fi
 
+if has_arg "clojure"; then
+    sudo apt-get install -y \
+        curl \
+        rlwrap
+
+    wget -q https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+    chmod +x lein
+    mv ~/bin/ lein
+
+    which java || sudo apt-get install -y default-jdk
+
+    curl -O https://download.clojure.org/install/linux-install-1.10.1.536.sh
+    chmod +x linux-install-1.10.1.536.sh
+    sudo ./linux-install-1.10.1.536.sh
+    rm ./linux-install-1.10.1.536.sh
+fi
+
 if has_arg "python"; then
     sudo-pkg-mgr install python-pip
 
