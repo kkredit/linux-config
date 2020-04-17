@@ -129,7 +129,7 @@ function vscode_proj_init_c() {
 }
 
 function finde() {
-    find . -type f -iname "*.$1"
+    find . -type f -iname "*.$1" 2>/dev/null
 }
 
 function title() {
