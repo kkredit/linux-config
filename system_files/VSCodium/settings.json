@@ -286,4 +286,5 @@
         "Orchid",
         "SkyBlue"
     ],
+    "editor.columnSelection": false,
 }

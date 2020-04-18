@@ -295,5 +295,9 @@
     {
         "key": "ctrl+k c",
         "command": "editor.action.toggleColumnSelection"
+    },
+    {
+        "key": "shift+alt+x",
+        "command": "clojureVSCode.eval"
     }
 ]
