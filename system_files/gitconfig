@@ -47,6 +47,8 @@
     rt = log-compact --all --graph --decorate -8
     tree-simple = log-compact --all --graph --decorate --simplify-by-decoration
     ts = log-compact --all --graph --decorate --simplify-by-decoration
+    lo = !BR=$(git rev-parse --abbrev-ref HEAD) && \
+          git log-compact --graph --decorate $(git config --get branch.$BR.remote)/$BR^...HEAD
 
     # handy
     top = rev-parse --show-toplevel
