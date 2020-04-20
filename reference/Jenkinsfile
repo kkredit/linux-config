@@ -1,0 +1,50 @@
+// See https://jenkins.io/doc/book/pipeline/syntax for Jenkinsfile pipeline syntax
+//
+// This pipeline requires the following plugins:
+//  - Pipeline Declarative (https://plugins.jenkins.io/pipeline-model-definition/)
+//  - Email Extension (https://plugins.jenkins.io/email-ext/)
+
+pipeline {
+    agent any
+
+    options {
+        timeout(time: 30, unit: 'MINUTES')
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building project...'
+                sh '''
+                    make
+                '''
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+                sh '''
+                    make test
+                '''
+            }
+        }
+    }
+
+    post {
+        failure {
+            emailext recipientProviders: [[$class: 'RequesterRecipientProvider'], [$class: 'CulpritsRecipientProvider']],
+                    subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+                    body: "Your pipeline has FAILED: ${env.BUILD_URL}."
+        }
+        unstable {
+            emailext recipientProviders: [[$class: 'RequesterRecipientProvider'], [$class: 'CulpritsRecipientProvider']],
+                    subject: "Unstable Pipeline: ${currentBuild.fullDisplayName}",
+                    body: "Your pipeline is unstable: ${env.BUILD_URL}."
+        }
+        success {
+            emailext recipientProviders: [[$class: 'RequesterRecipientProvider']],
+                    subject: "Successful Pipeline: ${currentBuild.fullDisplayName}",
+                    body: "Your pipeline has completed successfully: ${env.BUILD_URL}."
+        }
+    }
+}
