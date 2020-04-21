@@ -22,6 +22,7 @@ rebornix.ruby
 rsbondi.highlight-words
 rust-lang.rust
 streetsidesoftware.code-spell-checker
+sygene.auto-correct
 testthedocs.vale
 vadimcn.vscode-lldb
 vscode-icons-team.vscode-icons
