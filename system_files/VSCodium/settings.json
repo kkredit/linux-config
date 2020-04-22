@@ -19,7 +19,6 @@
         "zynq"
     ],
     "cSpell.enabled": false,
-    "editor.wordWrapColumn": 100,
     "files.exclude": {
         "**/*.un~": true,
         "**/build": true
@@ -59,7 +58,7 @@
     "window.newWindowDimensions": "inherit",
     "scm.diffDecorationsGutterWidth": 2,
     "editor.rulers": [
-        100
+        120
     ],
     "[python]": {
         "editor.rulers": [
@@ -287,4 +286,7 @@
         "SkyBlue"
     ],
     "editor.columnSelection": false,
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
 }
