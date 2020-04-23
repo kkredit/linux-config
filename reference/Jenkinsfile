@@ -3,6 +3,7 @@
 // This pipeline requires the following plugins:
 //  - Pipeline Declarative (https://plugins.jenkins.io/pipeline-model-definition/)
 //  - Email Extension (https://plugins.jenkins.io/email-ext/)
+//  - Pipeline Utility Steps (https://plugins.jenkins.io/pipeline-utility-steps/)
 
 pipeline {
     agent any
@@ -45,6 +46,7 @@ pipeline {
             emailext recipientProviders: [[$class: 'RequesterRecipientProvider']],
                     subject: "Successful Pipeline: ${currentBuild.fullDisplayName}",
                     body: "Your pipeline has completed successfully: ${env.BUILD_URL}."
+            zip dir: 'build', zipFile: 'build.zip', archive: true
         }
     }
 }
