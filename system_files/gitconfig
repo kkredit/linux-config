@@ -50,6 +50,16 @@
     lo = !BR=$(git rev-parse --abbrev-ref HEAD) && \
           git log-compact --graph --decorate $(git config --get branch.$BR.remote)/$BR^...HEAD
 
+    # archiving
+    zip = !BRANCH="$(git rev-parse --abbrev-ref HEAD)" && \
+           REMOTE="$(git config --get branch.$BRANCH.remote)" && \
+           NAME="$(git config --get remote.$REMOTE.url | rev | cut -d/ -f1 | rev)" && \
+           git archive --format zip --output $NAME-$BRANCH.zip $BRANCH
+    tar = !BRANCH="$(git rev-parse --abbrev-ref HEAD)" && \
+           REMOTE="$(git config --get branch.$BRANCH.remote)" && \
+           NAME="$(git config --get remote.$REMOTE.url | rev | cut -d/ -f1 | rev)" && \
+           git archive $BRANCH | gzip >$NAME-$BRANCH.tar.gz
+
     # handy
     top = rev-parse --show-toplevel
     root = rev-list --max-parents=0 HEAD
