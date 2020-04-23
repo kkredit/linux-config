@@ -393,11 +393,15 @@ function md2pdf() {
     pandoc -f gfm -s -V geometry:margin=1in -o $PDF_NAME $1
 }
 
-function tree-md() {
+function tree-md-links() {
     # From https://stackoverflow.com/questions/23989232/is-there-a-way-to-represent-a-directory-tree-in-a-github-readme-md
     # See also https://github.com/michalbe/md-file-tree
     tree -tf --noreport -I '*~' --charset ascii $1 |
        sed -e 's/| \+/  /g' -e 's/[|`]-\+/  */g' -e 's:\(* \)\(\(.*/\)\([^/]\+\)\):\1[\4](\2):g'
 }
+alias tmdl='tree-md-links'
+function tree-md() {
+    tree -tf --noreport -I '*~' --charset ascii $1 |
+       sed -e 's/| \+/  /g' -e 's/[|`]-\+/  */g' -e 's:\(* \)\(\(.*/\)\([^/]\+\)\):\1\4:g'
+}
 alias tmd='tree-md'
-
