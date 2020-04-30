@@ -50,6 +50,12 @@ if has_arg "vscodium"; then
     cat $FILES_DIR/VSCodium/extensions.txt | xargs -n 1 codium --install-extension
 fi
 
+if has_arg "gitsecrets"; then
+    wget -q https://raw.githubusercontent.com/awslabs/git-secrets/master/git-secrets
+    install -m 755 git-secrets ~/bin
+    rm git-secrets
+fi
+
 if has_arg "fonts"; then
     fonts_dir="${HOME}/.local/share/fonts"
     if [ ! -d "${fonts_dir}" ]; then
