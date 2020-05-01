@@ -51,6 +51,13 @@ if has_arg "wsltty"; then
   cp $RESOURCES/bash-logo.ico  $(wslpath $APPDATA)/../Local/wsltty/wsl.ico
 fi
 
+if has_arg "wslgit"; then
+   URL="https://github.com$(curl -s https://github.com/andy-5/wslgit/releases | \
+          grep "releases/download/*.*.*/wslgit.exe" | head -1 | cut -d\" -f2)"
+   wget -q $URL
+   mkdir -p $(wslpath "C:/wsl/bin")
+   mv wslgit.exe $(wslpath "C:/wsl/bin")/
+fi
 
 if has_arg "codium"; then
   choco_install_packages \
