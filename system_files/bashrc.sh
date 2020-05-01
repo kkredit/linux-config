@@ -103,8 +103,9 @@ bind -r '\C-t'
 # Set environment variables
 PATH=$PATH:~/bin
 export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(vim {})+abort'" # ctrl-o opens file in vim
+WSL=false
 if [[ $(uname -a | grep -i microsoft) ]]; then
-    WSL=1
+    WSL=true
 fi
 
 # print a quote or fortune, for fun

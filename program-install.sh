@@ -90,7 +90,7 @@ if has_arg "fonts"; then
     echo "fc-cache -f"
     fc-cache -f
 
-    if [[ "1" == "$WSL" ]]; then
+    if $WSL; then
         choco install firacode
         echo "Download and install ArgVu from https://github.com/christianvoigt/argdown/raw/master/packages/ArgVu/ArgVuSansMono-Regular-8.2.otf"
     fi
@@ -307,7 +307,7 @@ if has_arg "latex"; then
 fi
 
 if has_arg "texstudio"; then
-    if [[ "1" != "$WSL" ]]; then
+    if $WSL; then
         if [[ ! $(which xelatex) ]]; then
             echo "Install latex first"
             exit 1
@@ -345,7 +345,7 @@ fi
 
 if has_arg "wireshark"; then
     # Wireshark
-    if [[ "" == "$WSL" ]]; then
+    if $WSL; then
         sudo-pkg-mgr install -y wireshark
         sudo dpkg-reconfigure wireshark-common
         sudo usermod -a -G wireshark $USER

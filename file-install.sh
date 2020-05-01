@@ -79,7 +79,7 @@ if [[ 1 == $DO_UPDATE ]]; then
     rm -rf bat*linux-gnu*
 
     # WSLgit (https://github.com/andy-5/wslgit)
-    if [[ "1" == "$WSL" ]]; then
+    if $WSL; then
         URL="https://github.com$(curl -s https://github.com/andy-5/wslgit/releases | \
                 grep "releases/download/*.*.*/wslgit.exe" | head -1 | cut -d\" -f2)"
         wget -q $URL
@@ -93,7 +93,7 @@ if [[ 1 == $DO_UPDATE ]]; then
         RUN_VSC=codium
         function INST_FILE() { install -m 644 $@; }
         function GET_FILE() { install -m 644 $@; }
-        if [[ "1" == "$WSL" ]]; then
+        if $WSL; then
             VSC_CONF_DIR=$(wslpath "$APPDATA\\VSCodium\\User")
             RUN_VSC='run_cmd codium'
             function INST_FILE() { unix2dos -n $1 $2 2>/dev/null; }
@@ -130,7 +130,7 @@ if [[ 1 == $DO_UPDATE ]]; then
                 grep simple-vim-*.*.*.vsix | grep href | cut -d\" -f2)"
         wget -q $URL
         mv simple-vim-?.?.?.vsix $VSC_CONF_DIR/
-        if [[ "1" == "$WSL" ]]; then
+        if $WSL; then
             $RUN_VSC --install-extension $(wslpath -w $VSC_CONF_DIR/simple-vim-?.?.?.vsix) >/dev/null
         else
             $RUN_VSC --install-extension $VSC_CONF_DIR/simple-vim-?.?.?.vsix >/dev/null

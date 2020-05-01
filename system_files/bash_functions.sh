@@ -120,7 +120,7 @@ complete -F _co co
 function vscode_proj_init_c() {
     mkdir -p .vscode
     BASE_PATH=~/git/linux-config/system_files/VSCodium
-    if [[ "1" == "$WSL" ]]; then
+    if $WSL; then
         dos2unix -n $BASE_PATH/c_cpp_properties_win.json .vscode/c_cpp_properties.json
     else
         cp ~/git/linux-config/system_files/VSCodium/c_cpp_properties_linux.json \
