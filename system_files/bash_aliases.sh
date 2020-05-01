@@ -45,5 +45,5 @@ alias strip_term_codes="sed 's/\x1B\[[0-9;]\+[A-Za-z]//g'"
 alias t='clear; tree -C | less -R'
 alias cg='cd `git rev-parse --show-toplevel`'
 alias lk='exa' # ls replacement
-alias fd='fdfind' # find replacement
+#alias fd='fdfind' # find replacement -- with manual install process, alias not necessary
 

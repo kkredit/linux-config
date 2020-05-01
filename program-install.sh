@@ -58,9 +58,9 @@ if has_arg "utilities"; then
     # Fd (https://github.com/sharkdp/fd)
     # NOTE: Can use officially maintained package with Ubuntu 19+
     #sudo apt install fd-find
-    URI="$(curl -Ls https://github.com/sharkdp/fd/releases/latest | \
-            grep -m 1 "x86_64-unknown-linux-gnu.tar.gz" | cut -d\" -f2)"
-    wget -q https://github.com$URI
+    URL="https://github.com$(curl -Ls https://github.com/sharkdp/fd/releases/latest |
+                               grep -m 1 "x86_64-unknown-linux-gnu.tar.gz" | cut -d\" -f2)"
+    wget -q $URL
     tar -xf fd*linux-gnu.tar.gz
     cp -r fd*linux-gnu/fd fd*linux-gnu/fd.1 fd*linux-gnu/autocomplete ~/bin/
     rm -rf fd*linux-gnu*
