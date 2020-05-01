@@ -15,6 +15,7 @@ PACKAGES_FILE="$WSL_DKTP/packages.txt"
 
 if has_arg "update"; then
   choco upgrade all -y
+  exit 0
 fi
 
 function choco_install_packages() {

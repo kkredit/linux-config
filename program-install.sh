@@ -40,6 +40,32 @@ if has_arg "dev"; then
         libc6-dev-i386
 fi
 
+if has_arg "utilities"; then
+    if [[ $(which cargo) ]]; then
+        cargo install exa
+    fi
+
+    # Bat (https://github.com/sharkdp/bat)
+    curl -s https://api.github.com/repos/sharkdp/bat/releases/latest \
+        | grep "browser_download_url.*x86_64-unknown-linux-gnu.tar.gz" \
+        | cut -d : -f 2,3 \
+        | tr -d \" \
+        | wget -qi -
+    tar -xf bat*linux-gnu.tar.gz
+    cp -r bat*linux-gnu/bat bat*linux-gnu/bat.1 bat*linux-gnu/autocomplete ~/bin/
+    rm -rf bat*linux-gnu*
+
+    # Fd (https://github.com/sharkdp/fd)
+    # NOTE: Can use officially maintained package with Ubuntu 19+
+    #sudo apt install fd-find
+    URI="$(curl -Ls https://github.com/sharkdp/fd/releases/latest | \
+            grep -m 1 "x86_64-unknown-linux-gnu.tar.gz" | cut -d\" -f2)"
+    wget -q https://github.com$URI
+    tar -xf fd*linux-gnu.tar.gz
+    cp -r fd*linux-gnu/fd fd*linux-gnu/fd.1 fd*linux-gnu/autocomplete ~/bin/
+    rm -rf fd*linux-gnu*
+fi
+
 if has_arg "vscodium"; then
     wget -q --show-progress -O - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg | \
         sudo apt-key add -
