@@ -3,7 +3,7 @@ source helper_scripts/local-helpers.sh
 
 # Plain files
 FILES_DIR=system_files
-WSL_FILES_DIR=wsl/files
+WSL_FILES_DIR=wsl
 
 install -m 644 $FILES_DIR/bashrc.sh ~/.bashrc
 install -m 644 $FILES_DIR/bash_profile.sh ~/.bash_profile
@@ -27,8 +27,9 @@ install -m 644 $FILES_DIR/gitconfig ~/.gitconfig
 install -m 644 $FILES_DIR/gitignore_global ~/.gitignore_global
 
 # WSL files
+WSL=false
 if [[ $(uname -a | grep -i microsoft) ]]; then
-    WSL=1
+    WSL=true
     install -m 644 $WSL_FILES_DIR/bashrc_wsl.sh ~/.bashrc_wsl
     unix2dos -n $FILES_DIR/gitconfig_windows $(wslpath 'C:/ProgramData/Git/config') 2>/dev/null
     unix2dos -n $FILES_DIR/gitignore_global $(wslpath 'C:/ProgramData/Git/gitignore_global') \
@@ -36,18 +37,18 @@ if [[ $(uname -a | grep -i microsoft) ]]; then
 fi
 
 # Submodules files
-DO_UPDATE=0
+DO_UPDATE=false
 if [[ 0 == $(find submodules/ -type f | wc -l) ]]; then
     git submodule init
     git submodule update --init --force --remote &> /dev/null
-    DO_UPDATE=1
+    DO_UPDATE=true
 fi
 
 if has_arg "submodules"; then
     git submodule update --init --force --remote &> /dev/null
-    DO_UPDATE=1
+    DO_UPDATE=true
 elif has_arg "update"; then
-    DO_UPDATE=1
+    DO_UPDATE=true
 fi
 
 mkdir -p ~/bin
@@ -57,7 +58,7 @@ cp -r submodules/diff-so-fancy/lib ~/bin/
 install -m 755 submodules/git-log-compact/git-log-compact \
     ~/bin/git-log-compact
 install -m 755 submodules/tldr/tldr ~/bin/tldr
-if [[ 1 == $DO_UPDATE ]]; then
+if $DO_UPDATE; then
     pushd submodules/autojump > /dev/null
     ./install.py > /dev/null
     popd > /dev/null
@@ -67,7 +68,7 @@ install -m 644 submodules/forgit/forgit.plugin.sh ~/.forgit.plugin.sh
 install -m 755 submodules/git-heatmap/git-heatmap ~/bin/
 
 # Other
-if [[ 1 == $DO_UPDATE ]]; then
+if $DO_UPDATE; then
     # Bat (https://github.com/sharkdp/bat)
     curl -s https://api.github.com/repos/sharkdp/bat/releases/latest \
         | grep "browser_download_url.*x86_64-unknown-linux-gnu.tar.gz" \

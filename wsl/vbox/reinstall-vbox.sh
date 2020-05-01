@@ -15,3 +15,4 @@ run_ps_elevated "$WIN_DKTP\\$VBOX_INSTALLER"
 # Cleanup
 rm $WSL_DKTP/$VBOX_INSTALLER
 rm ~/.wget-hsts
+
