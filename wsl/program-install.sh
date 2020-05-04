@@ -3,6 +3,8 @@
 
 source ../helper_scripts/local-helpers.sh
 
+[[ $WSL ]] || exit 1
+
 # Setup
 RESOURCES=resources
 BAT_DIR=bat_scripts
