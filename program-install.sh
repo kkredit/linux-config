@@ -136,6 +136,14 @@ if has_arg "writing"; then
         pandoc
 fi
 
+if has_arg "pandoc"; then
+    URL="https://github.com$(curl -Ls https://github.com/jgm/pandoc/releases/latest | grep -m1 "amd64.deb" | \
+                                cut -d\" -f2)"
+    wget -q --show-progress $URL
+    sudo dpkg -i pandoc-*-amd64.deb
+    rm pandoc-*-amd64.deb
+fi
+
 if has_arg "keys"; then
     sudo-pkg-mgr install -y \
         gnome-tweak-tool
