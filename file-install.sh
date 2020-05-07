@@ -59,7 +59,7 @@ install -m 644 submodules/forgit/forgit.plugin.sh ~/.forgit.plugin.sh
 install -m 755 submodules/git-heatmap/git-heatmap ~/bin/
 
 # VSCodium
-if has_arg "codium"i && [[ $(which codium) ]]; then
+if has_arg "codium" && [[ $(which codium) ]]; then
     VSC_CONF_DIR=~/.config/VSCodium/User
     RUN_VSC=codium
     function INST_FILE() { install -m 644 $@; }
