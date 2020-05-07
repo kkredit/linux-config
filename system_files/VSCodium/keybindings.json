@@ -262,7 +262,7 @@
         "command": "settings.cycle.indent_guides"
     },
     {
-        "key": "alt+t",
+        "key": "alt+d",
         "command": "markdown.extension.checkTaskList",
         "when": "editorTextFocus && editorLangId == 'markdown'"
     },
