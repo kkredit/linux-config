@@ -262,7 +262,7 @@
         "command": "settings.cycle.indent_guides"
     },
     {
-        "key": "alt+d",
+        "key": "alt+x",
         "command": "markdown.extension.checkTaskList",
         "when": "editorTextFocus && editorLangId == 'markdown'"
     },
@@ -286,7 +286,8 @@
     },
     {
         "key": "alt+x",
-        "command": "clojureVSCode.evalAndShowResult"
+        "command": "clojureVSCode.evalAndShowResult",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
     },
     {
         "key": "ctrl+k d",
