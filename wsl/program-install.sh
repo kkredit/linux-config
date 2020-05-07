@@ -3,7 +3,7 @@
 
 source ../helper_scripts/local-helpers.sh
 
-[[ $WSL ]] || exit 1
+$WSL || exit 1
 
 # Setup
 RESOURCES=resources
