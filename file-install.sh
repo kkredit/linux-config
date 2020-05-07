@@ -78,7 +78,7 @@ if has_arg "codium" && [[ $(which codium) ]]; then
                                                   $FILES_DIR/VSCodium/$FILE)" ]]
         then
             if [[ $(stat -c %Y $VSC_CONF_DIR/$FILE) < \
-                  $(git log -1 --pretty=format:'%ct' -- system_files/VSCodium/$FILE) ]]
+                  $(stat -c %Y system_files/VSCodium/$FILE) ]]
             then
                 INST_FILE $FILES_DIR/VSCodium/$FILE $VSC_CONF_DIR/$FILE
             else
