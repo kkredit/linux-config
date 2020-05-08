@@ -293,7 +293,7 @@ if has_arg "clojure"; then
 
     wget -q https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
     chmod +x lein
-    mv ~/bin/ lein
+    mv lein ~/bin/
 
     which java || sudo apt-get install -y default-jdk
 
