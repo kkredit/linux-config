@@ -117,6 +117,13 @@ function _co() {
 }
 complete -F _co co
 
+function cof() {
+    FILE=$(findf $1)
+    [[ -f "$FILE" ]] || return 1
+    echo $FILE
+    codium $FILE
+}
+
 function vscode_proj_init_c() {
     mkdir -p .vscode
     BASE_PATH=~/git/linux-config/system_files/VSCodium
