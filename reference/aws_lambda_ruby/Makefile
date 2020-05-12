@@ -20,3 +20,6 @@ $(ZIP): $(SOURCES) | $(GEM_DIR)
 
 deploy: $(ZIP) | $(GEM_DIR)
 	aws lambda update-function-code --function-name $(FUNCTION_NAME) --region $(REGION) --zip-file fileb://$(ZIP)
+
+clean:
+	rm -rf $(ZIP) vendor
