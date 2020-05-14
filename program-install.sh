@@ -253,6 +253,17 @@ if has_arg "react"; then
     npm install -g create-react-app
 fi
 
+if has_arg "yarn"; then
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | \
+        sudo tee /etc/apt/sources.list.d/yarn.list
+    if $(which nvm); then
+        sudo apt update && sudo apt install --no-install-recommends yarn
+    else
+        sudo apt update && sudo apt install yarn
+    fi
+fi
+
 if has_arg "argdown"; then
     if [[ "" == $(which npm) ]]; then
         echo "install node first; '$0 node'"
