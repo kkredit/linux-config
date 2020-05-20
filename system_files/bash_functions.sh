@@ -429,18 +429,10 @@ function eb() {
     awsprofilecmd eb $@
 }
 
-function awsprofile() {
-    export MY_AWS_PROFILE=$1
-}
-
-function awswhoami() {
-    echo $MY_AWS_PROFILE
-}
-
 function awsiam() {
     if (( 0 == $# )); then
-        awswhoami
+        echo $MY_AWS_PROFILE
     else
-        awsprofile $1
+        export MY_AWS_PROFILE=$1
     fi
 }
