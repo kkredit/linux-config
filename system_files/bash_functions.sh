@@ -183,7 +183,7 @@ function mkcd() {
 }
 
 function showme() {
-    set -x && $@ && set +x
+    set -x; $@; set +x
 }
 
 function libdeps() {
