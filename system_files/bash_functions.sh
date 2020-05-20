@@ -412,3 +412,35 @@ function tree-md() {
        sed -e 's/| \+/  /g' -e 's/[|`]-\+/  */g' -e 's:\(* \)\(\(.*/\)\([^/]\+\)\):\1\4:g'
 }
 alias tmd='tree-md'
+
+function awsprofilecmd() {
+    if [[ "" != "$MY_AWS_PROFILE" ]]; then
+        command $1 $2 --profile $MY_AWS_PROFILE ${@:3}
+    else
+        command $@
+    fi
+}
+
+function aws() {
+    awsprofilecmd aws $@
+}
+
+function eb() {
+    awsprofilecmd eb $@
+}
+
+function awsprofile() {
+    export MY_AWS_PROFILE=$1
+}
+
+function awswhoami() {
+    echo $MY_AWS_PROFILE
+}
+
+function awsiam() {
+    if (( 0 == $# )); then
+        awswhoami
+    else
+        awsprofile $1
+    fi
+}
