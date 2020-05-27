@@ -491,7 +491,7 @@ if has_arg "awseb" || has_arg "elastic_beanstalk"; then
     git clone https://github.com/aws/aws-elastic-beanstalk-cli-setup.git
     ./aws-elastic-beanstalk-cli-setup/scripts/bundled_installer
     echo 'export PATH="~/.ebcli-virtual-env/executables:$PATH"' >> ~/.profile
-    echo 'Execute "source ~/.profile" to use eb."
+    echo 'Execute "source ~/.profile" to use eb.'
     rm -rf ./aws-elastic-beanstalk-cli-setup
 fi
 
