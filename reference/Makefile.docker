@@ -5,7 +5,7 @@ DOCKER_RUN_FLAGS := -v `pwd`:/host --user=`id -u`:`id -g` --hostname docker --rm
 
 .PHONY: build run
 
-docker:
+build:
 	docker build $(DOCKER_BUILD_FLAGS) -t $(DOCKER_TAG) .
 
 run:

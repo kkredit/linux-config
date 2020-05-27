@@ -25,7 +25,8 @@ RUN \
     # User setup
     groupadd -g $USER_GID $USER_NAME && \
     useradd --create-home -s /bin/bash -u $USER_UID -g $USER_GID $USER_NAME && \
-    usermod -aG sudo $USER
+    usermod -aG sudo $USER_NAME && \
+    echo "$USER_NAME ALL=(ALL) NOPASSWD: ALL" | EDITOR='tee -a' visudo
 
 # Image setup
 #############
