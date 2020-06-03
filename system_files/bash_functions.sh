@@ -415,7 +415,7 @@ alias tmd='tree-md'
 
 function awsprofilecmd() {
     if [[ "" != "$MY_AWS_PROFILE" ]]; then
-        command $1 $2 --profile $MY_AWS_PROFILE ${@:3}
+        command $@ --profile $MY_AWS_PROFILE
     else
         command $@
     fi
