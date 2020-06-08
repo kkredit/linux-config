@@ -86,6 +86,8 @@
     editor = vim
     pager = diff-so-fancy | perl -pe 's/\t/»\\e[1D\t/g' | less --tabs=4 -RFX
     excludesfile = ~/.gitignore_global
+[pull]
+    ff = only
 [rebase]
     autoSquash = true
 [log-compact]
