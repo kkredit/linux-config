@@ -289,4 +289,6 @@
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },
+    "explorer.autoReveal": "focusNoScroll",
+    "workbench.list.smoothScrolling": true,
 }
