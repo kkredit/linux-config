@@ -429,10 +429,16 @@ function eb() {
     awsprofilecmd eb $@
 }
 
+function awsiamget() {
+    cat ~/.aws/credentials | grep -A3 $MY_AWS_PROFILE | grep $1 | awk '{print $3}'
+}
+
 function awsiam() {
     if (( 0 == $# )); then
         echo $MY_AWS_PROFILE
     else
         export MY_AWS_PROFILE=$1
+        export AWS_ACCESS_KEY_ID=$(awsiamget aws_access_key_id)
+        export AWS_SECRET_ACCESS_KEY=$(awsiamget aws_secret_access_key)
     fi
 }
