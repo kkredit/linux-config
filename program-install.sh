@@ -37,7 +37,8 @@ if has_arg "dev"; then
         g++ \
         make \
         lcov \
-        libc6-dev-i386
+        libc6-dev-i386 \
+        jq
 fi
 
 if has_arg "utilities"; then
