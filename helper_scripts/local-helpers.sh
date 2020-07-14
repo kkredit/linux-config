@@ -2,6 +2,11 @@
 
 ARGS=$(echo "$@" | tr '[:upper:]' '[:lower:]')
 
+WSL=false
+if [[ $(uname -a | grep -i microsoft) ]]; then
+    WSL=true
+fi
+
 # Returns true if the specified arg is present in $ARGS
 function has_arg() {
     echo $ARGS | grep -Pq "(^| )$1( |$)"
