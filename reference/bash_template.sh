@@ -12,7 +12,7 @@ function cleanup() {
 trap cleanup EXIT
 
 function exitprint() {
-  echo "${@:2}"
+  echo "${@:2}" 1>&2
   exit $1
 }
 
