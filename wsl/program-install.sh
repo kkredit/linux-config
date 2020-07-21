@@ -49,8 +49,9 @@ if has_arg "wsltty"; then
   # Configure WSLtty (see https://github.com/mintty/wsltty)
   echo "Configuring WSLtty..."
   run_ps "C:\\Users\\kevinkredit\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\WSLtty\\add default to context menu"
-  unix2dos -n $RESOURCES/config_wsltty $(wslpath $APPDATA)/wsltty/config &> /dev/null
-  cp $RESOURCES/bash-logo.ico  $(wslpath $APPDATA)/../Local/wsltty/wsl.ico
+  APPDATAPATH="/mnt/c/Users/kevinkredit/AppData"
+  unix2dos -n $RESOURCES/config_wsltty $APPDATAPATH/Roaming/wsltty/config &> /dev/null
+  cp $RESOURCES/bash-logo.ico $APPDATAPATH/Local/wsltty/wsl.ico
 fi
 
 if has_arg "wslgit"; then
