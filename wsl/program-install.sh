@@ -32,6 +32,7 @@ function choco_install_packages() {
 # Package groups
 if has_arg "basic"; then
   choco_install_packages \
+    microsoft-windows-terminal \
     googlechrome \
     firefox \
     enpass.install \
