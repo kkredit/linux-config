@@ -6,7 +6,6 @@ source ../helper_scripts/local-helpers.sh
 $WSL || exit 1
 
 # Setup
-RESOURCES=resources
 BAT_DIR=bat_scripts
 INST_CHOCO=$BAT_DIR/win-install-choco.bat
 RUN_CHOCO=$BAT_DIR/choco-install-packages.bat
@@ -33,7 +32,6 @@ function choco_install_packages() {
 # Package groups
 if has_arg "basic"; then
   choco_install_packages \
-    wsltty \
     googlechrome \
     firefox \
     enpass.install \
@@ -43,15 +41,6 @@ if has_arg "basic"; then
     windirstat \
     sharpkeys
   # Also consider sharpkeys alternative autohotkey.portable
-fi
-
-if has_arg "wsltty"; then
-  # Configure WSLtty (see https://github.com/mintty/wsltty)
-  echo "Configuring WSLtty..."
-  run_ps "C:\\Users\\kevinkredit\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\WSLtty\\add default to context menu"
-  APPDATAPATH="/mnt/c/Users/kevinkredit/AppData"
-  unix2dos -n $RESOURCES/config_wsltty $APPDATAPATH/Roaming/wsltty/config &> /dev/null
-  cp $RESOURCES/bash-logo.ico $APPDATAPATH/Local/wsltty/wsl.ico
 fi
 
 if has_arg "wslgit"; then
