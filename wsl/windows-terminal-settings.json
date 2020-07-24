@@ -40,7 +40,7 @@
             "cursorShape": "filledBox",
             "background": "#040404",
             "useAcrylic": true,
-            "acrylicOpacity": 0.85
+            "acrylicOpacity": 0.95
         },
         "list":
         [
@@ -66,6 +66,17 @@
                 "source": "Windows.Terminal.Wsl",
                 "startingDirectory": "//wsl$/Ubuntu/home/kevin",
                 "icon": "C:/wsl/icons/ubuntu.ico",
+                "fontFace": "Ubuntu",
+                "fontSize": 11
+            },
+            {
+                // Make changes here to the WSL Ubuntu 20.04 profile.
+                "guid": "{07b52e3e-de2c-5db4-bd2d-ba144ed6c273}",
+                "hidden": false,
+                "name": "Ubuntu 20.04",
+                "source": "Windows.Terminal.Wsl",
+                "startingDirectory": "//wsl$/Ubuntu-20.04/home/kevin",
+                "icon": "C:/wsl/icons/ubuntu-blue.ico",
                 "fontFace": "Ubuntu",
                 "fontSize": 11
             },
