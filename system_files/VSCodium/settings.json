@@ -149,10 +149,7 @@
     },
     "[argdown]": {
         "editor.fontLigatures": "'dlig'",
-        "editor.fontFamily": "ArgVu Sans Mono",
-        "editor.rulers": [
-            80
-        ]
+        "editor.fontFamily": "ArgVu Sans Mono"
     },
     "settings.cycle": [
         {

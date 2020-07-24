@@ -10,14 +10,15 @@ EditorConfig.EditorConfig
 ezforo.copy-relative-path-and-line-numbers
 Fr43nk.seito-openfile
 Glavin001.unibeautify-vscode
+golang.Go
 haapanen.vs-code-paragraph-hard-wrapper
 hoovercj.vscode-settings-cycler
 James-Yu.latex-workshop
 johnpapa.read-time
 justusadam.language-haskell
 mads-hartmann.bash-ide-vscode
+ms-python.python
 ms-vscode.cpptools
-ms-vscode.Go
 rebornix.ruby
 rsbondi.highlight-words
 rust-lang.rust
