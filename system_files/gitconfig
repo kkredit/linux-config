@@ -26,6 +26,7 @@
     s = show
     st = status
     br = branch
+    sm = submodule
 
     # diff and log
     d = diff
