@@ -4,8 +4,8 @@ source ../helper_scripts/local-helpers.sh
 
 $WSL || exit 1
 
-mkdir -p /mnt/c/Users/$WIN_USER/Pictures/wsl
-cp images/* /mnt/c/Users/$WIN_USER/Pictures/wsl
+mkdir -p /mnt/c/wsl/icons
+cp images/* /mnt/c/wsl/icons/
 
 cp windows-terminal-settings.json settings.json
 sed -i "s/WIN_USER/$WIN_USER/g" settings.json

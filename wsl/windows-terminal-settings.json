@@ -38,7 +38,7 @@
             // "fontFace": "Ubuntu",
             "fontSize": 10,
             "cursorShape": "filledBox",
-            "background": "#151515",
+            "background": "#040404",
             "useAcrylic": true,
             "acrylicOpacity": 0.85
         },
@@ -65,7 +65,7 @@
                 "name": "Ubuntu 18.04",
                 "source": "Windows.Terminal.Wsl",
                 "startingDirectory": "//wsl$/Ubuntu/home/kevin",
-                "icon": "C:/Users/WIN_USER/Pictures/wsl/ubuntu.ico",
+                "icon": "C:/wsl/icons/ubuntu.ico",
                 "fontFace": "Ubuntu",
                 "fontSize": 11
             },
