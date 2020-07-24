@@ -115,11 +115,11 @@
         "key": "ctrl+l",
         "command": "workbench.files.action.showActiveFileInExplorer"
     },
-    // {
-    //     "key": "shift+;",
-    //     "command": "workbench.action.showCommands",
-    //     "when": "editorTextFocus && !extension.simpleVim.insertMode"
-    // },
+    {
+        "key": "shift+;",
+        "command": "workbench.action.showCommands",
+        "when": "editorTextFocus && !extension.simpleVim.insertMode"
+    },
     {
         "key": "ctrl+k ctrl+c",
         "command": "-editor.action.addCommentLine",
