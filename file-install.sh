@@ -34,9 +34,9 @@ if $WSL; then
 fi
 
 # Submodules files
-if has_arg "submodules" [[ 0 == $(find submodules/ -type f | wc -l) ]]; then
+if has_arg "submodules" || [[ 0 == $(find submodules/ -type f | wc -l) ]]; then
     git submodule init
-    git submodule update --init --force --remote &> /dev/null
+    git submodule update --init --force --remote
 fi
 
 mkdir -p ~/bin
