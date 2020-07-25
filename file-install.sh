@@ -63,7 +63,7 @@ if has_arg "codium" && [[ $(which codium) ]]; then
     function INST_FILE() { install -m 644 $@; }
     function GET_FILE() { install -m 644 $@; }
     if $WSL; then
-        VSC_CONF_DIR=$(wslpath "$APPDATA\\VSCodium\\User")
+        VSC_CONF_DIR="/mnt/c/Users/$WIN_USER/AppData/Roaming/VSCodium/User"
         RUN_VSC='run_cmd codium'
         function INST_FILE() { unix2dos -n $1 $2 2>/dev/null; }
         function GET_FILE() { dos2unix -n $1 $2 2>/dev/null; chmod 644 $2; }
