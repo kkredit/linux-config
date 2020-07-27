@@ -24,6 +24,7 @@ alias krepr='grep -rniIs --exclude-dir={.git,db,log,tmp,vendor,coverage,node_mod
 alias findf='find . -type f -iname 2>/dev/null'
 alias findd='find . -type d -iname 2>/dev/null'
 alias findl='find . -type l -iname 2>/dev/null'
+alias child_dirs='find . -type d -path "./*" -prune'
 alias dd='dd status=progress'
 alias recent='ls -lct $(find . -type f -iname "*") | less'
 alias mdv='grip -b'
