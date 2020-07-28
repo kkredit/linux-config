@@ -38,8 +38,8 @@
             // "fontFace": "Ubuntu",
             "fontSize": 10,
             "cursorShape": "filledBox",
-            "background": "#040404",
-            "useAcrylic": true,
+            "background": "#181818",
+            "useAcrylic": false,
             "acrylicOpacity": 0.95
         },
         "list":
