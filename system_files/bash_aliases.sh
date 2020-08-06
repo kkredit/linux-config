@@ -18,7 +18,7 @@ alias sshkeygen='ssh-keygen -t rsa'
 alias sshkeyinstall='ssh-copy-id -i ~/.ssh/id_rsa.pub'
 alias g='git'
 alias s="echo $?"
-alias c='clear'
+alias c='clear -x'
 alias krep='grep -rniIs'
 alias krepr='grep -rniIs --exclude-dir={.git,db,log,tmp,vendor,coverage,node_modules,.tracked*,packs,packs-test}'
 alias findf='find . -type f -iname 2>/dev/null'
