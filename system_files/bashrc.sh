@@ -107,6 +107,7 @@ WSL=false
 if [[ $(uname -a | grep -i microsoft) ]]; then
     WSL=true
 fi
+export EDITOR=/usr/bin/vim
 
 # print a quote or fortune, for fun
 #if [[ $(which fortune) ]] && [[ $(type rand_in_range 2>/dev/null) ]]; then
