@@ -10,6 +10,7 @@
     ca = commit -a
     cam = commit -am
     amend = commit --amend --no-edit
+    reword = commit --amend
     f = fetch
     fp = fetch --prune
     ft = fetch --prune origin "+refs/tags/*:refs/tags/*" # fetch and prune tags
