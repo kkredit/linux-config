@@ -8,6 +8,8 @@ function exitprint() {
   exit $1
 }
 
+$WSL || exitprint 1 "WSL only"
+
 USAGE="
 Usage: ${0##*/} [-w|-v] [-f]
 
@@ -22,7 +24,7 @@ CACHED_STATE_FILE=~/.wsl2_or_virtualbox
 function set_wsl2 {
     if [[ "$CACHED_STATE" != "wsl2" ]] || $FORCE; then
         echo "Setting Windows features to support WSL 2; restart is required"
-        run_ps_elevated "dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart"
+        run_cmd_elevated "dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart"
         echo "wsl2" > $CACHED_STATE_FILE
     else
         echo "Windows features already set to support WSL 2"
@@ -32,7 +34,7 @@ function set_wsl2 {
 function set_vbox {
     if [[ "$CACHED_STATE" != "vbox" ]] || $FORCE; then
         echo "Setting Windows features to support VirtualBox; restart is required"
-        run_ps_elevated "dism.exe /online /disable-feature /featurename:VirtualMachinePlatform /all /norestart"
+        run_cmd_elevated "dism.exe /online /disable-feature /featurename:VirtualMachinePlatform /all /norestart"
         echo "vbox" > $CACHED_STATE_FILE
     else
         echo "Windows features already set to support VirtualBox"

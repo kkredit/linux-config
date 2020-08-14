@@ -5,62 +5,58 @@ WSL_DKTP="/mnt/c/Users/$WIN_USER/Desktop"
 WIN_DKTP="C:\\Users\\$WIN_USER\\Desktop"
 export WIN_USER WSL_DKTP WIN_DKTP
 
-function run_cmd() {
+function run_cmd_local {
     cmd.exe /C $@
 }
+export -f run_cmd_local
 
-function run_ps() {
+function run_cmd {
     powershell.exe -Command "Start-Process -Wait cmd -ArgumentList \"/C $@\""
 }
+export -f run_cmd
 
-function run_ps_elevated() {
-    powershell.exe -Command "Start-Process -Wait cmd -ArgumentList \"/C $@\" -Verb RunAs"
+function run_cmd_elevated {
+    powershell.exe -Command "Start-Process -Wait -Verb RunAs cmd -ArgumentList \"/C $@\""
 }
+export -f run_cmd_elevated
 
-function run_bat() {
-    # Copy to desktop so Windows can easily see it; run; clean up
-
-    FILE=$1
-    if [[ ! -f $FILE ]]; then
-        echo run_bat FILENAME
-        return 1
-    fi
-    FILENAME=$(basename $FILE)
-
-    unix2dos -n $FILE $WSL_DKTP/$FILENAME &> /dev/null
-    run_ps "$WIN_DKTP\\$FILENAME"
-    rm $WSL_DKTP/$FILENAME
+function run_bat {
+    [ -f $1 ] || return 1
+    ABS_WIN_PATH=$(wslpath -aw $1)
+    run_cmd $ABS_WIN_PATH
 }
+export -f run_bat
 
-function run_bat_elevated() {
-    # Copy to desktop so Windows can easily see it; run; clean up
-
-    FILE=$1
-    if [[ ! -f $FILE ]]; then
-        echo run_bat FILENAME
-        return 1
-    fi
-    FILENAME=$(basename $FILE)
-
-    unix2dos -n $FILE $WSL_DKTP/$FILENAME &> /dev/null
-    run_ps_elevated "$WIN_DKTP\\$FILENAME"
-    rm $WSL_DKTP/$FILENAME
+function run_bat_elevated {
+    [ -f $1 ] || return 1
+    ABS_WIN_PATH=$(wslpath -aw $1)
+    run_cmd_elevated $ABS_WIN_PATH
 }
+export -f run_bat_elevated
 
-function choco() {
-    powershell.exe -Command "Start-Process cmd -ArgumentList \"/C choco $@\" -Verb RunAs"
+function run_ps1 {
+    [ -f $1 ] || return 1
+    ABS_WIN_PATH=$(wslpath -aw $1)
+    powershell.exe -Command "Start-Process -Wait powershell -ArgumentList '-file $ABS_WIN_PATH'"
 }
+export -f run_ps1
 
-function wincp_headers() {
-    BASE=$(wslpath 'C:\wsl')
-    if [ ! -d $BASE ]; then
-        echo "Create dir '$BASE' first"
-        return 1
-    fi
-    mkdir -p $BASE/usr
+function run_ps1_elevated {
+    [ -f $1 ] || return 1
+    ABS_WIN_PATH=$(wslpath -aw $1)
+    powershell.exe -Command "Start-Process -Wait -Verb RunAs powershell -ArgumentList '-file $ABS_WIN_PATH'"
+}
+export -f run_ps1_elevated
+
+function choco {
+    run_cmd_elevated "choco $@"
+}
+export -f choco
+
+function wincp_headers {
+    BASE=/mnt/c/wsl
     mkdir -p $BASE/usr/local
     cp -r /usr/include $BASE/usr
     cp -r /usr/local/include $BASE/usr/local
 }
-
-export -f run_cmd run_ps run_ps_elevated run_bat run_bat_elevated choco wincp_headers
+export -f wincp_headers
