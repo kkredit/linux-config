@@ -8,16 +8,16 @@ function Set-MrInternetConnectionSharing {
 <#
 .SYNOPSIS
     Configures Internet connection sharing for the specified network adapter(s).
- 
+
 .DESCRIPTION
     Set-MrInternetConnectionSharing is an advanced function that configures Internet connection sharing
     for the specified network adapter(s). The specified network adapter(s) must exist and must be enabled.
     To enable Internet connection sharing, Internet connection sharing cannot already be enabled on any
     network adapters.
- 
+
 .PARAMETER InternetInterfaceName
     The name of the network adapter to enable or disable Internet connection sharing for.
- 
+
  .PARAMETER LocalInterfaceName
     The name of the network adapter to share the Internet connection with.
 
@@ -35,10 +35,10 @@ function Set-MrInternetConnectionSharing {
 
 .INPUTS
     String
- 
+
 .OUTPUTS
     PSCustomObject
- 
+
 .NOTES
     Author:  Mike F Robbins
     Website: http://mikefrobbins.com
@@ -84,9 +84,9 @@ function Set-MrInternetConnectionSharing {
         regsvr32.exe /s hnetcfg.dll
         $netShare = New-Object -ComObject HNetCfg.HNetShare
     }
-    
+
     PROCESS {
-        
+
         $publicConnection = $netShare.EnumEveryConnection |
         Where-Object {
             $netShare.NetConnectionProps.Invoke($_).Name -eq $InternetInterfaceName
@@ -101,8 +101,8 @@ function Set-MrInternetConnectionSharing {
             }
 
             $privateConfig = $netShare.INetSharingConfigurationForINetConnection.Invoke($privateConnection)
-        } 
-        
+        }
+
         if ($Enabled) {
             $publicConfig.EnableSharing(0)
             if ($PSBoundParameters.LocalInterfaceName) {

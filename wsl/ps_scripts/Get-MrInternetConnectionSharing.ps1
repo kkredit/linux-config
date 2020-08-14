@@ -8,14 +8,14 @@ function Get-MrInternetConnectionSharing {
 <#
 .SYNOPSIS
     Retrieves the status of Internet connection sharing for the specified network adapter(s).
- 
+
 .DESCRIPTION
     Get-MrInternetConnectionSharing is an advanced function that retrieves the status of Internet connection sharing
     for the specified network adapter(s).
- 
+
 .PARAMETER InternetInterfaceName
     The name of the network adapter(s) to check the Internet connection sharing status for.
- 
+
 .EXAMPLE
     Get-MrInternetConnectionSharing -InternetInterfaceName Ethernet, 'Internal Virtual Switch'
 
@@ -27,10 +27,10 @@ function Get-MrInternetConnectionSharing {
 
 .INPUTS
     String
- 
+
 .OUTPUTS
     PSCustomObject
- 
+
 .NOTES
     Author:  Mike F Robbins
     Website: http://mikefrobbins.com
@@ -53,12 +53,12 @@ function Get-MrInternetConnectionSharing {
 
     PROCESS {
         foreach ($Interface in $InternetInterfaceName){
-        
+
             $publicConnection = $netShare.EnumEveryConnection |
             Where-Object {
                 $netShare.NetConnectionProps.Invoke($_).Name -eq $Interface
             }
-            
+
             try {
                 $Results = $netShare.INetSharingConfigurationForINetConnection.Invoke($publicConnection)
             }
@@ -72,7 +72,7 @@ function Get-MrInternetConnectionSharing {
                 SharingEnabled = $Results.SharingEnabled
                 SharingConnectionType = $Results.SharingConnectionType
                 InternetFirewallEnabled = $Results.InternetFirewallEnabled
-            }   
+            }
         }
-    }    
+    }
 }
