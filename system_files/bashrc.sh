@@ -104,9 +104,8 @@ bind -r '\C-t'
 PATH=$PATH:~/bin
 export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(vim {})+abort'" # ctrl-o opens file in vim
 WSL=false
-if [[ $(uname -a | grep -i microsoft) ]]; then
-    WSL=true
-fi
+[[ $(uname -a | grep -i microsoft) ]] && WSL=true
+export WSL
 export EDITOR=/usr/bin/vim
 
 # print a quote or fortune, for fun
