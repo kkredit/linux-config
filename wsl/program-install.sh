@@ -40,8 +40,8 @@ if has_arg "basic"; then
     adobereader \
     notepadplusplus \
     windirstat \
-    sharpkeys
-  # Also consider sharpkeys alternative autohotkey.portable
+    sharpkeys\
+    unifying
 fi
 
 if has_arg "wslgit"; then
