@@ -32,6 +32,7 @@ function SetGitcommitOptions()
   $
   read !echo '\# Recent commits:'; git log --oneline --no-decorate -8 | sed -e 's/^/\# /g'
   1
+  startinsert
 endfunction
 
 " Git rebase settings
