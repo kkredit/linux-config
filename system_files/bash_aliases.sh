@@ -47,4 +47,6 @@ alias t='clear; tree -C | less -R'
 alias cg='cd `git rev-parse --show-toplevel`'
 alias lk='exa' # ls replacement
 #alias fd='fdfind' # find replacement -- with manual install process, alias not necessary
+alias ports='sudo lsof -i -P -n'
+alias listen='sudo lsof -i -P -n | grep LISTEN'
 
