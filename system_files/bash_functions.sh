@@ -442,3 +442,10 @@ function awsiam() {
         export AWS_SECRET_ACCESS_KEY=$(awsiamget aws_secret_access_key)
     fi
 }
+
+function maxcpu() {
+    printf "About to consume all CPU. To stop, run\n  > killall yes\n"
+    for i in $(seq 1 $(nproc)); do
+        yes >/dev/null &
+    done
+}
