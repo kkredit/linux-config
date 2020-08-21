@@ -68,11 +68,7 @@ if has_arg "utilities"; then
 fi
 
 if has_arg "vscodium"; then
-    wget -q --show-progress -O - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg | \
-        sudo apt-key add -
-    echo 'deb https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/repos/debs/ vscodium main' |\
-        sudo tee --append /etc/apt/sources.list.d/vscodium.list
-    sudo-pkg-mgr update && sudo-pkg-mgr install codium
+    snap install codium --classic
     FILES_DIR=system_files
     cat $FILES_DIR/VSCodium/extensions.txt | xargs -n 1 codium --install-extension
 fi
