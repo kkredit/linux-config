@@ -49,6 +49,14 @@ function exitprint() {
     exit $1
 }
 
+function krep {
+    grep -rniIs "$@" .
+}
+
+function krepr {
+    grep -rniIs --exclude-dir={.git,db,log,tmp,vendor,coverage,node_modules,.tracked*,packs,packs-test,assets} "$@" .
+}
+
 function kat() {
     if [[ $# != 1 || ! -f $1 ]]; then
         echo "Must run kat() on a single file."
