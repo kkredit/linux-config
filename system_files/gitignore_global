@@ -1,6 +1,7 @@
 # general
 *.log
 *.pdf
+**.ignore/
 
 # dirs
 /workspace/
