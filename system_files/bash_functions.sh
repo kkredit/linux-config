@@ -45,8 +45,14 @@ __git_complete g _git
 
 # normal functions
 function exitprint() {
-    echo "${@:2}"
+    echo -e "${@:2}"
     exit $1
+}
+
+function o {
+    for FILE in $@; do
+        xdg-open $FILE
+    done
 }
 
 function krep {
