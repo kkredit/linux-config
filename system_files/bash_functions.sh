@@ -54,7 +54,7 @@ function krep {
 }
 
 function krepr {
-    grep -rniIs --exclude-dir={.git,db,log,tmp,vendor,coverage,node_modules,.tracked*,packs,packs-test,assets} "$@" .
+    grep -rniIs --exclude-dir={.git,db,log,tmp,vendor,coverage,node_modules,.tracked*,packs,packs-test,assets,build} "$@" .
 }
 
 function kat() {
