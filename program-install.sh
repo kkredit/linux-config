@@ -7,6 +7,7 @@ UBU_REL=$(lsb_release -cs)
 if has_arg "update"; then
     sudo-pkg-mgr update && sudo-pkg-mgr upgrade -y
     sudo-pkg-mgr autoremove
+    ! $WSL && sudo snap refresh
     exit $?
 fi
 
