@@ -35,3 +35,6 @@
 [submodule "submodules/git-heatmap"]
 	path = submodules/git-heatmap
 	url = https://github.com/jez/git-heatmap
+[submodule "submodules/wt-context-menu"]
+	path = submodules/wt-context-menu
+	url = https://github.com/kkredit/Windows-terminal-context-menu
