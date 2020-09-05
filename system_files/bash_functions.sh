@@ -55,6 +55,10 @@ function o {
     done
 }
 
+function grepr {
+    grep -rniIs $@
+}
+
 function krep {
     grep -rniIs "$(echo $@)" .
 }
