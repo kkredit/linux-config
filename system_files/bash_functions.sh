@@ -60,19 +60,19 @@ function grepr {
 }
 
 function krep {
-    grep -rniIs "$(echo $@)" .
+    grep -rniIs -- "$(echo $@)" .
 }
 
 function krepl {
-    grep -rniIsl "$(echo $@)" .
+    grep -rniIsl -- "$(echo $@)" .
 }
 
 function krepr {
-    grep -rniIs --exclude-dir={.git,db,log,tmp,vendor,coverage,node_modules,.tracked*,packs,packs-test,assets,build} "$(echo $@)" .
+    grep -rniIs --exclude-dir={.git,db,log,tmp,vendor,coverage,node_modules,.tracked*,packs,packs-test,assets,build} -- "$(echo $@)" .
 }
 
 function kreprl {
-    grep -rniIsl --exclude-dir={.git,db,log,tmp,vendor,coverage,node_modules,.tracked*,packs,packs-test,assets,build} "$(echo $@)" .
+    grep -rniIsl --exclude-dir={.git,db,log,tmp,vendor,coverage,node_modules,.tracked*,packs,packs-test,assets,build} -- "$(echo $@)" .
 }
 
 function kat() {
