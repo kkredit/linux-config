@@ -5,10 +5,10 @@ UBU_REL=$(lsb_release -cs)
 
 # Update & exit
 if has_arg "update"; then
+    set -e
     sudo-pkg-mgr update && sudo-pkg-mgr upgrade -y
     sudo-pkg-mgr autoremove
-    ! $WSL && sudo snap refresh
-    exit $?
+    $WSL || sudo snap refresh
 fi
 
 # Basic tools
