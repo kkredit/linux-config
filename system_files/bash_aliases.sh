@@ -19,6 +19,7 @@ alias sshkeyinstall='ssh-copy-id -i ~/.ssh/id_rsa.pub'
 alias g='git'
 alias s="echo $?"
 alias c='clear -x'
+alias d='cd'
 alias findf='find . -type f -iname 2>/dev/null'
 alias findd='find . -type d -iname 2>/dev/null'
 alias findl='find . -type l -iname 2>/dev/null'
