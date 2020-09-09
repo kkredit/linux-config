@@ -68,11 +68,11 @@ function krepl {
 }
 
 function krepr {
-    grep -rniIs --exclude-dir={.git,db,log,tmp,vendor,coverage,node_modules,.tracked*,packs,packs-test,assets,build} -- "$(echo $@)" .
+    grep -rniIs --exclude-dir={.git,db,log,tmp,vendor,coverage,node_modules,.tracked*,packs,packs-test,assets,build,dist} -- "$(echo $@)" .
 }
 
 function kreprl {
-    grep -rniIsl --exclude-dir={.git,db,log,tmp,vendor,coverage,node_modules,.tracked*,packs,packs-test,assets,build} -- "$(echo $@)" .
+    grep -rniIsl --exclude-dir={.git,db,log,tmp,vendor,coverage,node_modules,.tracked*,packs,packs-test,assets,build,dist} -- "$(echo $@)" .
 }
 
 function kat() {
