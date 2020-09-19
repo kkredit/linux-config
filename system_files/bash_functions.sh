@@ -197,11 +197,11 @@ function cs() {
 }
 
 function cgs() {
-    clear && git status
+    clear -x && git status
 }
 
 function cls() {
-    clear && ls
+    clear -x && ls
 }
 
 function mkcd() {
