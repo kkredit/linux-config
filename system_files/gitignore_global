@@ -32,3 +32,4 @@
 # ruby
 .rails_*~
 .rake_*~
+.yardoc

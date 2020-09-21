@@ -150,15 +150,31 @@ function cof() {
     codium $FILE
 }
 
-function vscode_proj_init_c() {
+function code_setup_c {
     mkdir -p .vscode
     BASE_PATH=~/git/linux-config/system_files/VSCodium
     if $WSL; then
         dos2unix -n $BASE_PATH/c_cpp_properties_win.json .vscode/c_cpp_properties.json
     else
-        cp ~/git/linux-config/system_files/VSCodium/c_cpp_properties_linux.json \
-          .vscode/c_cpp_properties.json
+        cp $BASE_PATH/c_cpp_properties_linux.json .vscode/c_cpp_properties.json
     fi
+}
+
+function code_setup_ruby {
+    gem install solargraph
+    echo "NOTE: SolarGraph should be installed globally, not locally (i.e. not in the Gemfile)"
+    local SG_PATH=$(command ls /home/$USER/.rvm/wrappers/$(rvm current)/solargraph 2>/dev/null)
+    local SETTING="\"solargraph.commandPath\": \"$SG_PATH\","
+    if [ -f .vscode/settings.json ]; then
+        printf "{\n  $SETTING\n}\n" >> .vscode/settings.json
+        echo "NOTE: fixup .vscode/settings.json"
+        codium .vscode/settings.json
+    else
+        mkdir -p .vscode
+        printf "{\n  $SETTING\n}\n" > .vscode/settings.json
+    fi
+    yard gems
+    yard -n
 }
 
 function finde() {
