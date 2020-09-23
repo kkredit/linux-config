@@ -51,7 +51,10 @@ function exitprint() {
 
 function o {
     for FILE in $@; do
-        xdg-open $FILE
+        case $1 in
+            *.drawio)   drawio $FILE &>/dev/null & ;;
+            *)          xdg-open $FILE ;;
+        esac
     done
 }
 
