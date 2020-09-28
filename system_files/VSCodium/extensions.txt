@@ -20,7 +20,6 @@ justusadam.language-haskell
 mads-hartmann.bash-ide-vscode
 ms-python.python
 ms-vscode.cpptools
-rebornix.ruby
 rsbondi.highlight-words
 rust-lang.rust
 streetsidesoftware.code-spell-checker

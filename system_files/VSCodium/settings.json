@@ -267,12 +267,18 @@
     "explorer.autoReveal": "focusNoScroll",
     "workbench.list.smoothScrolling": true,
     "[typescript]": {
-        "editor.defaultFormatter": "Glavin001.unibeautify-vscode"
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "explorer.confirmDragAndDrop": false,
     "argdown.preview.lockMenu": false,
     "argdown.preview.trace": "verbose",
     "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "debug.toolBarLocation": "docked",
+    "solargraph.commandPath": "/home/kevinkredit/.rvm/wrappers/ruby-2.5.8/solargraph",
+    "prettier.packageManager": "yarn",
+    "[typescriptreact]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
 }
