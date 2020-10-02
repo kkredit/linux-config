@@ -20,6 +20,7 @@ alias g='git'
 alias s="echo $?"
 alias c='clear -x'
 alias d='cd'
+alias y='yarn'
 complete -F _cd d
 alias findf='find . -type f -iname 2>/dev/null'
 alias findd='find . -type d -iname 2>/dev/null'
