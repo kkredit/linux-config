@@ -103,16 +103,14 @@ bind -r '\C-t'
 # Set environment variables
 PATH=$PATH:~/bin
 export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(vim {})+abort'" # ctrl-o opens file in vim
-WSL=false
-[[ $(uname -a | grep -i microsoft) ]] && WSL=true
-export WSL
+export WSL=$(uname -a | grep -i microsoft &>/dev/null && echo 'true' || echo 'false')
 export EDITOR=/usr/bin/vim
-which bat &>/dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+which bat &>/dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'" || true
 
 # print a quote or fortune, for fun
-#if [[ $(which fortune) ]] && [[ $(type rand_in_range 2>/dev/null) ]]; then
+# if which fortune &>/dev/null && type rand_in_range &>/dev/null; then
 #    PROB_ONE_IN=10
 #    if [[ "1" == $(rand_in_range 1 $PROB_ONE_IN) ]]; then
 #        fortune literature
 #    fi
-#fi
+# fi
