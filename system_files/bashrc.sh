@@ -107,6 +107,7 @@ WSL=false
 [[ $(uname -a | grep -i microsoft) ]] && WSL=true
 export WSL
 export EDITOR=/usr/bin/vim
+which bat &>/dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # print a quote or fortune, for fun
 #if [[ $(which fortune) ]] && [[ $(type rand_in_range 2>/dev/null) ]]; then
