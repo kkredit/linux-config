@@ -11,7 +11,7 @@ esbenp.prettier-vscode
 ezforo.copy-relative-path-and-line-numbers
 Fr43nk.seito-openfile
 Glavin001.unibeautify-vscode
-golang.Go
+golang.go
 haapanen.vs-code-paragraph-hard-wrapper
 hoovercj.vscode-settings-cycler
 James-Yu.latex-workshop
