@@ -116,7 +116,7 @@ function line() {
 function recreplace() {
     [[ 3 == $# ]] || return 1
     [[ $(echo ${@:2} | grep "$1") ]] && return 1
-    sed -i "s$1$2$1$3$1g" $(krepr -l $2)
+    sed -i "s$1$2$1$3$1g" $(kreprl $2)
 }
 
 function co() {
