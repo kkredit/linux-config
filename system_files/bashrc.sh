@@ -102,6 +102,7 @@ bind -r '\C-t'
 
 # Set environment variables
 PATH=$PATH:~/bin
+[ -d ~/.yarn/bin ] && PATH=$PATH:~/.yarn/bin || true
 export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(vim {})+abort'" # ctrl-o opens file in vim
 export WSL=$(uname -a | grep -i microsoft &>/dev/null && echo 'true' || echo 'false')
 export EDITOR=/usr/bin/vim
