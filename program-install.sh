@@ -500,3 +500,14 @@ if has_arg "awseb" || has_arg "elastic_beanstalk"; then
     fi
 fi
 
+if has_arg "elm"; then
+    curl -L -o elm.gz https://github.com/elm/compiler/releases/download/0.19.1/binary-for-linux-64-bit.gz
+    gunzip elm.gz
+    chmod +x elm
+    mv elm ~/bin
+    elm --help
+    if which yarn &>/dev/null; then
+        yarn global add create-elm-app elm-format elm-test
+    fi
+fi
+

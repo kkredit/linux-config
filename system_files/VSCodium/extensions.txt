@@ -7,6 +7,7 @@ DavidAnson.vscode-markdownlint
 dramforever.vscode-ghc-simple
 eamodio.gitlens
 EditorConfig.EditorConfig
+elmTooling.elm-ls-vscode
 esbenp.prettier-vscode
 ezforo.copy-relative-path-and-line-numbers
 Fr43nk.seito-openfile
