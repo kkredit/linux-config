@@ -507,7 +507,7 @@ if has_arg "elm"; then
     mv elm ~/bin
     elm --help
     if which yarn &>/dev/null; then
-        yarn global add create-elm-app elm-format elm-test
+        yarn global add create-elm-app elm-format elm-test elm-analyse
     fi
 fi
 
