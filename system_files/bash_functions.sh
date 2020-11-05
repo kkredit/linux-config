@@ -208,13 +208,11 @@ function rand_in_range() {
 
 # create function "cs" to "cd" and "ls" in one command
 function cs() {
-    local new_dir="$*"
-    if [ $# -eq 0 ]; then
-        new_dir=${HOME}
-    elif [[ "$*" =~ ^\.+$ ]]; then
-        new_dir=${*//./.\/.}
+    local new_dir="$@"
+    if [[ "$@" =~ ^\.+$ ]]; then
+        new_dir=${@//./.\/.}
     fi
-    builtin cd "${new_dir}" && ls
+    builtin cd $new_dir && ls
 }
 alias d=cs
 
@@ -231,7 +229,7 @@ function mkcd() {
 }
 
 function showme() {
-    set -x; $@; set +x
+    set -x; eval $@; set +x
 }
 
 function libdeps() {
