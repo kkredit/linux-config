@@ -208,12 +208,15 @@ function rand_in_range() {
 
 # create function "cs" to "cd" and "ls" in one command
 function cs() {
-    new_directory="$*"
+    local new_dir="$*"
     if [ $# -eq 0 ]; then
-        new_directory=${HOME}
+        new_dir=${HOME}
+    elif [[ "$*" =~ ^\.+$ ]]; then
+        new_dir=${*//./.\/.}
     fi
-    builtin cd "${new_directory}" && ls
+    builtin cd "${new_dir}" && ls
 }
+alias d=cs
 
 function cgs() {
     clear -x && git status
