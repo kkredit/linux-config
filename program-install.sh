@@ -27,7 +27,8 @@ if has_arg "basic"; then
         screen \
         repo \
         dos2unix \
-        python
+        python \
+        inotify-tools
 fi
 
 # Other tools

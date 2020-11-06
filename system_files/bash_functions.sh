@@ -232,6 +232,10 @@ function showme() {
     set -x; eval $@; set +x
 }
 
+function watchdo() {
+    while inotifywait -q -e modify $1; do eval "${@:2}"; done
+}
+
 function libdeps() {
     objdump -p $1 | grep NEEDED
 }
