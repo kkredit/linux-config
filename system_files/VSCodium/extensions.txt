@@ -26,6 +26,7 @@ rust-lang.rust
 streetsidesoftware.code-spell-checker
 sygene.auto-correct
 testthedocs.vale
+timonwong.shellcheck
 vadimcn.vscode-lldb
 vscode-icons-team.vscode-icons
 wayou.vscode-todo-highlight
