@@ -1,13 +1,14 @@
+# shellcheck disable=SC2148
 # ~/.bash_aliases
 
 alias sbrc='source ~/.bashrc'
-alias ls="ls $COLOR_AUTO -F"
+alias ls="ls \$COLOR_AUTO -F"
 alias ll='ls -alFh'
 alias la='ls -A'
 alias l='ls -CF'
 alias cpv='rsync -ah --info=progress2'
 alias tcn='mv --force -t ~/.local/share/Trash '
-alias grep="grep $COLOR_AUTO"
+alias grep="grep \$COLOR_AUTO"
 alias dos2unixr='find . -type f -exec dos2unix {} \;'
 alias unix2dosr='find . -type f -exec unix2dos {} \;'
 alias tm=tmux
@@ -17,7 +18,7 @@ alias www='python3 -m http.server --bind localhost --cgi 8000'
 alias sshkeygen='ssh-keygen -t rsa'
 alias sshkeyinstall='ssh-copy-id -i ~/.ssh/id_rsa.pub'
 alias g='git'
-alias s="echo $?"
+alias s="echo \$?"
 alias c='clear -x'
 alias y='yarn'
 complete -F _cd d
@@ -33,7 +34,10 @@ alias md2html='grip --export'
 alias usage=ncdu
 alias whatsmyip='printf "$(curl -s ipecho.net/plain)\n"'
 alias wan-ip='whatsmyip'
+# shellcheck disable=SC2142
 alias lan-ip=$'hostname -I | awk \'{print $1}\''
+# shellcheck disable=SC2142
+alias whatisthis='echo "This is $0 -$-" #'
 alias sai='sudo apt-get install'
 alias nowhitespace=$'sed -i \'s/[[:space:]]*$//\''
 alias nws=nowhitespace

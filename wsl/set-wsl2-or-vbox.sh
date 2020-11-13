@@ -5,7 +5,7 @@ set -eEuo pipefail
 
 function exitprint() {
   echo "${@:2}" 1>&2
-  exit $1
+  exit "$1"
 }
 
 $WSL || exitprint 1 "WSL only"

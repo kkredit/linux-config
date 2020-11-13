@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC1091
 source helper_scripts/local-helpers.sh
 
 UBU_REL=$(lsb_release -cs)
@@ -64,7 +65,7 @@ if has_arg "utilities"; then
     #sudo apt install fd-find
     URL="https://github.com$(curl -Ls https://github.com/sharkdp/fd/releases/latest |
                                grep -m 1 "x86_64-unknown-linux-gnu.tar.gz" | cut -d\" -f2)"
-    wget -q $URL
+    wget -q "$URL"
     tar -xf fd*linux-gnu.tar.gz
     cp -r fd*linux-gnu/fd fd*linux-gnu/fd.1 fd*linux-gnu/autocomplete ~/bin/
     rm -rf fd*linux-gnu*
@@ -73,7 +74,7 @@ fi
 if has_arg "vscodium"; then
     snap install codium --classic
     FILES_DIR=system_files
-    cat $FILES_DIR/VSCodium/extensions.txt | xargs -n 1 codium --install-extension
+    codium --install-extension < $FILES_DIR/VSCodium/extensions.txt
 fi
 
 if has_arg "gitsecrets"; then
@@ -129,7 +130,7 @@ if has_arg "git"; then
 
     # Install git-extras
     sudo-pkg-mgr install -y git-extras
-    sudo rm $(which git-alias) # My 'alias' alias is better!
+    sudo rm "$(which git-alias)" # My 'alias' alias is better!
 fi
 
 if has_arg "writing"; then
@@ -143,7 +144,7 @@ fi
 if has_arg "pandoc"; then
     URL="https://github.com$(curl -Ls https://github.com/jgm/pandoc/releases/latest | grep -m1 "amd64.deb" | \
                                 cut -d\" -f2)"
-    wget -q --show-progress $URL
+    wget -q --show-progress "$URL"
     sudo dpkg -i pandoc-*-amd64.deb
     rm pandoc-*-amd64.deb
 fi
@@ -178,7 +179,7 @@ if has_arg "rvm"; then
     sudo-pkg-mgr install -y \
         rvm
 
-    sudo usermod -a -G rvm $USER
+    sudo usermod -a -G rvm "$USER"
     echo
     echo "Set 'Terminal preferences > Command' to run as a login shell"
     echo "Reboot before you use RVM"
@@ -192,16 +193,16 @@ if has_arg "ruby"; then
     fi
 
     rvm install ruby-head
-    rvm install $RUBY_VERSION
-    rvm --default use $RUBY_VERSION
+    rvm install "$RUBY_VERSION"
+    rvm --default use "$RUBY_VERSION"
 fi
 
 if has_arg "gems"; then
     sudo-pkg-mgr install -y \
         ruby-dev \
-        ruby$(ruby -e 'puts RUBY_VERSION[/\d+\.\d+/]')-dev
+        ruby"$(ruby -e 'puts RUBY_VERSION[/\d+\.\d+/]')"-dev
 
-    rvm @global do gem install \
+    rvm @global 'do' gem install \
         bundler \
         solargraph
 fi
@@ -238,8 +239,8 @@ if has_arg "node"; then
     sudo-pkg-mgr install npm
     curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
     sudo-pkg-mgr install -y nodejs
-    sudo chown -R $USER:$(id -gn $USER) ~/.config
-    sudo chown -R $USER:$(id -gn $USER) /usr/lib/node_modules/
+    sudo chown -R "$USER":"$(id -gn "$USER")" ~/.config
+    sudo chown -R "$USER":"$(id -gn "$USER")" /usr/lib/node_modules/
     export NODE_PATH='/usr/lib/node_modules'
     echo "export NODE_PATH='/usr/lib/node_modules'" >> ~/.profile
     # should be able to 'npm install -g' without sudo now
@@ -257,7 +258,7 @@ if has_arg "yarn"; then
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | \
         sudo tee /etc/apt/sources.list.d/yarn.list
-    if $(which nvm); then
+    if which nvm &>/dev/null; then
         sudo apt update && sudo apt install --no-install-recommends yarn
     else
         sudo apt update && sudo apt install yarn
@@ -275,16 +276,16 @@ fi
 
 if has_arg "golang"; then
     URL="$(curl -s https://golang.org/dl/ | grep "linux-amd64.tar.gz" | head -1 | cut -d\" -f4)"
-    FILE="$(echo $URL | rev | cut -d/ -f1 | rev)"
+    FILE="$(echo "$URL" | rev | cut -d/ -f1 | rev)"
     INST_DIR=/usr/local
 
     echo "Downloading $URL..."
-    wget -q --show-progress $URL
+    wget -q --show-progress "$URL"
     echo "Untarring $FILE into $INST_DIR..."
-    sudo tar -C $INST_DIR -xzf $FILE
-    rm $FILE
+    sudo tar -C $INST_DIR -xzf "$FILE"
+    rm "$FILE"
 
-    if echo $PATH | grep -v "go/bin" &>/dev/null; then
+    if echo "$PATH" | grep -v "go/bin" &>/dev/null; then
         echo "Adding $INST_DIR/go/bin to ~/.profile..."
         echo "export PATH=\$PATH:$INST_DIR/go/bin" >> ~/.profile
         echo "Run 'export PATH=\$PATH:$INST_DIR/go/bin'"
@@ -339,7 +340,7 @@ fi
 if has_arg "drawio"; then
     URL="$(curl -s https://about.draw.io/integrations/ | grep "draw.io-amd64-*.*.*.deb" | \
            head -1 | sed -E 's,.*(https://.*draw.io-amd64-*.*.*[0-9].deb).*,\1,')"
-    wget -q --show-progress $URL
+    wget -q --show-progress "$URL"
     sudo dpkg -i draw.io-amd64-*.*.*.deb
     sudo apt --fix-broken install -y
     rm draw.io-amd64-*.*.*.deb
@@ -367,9 +368,9 @@ if has_arg "texstudio"; then
     else # Windows
         choco install texstudio
         wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-windows.exe
-        mv install-tl-windows.exe $WSL_DKTP/
-        run_cmd $(wslpath -w $WSL_DKTP/install-tl-windows.exe)
-        rm $WSL_DKTP/install-tl-windows.exe
+        mv install-tl-windows.exe "$WSL_DKTP"/
+        run_cmd "$(wslpath -w "$WSL_DKTP"/install-tl-windows.exe)"
+        rm "$WSL_DKTP"/install-tl-windows.exe
     fi
 fi
 
@@ -380,7 +381,7 @@ if has_arg "docker"; then
 
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     APT_REPO="https://download.docker.com/linux/ubuntu"
-    if [[ 0 = $(apt-cache policy | grep "$APT_REPO" | wc -l) ]]; then
+    if ! apt-cache policy | grep -q "$APT_REPO"; then
         sudo add-apt-repository "deb [arch=amd64] $APT_REPO $UBU_REL stable"
     fi
     sudo-pkg-mgr update
@@ -389,7 +390,7 @@ if has_arg "docker"; then
 
     # Docker installation process should create group 'docker'
     # sudo groupadd docker
-    sudo usermod -aG docker $USER
+    sudo usermod -aG docker "$USER"
 
     # Docker Compose
     URL="https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)"
@@ -402,7 +403,7 @@ if has_arg "wireshark"; then
     if $WSL; then
         sudo-pkg-mgr install -y wireshark
         sudo dpkg-reconfigure wireshark-common
-        sudo usermod -a -G wireshark $USER
+        sudo usermod -a -G wireshark "$USER"
         echo
         echo "Log out and back in before you use wireshark"
         echo
@@ -432,31 +433,31 @@ fi
 
 if has_arg "sonarqube"; then
     sudo mkdir -p /opt/sonarqube
-    sudo chown $USER:$USER -R /opt/sonarqube
+    sudo chown "$USER":"$USER" -R /opt/sonarqube
 
     URL="$(curl -s https://www.sonarqube.org/downloads/ | \
            grep 'href=' | grep Community | head -1 | cut -d\" -f4)"
-    wget -q --show-progress $URL
+    wget -q --show-progress "$URL"
     FILE=$(ls sonarqube-*.zip)
     if [[ "" == "$FILE" ]]; then
         echo "SonarQube download failed; update URL determination command"
         echo "URL: $URL"
         exit 1
     fi
-    unzip $FILE -d /opt/sonarqube
-    rm $FILE
+    unzip "$FILE" -d /opt/sonarqube
+    rm "$FILE"
 
     URL="$(curl -s https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/ | \
            grep 'href=' | grep Linux | rev | cut -d\" -f4 | rev)"
-    wget -q --show-progress $URL
+    wget -q --show-progress "$URL"
     FILE=$(ls sonar-scanner-cli-*.zip)
     if [[ "" == "$FILE" ]]; then
         echo "SonarScanner download failed; update URL determination command"
         echo "URL: $URL"
         exit 1
     fi
-    unzip $FILE -d /opt/sonarqube
-    rm $FILE
+    unzip "$FILE" -d /opt/sonarqube
+    rm "$FILE"
 fi
 
 if has_arg "chrome"; then
@@ -470,21 +471,22 @@ fi
 if has_arg "glow"; then
     URL="https://github.com$(curl -s https://github.com/charmbracelet/glow/releases | \
            grep linux_amd64.deb | head -1 | cut -d\" -f2)"
-    wget -q --show-progress $URL
+    wget -q --show-progress "$URL"
     FILE=$(ls glow_*_linux_amd64.deb)
     if [[ "" == "$FILE" ]]; then
         echo "Glow package download failed; update URL determination command"
         echo "URL: $URL"
         exit 1
     fi
-    sudo dpkg -i $FILE
-    rm $FILE
+    sudo dpkg -i "$FILE"
+    rm "$FILE"
 fi
 
 if has_arg "awscli"; then
     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
     unzip awscliv2.zip
-    which aws &>/dev/null && sudo ./aws/install --update || sudo ./aws/install
+    UPDATE=$(which aws &>/dev/null && echo '--update' || echo '')
+    sudo ./aws/install "$UPDATE"
     aws --version
     rm -r awscliv2.zip aws
 fi
@@ -496,7 +498,8 @@ if has_arg "awseb" || has_arg "elastic_beanstalk"; then
     git clone https://github.com/aws/aws-elastic-beanstalk-cli-setup.git
     ./aws-elastic-beanstalk-cli-setup/scripts/bundled_installer
     rm -rf ./aws-elastic-beanstalk-cli-setup
-    if ! cat ~/.profile | grep -q "ebcli"; then
+    if ! grep -q "ebcli" ~/.profile; then
+        # shellcheck disable=SC2016
         echo 'export PATH="~/.ebcli-virtual-env/executables:$PATH"' >> ~/.profile
         echo 'Execute "source ~/.profile" to use eb.'
     fi

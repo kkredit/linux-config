@@ -1,3 +1,4 @@
+# shellcheck disable=SC2148
 # ~/.bash_functions
 
 # git alias autocompletions; see
@@ -35,6 +36,7 @@ function _git_submodule_rm() {
 }
 
 function _git_brun() {
+    # shellcheck disable=SC2154
     case "$cword" in
         2 | 4) _git_show;;
         3) __gitcomp_direct "$(printf 'lns\nsns\nread\n')";;
@@ -46,36 +48,38 @@ __git_complete g _git
 # normal functions
 function exitprint() {
     echo -e "${@:2}"
-    exit $1
+    exit "$1"
 }
 
 function o {
+    # shellcheck disable=SC2068
     for FILE in $@; do
         case $1 in
-            *.drawio)   drawio $FILE &>/dev/null & ;;
-            *)          xdg-open $FILE ;;
+            *.drawio)   drawio "$FILE" &>/dev/null & ;;
+            *)          xdg-open "$FILE" ;;
         esac
     done
 }
 
 function grepr {
+    # shellcheck disable=SC2068
     grep -rniIs $@
 }
 
 function krep {
-    grep -rniIs -- "$(echo $@)" .
+    grep -rniIs -- "$@" .
 }
 
 function krepl {
-    grep -rniIsl -- "$(echo $@)" .
+    grep -rniIsl -- "$@" .
 }
 
 function krepr {
-    grep -rniIs --exclude-dir={.git,db,log,tmp,vendor,coverage,node_modules,.tracked*,packs,packs-test,assets,build,dist} -- "$(echo $@)" .
+    grep -rniIs --exclude-dir={.git,db,log,tmp,vendor,coverage,node_modules,.tracked*,packs,packs-test,assets,build,dist} -- "$@" .
 }
 
 function kreprl {
-    grep -rniIsl --exclude-dir={.git,db,log,tmp,vendor,coverage,node_modules,.tracked*,packs,packs-test,assets,build,dist} -- "$(echo $@)" .
+    grep -rniIsl --exclude-dir={.git,db,log,tmp,vendor,coverage,node_modules,.tracked*,packs,packs-test,assets,build,dist} -- "$@" .
 }
 
 function kat() {
@@ -84,53 +88,57 @@ function kat() {
         return 1
     fi
     case $1 in
-        *.md) glow $1 -p "less -r" ;;
-        *)    bat $1 ;;
+        *.md) glow "$1" -p "less -r" ;;
+        *)    bat "$1" ;;
     esac
 }
 
 function read_from_pipe() {
-    eval "$@=''"
+    eval "$*=''"
     local L
-    while read L <&0; do
-        eval "$@+='"$L" '"
+    while read -r L <&0; do
+        eval "$*+='$L '"
     done
 }
 
 function line() {
     (( $# >= 2 )) || exitprint 1 "Must use at least two arguments"
     local LINE=$1
-    FILES="${@:2}"
+    FILES=${*:2}
     [[ "$FILES" == "-" ]] && read_from_pipe FILES
     for FILE in $FILES; do
-        printf "$purple$FILE$cyan:$green$LINE$cyan:$no_color "
-        LEN=$(wc -l $FILE | awk '{print $1}')
-        if (( $LEN >= $LINE )); then
-            echo "$(sed -n "${LINE}p" $FILE)"
+        # shellcheck disable=SC2154
+        printf "$purple%s$cyan:$green%s$cyan:$no_color " "$FILE" "$LINE"
+        LEN=$(wc -l "$FILE" | awk '{print $1}')
+        if (( LEN >= LINE )); then
+            sed -n "${LINE}p" "$FILE"
         else
+            # shellcheck disable=SC2154
             echo -e "${red}only $LEN lines$no_color"
         fi
     done
 }
 
 function recreplace() {
-    [[ 3 == $# ]] || return 1
-    [[ $(echo ${@:2} | grep "$1") ]] && return 1
-    sed -i "s$1$2$1$3$1g" $(kreprl $2)
+    (( 3 == $# )) || return 1
+    echo "${@:2}" | grep -q "$1" && return 1
+    # shellcheck disable=SC2046
+    sed -i "s$1$2$1$3$1g" $(kreprl "$2")
 }
 
 function co() {
     local ARGS=""
     # if opening a file, use -g for "goto line"
-    if [[ 1 == $# ]]; then
-        if [ -f ${1%%:[0-9]*} ]; then
+    if (( 1 == $# )); then
+        if [ -f "${1%%:[0-9]*}" ]; then
           ARGS="$ARGS -g"
-        elif [[ "-" != "${1:0:1}" ]] && [ ! -d $1 ]; then
+        elif [[ "-" != "${1:0:1}" ]] && [ ! -d "$1" ]; then
           # was probably a typo, so exit. If not, just use the full 'codium'.
           echo "No such file or directory. If want to create a new file, use 'codium'."
           return 1
         fi
     fi
+    # shellcheck disable=SC2086,SC2068
     codium $ARGS $@
 }
 
@@ -147,10 +155,10 @@ function _co() {
 complete -F _co co
 
 function cof() {
-    FILE=$(findf $1)
+    FILE=$(findf "$1")
     [[ -f "$FILE" ]] || return 1
-    echo $FILE
-    codium $FILE
+    echo "$FILE"
+    codium "$FILE"
 }
 
 function code_setup_c {
@@ -165,16 +173,17 @@ function code_setup_c {
 
 function code_setup_ruby {
     gem install solargraph
-    echo "NOTE: SolarGraph should be installed globally, not locally (i.e. not in the Gemfile)"
-    local SG_PATH=$(command ls /home/$USER/.rvm/wrappers/$(rvm current)/solargraph 2>/dev/null)
-    local SETTING="\"solargraph.commandPath\": \"$SG_PATH\","
+    echo "NOTE : SolarGraph should be installed globally, not locally (i.e. not in the Gemfile)"
+    local SG_PATH SETTING
+    SG_PATH=$(command ls /home/"$USER"/.rvm/wrappers/"$(rvm current)"/solargraph 2>/dev/null)
+    SETTING="\"solargraph.commandPath\": \"$SG_PATH\","
     if [ -f .vscode/settings.json ]; then
-        printf "{\n  $SETTING\n}\n" >> .vscode/settings.json
-        echo "NOTE: fixup .vscode/settings.json"
+        printf "{\n  %s\n}\n" "$SETTING" >> .vscode/settings.json
+        echo "NOTE : fixup .vscode/settings.json"
         codium .vscode/settings.json
     else
         mkdir -p .vscode
-        printf "{\n  $SETTING\n}\n" > .vscode/settings.json
+        printf "{\n  %s\n}\n" "$SETTING" > .vscode/settings.json
     fi
     yard gems
     yard -n
@@ -194,7 +203,7 @@ function highlight() {
 alias hl=highlight
 
 function rand_in_range() {
-    if [[ 2 != $# ]]; then
+    if (( 2 != $# )); then
         echo "Usage: rand_in_range FLOOR_INCLUSIVE CEILING_INCLUSIVE"
         return 1
     else
@@ -208,11 +217,11 @@ function rand_in_range() {
 
 # create function "cs" to "cd" and "ls" in one command
 function cs() {
-    local new_dir="$@"
-    if [[ "$@" =~ ^\.+$ ]]; then
-        new_dir=${@//./.\/.}
+    local new_dir="$*"
+    if [[ "$*" =~ ^\.+$ ]]; then
+        new_dir=${*//./.\/.}
     fi
-    builtin cd $new_dir && ls
+    builtin cd "$new_dir" && ls
 }
 alias d=cs
 
@@ -225,28 +234,28 @@ function cls() {
 }
 
 function mkcd() {
-    mkdir $1 && cd $1
+    mkdir "$1" && (cd "$1" || true)
 }
 
 function showme() {
-    set -x; eval $@; set +x
+    set -x; eval "$@"; set +x
 }
 
 function watchdo() {
-    while inotifywait -q -e modify $1; do eval "${@:2}"; done
+    while inotifywait -q -e modify "$1"; do eval "${@:2}"; done
 }
 
 function libdeps() {
-    objdump -p $1 | grep NEEDED
+    objdump -p "$1" | grep NEEDED
 }
 
 function screenkill() {
-    screen -X -S $1 kill
+    screen -X -S "$1" kill
 }
 
 function screenkillall() {
-    COUNT=$(screen -ls | grep Detached | wc -l)
-    if [[ 0 > $COUNT ]]; then
+    COUNT=$(screen -ls | grep -c Detached)
+    if (( 0 > "$COUNT" )); then
         screen -ls | grep Detached | cut -d. -f1 | awk '{print $1}' | xargs kill
         echo "$COUNT detached screen sessions killed"
     else
@@ -263,11 +272,12 @@ function serial() {
             h) echo "Usage: serial (-b BAUD_RATE) (-n DEVICE_NUM)"; return ;;
             b) BAUD=$OPTARG ;;
             n) DEV_NUM=$OPTARG; echo "Waiting for device $OPTARG" ;;
+            *) echo "Invalid option"; return 2 ;;
         esac
     done
 
-    if [[ ! $(groups | grep dialout) ]]; then
-        sudo usermod -a -G dialout $USER
+    if ! groups | grep -q dialout; then
+        sudo usermod -a -G dialout "$USER"
     fi
 
     if [[ ! -d /run/screen ]]; then
@@ -275,18 +285,18 @@ function serial() {
         sudo chmod 777 /run/screen
     fi
 
+    # shellcheck disable=SC2012
     TTYS="$(ls /dev/ttyUSB? 2> /dev/null) \
           $(ls /dev/ttyS* | perl -e 'print sort { length($a) <=> length($b) } <>')"
     CURRENT_DEV_NUM=0
     for TTY in $TTYS; do
         echo "Trying $TTY"
-        stty -F $TTY &> /dev/null
-        if [[ $? = 0 ]]; then
+        if stty -F "$TTY" &> /dev/null; then
             CURRENT_DEV_NUM=$((CURRENT_DEV_NUM + 1))
-            echo $TTY worked, current count is $CURRENT_DEV_NUM
-            if [[ $CURRENT_DEV_NUM == $DEV_NUM ]]; then
+            echo "$TTY worked, current count is $CURRENT_DEV_NUM"
+            if (( CURRENT_DEV_NUM == DEV_NUM )); then
                 echo "Connecting to $TTY"
-                screen $TTY $BAUD
+                screen "$TTY" "$BAUD"
                 break
             fi
         fi
@@ -297,11 +307,11 @@ function dive() {
     docker pull wagoodman/dive
     docker run --rm -it \
         -v /var/run/docker.sock:/var/run/docker.sock \
-        wagoodman/dive:latest $@
+        wagoodman/dive:latest "$@"
 }
 
 function git-author-rewrite() {
-    if [[ $# < 2 ]]; then
+    if (( $# < 2 )); then
         echo Usage: git-author-rewrite OLD_EMAIL NEW_EMAIL
         return 1
     fi
@@ -326,22 +336,22 @@ function git-author-rewrite() {
 }
 
 extract () {
-    if [ ! -f $1 ]; then
+    if [ ! -f "$1" ]; then
         echo "'$1' is not a valid file"
     else
         case $1 in
-            *.tar.bz2)  tar xjf $1 ;;
-            *.tar.gz)   tar xzf $1 ;;
-            *.bz2)      bunzip2 $1 ;;
-            *.rar)      rar x $1 ;;
-            *.gz)       gunzip $1 ;;
-            *.tar)      tar xf $1 ;;
-            *.tbz2)     tar xjf $1 ;;
-            *.tgz)      tar xzf $1 ;;
-            *.zip)      unzip $1 ;;
-            *.Z)        uncompress $1 ;;
-            *.7z)       7z x $1 ;;
-            *.cpio)     mkdir $1.dir && cd $1.dir && cpio -idv ../$1 ;;
+            *.tar.bz2)  tar xjf "$1" ;;
+            *.tar.gz)   tar xzf "$1" ;;
+            *.bz2)      bunzip2 "$1" ;;
+            *.rar)      rar x "$1" ;;
+            *.gz)       gunzip "$1" ;;
+            *.tar)      tar xf "$1" ;;
+            *.tbz2)     tar xjf "$1" ;;
+            *.tgz)      tar xzf "$1" ;;
+            *.zip)      unzip "$1" ;;
+            *.Z)        uncompress "$1" ;;
+            *.7z)       7z x "$1" ;;
+            *.cpio)     mkdir "$1".dir && cd "$1".dir && cpio -idv ../"$1" ;;
             *)          echo "'$1' cannot be extracted via extract()" ;;
         esac
     fi
@@ -350,13 +360,14 @@ extract () {
 # for long running commands. Use like 'sleep 10; alert'
 function alert() {
 
-    if [[ 0 == $? ]]; then
+    # shellcheck disable=SC2181
+    if (( 0 == $? )); then
         ALERT_TITLE="terminal"
         SUMMARY="SUCCESS"
         TERM_MSG_COLOR=$green
     else
         ALERT_TITLE="error"
-        SUMMARY="SUCCESS"
+        SUMMARY="FAILURE"
         TERM_MSG_COLOR=$red
     fi
 
@@ -366,14 +377,14 @@ function alert() {
 
     echo -e "$TERM_MSG_COLOR"
     echo "==============================================================================="
-    echo "SUMMARY:"
+    echo "SUMMARY: $SUMMARY"
     echo "$COMMAND"
     echo "==============================================================================="
-    echo -e $no_color
+    echo -e "$no_color"
 }
 
 function mount-img() {
-    if [[ 2 != $# ]]; then
+    if (( 2 != $# )); then
         echo "Usage: mount-img PATH/TO/IMAGE PATH/TO/MOUNT"
         return 1
     else
@@ -383,11 +394,11 @@ function mount-img() {
 
     echo "fdisk -l $IMAGE :"
     echo "==============================================================================="
-    fdisk -l $IMAGE
+    fdisk -l "$IMAGE"
     echo "==============================================================================="
 
-    BLK_SIZE=$(fdisk -l $IMAGE | grep Units | awk '{print $8}')
-    START_BLK=$(fdisk -l $IMAGE | tail -1 | awk '{print $2}')
+    BLK_SIZE=$(fdisk -l "$IMAGE" | grep Units | awk '{print $8}')
+    START_BLK=$(fdisk -l "$IMAGE" | tail -1 | awk '{print $2}')
     OFFSET=$(( BLK_SIZE * START_BLK ))
 
     echo
@@ -408,17 +419,18 @@ function tftpserve() {
         sudo apt-get install tftp tftpd-hpa
         if [[ ! -L $TFTP_DIR ]]; then
             sudo ln -s $TFTP_CONFIG_DIR $TFTP_DIR
-            sudo chown -R $USER:$USER $TFTP_CONFIG_DIR
+            sudo chown -R "$USER":"$USER" $TFTP_CONFIG_DIR
         fi
         sudo sed -i 's/--secure/--secure --create/g' /etc/default/tftpd-hpa
         sudo service tftpd-hpa restart
     fi
-    if [[ ! $(service tftpd-hpa status | grep -i running) ]]; then
+    if ! service tftpd-hpa status | grep -qi running; then
         sudo service tftpd-hpa restart
     fi
     service tftpd-hpa status | head -n99 #without pipe, waits for input
-    TFTP_DIR=$(cat /etc/default/tftpd-hpa | grep TFTP_DIRECTORY | cut -d\" -f2)
-    if [[ $(ls -l /tftpboot | grep $TFTP_DIR) ]]; then
+    TFTP_DIR=$(grep TFTP_DIRECTORY /etc/default/tftpd-hpa | cut -d\" -f2)
+    # shellcheck disable=SC2010
+    if ls -l /tftpboot | grep -q "$TFTP_DIR"; then
         TFTP_DIR="/tftpboot"
     fi
     echo
@@ -426,76 +438,78 @@ function tftpserve() {
 }
 
 function dtb2dts() {
-    if [[ 2 != $# ]]; then
+    if (( 2 != $# )); then
         echo "Usage: dtb2dts PATH/TO/DTB PATH/TO/DTS"
         return 1
     fi
-    dtc -I dtb -O dts -o $2 $1
+    dtc -I dtb -O dts -o "$2" "$1"
 }
 
 function dts2dtb() {
-    if [[ 2 != $# ]]; then
+    if (( 2 != $# )); then
         echo "Usage: dts2dtb PATH/TO/DTS PATH/TO/DTB"
         return 1
     fi
-    dtc -I dts -O dtb -o $2 $1
+    dtc -I dts -O dtb -o "$2" "$1"
 }
 
 function md2pdf() {
-    if [[ 1 != $# ]] || [[ ! -f $1 ]]; then
+    if (( 1 != $# )) || [[ ! -f $1 ]]; then
         echo "Usage: md2pdf PATH/TO/FILE.MD"
         return 1
     fi
     PDF_NAME="${1%.*}.pdf"
-    pandoc -f gfm -s -V geometry:margin=1in -o $PDF_NAME $1
+    pandoc -f gfm -s -V geometry:margin=1in -o "$PDF_NAME" "$1"
 }
 
 function tree-md-links() {
     # From https://stackoverflow.com/questions/23989232/is-there-a-way-to-represent-a-directory-tree-in-a-github-readme-md
     # See also https://github.com/michalbe/md-file-tree
-    tree -tf --noreport -I '*~' --charset ascii $1 |
+    tree -tf --noreport -I '*~' --charset ascii "$1" |
        sed -e 's/| \+/  /g' -e 's/[|`]-\+/  */g' -e 's:\(* \)\(\(.*/\)\([^/]\+\)\):\1[\4](\2):g'
 }
 alias tmdl='tree-md-links'
+
 function tree-md() {
-    tree -tf --noreport -I '*~' --charset ascii $1 |
+    tree -tf --noreport -I '*~' --charset ascii "$1" |
        sed -e 's/| \+/  /g' -e 's/[|`]-\+/  */g' -e 's:\(* \)\(\(.*/\)\([^/]\+\)\):\1\4:g'
 }
 alias tmd='tree-md'
 
 function awsprofilecmd() {
     if [[ "" != "$MY_AWS_PROFILE" ]]; then
-        command $@ --profile $MY_AWS_PROFILE
+        command "$@" --profile "$MY_AWS_PROFILE"
     else
-        command $@
+        command "$@"
     fi
 }
 
 function aws() {
-    awsprofilecmd aws $@
+    awsprofilecmd aws "$@"
 }
 
 function eb() {
-    awsprofilecmd eb $@
+    awsprofilecmd eb "$@"
 }
 
 function awsiamget() {
-    cat ~/.aws/credentials | grep -A3 $MY_AWS_PROFILE | grep $1 | awk '{print $3}'
+    grep -A3 "$MY_AWS_PROFILE" ~/.aws/credentials  | grep "$1" | awk '{print $3}'
 }
 
 function awsiam() {
     if (( 0 == $# )); then
-        echo $MY_AWS_PROFILE
+        echo "$MY_AWS_PROFILE"
     else
         export MY_AWS_PROFILE=$1
-        export AWS_ACCESS_KEY_ID=$(awsiamget aws_access_key_id)
-        export AWS_SECRET_ACCESS_KEY=$(awsiamget aws_secret_access_key)
+        AWS_ACCESS_KEY_ID=$(awsiamget aws_access_key_id)
+        AWS_SECRET_ACCESS_KEY=$(awsiamget aws_secret_access_key)
+        export AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY
     fi
 }
 
 function maxcpu() {
     printf "About to consume all CPU. To stop, run\n  > killall yes\n"
-    for i in $(seq 1 $(nproc)); do
+    for _ in $(seq 1 "$(nproc)"); do
         yes >/dev/null &
     done
 }

@@ -104,7 +104,8 @@ bind -r '\C-t'
 PATH=$PATH:~/bin
 [ -d ~/.yarn/bin ] && PATH=$PATH:~/.yarn/bin || true
 export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(vim {})+abort'" # ctrl-o opens file in vim
-export WSL=$(uname -a | grep -i microsoft &>/dev/null && echo 'true' || echo 'false')
+WSL=$(uname -a | grep -iq microsoft && echo 'true' || echo 'false')
+export WSL
 export EDITOR=/usr/bin/vim
 which bat &>/dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'" || true
 

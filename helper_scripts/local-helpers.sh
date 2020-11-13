@@ -1,25 +1,24 @@
-# Note: this file to be sourced
+# shellcheck disable=SC2148
+# NOTE: this file to be sourced
 
 ARGS=$(echo "$@" | tr '[:upper:]' '[:lower:]')
 
-WSL=false
-if [[ $(uname -a | grep -i microsoft) ]]; then
-    WSL=true
-fi
+# shellcheck disable=SC2034
+WSL=$(uname -a | grep -iq microsoft && echo 'true' || echo 'false')
 
 # Returns true if the specified arg is present in $ARGS
 function has_arg() {
-    echo $ARGS | grep -Pq "(^| )$1( |$)"
+    echo "$ARGS" | grep -Pq "(^| )$1( |$)"
 }
 
 # Returns true if the variable specified in $1 has the text specified in $2
 function var_has() {
-    [[ 0 < $(echo ${!1} | grep "$2" | wc -l) ]]
+    echo "${!1}" | grep -q "$2"
 }
 
 # Returns true if the file specified in $1 has the text specified in $2
 function file_has_line() {
-    [[ 0 < $(cat $1 | grep "$2" | wc -l) ]]
+    grep -q "$2" "$1"
 }
 
 if [ -z ${PACKAGE_MANAGER+x} ]; then
@@ -34,9 +33,11 @@ if [ -z ${PACKAGE_MANAGER+x} ]; then
 fi
 
 function pkg-mgr() {
+    # shellcheck disable=SC2068
     $PACKAGE_MANAGER $@
 }
 
 function sudo-pkg-mgr() {
+    # shellcheck disable=SC2068
     sudo $PACKAGE_MANAGER $@
 }

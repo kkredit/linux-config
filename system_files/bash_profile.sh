@@ -1,4 +1,4 @@
-
+# shellcheck disable=SC2148,1090
 source ~/.profile
 
 # Setup Ruby

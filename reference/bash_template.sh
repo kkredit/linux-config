@@ -5,7 +5,7 @@
 set -eEuo pipefail
 #set -x
 
-cd $(dirname $0)
+cd "$(dirname "$0")"
 function cleanup() {
   :
 }
@@ -13,7 +13,7 @@ trap cleanup EXIT
 
 function exitprint() {
   echo "${@:2}" 1>&2
-  exit $1
+  exit "$1"
 }
 
 USAGE="

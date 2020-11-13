@@ -1,6 +1,7 @@
 #!/bin/bash
 # WSL only -- use "chocolatey" to install Windows programs
 
+# shellcheck disable=SC1091
 source ../helper_scripts/local-helpers.sh
 
 $WSL || exit 1
@@ -20,13 +21,13 @@ if has_arg "update"; then
 fi
 
 function choco_install_packages() {
-  echo "# Autocreated file; do not modify" > $PACKAGES_FILE
-  for PACKAGE in $@; do
-    echo $PACKAGE >> $PACKAGES_FILE
+  echo "# Autocreated file; do not modify" > "$PACKAGES_FILE"
+  for PACKAGE in "$@"; do
+    echo "$PACKAGE" >> "$PACKAGES_FILE"
   done
-  unix2dos $PACKAGES_FILE &> /dev/null
+  unix2dos "$PACKAGES_FILE" &> /dev/null
   run_bat_elevated $RUN_CHOCO
-  rm $PACKAGES_FILE
+  rm "$PACKAGES_FILE"
 }
 
 # Package groups
@@ -47,9 +48,9 @@ fi
 if has_arg "wslgit"; then
    URL="https://github.com$(curl -s https://github.com/andy-5/wslgit/releases | \
           grep "releases/download/*.*.*/wslgit.exe" | head -1 | cut -d\" -f2)"
-   wget -q $URL
-   mkdir -p $(wslpath "C:/wsl/bin")
-   mv wslgit.exe $(wslpath "C:/wsl/bin")/
+   wget -q "$URL"
+   mkdir -p "$(wslpath "C:/wsl/bin")"
+   mv wslgit.exe "$(wslpath "C:/wsl/bin")"/
 fi
 
 if has_arg "codium"; then

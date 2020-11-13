@@ -1,3 +1,4 @@
+# shellcheck disable=SC2148,1090,2034,2154
 # Set config variables first
 GIT_PROMPT_ONLY_IN_REPO=0
 
