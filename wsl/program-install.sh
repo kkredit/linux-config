@@ -42,7 +42,8 @@ if has_arg "basic"; then
     notepadplusplus \
     windirstat \
     sharpkeys\
-    unifying
+    unifying \
+    shellcheck
 fi
 
 if has_arg "wslgit"; then

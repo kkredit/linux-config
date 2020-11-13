@@ -254,7 +254,8 @@ function screenkill() {
 }
 
 function screenkillall() {
-    COUNT=$(screen -ls | grep -c Detached)
+    # shellcheck disable=SC2126
+    COUNT=$(screen -ls | grep Detached | wc -l)
     if (( 0 > "$COUNT" )); then
         screen -ls | grep Detached | cut -d. -f1 | awk '{print $1}' | xargs kill
         echo "$COUNT detached screen sessions killed"
