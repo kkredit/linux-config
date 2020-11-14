@@ -52,8 +52,7 @@ function exitprint() {
 }
 
 function o {
-    # shellcheck disable=SC2068
-    for FILE in $@; do
+    for FILE in "$@"; do
         case $1 in
             *.drawio)   drawio "$FILE" &>/dev/null & ;;
             *)          xdg-open "$FILE" ;;
@@ -62,24 +61,23 @@ function o {
 }
 
 function grepr {
-    # shellcheck disable=SC2068
-    grep -rniIs $@
+    grep -rniIs "$@"
 }
 
 function krep {
-    grep -rniIs -- "$@" .
+    grep -rniIs -- "$*" .
 }
 
 function krepl {
-    grep -rniIsl -- "$@" .
+    grep -rniIsl -- "$*" .
 }
 
 function krepr {
-    grep -rniIs --exclude-dir={.git,db,log,tmp,vendor,coverage,node_modules,.tracked*,packs,packs-test,assets,build,dist} -- "$@" .
+    grep -rniIs --exclude-dir={.git,db,log,tmp,vendor,coverage,node_modules,.tracked*,packs,packs-test,assets,build,dist} -- "$*" .
 }
 
 function kreprl {
-    grep -rniIsl --exclude-dir={.git,db,log,tmp,vendor,coverage,node_modules,.tracked*,packs,packs-test,assets,build,dist} -- "$@" .
+    grep -rniIsl --exclude-dir={.git,db,log,tmp,vendor,coverage,node_modules,.tracked*,packs,packs-test,assets,build,dist} -- "$*" .
 }
 
 function kat() {
@@ -138,8 +136,7 @@ function co() {
           return 1
         fi
     fi
-    # shellcheck disable=SC2086,SC2068
-    codium $ARGS $@
+    codium "$ARGS" "$@"
 }
 
 function _co() {
@@ -254,8 +251,7 @@ function screenkill() {
 }
 
 function screenkillall() {
-    # shellcheck disable=SC2126
-    COUNT=$(screen -ls | grep Detached | wc -l)
+    COUNT=$(screen -ls | grep -c Detached)
     if (( 0 > "$COUNT" )); then
         screen -ls | grep Detached | cut -d. -f1 | awk '{print $1}' | xargs kill
         echo "$COUNT detached screen sessions killed"
