@@ -217,6 +217,8 @@ function cs() {
     local new_dir="$*"
     if [[ "$*" =~ ^\.+$ ]]; then
         new_dir=${*//./.\/.}
+    elif [[ "g" == "$*" ]]; then
+        new_dir="$(git rev-parse --show-toplevel)"
     fi
     builtin cd "$new_dir" && ls
 }
