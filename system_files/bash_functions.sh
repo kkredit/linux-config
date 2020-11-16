@@ -51,6 +51,10 @@ function exitprint() {
     exit "$1"
 }
 
+function ext() {
+    echo "${1##*.}"
+}
+
 function o {
     for FILE in "$@"; do
         case $1 in
@@ -136,7 +140,8 @@ function co() {
           return 1
         fi
     fi
-    codium "$ARGS" "$@"
+    # shellcheck disable=SC2086
+    codium $ARGS "$@"
 }
 
 function _co() {

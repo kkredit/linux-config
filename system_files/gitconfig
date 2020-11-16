@@ -124,6 +124,11 @@
                       sed 's/;\\n/\\n/g'; \
               }; f"
 
+    showbr = "!f() { \
+                  EXT=${2##*.}; \
+                  git show $1:$2 | bat -l $EXT --file-name $1:$2; \
+              }; f"
+
     newpush = "!f() { \
                     REMOTE=origin; \
                     if [ $# -eq 1 ]; then \
