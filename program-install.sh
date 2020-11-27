@@ -47,7 +47,12 @@ fi
 
 if has_arg "utilities"; then
     if [[ $(which cargo) ]]; then
-        cargo install exa
+        cargo install \
+          exa \
+          watchexec \
+          pipe-rename \
+          procs \
+          shy
     fi
 
     # Bat (https://github.com/sharkdp/bat)
@@ -69,6 +74,14 @@ if has_arg "utilities"; then
     tar -xf fd*linux-gnu.tar.gz
     cp -r fd*linux-gnu/fd fd*linux-gnu/fd.1 fd*linux-gnu/autocomplete ~/bin/
     rm -rf fd*linux-gnu*
+fi
+
+if has_arg "silicon"; then
+    sudo-pkg-mgr install expat
+    sudo-pkg-mgr install libxml2-dev
+    sudo-pkg-mgr install pkg-config libasound2-dev libssl-dev cmake libfreetype6-dev libexpat1-dev \
+        libxcb-composite0-dev
+    cargo install silicon
 fi
 
 if has_arg "vscodium"; then
