@@ -1,5 +1,10 @@
 {
     "cSpell.userWords": [
+        "Argdown",
+        "NOSONAR",
+        "POJO",
+        "Virt",
+        "another's",
         "camkes",
         "cybersecurity",
         "dorner",
@@ -47,7 +52,6 @@
     "search.useGlobalIgnoreFiles": true,
     "editor.smoothScrolling": true,
     "window.zoomLevel": 0,
-    "workbench.colorTheme": "Argdown Dark (default dark + Argdown token highlighting)",
     "workbench.iconTheme": "vscode-icons",
     "explorer.confirmDelete": false,
     "vsicons.dontShowNewVersionMessage": true,
@@ -264,7 +268,7 @@
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },
-    "explorer.autoReveal": "focusNoScroll",
+    "explorer.autoReveal": false,
     "workbench.list.smoothScrolling": true,
     "[typescript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -283,4 +287,8 @@
     },
     "elmLS.elmAnalyseTrigger": "save",
     "solargraph.formatting": true,
+    "latex-workshop.latex.autoBuild.run": "never",
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
 }
