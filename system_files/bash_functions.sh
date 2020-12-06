@@ -77,11 +77,11 @@ function krepl {
 }
 
 function krepr {
-    grep -rniIs --exclude-dir={.git,db,log,tmp,vendor,coverage,node_modules,.tracked*,packs,packs-test,assets,build,dist,elm-stuff} -- "$*" .
+    grep -rniIs --exclude=*.drawio --exclude-dir={.git,db,log,tmp,vendor,coverage,node_modules,.tracked*,packs,packs-test,assets,build,dist,elm-stuff} -- "$*" .
 }
 
 function kreprl {
-    grep -rniIsl --exclude-dir={.git,db,log,tmp,vendor,coverage,node_modules,.tracked*,packs,packs-test,assets,build,dist,elm-stuff} -- "$*" .
+    grep -rniIsl --exclude=*.drawio --exclude-dir={.git,db,log,tmp,vendor,coverage,node_modules,.tracked*,packs,packs-test,assets,build,dist,elm-stuff} -- "$*" .
 }
 
 function kat() {
