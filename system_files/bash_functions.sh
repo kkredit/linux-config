@@ -104,7 +104,10 @@ function read_from_pipe() {
 }
 
 function line() {
-    (( $# >= 2 )) || exitprint 1 "Must use at least two arguments"
+    if (( $# < 2 )); then
+        echo "Must use at least two arguments"
+        return 2
+    fi
     local LINE=$1
     FILES=${*:2}
     [[ "$FILES" == "-" ]] && read_from_pipe FILES
