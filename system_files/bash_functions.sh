@@ -43,7 +43,7 @@ function _git_brun() {
     esac
 }
 
-__git_complete g _git
+__git_complete g __git_main
 
 # normal functions
 function exitprint() {
