@@ -59,10 +59,10 @@
                 "hidden": false
             },
             {
-                // Make changes here to the WSL Ubuntu 18.04 profile.
+                // Make changes here to the WSL 1 Ubuntu 20.04 profile.
                 "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
                 "hidden": false,
-                "name": "Ubuntu 18.04",
+                "name": "Ubuntu 20.04",
                 "source": "Windows.Terminal.Wsl",
                 "startingDirectory": "//wsl$/Ubuntu/home/kevin",
                 "icon": "C:/wsl/icons/ubuntu.ico",
@@ -70,10 +70,10 @@
                 "fontSize": 11
             },
             {
-                // Make changes here to the WSL Ubuntu 20.04 profile.
+                // Make changes here to the WSL 2 Ubuntu 20.04 profile.
                 "guid": "{07b52e3e-de2c-5db4-bd2d-ba144ed6c273}",
                 "hidden": false,
-                "name": "Ubuntu 20.04",
+                "name": "WSL 2 Ubuntu 20.04",
                 "source": "Windows.Terminal.Wsl",
                 "startingDirectory": "//wsl$/Ubuntu-20.04/home/kevin",
                 "icon": "C:/wsl/icons/ubuntu-blue.ico",
