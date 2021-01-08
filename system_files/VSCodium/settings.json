@@ -6,19 +6,25 @@
         "Virt",
         "another's",
         "camkes",
+        "corejs",
         "cybersecurity",
         "dorner",
+        "flexbox",
         "gitlab",
         "gvsu",
         "gvsu's",
         "kredit",
+        "microservice",
+        "microservices",
         "mkdir",
         "mosquitto",
+        "multiselect",
         "passthrough",
         "qemu",
         "repo",
         "struct",
         "structs",
+        "transpiles",
         "typeclasses",
         "userspace",
         "zynq"
@@ -30,7 +36,9 @@
     "editor.tabCompletion": "on",
     "editor.suggest.localityBonus": true,
     "terminal.integrated.shell.windows": "C:\\Windows\\System32\\wsl.exe",
-    "terminal.integrated.shellArgs.linux": [ "-l" ],
+    "terminal.integrated.shellArgs.linux": [
+        "-l"
+    ],
     "terminal.external.linuxExec": "xterm-256color",
     "terminal.integrated.minimumContrastRatio": 4.5,
     "workbench.colorCustomizations": {},
@@ -291,4 +299,24 @@
     "[css]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "cSpell.enableFiletypes": [
+        "elm"
+    ],
+    "workbench.colorTheme": "Argdown Dark (default dark + Argdown token highlighting)",
+    "[scss]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/**": true,
+        "**/.hg/store/**": true,
+        "**/.ignore/**": true,
+        "**/build/**": true,
+        "**/bin/**": true,
+        "**/dist/**": true,
+        "**/tmp/**": true,
+        "**/.scannerwork/**": true,
+    }
 }
