@@ -116,9 +116,8 @@
         "command": "workbench.files.action.showActiveFileInExplorer"
     },
     {
-        "key": "shift+;",
-        "command": "workbench.action.showCommands",
-        "when": "editorTextFocus && !extension.simpleVim.insertMode"
+        "key": "ctrl+shift+;",
+        "command": "workbench.action.showCommands"
     },
     {
         "key": "ctrl+k ctrl+c",
@@ -291,5 +290,19 @@
         "key": "ctrl+shift+i",
         "command": "-editor.action.formatDocument",
         "when": "editorHasDocumentFormattingProvider && editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly && !inCompositeEditor"
+    },
+    {
+        "key": "ctrl+r",
+        "command": "-workbench.action.openRecent"
+    },
+    {
+        "key": "ctrl+r",
+        "command": "editor.action.startFindReplaceAction",
+        "when": "editorFocus || editorIsOpen"
+    },
+    {
+        "key": "ctrl+h",
+        "command": "-editor.action.startFindReplaceAction",
+        "when": "editorFocus || editorIsOpen"
     }
 ]

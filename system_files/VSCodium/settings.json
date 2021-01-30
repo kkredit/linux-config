@@ -9,6 +9,8 @@
         "corejs",
         "cybersecurity",
         "dorner",
+        "dornerworks",
+        "errno",
         "flexbox",
         "gitlab",
         "gvsu",
@@ -18,10 +20,13 @@
         "microservices",
         "mkdir",
         "mosquitto",
+        "mqtt",
         "multiselect",
         "passthrough",
         "qemu",
         "repo",
+        "repo's",
+        "reqs",
         "struct",
         "structs",
         "transpiles",
@@ -54,7 +59,8 @@
         "editor.rulers": [
             79,
             120
-        ]
+        ],
+        "editor.defaultFormatter": "ms-python.python"
     },
     "simpleVim.normalModeCursorStyle": "block",
     "search.useGlobalIgnoreFiles": true,
@@ -303,7 +309,7 @@
     "cSpell.enableFiletypes": [
         "elm"
     ],
-    "workbench.colorTheme": "Argdown Dark (default dark + Argdown token highlighting)",
+    "workbench.colorTheme": "Default Dark+",
     "[scss]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
@@ -317,6 +323,6 @@
         "**/bin/**": true,
         "**/dist/**": true,
         "**/tmp/**": true,
-        "**/.scannerwork/**": true,
+        "**/.scannerwork/**": true
     }
 }
