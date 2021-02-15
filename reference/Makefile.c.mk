@@ -6,6 +6,14 @@ TARGET   := prog
 SRCDIR   := src
 OBJDIR   := bin
 BINDIR   := bin
+INSTDIR  := ~/.local/bin
+
+# NOTE: use of `shell` is not cross-platform friendly
+SOURCES  := $(shell find $(SRCDIR) -type f -name '*.c')
+INC_DIRS := $(shell find $(SRCDIR) -type f -name '*.h' | xargs dirname | uniq)
+INCLUDES := $(foreach DIR,$(INC_DIRS),-I$(DIR) )
+OBJECTS  := $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SOURCES))
+OBJ_DIRS := $(shell echo $(OBJECTS) | xargs dirname | uniq)
 
 WARNINGS := \
 	-Wall -Wextra -Wpedantic -Werror \
@@ -18,19 +26,19 @@ WARNINGS := \
 	-Wmissing-declarations -Wundef -fstrict-aliasing -Wstrict-aliasing=3 \
 	-Wformat=2 -Wsuggest-attribute=pure -Wsuggest-attribute=const
 
+# NOTE: not currently used
 OTHER_OPTS := -msign-return-address
 
 CC       := gcc
-CFLAGS   := -std=c99 $(WARNINGS) -I.
+DEFINES  := # -D_GNU_SOURCE
+CFLAGS   := -std=c99 $(DEFINES) $(INCLUDES) $(WARNINGS)
 
 LINKER   := gcc
-LFLAGS   := $(WARNINGS) -I.
+LIBS     := # -lm
+LFLAGS   := $(LIBS) $(WARNINGS)
 
-SOURCES  := $(wildcard $(SRCDIR)/*.c)
-INCLUDES := $(wildcard $(SRCDIR)/*.h)
-OBJECTS  := $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SOURCES))
 
-.PHONY: all clean compile
+.PHONY: all clean compile install
 default: all
 
 all: $(BINDIR)/$(TARGET)
@@ -38,12 +46,20 @@ all: $(BINDIR)/$(TARGET)
 compile: $(OBJECTS)
 
 clean:
-	rm -f $(OBJECTS) $(BINDIR)/$(TARGET)
+	rm -rf $(BINDIR) $(OBJDIR)
 
-$(BINDIR)/$(TARGET): $(OBJECTS)
+install: $(BINDIR)/$(TARGET)
+	mkdir -p $(INSTDIR)
+	cp $(BINDIR)/$(TARGET) $(INSTDIR)/$(TARGET)
+
+$(BINDIR):
 	mkdir -p $(BINDIR)
+
+$(OBJ_DIRS):
+	mkdir -p $(OBJ_DIRS)
+
+$(BINDIR)/$(TARGET): $(OBJECTS) | $(BINDIR)
 	$(LINKER) $(OBJECTS) $(LFLAGS) -o $@
 
-$(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.c
-	mkdir -p $(OBJDIR)
+$(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.c | $(OBJ_DIRS)
 	$(CC) $(CFLAGS) -c $< -o $@
