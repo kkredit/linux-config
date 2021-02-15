@@ -1,0 +1,20 @@
+[Unit]
+Description=Some systemd daemon
+Requires=network.target
+After=network.target
+After=syslog.target
+
+[Service]
+User=username
+Group=groupname
+Environment=ENVVAR1=1 ENVVAR2=2
+WorkingDirectory=/home/username
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=deamon-name
+ExecStart=/home/username/.local/bin/executable
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
