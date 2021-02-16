@@ -6,6 +6,7 @@
         "Virt",
         "another's",
         "camkes",
+        "comms",
         "corejs",
         "cybersecurity",
         "dorner",
@@ -323,6 +324,7 @@
         "**/bin/**": true,
         "**/dist/**": true,
         "**/tmp/**": true,
-        "**/.scannerwork/**": true
-    }
+        "**/.scannerwork/**": true,
+    },
+    "python.formatting.provider": "black"
 }

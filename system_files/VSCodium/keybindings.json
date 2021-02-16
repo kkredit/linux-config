@@ -116,8 +116,9 @@
         "command": "workbench.files.action.showActiveFileInExplorer"
     },
     {
-        "key": "ctrl+shift+;",
-        "command": "workbench.action.showCommands"
+        "key": "shift+;",
+        "command": "workbench.action.showCommands",
+        "when": "editorTextFocus && !extension.simpleVim.insertMode"
     },
     {
         "key": "ctrl+k ctrl+c",
