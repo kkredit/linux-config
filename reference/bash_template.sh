@@ -39,3 +39,6 @@ done
 
 ################################################################################
 #                                                                       SCRIPT #
+
+# shellcheck disable=SC2086
+# Use ^^ to disable a specific shellcheck linting rule
