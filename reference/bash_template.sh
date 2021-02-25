@@ -9,7 +9,8 @@ cd "$(dirname "$0")"
 function cleanup() {
   :
 }
-trap cleanup EXIT
+trap cleanup EXIT   # run cleanup() upon exit
+trap 'exit 130' INT # call exit upon interrupt
 
 function exitprint() {
   echo "${@:2}" 1>&2
