@@ -23,7 +23,7 @@ function file_has_line() {
 
 if [ -z ${PACKAGE_MANAGER+x} ]; then
     if [[ "" != "$(which apt-get)" ]]; then
-        PACKAGE_MANAGER=apt-get
+        PACKAGE_MANAGER="apt-get -o Acquire::ForceIPv4=true"
     elif [[ "" != "$(which yum)" ]]; then
         PACKAGE_MANAGER=yum
     else
