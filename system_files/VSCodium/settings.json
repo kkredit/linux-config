@@ -186,13 +186,15 @@
                     }
                 },
                 {
-                    "workbench.colorTheme": "Argdown Light (default light + Argdown token highlighting)",
+                    "workbench.colorTheme": "Default Light+",
+                    // "workbench.colorTheme": "Argdown Light (default light + Argdown token highlighting)",
                     "workbench.colorCustomizations": {
                         // The defaults are good for this color scheme
                     }
                 },
                 {
-                    "workbench.colorTheme": "Argdown Dark (default dark + Argdown token highlighting)",
+                    "workbench.colorTheme": "Default Dark+",
+                    // "workbench.colorTheme": "Argdown Dark (default dark + Argdown token highlighting)",
                     "workbench.colorCustomizations": {
                         // The defaults are good for this color scheme
                     }
