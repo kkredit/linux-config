@@ -310,6 +310,30 @@ function serial() {
     done
 }
 
+function directssh() {
+    # Based on
+    # https://unix.stackexchange.com/questions/295238/how-to-connect-to-device-via-ssh-over-direct-ethernet-connection
+
+    if (( $# < 1 )) || ! ip link | grep -q "$1"; then
+        echo Usage: directssh IFACE_NAME
+        return 1
+    fi
+
+    local IP_BASE=172.22.22
+    sudo ip address replace $IP_BASE.1/24 scope link dev "$1"
+    echo "================================================================"
+    echo " 1. Connect the device to interface $1."
+    echo " 2. Watch it acquire a DHCP address here."
+    echo " 3. Ctrl-C this task to terminate DHCP and reset network config."
+    echo " 4. Connect to the device via SSH in a new terminal."
+    echo "================================================================"
+    bash -c "sudo dnsmasq -d -C /dev/null --port=0 --domain=localdomain \
+                --interface=$1 --dhcp-range=$IP_BASE.2,$IP_BASE.9,24h"
+    # Above waits for Ctrl-C...
+    sudo ip address del $IP_BASE.1/24 dev "$1"
+    sudo service network-manager restart
+}
+
 function dive() {
     docker pull wagoodman/dive
     docker run --rm -it \
