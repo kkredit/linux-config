@@ -43,7 +43,8 @@ if has_arg "basic"; then
     windirstat \
     sharpkeys\
     unifying \
-    shellcheck
+    shellcheck \
+    ubuntu.font
 fi
 
 if has_arg "wslgit"; then

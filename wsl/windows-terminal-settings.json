@@ -66,8 +66,8 @@
                 "source": "Windows.Terminal.Wsl",
                 "startingDirectory": "//wsl$/Ubuntu/home/kevin",
                 "icon": "C:/wsl/icons/ubuntu.ico",
-                "fontFace": "Ubuntu",
-                "fontSize": 11
+                "fontFace": "Ubuntu Mono",
+                "fontSize": 12
             },
             {
                 // Make changes here to the WSL 2 Ubuntu 20.04 profile.
@@ -77,8 +77,8 @@
                 "source": "Windows.Terminal.Wsl",
                 "startingDirectory": "//wsl$/Ubuntu-20.04/home/kevin",
                 "icon": "C:/wsl/icons/ubuntu-blue.ico",
-                "fontFace": "Ubuntu",
-                "fontSize": 11
+                "fontFace": "Ubuntu Mono",
+                "fontSize": 12
             },
             {
                 "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
