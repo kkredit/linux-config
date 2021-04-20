@@ -2,8 +2,15 @@
 
 ################################################################################
 #                                                                     PREAMBLE #
+
 set -eEuo pipefail
 #set -x
+
+# To log to a file
+# exec >> $LOG_FILE
+# exec 2>&1
+# To log to syslog
+# exec 1> >(logger -s -t "$(basename "$0")") 2>&1
 
 cd "$(dirname "$0")"
 function cleanup() {
