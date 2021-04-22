@@ -125,10 +125,11 @@ function line() {
 }
 
 function recreplace() {
-    (( 3 == $# )) || return 1
-    echo "${@:2}" | grep -q "$1" && return 1
+    (( 2 <= $# )) || return 1
+    local SEP=${3:-/}
+    echo "$1 $2" | grep -vq "$SEP" || return 1
     # shellcheck disable=SC2046
-    sed -i "s$1$2$1$3$1g" $(kreprl "$2")
+    sed -i "s${SEP}$1${SEP}$2${SEP}g" $(kreprl "$1")
 }
 
 function co() {
