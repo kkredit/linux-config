@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+cd "$(dirname "$0")" || exit
+
 # shellcheck disable=SC1091
 source helper_scripts/local-helpers.sh
 
