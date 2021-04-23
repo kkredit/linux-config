@@ -415,13 +415,18 @@ function alert() {
     echo -e "$no_color"
 }
 
-function mount-img() {
-    if (( 2 != $# )); then
-        echo "Usage: mount-img PATH/TO/IMAGE PATH/TO/MOUNT"
+function mount-img-partition() {
+    if (( 2 > $# )); then
+        echo "Usage: mount-img PATH/TO/IMAGE PATH/TO/MOUNT [PARTITION_NUM]"
         return 1
     else
         IMAGE=$1
         MNTPT=$2
+        if (( 3 == $# )); then
+            PARTITION_FILTER="grep '${IMAGE}$3'"
+        else
+            PARTITION_FILTER="tail -1"
+        fi
     fi
 
     echo "fdisk -l $IMAGE :"
@@ -430,7 +435,11 @@ function mount-img() {
     echo "==============================================================================="
 
     BLK_SIZE=$(fdisk -l "$IMAGE" | grep Units | awk '{print $8}')
-    START_BLK=$(fdisk -l "$IMAGE" | tail -1 | awk '{print $2}')
+    START_BLK=$(eval "fdisk -l $IMAGE | $PARTITION_FILTER | tr -d '*' | awk '{print \$2}'")
+    if [[ "" == "$START_BLK" ]]; then
+        echo "Error: partition $3 not found"
+        return 2
+    fi
     OFFSET=$(( BLK_SIZE * START_BLK ))
 
     echo
