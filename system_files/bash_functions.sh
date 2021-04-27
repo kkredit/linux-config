@@ -420,36 +420,45 @@ function mount-img-partition() {
         echo "Usage: mount-img PATH/TO/IMAGE PATH/TO/MOUNT [PARTITION_NUM]"
         return 1
     else
-        IMAGE=$1
-        MNTPT=$2
+        local IMAGE=$1
+        local MNTPT=$2
         if (( 3 == $# )); then
-            PARTITION_FILTER="grep '${IMAGE}$3'"
+            local PARTITION_FILTER="grep '${IMAGE}$3'"
         else
-            PARTITION_FILTER="tail -1"
+            local PARTITION_FILTER="tail -1"
         fi
     fi
 
-    echo "fdisk -l $IMAGE :"
+    echo "fdisk -l $IMAGE:"
     echo "==============================================================================="
     fdisk -l "$IMAGE"
     echo "==============================================================================="
 
+    local BLK_SIZE PART_INFO START_BLK SECTORS OFFSET SIZE
     BLK_SIZE=$(fdisk -l "$IMAGE" | grep Units | awk '{print $8}')
-    START_BLK=$(eval "fdisk -l $IMAGE | $PARTITION_FILTER | tr -d '*' | awk '{print \$2}'")
+    # shellcheck disable=SC2207
+    PART_INFO=($(eval "fdisk -l $IMAGE | $PARTITION_FILTER | tr -d '*'"))
+    START_BLK=${PART_INFO[1]}
     if [[ "" == "$START_BLK" ]]; then
         echo "Error: partition $3 not found"
         return 2
     fi
+    SECTORS=${PART_INFO[3]}
     OFFSET=$(( BLK_SIZE * START_BLK ))
+    SIZE=$(( BLK_SIZE * SECTORS ))
 
     echo
     echo "Block size = $BLK_SIZE;"
     echo "Start block = $START_BLK;"
-    echo "Therefore offset = $OFFSET."
+    echo "Sectors = $SECTORS;"
+    echo "Therefore offset = $OFFSET;"
+    echo "and sizelimit = $SIZE."
+    echo
     echo "Try:"
-    echo "    sudo mount -o loop,offset=$OFFSET $IMAGE $MNTPT"
+    echo "    sudo mount -o loop,offset=$OFFSET,sizelimit=$SIZE $IMAGE $MNTPT"
     echo "or:"
-    echo "    sudo mount -o loop,offset=$OFFSET $IMAGE $MNTPT -t sysfs"
+    echo "    sudo mount -o loop,offset=$OFFSET,sizelimit=$SIZE $IMAGE $MNTPT -t sysfs"
+    echo
 }
 
 function tftpserve() {
