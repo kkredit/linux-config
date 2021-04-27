@@ -1,0 +1,41 @@
+# Brace Style Options
+style=java
+
+# Tab Options
+indent=spaces=4
+
+# Brace Modify Options
+# (C++ only)
+attach-namespaces
+attach-classes
+attach-inlines
+attach-extern-c
+# (end C++ only)
+#attach-closing-while # req's astyle 3.0
+
+# Indentation Options
+indent-switches
+indent-preproc-define
+min-conditional-indent=0
+#max-continuation-indent=50 # req's astyle 3.0; using max-instatement-indent
+max-instatement-indent=50
+
+# Padding Options
+break-blocks
+pad-oper
+#pad-comma # req's astyle 3.0
+pad-header
+unpad-paren
+align-pointer=name
+align-reference=name
+
+# Formatting Options
+#break-one-line-headers # req's astyle 3.0
+#add-braces # req's astyle 3.0; using add-brackets
+add-brackets
+convert-tabs
+max-code-length=100
+
+# Other Options
+exclude=apps
+preserve-date

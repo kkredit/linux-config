@@ -1,0 +1,29 @@
+repos:
+  - repo: local
+    hooks:
+      - id: astyle
+        name: astyle
+        entry: ./astyle.sh
+        args: [-s]
+        pass_filenames: false
+        language: script
+        types: [file, c]
+        exclude: |
+            (?x)^(
+                .*/vendor/.*|
+                .*/build/.*
+            )$
+  - repo: local
+    hooks:
+      - id: flawfinder
+        name: flawfinder
+        entry: ./flawfinder.sh
+        args: [-p]
+        pass_filenames: false
+        language: script
+        types: [file, c]
+        exclude: |
+            (?x)^(
+                .*/vendor/.*|
+                .*/build/.*
+            )$
