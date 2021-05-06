@@ -32,6 +32,6 @@ function source_files {
 function source_files_staged {
     # shellcheck disable=SC2046
     git diff --cached --name-only | \
-        xargs -I '{}' realpath --relative-to=. "$(git rev-parse --show-toplevel)"/'{}' | \
+        xargs -I '{}' echo ./$(realpath --relative-to=. "$(git rev-parse --show-toplevel)"/'{}') | \
         grep "\.c\|\.h" | grep -v "$EXCLUDE_DIRS"
 }
