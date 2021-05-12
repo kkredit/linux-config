@@ -521,6 +521,26 @@ if has_arg "awseb" || has_arg "elastic_beanstalk"; then
     fi
 fi
 
+if has_arg "awssam" || has_arg "aws_sam"; then
+    if ! which docker &>/dev/null; then
+        echo "The AWS SAM CLI requires Docker. See"
+        echo "https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html"
+        exit 1
+    fi
+    wget -q --show-progress "https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip"
+    sha256sum aws-sam-cli-linux-x86_64.zip
+
+    echo "Does the above SHA256 hash match the value expected according to the release notes?"
+    echo "https://github.com/aws/aws-sam-cli/releases/latest"
+    echo "[enter to continue, Ctrl-C to quit...]"
+    read -rs
+
+    unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
+    sudo ./sam-installation/install
+    sam --version
+    rm -rf sam-installation aws-sam-cli-linux-x86_64.zip
+fi
+
 if has_arg "elm"; then
     curl -L -o elm.gz https://github.com/elm/compiler/releases/download/0.19.1/binary-for-linux-64-bit.gz
     gunzip elm.gz
@@ -531,4 +551,3 @@ if has_arg "elm"; then
         yarn global add create-elm-app elm-format elm-test elm-analyse
     fi
 fi
-
