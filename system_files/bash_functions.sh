@@ -542,6 +542,10 @@ function eb() {
     awsprofilecmd eb "$@"
 }
 
+function sam() {
+    awsprofilecmd sam "$@"
+}
+
 function awsiamget() {
     grep -A3 "$MY_AWS_PROFILE" ~/.aws/credentials  | grep "$1" | awk '{print $3}'
 }
