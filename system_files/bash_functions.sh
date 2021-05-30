@@ -55,6 +55,10 @@ function ext() {
     echo "${1##*.}"
 }
 
+function ext2() {
+    echo "${1#*.}"
+}
+
 function o {
     for FILE in "$@"; do
         case $1 in
