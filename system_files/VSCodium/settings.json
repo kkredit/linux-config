@@ -1,12 +1,14 @@
 {
     "cSpell.userWords": [
         "Argdown",
+        "GPIO",
         "NOSONAR",
         "POJO",
         "Virt",
         "another's",
         "camkes",
         "comms",
+        "cond",
         "corejs",
         "cybersecurity",
         "dorner",
@@ -24,6 +26,7 @@
         "mqtt",
         "multiselect",
         "passthrough",
+        "pseudocode",
         "qemu",
         "repo",
         "repo's",
@@ -66,7 +69,6 @@
     "simpleVim.normalModeCursorStyle": "block",
     "search.useGlobalIgnoreFiles": true,
     "editor.smoothScrolling": true,
-    "window.zoomLevel": 0,
     "workbench.iconTheme": "vscode-icons",
     "explorer.confirmDelete": false,
     "vsicons.dontShowNewVersionMessage": true,
@@ -328,5 +330,6 @@
         "**/tmp/**": true,
         "**/.scannerwork/**": true,
     },
-    "python.formatting.provider": "black"
+    "python.formatting.provider": "black",
+    "workbench.editor.decorations.badges": false
 }

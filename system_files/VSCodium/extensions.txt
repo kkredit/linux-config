@@ -1,9 +1,11 @@
 abhinavk99.codewall
 avli.clojure
+bungcip.better-toml
 castwide.solargraph
 christianvoigt.argdown-vscode
 CoenraadS.bracket-pair-colorizer-2
 DavidAnson.vscode-markdownlint
+dbaeumer.vscode-eslint
 dramforever.vscode-ghc-simple
 eamodio.gitlens
 EditorConfig.EditorConfig
@@ -19,6 +21,7 @@ James-Yu.latex-workshop
 johnpapa.read-time
 justusadam.language-haskell
 mads-hartmann.bash-ide-vscode
+ms-pyright.pyright
 ms-python.python
 ms-vscode.cpptools
 rsbondi.highlight-words
@@ -33,3 +36,4 @@ wayou.vscode-todo-highlight
 wingrunr21.vscode-ruby
 ybaumes.highlight-trailing-white-spaces
 yzhang.markdown-all-in-one
+zxh404.vscode-proto3
