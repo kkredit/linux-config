@@ -61,10 +61,9 @@
     ],
     "[python]": {
         "editor.rulers": [
-            79,
-            120
+            88
         ],
-        "editor.defaultFormatter": "ms-python.python"
+        "editor.defaultFormatter": "Glavin001.unibeautify-vscode"
     },
     "simpleVim.normalModeCursorStyle": "block",
     "search.useGlobalIgnoreFiles": true,
@@ -331,5 +330,6 @@
         "**/.scannerwork/**": true,
     },
     "python.formatting.provider": "black",
-    "workbench.editor.decorations.badges": false
+    "workbench.editor.decorations.badges": false,
+    "unibeautify.defaultConfig": "/home/kevinkredit/.unibeautifyrc.json"
 }

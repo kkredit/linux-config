@@ -28,6 +28,7 @@ install -m 644 $FILES_DIR/tmux.conf ~/.tmux.conf
 install -m 644 $FILES_DIR/gerrit_functions.sh ~/.gerrit_functions.sh
 install -m 644 $FILES_DIR/gitconfig ~/.gitconfig
 install -m 644 $FILES_DIR/gitignore_global ~/.gitignore_global
+install -m 644 $FILES_DIR/unibeautifyrc.json ~/.unibeautifyrc.json
 
 # WSL files
 if $WSL; then
