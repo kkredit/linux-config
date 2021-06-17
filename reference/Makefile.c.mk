@@ -13,7 +13,7 @@ SOURCES  := $(shell find $(SRCDIR) -type f -name '*.c')
 INC_DIRS := $(shell find $(SRCDIR) -type f -name '*.h' | xargs dirname | uniq)
 INCLUDES := $(foreach DIR,$(INC_DIRS),-I$(DIR) )
 OBJECTS  := $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SOURCES))
-OBJ_DIRS := $(shell echo $(OBJECTS) | xargs dirname | uniq)
+OBJ_DIRS := $(shell dirname $(OBJECTS) | sort -u)
 
 WARNINGS := \
 	-Wall -Wextra -Wpedantic -Werror \
