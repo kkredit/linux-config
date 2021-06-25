@@ -336,7 +336,7 @@ if has_arg "clojure"; then
 fi
 
 if has_arg "python"; then
-    sudo-pkg-mgr install python-pip
+    sudo-pkg-mgr install python3-pip
 
     # Virtual environments: see https://realpython.com/python-virtual-environments-a-primer/
     pip install --user \
