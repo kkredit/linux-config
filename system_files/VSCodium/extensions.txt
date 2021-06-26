@@ -16,6 +16,7 @@ Fr43nk.seito-openfile
 Glavin001.unibeautify-vscode
 golang.go
 haapanen.vs-code-paragraph-hard-wrapper
+hbenl.vscode-test-explorer
 hoovercj.vscode-settings-cycler
 James-Yu.latex-workshop
 johnpapa.read-time

@@ -318,5 +318,9 @@
     {
         "key": "ctrl+e",
         "command": "workbench.action.focusActiveEditorGroup"
+    },
+    {
+        "key": "ctrl+o",
+        "command": "workbench.action.focusPreviousGroup"
     }
 ]
