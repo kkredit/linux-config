@@ -9,6 +9,7 @@ source helper_scripts/local-helpers.sh
 FILES_DIR=system_files
 WSL_FILES_DIR=wsl
 
+install -m 644 $FILES_DIR/zshrc.zsh ~/.zshrc
 install -m 644 $FILES_DIR/bashrc.sh ~/.bashrc
 install -m 644 $FILES_DIR/bash_profile.sh ~/.bash_profile
 install -m 644 $FILES_DIR/bash_aliases.sh ~/.bash_aliases
