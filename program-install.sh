@@ -79,6 +79,11 @@ if has_arg "utilities"; then
     rm -rf fd*linux-gnu*
 fi
 
+if has_arg "cheat"; then
+    curl https://cht.sh/:cht.sh > ~/bin/cht.sh
+    chmod +x ~/bin/cht.sh
+fi
+
 if has_arg "silicon"; then
     sudo-pkg-mgr install expat
     sudo-pkg-mgr install libxml2-dev
