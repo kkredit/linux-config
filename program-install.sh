@@ -258,7 +258,7 @@ fi
 
 if has_arg "node"; then
     sudo-pkg-mgr install npm
-    curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+    curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
     sudo-pkg-mgr install -y nodejs
     sudo chown -R "$USER":"$(id -gn "$USER")" ~/.config
     sudo chown -R "$USER":"$(id -gn "$USER")" /usr/lib/node_modules/
