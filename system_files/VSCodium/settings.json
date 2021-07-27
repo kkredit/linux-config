@@ -33,6 +33,7 @@
         "reqs",
         "struct",
         "structs",
+        "submodule",
         "transpiles",
         "typeclasses",
         "userspace",
