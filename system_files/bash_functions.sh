@@ -1,6 +1,15 @@
 # shellcheck disable=SC2148
 # ~/.bash_functions
 
+# patch sometimes-missing _init_completion; see
+# https://gist.github.com/eparis/fd17b8fb4eb58efc2c12
+if ! declare -F _init_completion >/dev/null 2>&1; then
+    function _init_completion() {
+        COMPREPLY=()
+        _get_comp_words_by_ref cur prev words cword
+    }
+fi
+
 # git alias autocompletions; see
 # https://stackoverflow.com/questions/11466991/git-aliases-command-line-autocompletion-of-branch-names
 function _git_log_compact() {
