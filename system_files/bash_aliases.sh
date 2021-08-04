@@ -2,7 +2,11 @@
 # ~/.bash_aliases
 
 alias sbrc='source ~/.bashrc'
-alias ls="ls \$COLOR_AUTO -F"
+if $MAC; then
+  alias ls="gls \$COLOR_AUTO -F"
+else
+  alias ls="ls \$COLOR_AUTO -F"
+fi
 alias ll='ls -alFh'
 alias la='ls -A'
 alias l='ls -CF'
