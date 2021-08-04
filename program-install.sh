@@ -159,8 +159,16 @@ if has_arg "fonts"; then
         echo "Found existing file $file_path"
     fi
 
-    echo "fc-cache -f"
-    fc-cache -f
+    if ! $MAC; then
+        echo "fc-cache -f"
+        fc-cache -f
+    else
+        brew tap homebrew/cask-fonts
+        brew install --cask \
+            font-fira-code \
+            font-fira-mono \
+            font-fira-sans
+    fi
 
     if $WSL; then
         choco install firacode

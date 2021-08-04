@@ -65,7 +65,11 @@ install -m 755 submodules/git-heatmap/git-heatmap ~/bin/
 
 # VSCodium
 if has_arg "codium" && [[ $(which codium) ]]; then
-    VSC_CONF_DIR=~/.config/VSCodium/User
+    if $MAC; then
+        VSC_CONF_DIR=~/Library/Application\ Support/VSCodium/User
+    else
+        VSC_CONF_DIR=~/.config/VSCodium/User
+    fi
     RUN_VSC=codium
     function INST_FILE() { install -m 644 "$@"; }
     function GET_FILE() { install -m 644 "$@"; }
@@ -77,7 +81,7 @@ if has_arg "codium" && [[ $(which codium) ]]; then
     fi
     mkdir -p "$VSC_CONF_DIR"
     for FILE in keybindings.json settings.json; do
-        if [[ ! -f $VSC_CONF_DIR/$FILE ]]; then
+        if [[ ! -f "$VSC_CONF_DIR"/$FILE ]]; then
             INST_FILE $FILES_DIR/VSCodium/$FILE "$VSC_CONF_DIR"/$FILE
         elif [[ "" != "$(diff --strip-trailing-cr "$VSC_CONF_DIR"/$FILE \
                                                   $FILES_DIR/VSCodium/$FILE)" ]]

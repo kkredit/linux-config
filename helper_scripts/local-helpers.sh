@@ -11,6 +11,12 @@ if $MAC; then
     function grep() {
          ggrep "$@"
     }
+    function ls() {
+         gls "$@"
+    }
+    function stat() {
+         gstat "$@"
+    }
 fi
 
 # Returns true if the specified arg is present in $ARGS
