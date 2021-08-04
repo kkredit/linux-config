@@ -48,7 +48,10 @@ fi
 #                                                                   customized #
 
 # Enable color support
-if [ -x /usr/bin/dircolors ]; then
+if [ -x /usr/bin/dircolors ] || [ -x /usr/local/bin/gdircolors ]; then
+    function dircolors() {
+        \dircolors $@ || gdircolors $@
+    }
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     COLOR_AUTO="--color=auto"
 
@@ -88,6 +91,7 @@ function sourceIfPresent() {
 
 sourceIfPresent ~/.bash_aliases
 sourceIfPresent /usr/share/bash-completion/completions/git
+sourceIfPresent /usr/local/etc/bash_completion
 sourceIfPresent ~/.bash_functions
 sourceIfPresent ~/.bash_prompt
 sourceIfPresent ~/.bashrc_local
@@ -106,6 +110,8 @@ PATH=$PATH:~/bin
 export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(vim {})+abort'" # ctrl-o opens file in vim
 WSL=$(uname -a | grep -iq microsoft && echo 'true' || echo 'false')
 export WSL
+MAC=$(uname -a | grep -iq darwin && echo 'true' || echo 'false')
+export MAC
 export EDITOR=/usr/bin/vim
 which bat &>/dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'" || true
 

@@ -5,7 +5,9 @@ cd "$(dirname "$0")" || exit
 # shellcheck disable=SC1091
 source helper_scripts/local-helpers.sh
 
-UBU_REL=$(lsb_release -cs)
+if ! $MAC; then
+    UBU_REL=$(lsb_release -cs)
+fi
 
 # Update & exit
 if has_arg "update"; then
@@ -17,23 +19,40 @@ fi
 
 # Basic tools
 if has_arg "basic"; then
-    sudo-pkg-mgr install -y \
-        vim \
-        git \
-        tmux \
-        lynx \
-        curl \
-        tree \
-        net-tools \
-        htop \
-        ncdu \
-        pdfgrep \
-        screen \
-        repo \
-        dos2unix \
-        python \
-        inotify-tools \
-        shellcheck
+    if $MAC; then
+        [ -f ~/.dircolors ] || git clone https://github.com/gibbling666/dircolors.git ~/.dircolors
+        brew install \
+            grep \
+            coreutils \
+            vim \
+            neovim \
+            git \
+            tmux \
+            lynx \
+            tree \
+            htop \
+            ncdu \
+            shellcheck
+    else
+        sudo-pkg-mgr install -y \
+            vim \
+            neovim \
+            git \
+            tmux \
+            lynx \
+            curl \
+            tree \
+            net-tools \
+            htop \
+            ncdu \
+            pdfgrep \
+            screen \
+            repo \
+            dos2unix \
+            python \
+            inotify-tools \
+            shellcheck
+    fi
 fi
 
 # Other tools

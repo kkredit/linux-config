@@ -15,6 +15,7 @@ install -m 644 $FILES_DIR/bash_profile.sh ~/.bash_profile
 install -m 644 $FILES_DIR/bash_aliases.sh ~/.bash_aliases
 install -m 644 $FILES_DIR/bash_functions.sh ~/.bash_functions
 install -m 644 $FILES_DIR/bash_prompt.sh ~/.bash_prompt
+touch ~/.hushlogin
 if [[ -e ~/.bash-git-prompt ]]; then
     rm ~/.bash-git-prompt
 fi
