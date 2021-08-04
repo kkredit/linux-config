@@ -33,6 +33,7 @@ if has_arg "basic"; then
             htop \
             ncdu \
             shellcheck
+        brew install --cash iterm2
     else
         sudo-pkg-mgr install -y \
             vim \
