@@ -113,7 +113,11 @@ if has_arg "silicon"; then
 fi
 
 if has_arg "vscodium"; then
-    snap install codium --classic
+    if $MAC; then
+        brew install --cask vscodium
+    else
+        snap install codium --classic
+    fi
     FILES_DIR=system_files
     codium --install-extension < $FILES_DIR/VSCodium/extensions.txt
 fi
