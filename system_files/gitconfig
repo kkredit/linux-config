@@ -68,8 +68,11 @@
     orphan = checkout --orphan orphan
     ieee = config user.email k.kredit.us@ieee.org
     ieeeg = config --global user.email k.kredit.us@ieee.org
-    dw = config user.email kevin.kredit@dornerworks.com
-    dwg = config --global user.email kevin.kredit@dornerworks.com
+    hc = "!git config user.email kkredit@hashicorp.com && \
+           git config branch.master.pushRemote no_push && \
+           git config branch.main.pushRemote no_push && \
+           git config url.'git@github.com:'.insteadOf https:/github.com/ && \
+           git config submodule.recurse true"
     patchify = format-patch -1
     assume = update-index --assume-unchanged
     unassume = update-index --no-assume-unchanged
@@ -100,8 +103,6 @@
     user = kkredit
 [credential]
     helper = store
-[http "https://gitlab.dornerworks.com/"]
-    sslCAInfo = /home/kevinkredit/.local/etc/ssl/certs/gitlab-dw.pem
 [push]
     default = simple
 [color]
