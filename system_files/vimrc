@@ -18,6 +18,7 @@ if exists('+termguicolors')
 endif
 
 " Indentation & tabs
+set backspace=indent,eol,start
 set autoindent
 set smartindent
 set tabstop=2
