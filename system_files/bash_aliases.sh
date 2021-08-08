@@ -1,7 +1,7 @@
 # shellcheck disable=SC2148
 # ~/.bash_aliases
 
-alias sbrc='source ~/.bashrc'
+alias rc='source ~/.bashrc'
 if $MAC; then
   alias ls="gls \$COLOR_AUTO -F"
 else
