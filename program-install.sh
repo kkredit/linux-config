@@ -33,7 +33,8 @@ if has_arg "basic"; then
             htop \
             ncdu \
             shellcheck
-        brew install --cash iterm2
+        brew install --cask iterm2 amethyst
+        curl -L https://iterm2.com/shell_integration/bash -o ~/.iterm2_shell_integration.bash
     else
         sudo-pkg-mgr install -y \
             vim \

@@ -100,6 +100,7 @@ sourceIfPresent ~/.gerrit_functions.sh
 sourceIfPresent ~/.fzf.bash
 sourceIfPresent ~/.autojump/etc/profile.d/autojump.sh
 sourceIfPresent ~/.forgit.plugin.sh
+sourceIfPresent ~/.iterm2_shell_integration.bash
 
 # Unbind ctrl-t from fzf-file-widget; used instead as tmux meta key
 bind -r '\C-t'
