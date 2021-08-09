@@ -2,6 +2,7 @@
 *.log
 *.pdf
 **.ignore/
+*.DS_Store
 
 # dirs
 /workspace/
