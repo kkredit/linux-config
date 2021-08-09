@@ -4,19 +4,17 @@
 alias rc='source ~/.bashrc'
 if $MAC; then
   alias ls="gls \$COLOR_AUTO -F"
+  alias grep="ggrep \$COLOR_AUTO"
+  alias dircolors=gdircolors
 else
   alias ls="ls \$COLOR_AUTO -F"
+  alias grep="grep \$COLOR_AUTO"
 fi
 alias ll='ls -alFh'
 alias la='ls -A'
 alias l='ls -CF'
 alias cpv='rsync -ah --info=progress2'
 alias tcn='mv --force -t ~/.local/share/Trash '
-if $MAC; then
-  alias grep="ggrep \$COLOR_AUTO"
-else
-  alias grep="grep \$COLOR_AUTO"
-fi
 alias dos2unixr='find . -type f -exec dos2unix {} \;'
 alias unix2dosr='find . -type f -exec unix2dos {} \;'
 alias tm=tmux
