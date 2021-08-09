@@ -22,6 +22,7 @@ if has_arg "basic"; then
     if $MAC; then
         [ -f ~/.dircolors ] || git clone https://github.com/gibbling666/dircolors.git ~/.dircolors
         brew install \
+            bash \
             grep \
             coreutils \
             vim \
@@ -35,6 +36,9 @@ if has_arg "basic"; then
             shellcheck
         brew install --cask iterm2 amethyst
         curl -L https://iterm2.com/shell_integration/bash -o ~/.iterm2_shell_integration.bash
+        exec bash
+        echo $(brew --prefix)/bin/bash | sudo tee -a /private/etc/shells
+        sudo chpass -s $(brew --prefix)/bin/bash $(whoami)
     else
         sudo-pkg-mgr install -y \
             vim \

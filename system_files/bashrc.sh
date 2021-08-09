@@ -96,7 +96,6 @@ sourceIfPresent ~/.bash_functions
 sourceIfPresent ~/.bash_prompt
 sourceIfPresent ~/.bashrc_local
 sourceIfPresent ~/.bashrc_wsl
-sourceIfPresent ~/.gerrit_functions.sh
 sourceIfPresent ~/.fzf.bash
 sourceIfPresent ~/.autojump/etc/profile.d/autojump.sh
 sourceIfPresent ~/.forgit.plugin.sh

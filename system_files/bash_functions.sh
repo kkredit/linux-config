@@ -72,7 +72,7 @@ function o {
     for FILE in "$@"; do
         case $1 in
             *.drawio)   drawio "$FILE" &>/dev/null & ;;
-            *)          xdg-open "$FILE" ;;
+            *)          if $MAC; then open $FILE; else xdg-open "$FILE"; fi ;;
         esac
     done
 }
