@@ -38,3 +38,6 @@
 [submodule "submodules/wt-context-menu"]
 	path = submodules/wt-context-menu
 	url = https://github.com/kkredit/Windows-terminal-context-menu
+[submodule "submodules/onehalf"]
+	path = submodules/onehalf
+	url = https://github.com/sonph/onehalf
