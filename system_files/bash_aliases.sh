@@ -6,6 +6,7 @@ if $MAC; then
   alias ls="gls \$COLOR_AUTO -F"
   alias grep="ggrep \$COLOR_AUTO"
   alias dircolors=gdircolors
+  alias echo=gecho
 else
   alias ls="ls \$COLOR_AUTO -F"
   alias grep="grep \$COLOR_AUTO"

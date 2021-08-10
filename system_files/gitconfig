@@ -83,6 +83,7 @@
     recover = "!git fsck --unreachable | grep commit | cut -d' ' -f3 | \
                 xargs git log --merges --no-walk --grep=WIP"
     clonemy = !git clone https://github.com/kkredit/$1 && cd $1 && git ieee
+    clonehc = !git clone git@github.com:hashicorp/$1 && cd $1 && git hc
     message = log --format=%B -n 1
     whoami = "!echo $(git config user.name) -- $(git config user.email)"
     hash = rev-parse HEAD
