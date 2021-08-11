@@ -11,6 +11,7 @@ else
   alias ls="ls \$COLOR_AUTO -F"
   alias grep="grep \$COLOR_AUTO"
 fi
+alias p=pwd
 alias ll='ls -alFh'
 alias la='ls -A'
 alias l='ls -CF'

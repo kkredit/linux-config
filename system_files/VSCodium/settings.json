@@ -117,7 +117,7 @@
         ".babelrc": "json"
     },
     "editor.fontLigatures": true,
-    "editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
+    "editor.fontFamily": "'FiraCode Nerd Font Mono', 'Fira Code', Consolas, 'Courier New', monospace",
     "markdown.extension.toc.githubCompatibility": true,
     "simpleVim.visualLineModeCursorStyle": "underline",
     "simpleVim.visualModeCursorStyle": "blockOutline",

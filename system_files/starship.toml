@@ -1,8 +1,52 @@
 # Custom
+
+add_newline = true
+format = """
+$time\
+$username\
+$hostname\
+$shlvl\
+$kubernetes\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$docker_context\
+$package\
+$golang\
+$helm\
+$terraform\
+$vagrant\
+$aws\
+$gcloud\
+$line_break\
+$status\
+$shell\
+$character\
+"""
+
+[character]
+success_symbol = "[\\$](blue)"
+error_symbol = "[\\$](red)"
+
+[status]
+disabled = false
+
+[directory]
+truncation_symbol = "…"
+read_only = " "
+style = "bold purple"
+
 [time]
 disabled = false
 format = "$time($style) "
 style = "white"
+
+[git_branch]
+symbol = " "
+style = "bold yellow"
 
 [git_status]
 ahead = "⇡${count}"
@@ -15,8 +59,6 @@ stashed = "${count}"
 staged = "${count}"
 renamed = "${count}"
 untracked = "${count}"
-prefix = "|"
-suffix = " | "
 
 # Found elsewhere
 ## Use symbols instead of emoji
@@ -29,9 +71,6 @@ symbol = " "
 [dart]
 symbol = " "
 
-[directory]
-read_only = " "
-
 [docker_context]
 symbol = " "
 
@@ -40,9 +79,6 @@ symbol = " "
 
 [elm]
 symbol = " "
-
-[git_branch]
-symbol = " "
 
 [golang]
 symbol = " "
