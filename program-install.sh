@@ -73,6 +73,11 @@ if has_arg "dev"; then
         lcov \
         libc6-dev-i386 \
         jq
+    if $MAC; then
+        brew install pre-commit
+    elif which pip &>/dev/null; then
+        pip install pre-commit
+    fi
 fi
 
 if has_arg "utilities"; then
