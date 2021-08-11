@@ -46,13 +46,14 @@ sourceIfPresent /usr/share/bash-completion/completions/git
 sourceIfPresent /usr/local/etc/bash_completion
 sourceIfPresent /etc/bash_completion
 sourceIfPresent ~/.bash_functions
-sourceIfPresent ~/.bash_prompt
 sourceIfPresent ~/.bashrc_local
 sourceIfPresent ~/.bashrc_wsl
 sourceIfPresent ~/.fzf.bash
 sourceIfPresent ~/.autojump/etc/profile.d/autojump.sh
 sourceIfPresent ~/.forgit.plugin.sh
 sourceIfPresent ~/.iterm2_shell_integration.bash
+
+eval "$(starship init bash)"
 
 # Enable color supportC
 if [ -x /usr/bin/dircolors ] || [ -x /usr/local/bin/gdircolors ]; then

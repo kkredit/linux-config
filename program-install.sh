@@ -33,7 +33,8 @@ if has_arg "basic"; then
             tree \
             htop \
             ncdu \
-            shellcheck
+            shellcheck \
+            starship
         brew install --cask iterm2 amethyst
         curl -L https://iterm2.com/shell_integration/bash -o ~/.iterm2_shell_integration.bash
         exec bash
@@ -58,6 +59,7 @@ if has_arg "basic"; then
             python \
             inotify-tools \
             shellcheck
+        sh -c "$(curl -fsSL https://starship.rs/install.sh)"
     fi
 fi
 
@@ -172,7 +174,9 @@ if has_arg "fonts"; then
         brew install --cask \
             font-fira-code \
             font-fira-mono \
-            font-fira-sans
+            font-fira-sans \
+            font-fira-code-nerd-font \
+            font-hack-nerd-font
     fi
 
     if $WSL; then

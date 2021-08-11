@@ -14,12 +14,9 @@ install -m 644 $FILES_DIR/bashrc.sh ~/.bashrc
 install -m 644 $FILES_DIR/bash_profile.sh ~/.bash_profile
 install -m 644 $FILES_DIR/bash_aliases.sh ~/.bash_aliases
 install -m 644 $FILES_DIR/bash_functions.sh ~/.bash_functions
-install -m 644 $FILES_DIR/bash_prompt.sh ~/.bash_prompt
-touch ~/.hushlogin
-if [[ -e ~/.bash-git-prompt ]]; then
-    rm ~/.bash-git-prompt
-fi
-install -m 644 $FILES_DIR/custom.bgptheme ~/.git-prompt-colors.sh
+mkdir -p ~/.config
+install -m 644 $FILES_DIR/starship.toml ~/.config/starship.toml
+! $MAC || touch ~/.hushlogin
 install -m 644 $FILES_DIR/dircolors.sh ~/.dircolors
 install -m 644 $FILES_DIR/vimrc ~/.vimrc
 mkdir -p ~/.vim/colors
@@ -47,7 +44,6 @@ if has_arg "submodules" || [[ 0 == $(find submodules/ -type f | wc -l) ]]; then
 fi
 
 mkdir -p ~/bin
-ln -s "$(pwd)"/submodules/bash-git-prompt ~/.bash-git-prompt
 printf 'y\ny\nn\n' | ./submodules/fzf/install &> /dev/null
 install -m 755 submodules/diff-so-fancy/diff-so-fancy ~/bin/diff-so-fancy
 cp -r submodules/diff-so-fancy/lib ~/bin/
