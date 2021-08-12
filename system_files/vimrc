@@ -6,6 +6,11 @@ Plug 'sonph/onehalf', { 'rtp': 'vim' }
 
 call plug#end()
 
+" Keymappings
+let mapleader = " "
+nnoremap <leader>w :w<CR>
+nnoremap <leader>W :wq<CR>
+
 " Colors
 syntax on
 set t_Co=256

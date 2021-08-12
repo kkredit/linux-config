@@ -102,16 +102,5 @@ if has_arg "codium" && [[ $(which codium) ]]; then
             echo "    cat system_files/VSCodium/extensions.txt | "
             echo "        xargs -n 1 -I {} bash -c \"$RUN_VSC --install-extension \\\$1\" _ {}"
         fi
-        # simple-vim
-        URL="https://github.com$(curl -s https://github.com/kkredit/vscode-simple-vim/releases | \
-                grep "simple-vim-*.*.*.vsix" | grep href | cut -d\" -f2)"
-        wget -q "$URL"
-        mv simple-vim-?.?.?.vsix "$VSC_CONF_DIR"/
-        if $WSL; then
-            $RUN_VSC --install-extension "$(wslpath -w "$VSC_CONF_DIR"/simple-vim-?.?.?.vsix)" >/dev/null
-        else
-            $RUN_VSC --install-extension "$VSC_CONF_DIR"/simple-vim-?.?.?.vsix >/dev/null
-        fi
-        rm "$VSC_CONF_DIR"/simple-vim-?.?.?.vsix
     fi
 fi
