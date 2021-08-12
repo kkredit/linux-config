@@ -357,6 +357,10 @@
         {
             "before": ["<leader>", "t"],
             "commands": ["editor.action.formatDocument"]
+        },
+        {
+            "before": ["<leader>", "p"],
+            "commands": ["workbench.action.quickOpen"]
         }
     ]
 }
