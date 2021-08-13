@@ -7,16 +7,24 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
 
 " Plugin configuration
 let g:fzf_layout = { 'down': '30%' }
+let g:airline_powerline_fonts = 1
+let g:airline_theme='onehalfdark'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_statusline_ontop = 1
+let g:airline_detect_spell = 0
 
 " Keymappings
 let mapleader = " "
 nnoremap <leader>w :w<CR>
 nnoremap <leader>W :wq<CR>
+nnoremap <leader>q :q<CR>
 nnoremap <leader>r :source ~/.vimrc<CR>
 nnoremap <C-p> :<C-u>FZF<CR>
 nnoremap <leader>; :History:<CR>
@@ -26,7 +34,6 @@ inoremap jk <esc>
 syntax on
 set t_Co=256
 colorscheme onehalfdark
-let g:airline_theme='onehalfdark'
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -44,9 +51,12 @@ set smarttab
 autocmd FileType make setlocal noexpandtab
 
 " Display & format
+set cursorline
 set number
-set relativenumber " produces hybrid numbers
-nnoremap <leader>cp :set number!<CR> :set relativenumber!<CR> :set paste!<CR> :<ESC>
+set relativenumber
+autocmd InsertEnter * :set norelativenumber
+autocmd InsertLeave * :set relativenumber
+nnoremap <leader>cp :set number!<CR>:set relativenumber!<CR>:set paste!<CR>
 set textwidth=100
 set wrapmargin=2
 set showmatch
@@ -87,6 +97,9 @@ set smartcase
 " Browse and scroll
 set scrolloff=5
 set laststatus=2
+" Prevent Vim from clobbering the scrollback buffer. See
+" http://www.shallowsky.com/linux/noaltscreen.html
+set t_ti= t_te=
 
 " Open at same line as was last opened
 autocmd BufReadPost * if &filetype !~ 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$")
