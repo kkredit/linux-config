@@ -2,13 +2,24 @@
 
 call plug#begin('~/.vim/plugged')
 
+" Formatting and colorschemes
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" Functionality
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'preservim/nerdtree'
+
+" Languages
+if has('nvim')
+  Plug 'nvim-treesitter/nvim-treesitter', {'branch': '0.5-compat', 'do': ':TSUpdate'}
+  " Not working
+endif
+Plug 'fatih/vim-go'
 
 call plug#end()
 
@@ -19,6 +30,12 @@ let g:airline_theme='onehalfdark'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_statusline_ontop = 1
 let g:airline_detect_spell = 0
+" Start NERDTree, unless a file or session is specified, eg. vim -S session_file.vim.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && v:this_session == '' | NERDTree | endif
+" Close the tab if NERDTree is the only window remaining in it.
+autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
 
 " Keymappings
 let mapleader = " "
@@ -29,6 +46,7 @@ nnoremap <leader>r :source ~/.vimrc<CR>
 nnoremap <C-p> :<C-u>FZF<CR>
 nnoremap <leader>; :History:<CR>
 inoremap jk <esc>
+nnoremap <leader>l :NERDTreeFind<CR>
 
 " Colors
 syntax on
@@ -56,7 +74,7 @@ set number
 set relativenumber
 autocmd InsertEnter * :set norelativenumber
 autocmd InsertLeave * :set relativenumber
-nnoremap <leader>cp :set number!<CR>:set relativenumber!<CR>:set paste!<CR>
+nnoremap <leader>c :set number!<CR>:set relativenumber!<CR>:set paste!<CR>
 set textwidth=100
 set wrapmargin=2
 set showmatch
@@ -65,6 +83,13 @@ if exists('+colorcolumn')
 else
   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>100v.\+', -1)
 endif
+
+" Golang settings
+autocmd Filetype go call SetGolangOptions()
+function SetGolangOptions()
+  :nnoremap <leader>t :GoFmt<CR>
+  :nnoremap <leader>g :GoCallers<CR>
+endfunction
 
 " Git commit settings
 autocmd Filetype gitcommit call SetGitcommitOptions()
