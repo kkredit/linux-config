@@ -20,6 +20,7 @@ nnoremap <leader>W :wq<CR>
 nnoremap <leader>r :source ~/.vimrc<CR>
 nnoremap <C-p> :<C-u>FZF<CR>
 nnoremap <leader>; :History:<CR>
+inoremap jk <esc>
 
 " Colors
 syntax on
