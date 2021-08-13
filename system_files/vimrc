@@ -3,13 +3,23 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-surround'
 
 call plug#end()
+
+" Plugin configuration
+let g:fzf_layout = { 'down': '30%' }
 
 " Keymappings
 let mapleader = " "
 nnoremap <leader>w :w<CR>
 nnoremap <leader>W :wq<CR>
+nnoremap <leader>r :source ~/.vimrc<CR>
+nnoremap <C-p> :<C-u>FZF<CR>
+nnoremap <leader>; :History:<CR>
 
 " Colors
 syntax on
@@ -35,7 +45,7 @@ autocmd FileType make setlocal noexpandtab
 " Display & format
 set number
 set relativenumber " produces hybrid numbers
-:nmap <C-p> :set number!<CR> :set relativenumber!<CR> :set paste!<CR> :<ESC>
+nnoremap <leader>cp :set number!<CR> :set relativenumber!<CR> :set paste!<CR> :<ESC>
 set textwidth=100
 set wrapmargin=2
 set showmatch

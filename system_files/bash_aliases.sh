@@ -2,6 +2,7 @@
 # ~/.bash_aliases
 
 alias rc='source ~/.bashrc'
+alias v=nvim
 if $MAC; then
   alias ls="gls \$COLOR_AUTO -F"
   alias grep="ggrep \$COLOR_AUTO"

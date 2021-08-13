@@ -19,8 +19,8 @@ install -m 644 $FILES_DIR/starship.toml ~/.config/starship.toml
 ! $MAC || touch ~/.hushlogin
 install -m 644 $FILES_DIR/dircolors.sh ~/.dircolors
 install -m 644 $FILES_DIR/vimrc ~/.vimrc
-mkdir -p ~/.vim/colors
-install -m 644 $FILES_DIR/badwolf.vim ~/.vim/colors
+mkdir -p ~/.config/nvim
+install -m 644 $FILES_DIR/init.vim ~/.config/nvim/init.vim
 install -m 644 $FILES_DIR/xinitrc ~/.xinitrc
 install -m 644 $FILES_DIR/Xmodmap ~/.Xmodmap
 install -m 644 $FILES_DIR/tmux.conf ~/.tmux.conf
