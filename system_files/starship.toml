@@ -35,7 +35,7 @@ error_symbol = "[\\$](red)"
 disabled = false
 
 [directory]
-truncation_symbol = "…"
+truncation_symbol = "…/"
 read_only = " "
 style = "bold purple"
 
