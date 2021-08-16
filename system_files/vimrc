@@ -8,22 +8,28 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " Functionality
+Plug 'machakann/vim-highlightedyank'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
 Plug 'preservim/nerdtree'
+Plug 'preservim/nerdcommenter'
 
 " Languages
+Plug 'fatih/vim-go'
+
+" Neovim only
 if has('nvim')
   Plug 'nvim-treesitter/nvim-treesitter', {'branch': '0.5-compat', 'do': ':TSUpdate'}
-  " Not working
+  Plug 'rmagatti/auto-session'
+  Plug 'Th3Whit3Wolf/one-nvim'
 endif
-Plug 'fatih/vim-go'
 
 call plug#end()
 
 " Plugin configuration
+let g:highlightedyank_highlight_duration = 150
 let g:fzf_layout = { 'down': '30%' }
 let g:airline_powerline_fonts = 1
 let g:airline_theme='onehalfdark'
@@ -47,6 +53,9 @@ nnoremap <C-p> :<C-u>FZF<CR>
 nnoremap <leader>; :History:<CR>
 inoremap jk <esc>
 nnoremap <leader>l :NERDTreeFind<CR>
+nnoremap <leader>, :noh<CR>
+nnoremap <leader>z za<CR>
+nnoremap <leader>/ :NERDTreeToggle<CR>
 
 " Colors
 syntax on
@@ -67,6 +76,7 @@ set shiftwidth=2
 set expandtab
 set smarttab
 autocmd FileType make setlocal noexpandtab
+set foldlevel=3
 
 " Display & format
 set cursorline
@@ -74,7 +84,7 @@ set number
 set relativenumber
 autocmd InsertEnter * :set norelativenumber
 autocmd InsertLeave * :set relativenumber
-nnoremap <leader>c :set number!<CR>:set relativenumber!<CR>:set paste!<CR>
+nnoremap <leader>p :set number!<CR>:set relativenumber!<CR>:set paste!<CR>
 set textwidth=100
 set wrapmargin=2
 set showmatch
@@ -83,6 +93,18 @@ if exists('+colorcolumn')
 else
   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>100v.\+', -1)
 endif
+
+" Splits and windows
+set splitbelow
+set splitright
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+nnoremap J :5winc +<CR>
+nnoremap K :5winc -<CR>
+nnoremap L :5winc ><CR>
+nnoremap H :5winc <<CR>
 
 " Golang settings
 autocmd Filetype go call SetGolangOptions()
