@@ -107,6 +107,17 @@ EOF
 
 " Treesitter
 lua <<EOF
+-- Add proto parser
+local parser_config = require 'nvim-treesitter.parsers'.get_parser_configs()
+parser_config.proto = {
+  install_info = {
+    url = '~/git/linux-config/submodules/tree-sitter-proto',
+    files = {'src/parser.c'}
+  },
+  filetype = 'proto', -- if filetype does not agrees with parser name
+  --used_by = {'proto'} -- additional filetypes that use this parser
+}
+-- Configure Treesitter
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained",
     -- one of "all", "maintained" (parsers with maintainers), or a list of languages

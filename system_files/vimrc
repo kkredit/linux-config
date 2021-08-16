@@ -53,6 +53,8 @@ nnoremap <leader>l :NERDTreeFind<CR>
 nnoremap <leader>, :noh<CR>
 nnoremap <leader>z za<CR>
 nnoremap <leader>/ :NERDTreeToggle<CR>
+nnoremap <leader>y "+y
+nnoremap <leader>p "+p
 
 " Colors
 syntax on
@@ -74,6 +76,7 @@ set shiftwidth=2
 set expandtab
 set smarttab
 autocmd FileType make setlocal noexpandtab
+autocmd FileType go setlocal noexpandtab
 set foldlevel=3
 
 " Display & format
@@ -82,7 +85,7 @@ set number
 set relativenumber
 autocmd InsertEnter * :set norelativenumber
 autocmd InsertLeave * :set relativenumber
-nnoremap <leader>p :set number!<CR>:set relativenumber!<CR>:set paste!<CR>
+"nnoremap <leader>p :set number!<CR>:set relativenumber!<CR>:set paste!<CR>
 set textwidth=100
 set wrapmargin=2
 set showmatch
@@ -150,14 +153,13 @@ set t_ti= t_te=
 autocmd BufReadPost * if &filetype !~ 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$")
     \| exe "normal! g'\"" | endif
 
-" Spell
-set spell spelllang=en_us
-hi clear SpellBad
-hi SpellBad cterm=underline
-hi clear SpellCap
-hi clear SpellLocal
-hi clear SpellRare
-:nmap <C-l> :w!<CR>:!aspell check %<CR>:e! %<CR>
+"" Spell
+"set spell spelllang=en_us
+"hi clear SpellBad
+"hi SpellBad cterm=underline
+"hi clear SpellCap
+"hi clear SpellLocal
+"hi clear SpellRare
 
 " Highlight whitespace at ends of lines
 highlight ExtraWhitespace ctermbg=red guibg=red
@@ -169,4 +171,5 @@ autocmd BufWinLeave * call clearmatches()
 
 " Miscellaneous
 set undofile
+set autoread
 

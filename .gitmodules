@@ -41,3 +41,6 @@
 [submodule "submodules/onehalf"]
 	path = submodules/onehalf
 	url = https://github.com/sonph/onehalf
+[submodule "submodules/tree-sitter-proto"]
+	path = submodules/tree-sitter-proto
+	url = https://github.com/mitchellh/tree-sitter-proto
