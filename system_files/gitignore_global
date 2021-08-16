@@ -2,6 +2,8 @@
 *.log
 *.pdf
 **.ignore/
+*.DS_Store
+.pre-commit-config.yaml
 
 # dirs
 /workspace/

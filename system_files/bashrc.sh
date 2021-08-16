@@ -33,22 +33,35 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
-
 ################################################################################
 #                                                                   customized #
 
-# Enable color support
-if [ -x /usr/bin/dircolors ]; then
+WSL=$(if uname -a | grep -iq microsoft; then echo 'true'; else echo 'false'; fi)
+export WSL
+MAC=$(if uname -a | grep -iq darwin; then echo 'true'; else echo 'false'; fi)
+export MAC
+
+# Source other files
+function sourceIfPresent() {
+    [ -f $1 ] && source $1
+}
+
+sourceIfPresent ~/.bash_aliases
+sourceIfPresent /usr/share/bash-completion/completions/git
+sourceIfPresent /usr/local/etc/bash_completion
+sourceIfPresent /etc/bash_completion
+sourceIfPresent ~/.bash_functions
+sourceIfPresent ~/.bashrc_local
+sourceIfPresent ~/.bashrc_wsl
+sourceIfPresent ~/.fzf.bash
+sourceIfPresent ~/.autojump/etc/profile.d/autojump.sh
+sourceIfPresent ~/.forgit.plugin.sh
+sourceIfPresent ~/.iterm2_shell_integration.bash
+
+eval "$(starship init bash)"
+
+# Enable color supportC
+if [ -x /usr/bin/dircolors ] || [ -x /usr/local/bin/gdircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     COLOR_AUTO="--color=auto"
 
@@ -81,21 +94,6 @@ if [ -x /usr/bin/dircolors ]; then
     }
 fi
 
-# Source other files
-function sourceIfPresent() {
-    [ -f $1 ] && source $1
-}
-
-sourceIfPresent ~/.bash_aliases
-sourceIfPresent /usr/share/bash-completion/completions/git
-sourceIfPresent ~/.bash_functions
-sourceIfPresent ~/.bash_prompt
-sourceIfPresent ~/.bashrc_local
-sourceIfPresent ~/.bashrc_wsl
-sourceIfPresent ~/.gerrit_functions.sh
-sourceIfPresent ~/.fzf.bash
-sourceIfPresent ~/.autojump/etc/profile.d/autojump.sh
-sourceIfPresent ~/.forgit.plugin.sh
 
 # Unbind ctrl-t from fzf-file-widget; used instead as tmux meta key
 bind -r '\C-t'
@@ -104,8 +102,6 @@ bind -r '\C-t'
 PATH=$PATH:~/bin
 [ -d ~/.yarn/bin ] && PATH=$PATH:~/.yarn/bin || true
 export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(vim {})+abort'" # ctrl-o opens file in vim
-WSL=$(uname -a | grep -iq microsoft && echo 'true' || echo 'false')
-export WSL
 export EDITOR=/usr/bin/vim
 which bat &>/dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'" || true
 
