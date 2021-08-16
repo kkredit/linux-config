@@ -55,6 +55,9 @@ nnoremap <leader>z za<CR>
 nnoremap <leader>/ :NERDTreeToggle<CR>
 nnoremap <leader>y "+y
 nnoremap <leader>p "+p
+nnoremap <leader>i i_<Esc>r
+nnoremap <leader>. :let @+=expand('%')<CR>
+nnoremap <leader>> :let @+=expand('%:p')<CR>
 
 " Colors
 syntax on
