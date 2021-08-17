@@ -3,36 +3,39 @@
 call plug#begin('~/.vim/plugged')
 
 " Formatting and colorschemes
-Plug 'sonph/onehalf', { 'rtp': 'vim' }
+Plug 'tomasiser/vim-code-dark'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " Functionality
+Plug 'machakann/vim-highlightedyank'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
 Plug 'preservim/nerdtree'
+Plug 'preservim/nerdcommenter'
 
-" Languages
+" Neovim only
 if has('nvim')
   Plug 'nvim-treesitter/nvim-treesitter', {'branch': '0.5-compat', 'do': ':TSUpdate'}
-  " Not working
+  Plug 'rmagatti/auto-session'
+  Plug 'Th3Whit3Wolf/one-nvim'
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'kabouzeid/nvim-lspinstall'
 endif
-Plug 'fatih/vim-go'
 
 call plug#end()
 
 " Plugin configuration
+let g:highlightedyank_highlight_duration = 150
 let g:fzf_layout = { 'down': '30%' }
 let g:airline_powerline_fonts = 1
-let g:airline_theme='onehalfdark'
+let g:airline_theme = 'codedark'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_statusline_ontop = 1
 let g:airline_detect_spell = 0
-" Start NERDTree, unless a file or session is specified, eg. vim -S session_file.vim.
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists('s:std_in') && v:this_session == '' | NERDTree | endif
+let g:auto_session_pre_save_cmds = ["tabdo NERDTreeClose"]
 " Close the tab if NERDTree is the only window remaining in it.
 autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
@@ -42,16 +45,25 @@ let mapleader = " "
 nnoremap <leader>w :w<CR>
 nnoremap <leader>W :wq<CR>
 nnoremap <leader>q :q<CR>
-nnoremap <leader>r :source ~/.vimrc<CR>
+nnoremap <leader>r :source $MYVIMRC<CR>
 nnoremap <C-p> :<C-u>FZF<CR>
 nnoremap <leader>; :History:<CR>
 inoremap jk <esc>
 nnoremap <leader>l :NERDTreeFind<CR>
+nnoremap <leader>, :noh<CR>
+nnoremap <leader>z za<CR>
+nnoremap <leader>/ :NERDTreeToggle<CR>
+nnoremap <leader>y "+y
+nnoremap <leader>p "+p
+nnoremap <leader>i i_<Esc>r
+nnoremap <leader>. :let @+=expand('%')<CR>
+nnoremap <leader>> :let @+=expand('%:p')<CR>
 
 " Colors
 syntax on
 set t_Co=256
-colorscheme onehalfdark
+set t_ut=
+colorscheme codedark
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -67,6 +79,8 @@ set shiftwidth=2
 set expandtab
 set smarttab
 autocmd FileType make setlocal noexpandtab
+autocmd FileType go setlocal noexpandtab
+set foldlevel=3
 
 " Display & format
 set cursorline
@@ -74,7 +88,7 @@ set number
 set relativenumber
 autocmd InsertEnter * :set norelativenumber
 autocmd InsertLeave * :set relativenumber
-nnoremap <leader>c :set number!<CR>:set relativenumber!<CR>:set paste!<CR>
+"nnoremap <leader>p :set number!<CR>:set relativenumber!<CR>:set paste!<CR>
 set textwidth=100
 set wrapmargin=2
 set showmatch
@@ -83,6 +97,18 @@ if exists('+colorcolumn')
 else
   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>100v.\+', -1)
 endif
+
+" Splits and windows
+set splitbelow
+set splitright
+"nnoremap <C-J> <C-W><C-J>
+"nnoremap <C-K> <C-W><C-K>
+"nnoremap <C-L> <C-W><C-L>
+"nnoremap <C-H> <C-W><C-H>
+nnoremap J :5winc +<CR>
+nnoremap K :5winc -<CR>
+nnoremap L :5winc ><CR>
+nnoremap H :5winc <<CR>
 
 " Golang settings
 autocmd Filetype go call SetGolangOptions()
@@ -130,14 +156,13 @@ set t_ti= t_te=
 autocmd BufReadPost * if &filetype !~ 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$")
     \| exe "normal! g'\"" | endif
 
-" Spell
-set spell spelllang=en_us
-hi clear SpellBad
-hi SpellBad cterm=underline
-hi clear SpellCap
-hi clear SpellLocal
-hi clear SpellRare
-:nmap <C-l> :w!<CR>:!aspell check %<CR>:e! %<CR>
+"" Spell
+"set spell spelllang=en_us
+"hi clear SpellBad
+"hi SpellBad cterm=underline
+"hi clear SpellCap
+"hi clear SpellLocal
+"hi clear SpellRare
 
 " Highlight whitespace at ends of lines
 highlight ExtraWhitespace ctermbg=red guibg=red
@@ -149,4 +174,5 @@ autocmd BufWinLeave * call clearmatches()
 
 " Miscellaneous
 set undofile
+set autoread
 
