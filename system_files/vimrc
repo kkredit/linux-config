@@ -4,8 +4,10 @@ call plug#begin('~/.vim/plugged')
 
 " Formatting and colorschemes
 Plug 'tomasiser/vim-code-dark'
+"Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'blueyed/vim-diminactive'
 
 " Functionality
 Plug 'machakann/vim-highlightedyank'
@@ -23,6 +25,7 @@ if has('nvim')
   Plug 'Th3Whit3Wolf/one-nvim'
   Plug 'neovim/nvim-lspconfig'
   Plug 'kabouzeid/nvim-lspinstall'
+  Plug 'f-person/git-blame.nvim'
 endif
 
 call plug#end()
@@ -31,13 +34,21 @@ call plug#end()
 let g:highlightedyank_highlight_duration = 150
 let g:fzf_layout = { 'down': '30%' }
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'codedark'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_statusline_ontop = 1
 let g:airline_detect_spell = 0
+let g:gitblame_enabled = 0
 let g:auto_session_pre_save_cmds = ["tabdo NERDTreeClose"]
 " Close the tab if NERDTree is the only window remaining in it.
 autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+" Fzf -- Rg command with preview window
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
 
 
 " Keymappings
@@ -45,7 +56,7 @@ let mapleader = " "
 nnoremap <leader>w :w<CR>
 nnoremap <leader>W :wq<CR>
 nnoremap <leader>q :q<CR>
-nnoremap <leader>r :source $MYVIMRC<CR>
+nnoremap <leader>1 :source $MYVIMRC<CR>
 nnoremap <C-p> :<C-u>FZF<CR>
 nnoremap <leader>; :History:<CR>
 inoremap jk <esc>
@@ -58,12 +69,24 @@ nnoremap <leader>p "+p
 nnoremap <leader>i i_<Esc>r
 nnoremap <leader>. :let @+=expand('%')<CR>
 nnoremap <leader>> :let @+=expand('%:p')<CR>
+nnoremap <silent> <leader>b :GitBlameToggle<CR>
+nnoremap <leader>r :Rg<CR>
 
 " Colors
 syntax on
 set t_Co=256
 set t_ut=
-colorscheme codedark
+"let g:airline_theme = 'codedark'
+"let g:airline_theme = 'onehalfdark'
+let g:airline_theme = 'jellybeans'
+"colorscheme codedark
+if has('nvim')
+  "colorscheme one-nvim
+  "^^ broken? ...
+  colorscheme codedark
+else
+  colorscheme codedark
+endif
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -80,7 +103,7 @@ set expandtab
 set smarttab
 autocmd FileType make setlocal noexpandtab
 autocmd FileType go setlocal noexpandtab
-set foldlevel=3
+set foldlevel=999
 
 " Display & format
 set cursorline
@@ -113,8 +136,7 @@ nnoremap H :5winc <<CR>
 " Golang settings
 autocmd Filetype go call SetGolangOptions()
 function SetGolangOptions()
-  :nnoremap <leader>t :GoFmt<CR>
-  :nnoremap <leader>g :GoCallers<CR>
+  :nnoremap <leader>t :w<CR>:!go fmt %<CR><CR>
 endfunction
 
 " Git commit settings

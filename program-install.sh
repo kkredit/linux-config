@@ -34,7 +34,8 @@ if has_arg "basic"; then
             htop \
             ncdu \
             shellcheck \
-            starship
+            starship \
+            ripgrep
         brew install --cask iterm2 amethyst
         curl -L https://iterm2.com/shell_integration/bash -o ~/.iterm2_shell_integration.bash
         exec bash
@@ -58,7 +59,8 @@ if has_arg "basic"; then
             dos2unix \
             python \
             inotify-tools \
-            shellcheck
+            shellcheck \
+            ripgrep
         sh -c "$(curl -fsSL https://starship.rs/install.sh)"
     fi
 fi

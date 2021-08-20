@@ -15,7 +15,6 @@ $git_metrics\
 $git_status\
 $docker_context\
 $package\
-$golang\
 $helm\
 $terraform\
 $vagrant\

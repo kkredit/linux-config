@@ -2,6 +2,9 @@ set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath=&runtimepath
 source ~/.vimrc
 
+" General
+"colorscheme one-nvim
+
 " LSP
 lua << EOF
 -- Styling
