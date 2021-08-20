@@ -359,6 +359,8 @@ if has_arg "golang"; then
         echo "export PATH=\$PATH:$INST_DIR/go/bin" >> ~/.profile
         echo "Run 'export PATH=\$PATH:$INST_DIR/go/bin'"
     fi
+
+    go get golang.org/x/tools/cmd/goimports
 fi
 
 if has_arg "haskell"; then
