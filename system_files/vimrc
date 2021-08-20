@@ -17,6 +17,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
 Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
+Plug 'mattn/vim-goimports'
 
 " Neovim only
 if has('nvim')
@@ -24,6 +25,7 @@ if has('nvim')
   Plug 'rmagatti/auto-session'
   Plug 'Th3Whit3Wolf/one-nvim'
   Plug 'neovim/nvim-lspconfig'
+  Plug 'hrsh7th/nvim-compe'
   Plug 'kabouzeid/nvim-lspinstall'
   Plug 'f-person/git-blame.nvim'
 endif
@@ -49,6 +51,16 @@ command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview(), <bang>0)
+" Completion (nvim-compe)
+let g:compe = {}
+let g:compe.enabled = v:true
+let g:compe.autocomplete = v:true
+let g:compe.source = {}
+let g:compe.source.path = v:true
+let g:compe.source.buffer = v:true
+let g:compe.source.calc = v:true
+let g:compe.source.nvim_lsp = v:true
+let g:compe.source.treesitter = v:true
 
 
 " Keymappings
