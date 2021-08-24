@@ -124,7 +124,7 @@ set relativenumber
 autocmd InsertEnter * :set norelativenumber
 autocmd InsertLeave * :set relativenumber
 "nnoremap <leader>p :set number!<CR>:set relativenumber!<CR>:set paste!<CR>
-set textwidth=100
+"set textwidth=100
 set wrapmargin=2
 set showmatch
 if exists('+colorcolumn')

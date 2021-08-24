@@ -361,6 +361,8 @@ if has_arg "golang"; then
     fi
 
     go get golang.org/x/tools/cmd/goimports
+    go get github.com/golobby/repl
+    go install github.com/golobby/repl@latest
 fi
 
 if has_arg "haskell"; then
