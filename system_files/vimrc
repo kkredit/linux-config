@@ -65,14 +65,14 @@ let g:compe.source.treesitter = v:true
 
 " Keymappings
 let mapleader = " "
-nnoremap <leader>w :w<CR>
+nnoremap <silent> <leader>w :w<CR>
 nnoremap <leader>W :wq<CR>
-nnoremap <leader>q :q<CR>
-nnoremap <leader>1 :source $MYVIMRC<CR>
+nnoremap <silent> <leader>q :q<CR>
+nnoremap <silent> <leader>1 :source $MYVIMRC<CR>
 nnoremap <C-p> :<C-u>FZF<CR>
 nnoremap <leader>; :History:<CR>
 inoremap jk <esc>
-nnoremap <leader>l :NERDTreeFind<CR>
+nnoremap <leader>d :NERDTreeFind<CR>
 nnoremap <leader>, :noh<CR>
 nnoremap <leader>z za<CR>
 nnoremap <leader>/ :NERDTreeToggle<CR>
@@ -83,6 +83,7 @@ nnoremap <leader>. :let @+=expand('%')<CR>
 nnoremap <leader>> :let @+=expand('%:p')<CR>
 nnoremap <silent> <leader>b :GitBlameToggle<CR>
 nnoremap <leader>r :Rg<CR>
+nnoremap <leader>s :w<CR>:!
 
 " Colors
 syntax on
@@ -123,15 +124,14 @@ set number
 set relativenumber
 autocmd InsertEnter * :set norelativenumber
 autocmd InsertLeave * :set relativenumber
-"nnoremap <leader>p :set number!<CR>:set relativenumber!<CR>:set paste!<CR>
 "set textwidth=100
 set wrapmargin=2
 set showmatch
-if exists('+colorcolumn')
-  set colorcolumn=101
-else
-  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>100v.\+', -1)
-endif
+"if exists('+colorcolumn')
+"  set colorcolumn=101
+"else
+"  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>100v.\+', -1)
+"endif
 
 " Splits and windows
 set splitbelow
@@ -144,6 +144,8 @@ nnoremap J :5winc +<CR>
 nnoremap K :5winc -<CR>
 nnoremap L :5winc ><CR>
 nnoremap H :5winc <<CR>
+" jump to previous window
+nnoremap <silent> <leader><BS> <C-W>p
 
 " Golang settings
 autocmd Filetype go call SetGolangOptions()

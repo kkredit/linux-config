@@ -363,6 +363,9 @@ if has_arg "golang"; then
     go get golang.org/x/tools/cmd/goimports
     go get github.com/golobby/repl
     go install github.com/golobby/repl@latest
+    if $MAC; then
+      brew install golang-migrate
+    fi
 fi
 
 if has_arg "haskell"; then
