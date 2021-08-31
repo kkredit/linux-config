@@ -73,7 +73,7 @@ nnoremap <C-p> :<C-u>FZF<CR>
 nnoremap <leader>; :History:<CR>
 inoremap jk <esc>
 nnoremap <leader>d :NERDTreeFind<CR>
-nnoremap <leader>, :noh<CR>
+nnoremap <silent> <leader>, :noh<CR>:cclose<CR>
 nnoremap <leader>z za<CR>
 nnoremap <leader>/ :NERDTreeToggle<CR>
 nnoremap <leader>y "+y
@@ -82,8 +82,10 @@ nnoremap <leader>i i_<Esc>r
 nnoremap <leader>. :let @+=expand('%')<CR>
 nnoremap <leader>> :let @+=expand('%:p')<CR>
 nnoremap <silent> <leader>b :GitBlameToggle<CR>
-nnoremap <leader>r :Rg<CR>
+nnoremap <leader>g :Rg<CR>
+nnoremap <leader>G :Rg <C-R><C-W><CR>
 nnoremap <leader>s :w<CR>:!
+nnoremap <leader>rw ciw<C-R>0<ESC>
 
 " Colors
 syntax on
@@ -97,8 +99,10 @@ if has('nvim')
   "colorscheme one-nvim
   "^^ broken? ...
   colorscheme codedark
+  hi ColorColumn ctermbg=0 guibg=#333333
 else
   colorscheme codedark
+  hi ColorColumn ctermbg=0 guibg=#333333
 endif
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
