@@ -103,6 +103,7 @@ MAC=$(uname -a | grep -iq darwin && echo 'true' || echo 'false')
 export MAC
 export EDITOR=/usr/bin/vim
 which bat &>/dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'" || true
+export RIPGREP_CONFIG_PATH=~/.ripgreprc
 
 # print a quote or fortune, for fun
 # if which fortune &>/dev/null && type rand_in_range &>/dev/null; then
