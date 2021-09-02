@@ -28,6 +28,7 @@ if has('nvim')
   Plug 'hrsh7th/nvim-compe'
   Plug 'kabouzeid/nvim-lspinstall'
   Plug 'f-person/git-blame.nvim'
+  Plug 'folke/which-key.nvim'
 endif
 
 call plug#end()
@@ -65,6 +66,8 @@ let g:compe.source.treesitter = v:true
 
 " Keymappings
 let mapleader = " "
+let timeoutlen = 500
+
 nnoremap <silent> <leader>w :w<CR>
 nnoremap <leader>W :wq<CR>
 nnoremap <silent> <leader>q :q<CR>
@@ -72,10 +75,10 @@ nnoremap <silent> <leader>1 :source $MYVIMRC<CR>
 nnoremap <C-p> :<C-u>FZF<CR>
 nnoremap <leader>; :History:<CR>
 inoremap jk <esc>
-nnoremap <leader>d :NERDTreeFind<CR>
-nnoremap <silent> <leader>, :noh<CR>:cclose<CR>
+nnoremap <silent> <leader>d :NERDTreeFind<CR>
+nnoremap <silent> <leader>/ :NERDTreeToggle<CR>
+nnoremap <silent> <leader>, :noh<CR>:cclose<CR>:lclose<CR>
 nnoremap <leader>z za<CR>
-nnoremap <leader>/ :NERDTreeToggle<CR>
 nnoremap <leader>y "+y
 nnoremap <leader>p "+p
 nnoremap <leader>i i_<Esc>r
@@ -204,13 +207,13 @@ autocmd BufReadPost * if &filetype !~ 'gitcommit' && line("'\"") > 0 && line("'\
 "hi clear SpellLocal
 "hi clear SpellRare
 
-" Highlight whitespace at ends of lines
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
+"" Highlight whitespace at ends of lines
+"highlight ExtraWhitespace ctermbg=red guibg=red
+"match ExtraWhitespace /\s\+$/
+"autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+"autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+"autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+"autocmd BufWinLeave * call clearmatches()
 
 " Miscellaneous
 set undofile
