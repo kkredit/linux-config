@@ -29,6 +29,9 @@ if has('nvim')
   Plug 'kabouzeid/nvim-lspinstall'
   Plug 'f-person/git-blame.nvim'
   Plug 'folke/which-key.nvim'
+
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'lewis6991/gitsigns.nvim'
 endif
 
 call plug#end()
@@ -214,6 +217,9 @@ autocmd BufReadPost * if &filetype !~ 'gitcommit' && line("'\"") > 0 && line("'\
 "autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 "autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 "autocmd BufWinLeave * call clearmatches()
+"" Remove trailing whitespace except in markdown files
+let exceptlist = ['markdown']
+autocmd BufWritePre * if index(exceptlist, &ft) < 0 | :%s/\s\+$//e
 
 " Miscellaneous
 set undofile
