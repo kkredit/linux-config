@@ -21,6 +21,7 @@ install -m 644 $FILES_DIR/dircolors.sh ~/.dircolors
 install -m 644 $FILES_DIR/vimrc ~/.vimrc
 mkdir -p ~/.config/nvim
 install -m 644 $FILES_DIR/init.vim ~/.config/nvim/init.vim
+install -m 644 $FILES_DIR/coc-settings.nvim.json ~/.config/nvim/coc-settings.json
 install -m 644 $FILES_DIR/xinitrc ~/.xinitrc
 install -m 644 $FILES_DIR/Xmodmap ~/.Xmodmap
 install -m 644 $FILES_DIR/tmux.conf ~/.tmux.conf

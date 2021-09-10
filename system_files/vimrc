@@ -32,6 +32,7 @@ if has('nvim')
 
   Plug 'nvim-lua/plenary.nvim'
   Plug 'lewis6991/gitsigns.nvim'
+  Plug 'neoclide/coc.nvim', { 'branch': 'release', 'do': ':CocInstall coc-spell-checker' }
 endif
 
 call plug#end()
@@ -92,6 +93,8 @@ nnoremap <leader>g :Rg<CR>
 nnoremap <leader>G :Rg <C-R><C-W><CR>
 nnoremap <leader>s :w<CR>:!
 nnoremap <leader>rw ciw<C-R>0<ESC>
+vnoremap <leader>a :CocAction<CR>
+nnoremap <leader>a :CocAction<CR>
 
 " Colors
 syntax on

@@ -8,6 +8,7 @@
 # dirs
 /workspace/
 **/.vscode/
+**/.vim/
 
 # VSCodium
 *.code-workspace
