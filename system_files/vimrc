@@ -159,6 +159,12 @@ nnoremap L :5winc ><CR>
 nnoremap H :5winc <<CR>
 " jump to previous window
 nnoremap <silent> <leader><BS> <C-W>p
+" close vim if a QFL is the only remaining window
+" see https://stackoverflow.com/a/7477056
+aug QFClose
+  au!
+  au WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
+aug END
 
 " Golang settings
 autocmd Filetype go call SetGolangOptions()
