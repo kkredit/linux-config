@@ -588,3 +588,7 @@ function maxcpu() {
         yes >/dev/null &
     done
 }
+
+function gan() {
+    go doc -all $1 | bat --language go --plain
+}
