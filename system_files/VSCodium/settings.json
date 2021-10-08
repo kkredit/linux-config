@@ -30,6 +30,7 @@
         "qemu",
         "repo",
         "repo's",
+        "repos",
         "reqs",
         "struct",
         "structs",
@@ -117,7 +118,7 @@
         ".babelrc": "json"
     },
     "editor.fontLigatures": true,
-    "editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
+    "editor.fontFamily": "'FiraCode Nerd Font Mono', 'Fira Code', Consolas, 'Courier New', monospace",
     "markdown.extension.toc.githubCompatibility": true,
     "simpleVim.visualLineModeCursorStyle": "underline",
     "simpleVim.visualModeCursorStyle": "blockOutline",
@@ -332,5 +333,34 @@
     },
     "python.formatting.provider": "black",
     "workbench.editor.decorations.badges": false,
-    "unibeautify.defaultConfig": "/home/kevinkredit/.unibeautifyrc.json"
+    "unibeautify.defaultConfig": "/home/kevinkredit/.unibeautifyrc.json",
+    "vim.cursorStylePerMode.insert": "line",
+    "vim.cursorStylePerMode.normal": "block",
+    "vim.cursorStylePerMode.replace": "underline",
+    "vim.cursorStylePerMode.visual": "block-outline",
+    "vim.cursorStylePerMode.visualblock": "block-outline",
+    "vim.cursorStylePerMode.visualline": "block-outline",
+    "vim.easymotion": true,
+    "vim.enableNeovim": true,
+    "vim.highlightedyank.enable": true,
+    "vim.smartRelativeLine": true,
+    "vim.sneak": true,
+    "vim.useSystemClipboard": true,
+    "vim.vimrc.enable": true,
+    "editor.cursorSurroundingLines": 5,
+    "vim.leader": " ",
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["<leader>", ";"],
+            "commands": ["workbench.action.showCommands"]
+        },
+        {
+            "before": ["<leader>", "t"],
+            "commands": ["editor.action.formatDocument"]
+        },
+        {
+            "before": ["<leader>", "p"],
+            "commands": ["workbench.action.quickOpen"]
+        }
+    ]
 }

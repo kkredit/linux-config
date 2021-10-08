@@ -2,13 +2,17 @@
 # ~/.bash_aliases
 
 alias rc='source ~/.bashrc'
+alias nvim='NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim'
+alias nvr='nvr --servername /tmp/nvimsocket'
 alias v=nvim
+alias V='nvim $(find * -type f | fzf)'
 alias vim=nvim
 alias vr='nvim ~/.vimrc'
 if $MAC; then
   alias ls="gls \$COLOR_AUTO -F"
   alias grep="ggrep \$COLOR_AUTO"
   alias dircolors=gdircolors
+  alias sed=gsed
   alias echo=gecho
 else
   alias ls="ls \$COLOR_AUTO -F"

@@ -5,7 +5,9 @@ cd "$(dirname "$0")" || exit
 # shellcheck disable=SC1091
 source helper_scripts/local-helpers.sh
 
-UBU_REL=$(lsb_release -cs)
+if ! $MAC; then
+    UBU_REL=$(lsb_release -cs)
+fi
 
 # Update & exit
 if has_arg "update"; then
@@ -17,23 +19,49 @@ fi
 
 # Basic tools
 if has_arg "basic"; then
-    sudo-pkg-mgr install -y \
-        vim \
-        git \
-        tmux \
-        lynx \
-        curl \
-        tree \
-        net-tools \
-        htop \
-        ncdu \
-        pdfgrep \
-        screen \
-        repo \
-        dos2unix \
-        python \
-        inotify-tools \
-        shellcheck
+    if $MAC; then
+        [ -f ~/.dircolors ] || git clone https://github.com/gibbling666/dircolors.git ~/.dircolors
+        brew install \
+            bash \
+            grep \
+            coreutils \
+            vim \
+            neovim \
+            git \
+            tmux \
+            lynx \
+            tree \
+            htop \
+            ncdu \
+            shellcheck \
+            starship \
+            ripgrep
+        brew install --cask iterm2 amethyst
+        curl -L https://iterm2.com/shell_integration/bash -o ~/.iterm2_shell_integration.bash
+        exec bash
+        echo $(brew --prefix)/bin/bash | sudo tee -a /private/etc/shells
+        sudo chpass -s $(brew --prefix)/bin/bash $(whoami)
+    else
+        sudo-pkg-mgr install -y \
+            vim \
+            neovim \
+            git \
+            tmux \
+            lynx \
+            curl \
+            tree \
+            net-tools \
+            htop \
+            ncdu \
+            pdfgrep \
+            screen \
+            dos2unix \
+            python \
+            inotify-tools \
+            shellcheck \
+            ripgrep
+        sh -c "$(curl -fsSL https://starship.rs/install.sh)"
+    fi
 fi
 
 # Other tools
@@ -46,6 +74,11 @@ if has_arg "dev"; then
         lcov \
         libc6-dev-i386 \
         jq
+    if $MAC; then
+        brew install pre-commit
+    elif which pip &>/dev/null; then
+        pip install pre-commit
+    fi
 fi
 
 if has_arg "utilities"; then
@@ -93,7 +126,11 @@ if has_arg "silicon"; then
 fi
 
 if has_arg "vscodium"; then
-    snap install codium --classic
+    if $MAC; then
+        brew install --cask vscodium
+    else
+        snap install codium --classic
+    fi
     FILES_DIR=system_files
     codium --install-extension < $FILES_DIR/VSCodium/extensions.txt
 fi
@@ -106,23 +143,18 @@ fi
 
 if has_arg "fonts"; then
     fonts_dir="${HOME}/.local/share/fonts"
-    if [ ! -d "${fonts_dir}" ]; then
-        echo "mkdir -p $fonts_dir"
-        mkdir -p "${fonts_dir}"
-    else
-        echo "Found fonts dir $fonts_dir"
-    fi
+    mkdir -p "${fonts_dir}"
 
-    # Firacode
-    for type in Bold Light Medium Regular Retina; do
-        file_path="${HOME}/.local/share/fonts/FiraCode-${type}.ttf"
-        file_url="https://github.com/tonsky/FiraCode/blob/master/distr/ttf/FiraCode-${type}.ttf?raw=true"
-        if [ ! -e "${file_path}" ]; then
-            echo "wget -O $file_path $file_url"
-            wget -O "${file_path}" "${file_url}"
-        else
-            echo "Found existing file $file_path"
-        fi
+    # Nerd fonts
+    for font in FiraCode FiraMono Hack; do
+        file_url="https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/${font}.zip"
+        echo "wget  ${file_url} -O ${font}.zip"
+        wget "${file_url}" -O "${font}.zip"
+        unzip ${font}.zip -d $font
+        for otf in $font/*.otf; do
+            cp "$otf" $fonts_dir/
+        done
+        rm -rf $font ${font}.zip
     done
 
     # ArgVu
@@ -135,8 +167,18 @@ if has_arg "fonts"; then
         echo "Found existing file $file_path"
     fi
 
-    echo "fc-cache -f"
-    fc-cache -f
+    if ! $MAC; then
+        echo "fc-cache -f"
+        fc-cache -f
+    else
+        brew tap homebrew/cask-fonts
+        brew install --cask \
+            font-fira-code \
+            font-fira-mono \
+            font-fira-sans \
+            font-fira-code-nerd-font \
+            font-hack-nerd-font
+    fi
 
     if $WSL; then
         choco install firacode
@@ -310,6 +352,13 @@ if has_arg "golang"; then
         echo "Adding $INST_DIR/go/bin to ~/.profile..."
         echo "export PATH=\$PATH:$INST_DIR/go/bin" >> ~/.profile
         echo "Run 'export PATH=\$PATH:$INST_DIR/go/bin'"
+    fi
+
+    go get golang.org/x/tools/cmd/goimports
+    go get github.com/golobby/repl
+    go install github.com/golobby/repl@latest
+    if $MAC; then
+      brew install golang-migrate
     fi
 fi
 

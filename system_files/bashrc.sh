@@ -101,9 +101,11 @@ bind -r '\C-t'
 # Set environment variables
 PATH=$PATH:~/bin
 [ -d ~/.yarn/bin ] && PATH=$PATH:~/.yarn/bin || true
+[ -d /snap/bin ] && PATH=$PATH:/snap/bin || true
 export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(vim {})+abort'" # ctrl-o opens file in vim
 export EDITOR=/usr/bin/vim
 which bat &>/dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'" || true
+export RIPGREP_CONFIG_PATH=~/.ripgreprc
 
 # print a quote or fortune, for fun
 # if which fortune &>/dev/null && type rand_in_range &>/dev/null; then

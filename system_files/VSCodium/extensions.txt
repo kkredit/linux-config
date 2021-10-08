@@ -33,6 +33,7 @@ testthedocs.vale
 timonwong.shellcheck
 vadimcn.vscode-lldb
 vscode-icons-team.vscode-icons
+vscodevim.vim
 wayou.vscode-todo-highlight
 wingrunr21.vscode-ruby
 ybaumes.highlight-trailing-white-spaces

@@ -1,11 +1,19 @@
 " Plugins
 
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 call plug#begin('~/.vim/plugged')
 
 " Formatting and colorschemes
 Plug 'tomasiser/vim-code-dark'
+"Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'blueyed/vim-diminactive'
 
 " Functionality
 Plug 'machakann/vim-highlightedyank'
@@ -15,6 +23,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
 Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
+Plug 'mattn/vim-goimports'
 
 " Neovim only
 if has('nvim')
@@ -22,7 +31,14 @@ if has('nvim')
   Plug 'rmagatti/auto-session'
   Plug 'Th3Whit3Wolf/one-nvim'
   Plug 'neovim/nvim-lspconfig'
+  Plug 'hrsh7th/nvim-compe'
   Plug 'kabouzeid/nvim-lspinstall'
+  Plug 'f-person/git-blame.nvim'
+  Plug 'folke/which-key.nvim'
+
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'lewis6991/gitsigns.nvim'
+  Plug 'neoclide/coc.nvim', { 'branch': 'release', 'do': ':CocInstall coc-spell-checker' }
 endif
 
 call plug#end()
@@ -31,39 +47,78 @@ call plug#end()
 let g:highlightedyank_highlight_duration = 150
 let g:fzf_layout = { 'down': '30%' }
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'codedark'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_statusline_ontop = 1
 let g:airline_detect_spell = 0
+let g:gitblame_enabled = 0
 let g:auto_session_pre_save_cmds = ["tabdo NERDTreeClose"]
 " Close the tab if NERDTree is the only window remaining in it.
 autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+" Fzf -- Rg command with preview window
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+" Completion (nvim-compe)
+let g:compe = {}
+let g:compe.enabled = v:true
+let g:compe.autocomplete = v:true
+let g:compe.source = {}
+let g:compe.source.path = v:true
+let g:compe.source.buffer = v:true
+let g:compe.source.calc = v:true
+let g:compe.source.nvim_lsp = v:true
+let g:compe.source.treesitter = v:true
 
 
 " Keymappings
 let mapleader = " "
-nnoremap <leader>w :w<CR>
+let timeoutlen = 500
+
+nnoremap <silent> <leader>w :w<CR>
 nnoremap <leader>W :wq<CR>
-nnoremap <leader>q :q<CR>
-nnoremap <leader>r :source $MYVIMRC<CR>
+nnoremap <silent> <leader>q :q<CR>
+nnoremap <silent> <leader>1 :source $MYVIMRC<CR>
 nnoremap <C-p> :<C-u>FZF<CR>
 nnoremap <leader>; :History:<CR>
 inoremap jk <esc>
-nnoremap <leader>l :NERDTreeFind<CR>
-nnoremap <leader>, :noh<CR>
+nnoremap <silent> <leader>d :NERDTreeFind<CR>
+nnoremap <silent> <leader>/ :NERDTreeToggle<CR>
+nnoremap <silent> <leader>, :noh<CR>:cclose<CR>:lclose<CR>
 nnoremap <leader>z za<CR>
-nnoremap <leader>/ :NERDTreeToggle<CR>
 nnoremap <leader>y "+y
 nnoremap <leader>p "+p
 nnoremap <leader>i i_<Esc>r
 nnoremap <leader>. :let @+=expand('%')<CR>
 nnoremap <leader>> :let @+=expand('%:p')<CR>
+nnoremap <silent> <leader>b :GitBlameToggle<CR>
+nnoremap <leader>g :Rg<CR>
+nnoremap <leader>G :Rg <C-R><C-W><CR>
+nnoremap <leader>s :w<CR>:!
+nnoremap <leader>rw ciw<C-R>0<ESC>
+vnoremap <leader>a :CocAction<CR>
+nnoremap <leader>a :CocAction<CR>
 
 " Colors
 syntax on
 set t_Co=256
 set t_ut=
-colorscheme codedark
+"let g:airline_theme = 'codedark'
+"let g:airline_theme = 'onehalfdark'
+let g:airline_theme = 'jellybeans'
+"colorscheme codedark
+if has('nvim')
+  "colorscheme one-nvim
+  "^^ broken? ...
+  colorscheme codedark
+  hi ColorColumn ctermbg=0 guibg=#333333
+else
+  colorscheme codedark
+  hi ColorColumn ctermbg=0 guibg=#333333
+endif
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -80,7 +135,7 @@ set expandtab
 set smarttab
 autocmd FileType make setlocal noexpandtab
 autocmd FileType go setlocal noexpandtab
-set foldlevel=3
+set foldlevel=999
 
 " Display & format
 set cursorline
@@ -88,15 +143,14 @@ set number
 set relativenumber
 autocmd InsertEnter * :set norelativenumber
 autocmd InsertLeave * :set relativenumber
-"nnoremap <leader>p :set number!<CR>:set relativenumber!<CR>:set paste!<CR>
-set textwidth=100
+"set textwidth=100
 set wrapmargin=2
 set showmatch
-if exists('+colorcolumn')
-  set colorcolumn=101
-else
-  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>100v.\+', -1)
-endif
+"if exists('+colorcolumn')
+"  set colorcolumn=101
+"else
+"  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>100v.\+', -1)
+"endif
 
 " Splits and windows
 set splitbelow
@@ -109,12 +163,19 @@ nnoremap J :5winc +<CR>
 nnoremap K :5winc -<CR>
 nnoremap L :5winc ><CR>
 nnoremap H :5winc <<CR>
+" jump to previous window
+nnoremap <silent> <leader><BS> <C-W>p
+" close vim if a QFL is the only remaining window
+" see https://stackoverflow.com/a/7477056
+aug QFClose
+  au!
+  au WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
+aug END
 
 " Golang settings
 autocmd Filetype go call SetGolangOptions()
 function SetGolangOptions()
-  :nnoremap <leader>t :GoFmt<CR>
-  :nnoremap <leader>g :GoCallers<CR>
+  :nnoremap <leader>t :w<CR>:!go fmt %<CR><CR>
 endfunction
 
 " Git commit settings
@@ -164,13 +225,16 @@ autocmd BufReadPost * if &filetype !~ 'gitcommit' && line("'\"") > 0 && line("'\
 "hi clear SpellLocal
 "hi clear SpellRare
 
-" Highlight whitespace at ends of lines
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
+"" Highlight whitespace at ends of lines
+"highlight ExtraWhitespace ctermbg=red guibg=red
+"match ExtraWhitespace /\s\+$/
+"autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+"autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+"autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+"autocmd BufWinLeave * call clearmatches()
+"" Remove trailing whitespace except in markdown files
+let exceptlist = ['markdown']
+autocmd BufWritePre * if index(exceptlist, &ft) < 0 | :%s/\s\+$//e
 
 " Miscellaneous
 set undofile

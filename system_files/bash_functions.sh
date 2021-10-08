@@ -264,7 +264,14 @@ function showme() {
 }
 
 function watchdo() {
-    while inotifywait -q -e modify "$1"; do eval "${@:2}"; done
+    function wait_for_modify() {
+        if $MAC; then
+            fswatch --event Updated "$1"
+        else
+            inotifywait -q -e modify "$1"
+        fi
+    }
+    while wait_for_modify; do eval "${@:2}"; done
 }
 
 function libdeps() {
@@ -580,4 +587,8 @@ function maxcpu() {
     for _ in $(seq 1 "$(nproc)"); do
         yes >/dev/null &
     done
+}
+
+function gan() {
+    go doc -all $1 | bat --language go --plain
 }
