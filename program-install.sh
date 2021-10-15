@@ -56,11 +56,12 @@ if has_arg "basic"; then
             pdfgrep \
             screen \
             dos2unix \
-            python \
             inotify-tools \
             shellcheck \
-            ripgrep
-        sh -c "$(curl -fsSL https://starship.rs/install.sh)"
+            ripgrep \
+            gnome-tweak-tool
+
+        which starship &>/dev/null || sh -c "$(curl -fsSL https://starship.rs/install.sh)"
     fi
 fi
 
