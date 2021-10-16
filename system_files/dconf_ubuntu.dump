@@ -1,0 +1,161 @@
+[apps/update-manager]
+launch-count=2
+launch-time=int64 1634393377
+
+[com/ubuntu/update-notifier]
+release-check-time=uint32 1633653539
+
+[org/gnome/control-center]
+last-panel='wifi'
+
+[org/gnome/desktop/app-folders]
+folder-children=['Utilities', 'YaST']
+
+[org/gnome/desktop/app-folders/folders/Utilities]
+apps=['gnome-abrt.desktop', 'gnome-system-log.desktop', 'gnome-system-monitor.desktop', 'gucharmap.desktop', 'nm-connection-editor.desktop', 'org.gnome.baobab.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.DejaDup.desktop', 'org.gnome.Dictionary.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.eog.desktop', 'org.gnome.Evince.desktop', 'org.gnome.FileRoller.desktop', 'org.gnome.fonts.desktop', 'org.gnome.Screenshot.desktop', 'org.gnome.seahorse.Application.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Usage.desktop', 'simple-scan.desktop', 'vinagre.desktop', 'yelp.desktop']
+categories=['X-GNOME-Utilities']
+name='X-GNOME-Utilities.directory'
+translate=true
+
+[org/gnome/desktop/app-folders/folders/YaST]
+categories=['X-SuSE-YaST']
+name='suse-yast.directory'
+translate=true
+
+[org/gnome/desktop/background]
+color-shading-type='solid'
+picture-options='zoom'
+picture-uri='file:///usr/share/backgrounds/warty-final-ubuntu.png'
+primary-color='#2c001e'
+secondary-color='#2c001e'
+
+[org/gnome/desktop/calendar]
+show-weekdate=false
+
+[org/gnome/desktop/input-sources]
+sources=[('xkb', 'us')]
+xkb-options=['ctrl:swapcaps']
+
+[org/gnome/desktop/interface]
+clock-show-seconds=false
+clock-show-weekday=true
+cursor-theme='Yaru'
+enable-hot-corners=false
+gtk-im-module='ibus'
+gtk-theme='Yaru-dark'
+locate-pointer=false
+show-battery-percentage=false
+
+[org/gnome/desktop/notifications]
+application-children=['firefox', 'enpass', 'gnome-power-panel', 'google-chrome']
+
+[org/gnome/desktop/notifications/application/enpass]
+application-id='enpass.desktop'
+
+[org/gnome/desktop/notifications/application/firefox]
+application-id='firefox.desktop'
+
+[org/gnome/desktop/notifications/application/gnome-color-panel]
+enable=false
+
+[org/gnome/desktop/notifications/application/gnome-power-panel]
+application-id='gnome-power-panel.desktop'
+
+[org/gnome/desktop/notifications/application/google-chrome]
+application-id='google-chrome.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-fileroller]
+enable=false
+
+[org/gnome/desktop/notifications/application/org-gnome-nautilus]
+enable=false
+
+[org/gnome/desktop/peripherals/mouse]
+speed=0.10294117647058831
+
+[org/gnome/desktop/peripherals/touchpad]
+click-method='fingers'
+speed=0.095588235294117752
+tap-to-click=true
+two-finger-scrolling-enabled=true
+
+[org/gnome/desktop/privacy]
+disable-microphone=false
+report-technical-problems=true
+
+[org/gnome/desktop/screensaver]
+color-shading-type='solid'
+picture-options='zoom'
+picture-uri='file:///usr/share/backgrounds/warty-final-ubuntu.png'
+primary-color='#2c001e'
+secondary-color='#2c001e'
+
+[org/gnome/desktop/sound]
+allow-volume-above-100-percent=false
+
+[org/gnome/desktop/wm/preferences]
+button-layout=':minimize,maximize,close'
+
+[org/gnome/evolution-data-server]
+migrated=true
+network-monitor-gio-name=''
+
+[org/gnome/mutter]
+workspaces-only-on-primary=false
+
+[org/gnome/settings-daemon/plugins/color]
+night-light-enabled=true
+night-light-temperature=uint32 3148
+
+[org/gnome/settings-daemon/plugins/power]
+ambient-enabled=false
+sleep-inactive-ac-timeout=3600
+sleep-inactive-ac-type='nothing'
+
+[org/gnome/settings-daemon/plugins/xsettings]
+hinting='slight'
+
+[org/gnome/shell]
+enabled-extensions=@as []
+favorite-apps=['firefox.desktop', 'google-chrome.desktop', 'org.gnome.Terminal.desktop']
+
+[org/gnome/shell/extensions/dash-to-dock]
+dash-max-icon-size=34
+dock-fixed=true
+dock-position='BOTTOM'
+preferred-monitor=0
+
+[org/gnome/software]
+check-timestamp=int64 1634393493
+online-updates-timestamp=int64 1634393494
+
+[org/gnome/system/location]
+enabled=false
+
+[org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
+audible-bell=false
+background-color='rgb(30,34,36)'
+default-size-columns=121
+default-size-rows=30
+font='FiraCode Nerd Font Mono 10'
+foreground-color='rgb(211,215,207)'
+use-system-font=false
+use-theme-colors=false
+
+[org/gtk/settings/color-chooser]
+custom-colors=[(0.11620000000000003, 0.13405, 0.14000000000000001, 1.0)]
+selected-color=(true, 0.11620000000000003, 0.13405, 0.14000000000000001, 1.0)
+
+[org/gtk/settings/file-chooser]
+date-format='regular'
+location-mode='path-bar'
+show-hidden=false
+show-size-column=true
+show-type-column=true
+sidebar-width=161
+sort-column='name'
+sort-directories-first=true
+sort-order='ascending'
+type-format='category'
+window-position=(358, 109)
+window-size=(1203, 902)

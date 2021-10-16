@@ -39,6 +39,11 @@ if $WSL; then
         2>/dev/null
 fi
 
+if has_arg "dconf"; then
+  echo "To generate dconf dump: 'dconf dump / > system_files/dconf_ubuntu.dump'"
+  echo "To load dconf dump: 'dconf load / < system_files/dconf_ubuntu.dump'"
+fi
+
 # Submodules files
 if has_arg "submodules" || [[ 0 == $(find submodules/ -type f | wc -l) ]]; then
     git submodule init
