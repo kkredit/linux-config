@@ -11,10 +11,14 @@ fi
 
 # Update & exit
 if has_arg "update"; then
-    set -e
-    sudo-pkg-mgr update && sudo-pkg-mgr upgrade -y
-    sudo-pkg-mgr autoremove
-    $WSL || sudo snap refresh
+    if $MAC; then
+        brew upgrade
+    else
+        set -e
+        sudo-pkg-mgr update && sudo-pkg-mgr upgrade -y
+        sudo-pkg-mgr autoremove
+        $WSL || sudo snap refresh
+    fi
 fi
 
 # Basic tools
