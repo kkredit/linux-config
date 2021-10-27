@@ -365,6 +365,7 @@ if has_arg "golang"; then
     if $MAC; then
       brew install golang-migrate
     fi
+    git clone https://github.com/ryboe/q "$(go env GOPATH)"/src/q
 fi
 
 if has_arg "haskell"; then

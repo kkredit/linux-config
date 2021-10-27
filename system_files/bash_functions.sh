@@ -594,3 +594,26 @@ function maxcpu() {
 function gan() {
     go doc -all $1 | bat --language go --plain
 }
+
+function qq() {
+    clear
+    local logpath="$TMPDIR/q"
+    if [[ -z "$TMPDIR" ]]; then
+        logpath="/tmp/q"
+    fi
+    if [[ ! -f "$logpath" ]]; then
+        echo 'Q LOG' > "$logpath"
+    fi
+    tail -100f -- "$logpath"
+}
+
+function rmqq() {
+    local logpath="$TMPDIR/q"
+    if [[ -z "$TMPDIR" ]]; then
+        logpath="/tmp/q"
+    fi
+    if [[ -f "$logpath" ]]; then
+        rm "$logpath"
+    fi
+    qq
+}
