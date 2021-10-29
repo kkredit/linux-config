@@ -4,7 +4,6 @@
 alias rc='source ~/.bashrc'
 alias nvim='NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim'
 alias nvr='nvr --servername /tmp/nvimsocket'
-alias v=nvim
 alias V='nvim $(find * -type f | fzf)'
 alias vim=nvim
 alias vr='nvim ~/.vimrc'

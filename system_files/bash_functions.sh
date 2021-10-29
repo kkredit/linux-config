@@ -146,6 +146,20 @@ function recreplace() {
     sed -i "s${SEP}$1${SEP}$2${SEP}g" $(kreprl "$1")
 }
 
+function v() {
+    local ARGS="$@"
+    if (( 1 == $# )); then
+        # if argument is filename:lineno, use +N for "goto line"
+        local FILENAME="$(cut -d: -f1 <<< $1)"
+        local LINENO="$(cut -d: -f2 <<< $1)"
+        if [ -f "$FILENAME" ] && [[ "" != "$LINENO" ]]; then
+          ARGS="+$LINENO $FILENAME"
+        fi
+    fi
+    # shellcheck disable=SC2086
+    vim $ARGS
+}
+
 function co() {
     local ARGS=""
     # if opening a file, use -g for "goto line"
