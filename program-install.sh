@@ -48,7 +48,6 @@ if has_arg "basic"; then
     else
         sudo-pkg-mgr install -y \
             vim \
-            neovim \
             git \
             tmux \
             lynx \
@@ -65,6 +64,7 @@ if has_arg "basic"; then
             ripgrep \
             gnome-tweak-tool
 
+        snap install nvim --classic
         which starship &>/dev/null || sh -c "$(curl -fsSL https://starship.rs/install.sh)"
     fi
 fi
