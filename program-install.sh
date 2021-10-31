@@ -611,3 +611,11 @@ if has_arg "elm"; then
         yarn global add create-elm-app elm-format elm-test elm-analyse
     fi
 fi
+
+if has_arg "slacknzoom"; then
+    sudo snap install slack --classic
+
+    wget https://zoom.us/client/latest/zoom_amd64.deb
+    sudo apt install ./zoom_amd64.deb
+    rm ./zoom_amd64.deb
+fi
