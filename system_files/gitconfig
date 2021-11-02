@@ -229,3 +229,21 @@
                 echo 'Error: matching commit message not found'; \
                 return 1; \
             }; f"
+
+    link = "!f() { \
+                local CUR_BR=$(git rev-parse --abbrev-ref HEAD); \
+                local CUR_REM=$(git config --get branch.$CUR_BR.remote); \
+                local URL_BASE=$(git remote show -n $CUR_REM | grep 'Fetch URL' | awk '{print $3}' | sed 's,git@github.com:,https://github.com/,' | sed 's/\\.git$//'); \
+                local FILENAME=\"$(cut -d: -f1 <<< $GIT_PREFIX$1 | xargs realpath --relative-to=$(git top))\"; \
+                local LINENO=\"$(cut -sd: -f2 <<< $1)\"; \
+                echo $URL_BASE/blob/$CUR_BR/$FILENAME$( [[ '' == \"$LINENO\" ]] || echo \"#L$LINENO\" ); \
+            }; f"
+
+    mlink = "!f() { \
+                local CUR_REM=$(git config --get branch.master.remote); \
+                local URL_BASE=$(git remote show -n $CUR_REM | grep 'Fetch URL' | awk '{print $3}' | sed 's,git@github.com:,https://github.com/,' | sed 's/\\.git$//'); \
+                local FILENAME=\"$(cut -d: -f1 <<< $GIT_PREFIX$1 | xargs realpath --relative-to=$(git top))\"; \
+                local LINENO=\"$(cut -sd: -f2 <<< $1)\"; \
+                echo $URL_BASE/blob/master/$FILENAME$( [[ '' == \"$LINENO\" ]] || echo \"#L$LINENO\" ); \
+            }; f"
+
