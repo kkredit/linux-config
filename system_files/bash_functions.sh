@@ -151,9 +151,11 @@ function v() {
     if (( 1 == $# )); then
         # if argument is filename:lineno, use +N for "goto line"
         local FILENAME="$(cut -d: -f1 <<< $1)"
-        local LINENO="$(cut -d: -f2 <<< $1)"
+        local LINENO="$(cut -sd: -f2 <<< $1)"
         if [ -f "$FILENAME" ] && [[ "" != "$LINENO" ]]; then
           ARGS="+$LINENO $FILENAME"
+        elif [ ! -f "$FILENAME" ] && [ ! -d "$FILENAME" ]; then
+          ARGS="$(findf $FILENAME | head -1)"
         fi
     fi
     # shellcheck disable=SC2086
