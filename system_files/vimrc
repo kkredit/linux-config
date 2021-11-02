@@ -93,8 +93,6 @@ nnoremap <leader>y "+y
 vnoremap <leader>y "+y
 nnoremap <leader>p "+p
 nnoremap <leader>i i_<Esc>r
-nnoremap <leader>. :let @+=expand('%')<CR>
-nnoremap <leader>> :let @+=expand('%:p')<CR>
 nnoremap <silent> <leader>b :GitBlameToggle<CR>
 nnoremap <leader>g :Rg<CR>
 nnoremap <leader>G :Rg <C-R><C-W><CR>
@@ -102,6 +100,13 @@ nnoremap <leader>s :w<CR>:!
 nnoremap <leader>rw ciw<C-R>0<ESC>
 vnoremap <leader>a :CocAction<CR>
 nnoremap <leader>a :CocAction<CR>
+nnoremap <leader>fr :let @+=expand('%')<CR>
+nnoremap <leader>ff :let @+=expand('%:p')<CR>
+" FIXME: why don't these work?
+command! GitLink execute 'redir! @+ | :exe '!git link %' | redir END'
+nnoremap <leader>fl :GitLink<CR>
+command! GitMLink execute 'redir! @+ | :exe '!git mlink %' | redir END'
+nnoremap <leader>fm :GitMLink<CR>
 
 " Colors
 syntax on
@@ -191,7 +196,7 @@ function SetGitcommitOptions()
   $
   read !echo '\# Recent commits:'; git log --oneline --no-decorate -8 | sed -e 's/^/\# /g'
   1
-  startinsert
+  "startinsert
 endfunction
 
 " Git rebase settings
