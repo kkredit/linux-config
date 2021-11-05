@@ -402,7 +402,7 @@ if has_arg "python"; then
     pip install --user \
         virtualenv \
         virtualenvwrapper
-    echo "source virtualenvwrapper.sh" >> ~/.profile
+    echo "source \$(which virtualenvwrapper.sh)" >> ~/.profile
 fi
 
 if has_arg "grip"; then
