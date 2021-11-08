@@ -59,5 +59,16 @@ function run_on_target {
   ssh user@ip_addr bash -esx <<<"$1"
 }
 
+function wait_for_input {
+  read -p "Press any key to continue..." -n1 -s
+}
+
+function read_input {
+  # Only for reference...
+  local TMP
+  read -p "$1" TMP
+  echo "$TMP"
+}
+
 # shellcheck disable=SC2086
 # Use ^^ to disable a specific shellcheck linting rule
