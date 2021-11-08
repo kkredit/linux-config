@@ -343,7 +343,7 @@ if has_arg "argdown"; then
 fi
 
 if has_arg "golang"; then
-    URL="$(curl -s https://golang.org/dl/ | grep "linux-amd64.tar.gz" | head -1 | cut -d\" -f4)"
+    URL="https://golang.org$(curl -s https://golang.org/dl/ | grep "linux-amd64.tar.gz" | head -1 | cut -d\" -f4)"
     FILE="$(echo "$URL" | rev | cut -d/ -f1 | rev)"
     INST_DIR=/usr/local
 
