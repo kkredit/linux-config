@@ -24,6 +24,7 @@ Plug 'tpope/vim-surround'
 Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
 Plug 'mattn/vim-goimports'
+Plug 'tpope/vim-fugitive'
 
 " Neovim only
 if has('nvim')
@@ -33,7 +34,6 @@ if has('nvim')
   Plug 'neovim/nvim-lspconfig'
   Plug 'hrsh7th/nvim-compe'
   Plug 'kabouzeid/nvim-lspinstall'
-  Plug 'f-person/git-blame.nvim'
   Plug 'folke/which-key.nvim'
 
   Plug 'nvim-lua/plenary.nvim'
@@ -90,7 +90,7 @@ nnoremap <leader>; :History:<CR>
 inoremap jk <esc>
 nnoremap <silent> <leader>d :NERDTreeFind<CR>
 nnoremap <silent> <leader>/ :NERDTreeToggle<CR>
-nnoremap <silent> <leader>, :noh<CR>:cclose<CR>:lclose<CR>
+nnoremap <silent> <leader>, :noh<CR>:cclose<CR>:lclose<CR><C-l>
 nnoremap <leader>z za<CR>
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y
