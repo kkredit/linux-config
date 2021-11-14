@@ -43,6 +43,9 @@ endif
 
 call plug#end()
 
+" Language server setup helper
+command! MyLspInstall execute 'LspInstall bash' | :exe 'LspInstall dockerfile' | :exe 'LspInstall go' | :exe 'LspInstall haskell' | :exe 'LspInstall html' | :exe 'LspInstall json' | :exe 'LspInstall latex' | :exe 'LspInstall python' | :exe 'LspInstall ruby' | :exe 'LspInstall terraform' | :exe 'LspInstall typescript' | :exe 'LspInstall vim' | :exe 'LspInstall yaml'
+
 " Plugin configuration
 let g:highlightedyank_highlight_duration = 150
 let g:fzf_layout = { 'down': '30%' }
