@@ -97,7 +97,6 @@ nnoremap <leader>y "+y
 vnoremap <leader>y "+y
 nnoremap <leader>p "+p
 nnoremap <leader>i i_<Esc>r
-nnoremap <silent> <leader>b :GitBlameToggle<CR>
 nnoremap <leader>g :Rg<CR>
 nnoremap <leader>G :Rg <C-R><C-W><CR>
 nnoremap <leader>s :w<CR>:!
