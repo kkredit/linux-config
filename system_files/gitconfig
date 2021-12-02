@@ -71,7 +71,7 @@
     hc = "!git config user.email kkredit@hashicorp.com && \
            git config branch.master.pushRemote no_push && \
            git config branch.main.pushRemote no_push && \
-           git config url.'git@github.com:'.insteadOf https:/github.com/ && \
+           git config url.'git@github.com:'.insteadOf https://github.com/ && \
            git config submodule.recurse true"
     patchify = format-patch -1
     assume = update-index --assume-unchanged
