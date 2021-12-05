@@ -64,7 +64,7 @@ if has_arg "basic"; then
             ripgrep \
             gnome-tweak-tool
 
-        snap install nvim --classic
+        $WSL || snap install nvim --classic
         which starship &>/dev/null || sh -c "$(curl -fsSL https://starship.rs/install.sh)"
     fi
 fi
@@ -396,7 +396,7 @@ if has_arg "clojure"; then
 fi
 
 if has_arg "python"; then
-    sudo-pkg-mgr install python3-pip
+    sudo-pkg-mgr install python3-pip python-is-python3
 
     # Virtual environments: see https://realpython.com/python-virtual-environments-a-primer/
     pip install --user \
