@@ -30,7 +30,6 @@ Plug 'tpope/vim-rhubarb'
 " Neovim only
 if has('nvim')
   Plug 'nvim-treesitter/nvim-treesitter', {'branch': '0.5-compat', 'do': ':TSUpdate'}
-  Plug 'rmagatti/auto-session'
   Plug 'Th3Whit3Wolf/one-nvim'
   Plug 'neovim/nvim-lspconfig'
   Plug 'hrsh7th/nvim-compe'
