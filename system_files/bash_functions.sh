@@ -259,8 +259,15 @@ function cs() {
         new_dir=${*//./.\/.}
     elif [[ "g" == "$*" ]]; then
         new_dir="$(git rev-parse --show-toplevel)"
-    elif [ -f "$*" ]; then
+    elif ! [ -d "$*" ]; then
+      if [ -f "$*" ]; then
         new_dir="$(dirname "$*")"
+      else
+        local file="$(findf "$*")"
+        if [ -f "$file" ]; then
+          new_dir="$(dirname "$file")"
+        fi
+      fi
     fi
     builtin cd "$new_dir" && ls
 }
