@@ -38,6 +38,8 @@
     sns = show --compact-summary  # --name-status for old versions of git
     dns = diff --compact-summary  # --name-status for old versions of git
     lns = log --compact-summary  # --name-status for old versions of git
+    dt = difftool -y
+    mt = mergetool -y
     l = log
     rl = log -n4
     hist = log-compact --graph --decorate
@@ -98,6 +100,10 @@
     ff = only
 [rebase]
     autoSquash = true
+[diff]
+    tool = nvimdiff
+[merge]
+    tool = nvimmerge
 [log-compact]
     defaults = --two-initials --abbrev=8
 [github]
