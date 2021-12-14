@@ -31,7 +31,8 @@ local border = {
 }
 
 -- See https://github.com/neovim/nvim-lspconfig
-local nvim_lsp = require('lspconfig')
+local lspconfig = require('lspconfig')
+local configs = require('lspconfig')
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -110,18 +111,18 @@ end
 --    vim.lsp.diagnostic.display(diagnostics, bufnr, client_id, config)
 --  end
 
--- Setup installed servers
--- See https://github.com/kabouzeid/nvim-lspinstall
-require'lspinstall'.setup() -- important
-local servers = require'lspinstall'.installed_servers()
-for _, server in pairs(servers) do
-  nvim_lsp[server].setup {
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
+-- Setup LSP Installer
+-- See https://github.com/williamboman/nvim-lsp-installer
+local lsp_installer = require("nvim-lsp-installer")
+lsp_installer.on_server_ready(function(server)
+    local opts = {
+      on_attach = on_attach,
+      flags = {
+        debounce_text_changes = 150,
+      }
     }
-  }
-end
+    server:setup(opts)
+end)
 EOF
 
 

@@ -153,6 +153,7 @@ function v() {
         local FILENAME="$(cut -d: -f1 <<< $1)"
         if [ ! -f "$FILENAME" ] && [ ! -d "$FILENAME" ]; then
           FILENAME="$(findf $FILENAME | head -1)"
+          ARGS="$FILENAME"
         fi
         local LINENO="$(cut -sd: -f2 <<< $1)"
         if [[ "" != "$LINENO" ]]; then
