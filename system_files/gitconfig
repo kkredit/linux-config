@@ -38,8 +38,8 @@
     sns = show --compact-summary  # --name-status for old versions of git
     dns = diff --compact-summary  # --name-status for old versions of git
     lns = log --compact-summary  # --name-status for old versions of git
-    dt = difftool -y
-    mt = mergetool -y
+    dt = difftool
+    mt = mergetool
     l = log
     rl = log -n4
     hist = log-compact --graph --decorate
