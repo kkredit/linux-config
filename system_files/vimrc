@@ -10,7 +10,6 @@ call plug#begin('~/.vim/plugged')
 
 " Formatting and colorschemes
 Plug 'tomasiser/vim-code-dark'
-"Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'blueyed/vim-diminactive'
@@ -30,7 +29,6 @@ Plug 'tpope/vim-rhubarb'
 " Neovim only
 if has('nvim')
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'Th3Whit3Wolf/one-nvim'
   Plug 'neovim/nvim-lspconfig'
   Plug 'hrsh7th/nvim-compe'
   Plug 'williamboman/nvim-lsp-installer'
@@ -39,6 +37,9 @@ if has('nvim')
   Plug 'nvim-lua/plenary.nvim'
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'neoclide/coc.nvim', { 'branch': 'release', 'do': ':CocInstall coc-spell-checker' }
+
+  Plug 'Shatur/neovim-ayu'
+  Plug 'vigoux/oak'
 endif
 
 call plug#end()
@@ -114,15 +115,9 @@ nnoremap <leader>fm :GitMLink<CR>
 syntax on
 set t_Co=256
 set t_ut=
-"let g:airline_theme = 'codedark'
-"let g:airline_theme = 'onehalfdark'
 let g:airline_theme = 'jellybeans'
-"colorscheme codedark
 if has('nvim')
-  "colorscheme one-nvim
-  "^^ broken? ...
-  colorscheme codedark
-  hi ColorColumn ctermbg=0 guibg=#333333
+  colorscheme ayu
 else
   colorscheme codedark
   hi ColorColumn ctermbg=0 guibg=#333333
