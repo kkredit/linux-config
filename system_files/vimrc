@@ -40,6 +40,7 @@ if has('nvim')
 
   Plug 'Shatur/neovim-ayu'
   Plug 'vigoux/oak'
+  Plug 'olimorris/onedarkpro.nvim'
 endif
 
 call plug#end()
@@ -115,10 +116,11 @@ nnoremap <leader>fm :GitMLink<CR>
 syntax on
 set t_Co=256
 set t_ut=
-let g:airline_theme = 'jellybeans'
 if has('nvim')
-  colorscheme ayu
+  let g:airline_theme = 'tomorrow'
+  colorscheme oak
 else
+  let g:airline_theme = 'jellybeans'
   colorscheme codedark
   hi ColorColumn ctermbg=0 guibg=#333333
 endif
@@ -127,6 +129,11 @@ if exists('+termguicolors')
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
 endif
+
+nnoremap <leader>v1 :set background=dark<CR>:let g:airline_theme = 'tomorrow'<CR>:colorscheme oak<CR><C-l>
+nnoremap <leader>v2 :set background=dark<CR>:let g:airline_theme = 'jellybeans'<CR>:colorscheme ayu<CR><C-l>
+nnoremap <leader>v3 :set background=dark<CR>:let g:airline_theme = 'jellybeans'<CR>:colorscheme codedark<CR><C-l>
+nnoremap <leader>v6 :set background=light<CR>:let g:airline_theme = 'solarized'<CR>:colorscheme onedarkpro<CR><C-l>
 
 " Indentation & tabs
 set backspace=indent,eol,start
@@ -146,6 +153,7 @@ set number
 set relativenumber
 autocmd InsertEnter * :set norelativenumber
 autocmd InsertLeave * :set relativenumber
+nnoremap <leader>vl :setl relativenumber!<CR>
 "set textwidth=100
 set wrapmargin=2
 set showmatch
