@@ -39,6 +39,7 @@ if has_arg "basic"; then
             ncdu \
             shellcheck \
             starship \
+            exa \
             ripgrep
         brew install --cask iterm2 amethyst
         curl -L https://iterm2.com/shell_integration/bash -o ~/.iterm2_shell_integration.bash
@@ -61,6 +62,7 @@ if has_arg "basic"; then
             dos2unix \
             inotify-tools \
             shellcheck \
+            exa \
             ripgrep \
             gnome-tweak-tool
 
@@ -89,7 +91,6 @@ fi
 if has_arg "utilities"; then
     if [[ $(which cargo) ]]; then
         cargo install \
-          exa \
           watchexec \
           pipe-rename \
           procs \

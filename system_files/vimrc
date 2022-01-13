@@ -188,6 +188,7 @@ nnoremap <leader>B :BufOnly<CR>
 nnoremap <leader>b<BS> <C-^>
 nnoremap <leader>bn :bn<CR>
 nnoremap <leader>bN :bN<CR>
+nnoremap <leader>bd :bd<CR>
 
 " Golang settings
 autocmd Filetype go call SetGolangOptions()
