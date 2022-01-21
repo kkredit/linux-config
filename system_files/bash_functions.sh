@@ -152,7 +152,7 @@ function v() {
         # if argument is filename:lineno, use +N for "goto line"
         local FILENAME="$(cut -d: -f1 <<< $1)"
         if [ ! -f "$FILENAME" ] && [ ! -d "$FILENAME" ]; then
-          FILENAME="$(findf $FILENAME | head -1)"
+          FILENAME="$(fd $FILENAME --max-results 1)"
           ARGS="$FILENAME"
         fi
         local LINENO="$(cut -sd: -f2 <<< $1)"
@@ -162,69 +162,6 @@ function v() {
     fi
     # shellcheck disable=SC2086
     vim $ARGS
-}
-
-function co() {
-    local ARGS=""
-    # if opening a file, use -g for "goto line"
-    if (( 1 == $# )); then
-        if [ -f "${1%%:[0-9]*}" ]; then
-          ARGS="$ARGS -g"
-        elif [[ "-" != "${1:0:1}" ]] && [ ! -d "$1" ]; then
-          # was probably a typo, so exit. If not, just use the full 'codium'.
-          echo "No such file or directory. If want to create a new file, use 'codium'."
-          return 1
-        fi
-    fi
-    # shellcheck disable=SC2086
-    codium $ARGS "$@"
-}
-
-function _co() {
-    # Because _codium is not defined till you try to tab complete codium, just fall back to _filedir
-    if [[ $(type _codium 2>/dev/null) ]]; then
-        _codium
-    else
-        _init_completion -s || return;
-        _expand || return;
-        _filedir
-    fi
-}
-complete -F _co co
-
-function cof() {
-    FILE=$(findf "$1")
-    [[ -f "$FILE" ]] || return 1
-    echo "$FILE"
-    codium "$FILE"
-}
-
-function code_setup_c {
-    mkdir -p .vscode
-    BASE_PATH=~/git/linux-config/system_files/VSCodium
-    if $WSL; then
-        dos2unix -n $BASE_PATH/c_cpp_properties_win.json .vscode/c_cpp_properties.json
-    else
-        cp $BASE_PATH/c_cpp_properties_linux.json .vscode/c_cpp_properties.json
-    fi
-}
-
-function code_setup_ruby {
-    gem install solargraph
-    echo "NOTE : SolarGraph should be installed globally, not locally (i.e. not in the Gemfile)"
-    local SG_PATH SETTING
-    SG_PATH=$(command ls /home/"$USER"/.rvm/wrappers/"$(rvm current)"/solargraph 2>/dev/null)
-    SETTING="\"solargraph.commandPath\": \"$SG_PATH\","
-    if [ -f .vscode/settings.json ]; then
-        printf "{\n  %s\n}\n" "$SETTING" >> .vscode/settings.json
-        echo "NOTE : fixup .vscode/settings.json"
-        codium .vscode/settings.json
-    else
-        mkdir -p .vscode
-        printf "{\n  %s\n}\n" "$SETTING" > .vscode/settings.json
-    fi
-    yard gems
-    yard -n
 }
 
 function finde() {
@@ -264,7 +201,7 @@ function cs() {
       if [ -f "$*" ]; then
         new_dir="$(dirname "$*")"
       else
-        local file="$(findf "$*")"
+        local file="$(fd "$*" --max-results 1)"
         if [ -f "$file" ]; then
           new_dir="$(dirname "$file")"
         fi
