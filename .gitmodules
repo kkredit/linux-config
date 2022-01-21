@@ -10,37 +10,16 @@
 	path = submodules/git-log-compact
 	url = https://github.com/mackyle/git-log-compact.git
 	shallow = true
-[submodule "submodules/bash-git-prompt"]
-	path = submodules/bash-git-prompt
-	url = https://github.com/magicmonty/bash-git-prompt
-	shallow = true
-[submodule "submodules/tldr"]
-	path = submodules/tldr
-	url = https://github.com/raylee/tldr
-	shallow = true
 [submodule "submodules/autojump"]
 	path = submodules/autojump
 	url = https://github.com/wting/autojump
 	shallow = true
-[submodule "submodules/vscode-simple-vim"]
-	path = submodules/vscode-simple-vim
-	url = https://github.com/kkredit/vscode-simple-vim
-	shallow = true
-[submodule "submodules/rails_completion"]
-	path = submodules/rails_completion
-	url = https://github.com/lewstherin/rails_completion
-[submodule "submodules/forgit"]
-	path = submodules/forgit
-	url = https://github.com/wfxr/forgit
-[submodule "submodules/git-heatmap"]
-	path = submodules/git-heatmap
-	url = https://github.com/jez/git-heatmap
 [submodule "submodules/wt-context-menu"]
 	path = submodules/wt-context-menu
 	url = https://github.com/kkredit/Windows-terminal-context-menu
-[submodule "submodules/onehalf"]
-	path = submodules/onehalf
-	url = https://github.com/sonph/onehalf
 [submodule "submodules/tree-sitter-proto"]
 	path = submodules/tree-sitter-proto
 	url = https://github.com/mitchellh/tree-sitter-proto
+[submodule "submodules/tldr-sh-client"]
+	path = submodules/tldr-sh-client
+	url = https://github.com/raylee/tldr-sh-client
