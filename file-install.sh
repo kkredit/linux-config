@@ -45,7 +45,6 @@ if has_arg "dconf"; then
 fi
 
 # Submodules files
-set -x
 if has_arg "submodules" || [[ 0 == $(find submodules/ -type f | wc -l) ]]; then
     git submodule init
     git submodule update --init --force --remote
