@@ -90,6 +90,7 @@ nnoremap <silent> <leader>1 :source $MYVIMRC<CR>
 nnoremap <C-p> :<C-u>FZF<CR>
 nnoremap <leader>; :History:<CR>
 inoremap jk <esc>
+inoremap kj <esc>
 nnoremap <silent> <leader>d :NERDTreeFind<CR>
 nnoremap <silent> <leader>/ :NERDTreeToggle<CR>
 nnoremap <silent> <leader>, :noh<CR>:cclose<CR>:lclose<CR>:NERDTreeClose<CR><C-l>
@@ -180,9 +181,7 @@ aug QFClose
   au!
   au WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
 aug END
-" See https://salferrarello.com/vim-close-all-buffers-except-the-current-one/
-command! BufOnly execute '%bdelete|edit #|normal `"'
-nnoremap <leader>bo :BufOnly<CR>
+nnoremap <leader>bo :%bd \| e# \| bd# <CR> \|`"
 nnoremap <leader>b<BS> <C-^>
 nnoremap <leader>bn :bn<CR>
 nnoremap <leader>bN :bN<CR>
