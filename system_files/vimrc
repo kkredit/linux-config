@@ -105,6 +105,7 @@ vnoremap <leader>a :CocAction<CR>
 nnoremap <leader>a :CocAction<CR>
 nnoremap <leader>fr :let @+=expand('%')<CR>
 nnoremap <leader>ff :let @+=expand('%:p')<CR>
+nnoremap <leader>fn :let @+=join([expand('%'),line(".")], ':')<CR>
 nnoremap <leader>gd :G diff %<CR>
 nnoremap <leader>gm :G mergetool<CR>
 nnoremap <leader>gb :G blame<CR>
