@@ -23,3 +23,10 @@
 [submodule "submodules/tldr-sh-client"]
 	path = submodules/tldr-sh-client
 	url = https://github.com/raylee/tldr-sh-client
+[submodule "submodules/alacritty-ligature"]
+	path = submodules/alacritty-ligature
+	url = https://github.com/zenixls2/alacritty
+	branch = ligature
+[submodule "submodules/alacritty-theme"]
+	path = submodules/alacritty-theme
+	url = https://github.com/eendroroy/alacritty-theme
