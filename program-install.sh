@@ -148,11 +148,15 @@ if has_arg "gitsecrets"; then
 fi
 
 if has_arg "fonts"; then
-    fonts_dir="${HOME}/.local/share/fonts"
+    if $MAC; then
+        fonts_dir="${HOME}/Library/Fonts"
+    else
+        fonts_dir="${HOME}/.local/share/fonts"
+    fi
     mkdir -p "${fonts_dir}"
 
     # Nerd fonts
-    for font in FiraCode FiraMono Hack; do
+    for font in FiraCode Hack; do
         file_url="https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/${font}.zip"
         echo "wget  ${file_url} -O ${font}.zip"
         wget "${file_url}" -O "${font}.zip"
@@ -176,14 +180,6 @@ if has_arg "fonts"; then
     if ! $MAC; then
         echo "fc-cache -f"
         fc-cache -f
-    else
-        brew tap homebrew/cask-fonts
-        brew install --cask \
-            font-fira-code \
-            font-fira-mono \
-            font-fira-sans \
-            font-fira-code-nerd-font \
-            font-hack-nerd-font
     fi
 
     if $WSL; then
