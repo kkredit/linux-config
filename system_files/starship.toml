@@ -32,6 +32,7 @@ error_symbol = "[\\$](red)"
 
 [status]
 disabled = false
+symbol = "!"
 
 [directory]
 truncation_symbol = "…/"

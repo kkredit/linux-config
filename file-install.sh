@@ -23,6 +23,8 @@ mkdir -p ~/.config/nvim
 install -m 644 $FILES_DIR/init.vim ~/.config/nvim/init.vim
 mkdir -p ~/.config/alacritty
 install -m 644 $FILES_DIR/alacritty.yml ~/.config/alacritty/alacritty.yml
+mkdir -p ~/.config/zellij
+install -m 644 $FILES_DIR/zellij.yaml ~/.config/zellij/config.yaml
 install -m 644 $FILES_DIR/coc-settings.nvim.json ~/.config/nvim/coc-settings.json
 install -m 644 $FILES_DIR/xinitrc ~/.xinitrc
 install -m 644 $FILES_DIR/Xmodmap ~/.Xmodmap
