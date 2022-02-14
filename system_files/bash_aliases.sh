@@ -64,4 +64,5 @@ alias lk='exa' # ls replacement
 alias ports='sudo lsof -i -P -n'
 alias listen='sudo lsof -i -P -n | grep LISTEN'
 alias ch=cht.sh
+alias z=zellij
 
