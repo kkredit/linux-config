@@ -62,7 +62,6 @@ if has_arg "basic"; then
             dos2unix \
             inotify-tools \
             shellcheck \
-            exa \
             ripgrep \
             gnome-tweak-tool
 
@@ -94,7 +93,8 @@ if has_arg "utilities"; then
           watchexec \
           pipe-rename \
           procs \
-          shy
+          shy \
+          zellij
     fi
 
     # Bat (https://github.com/sharkdp/bat)
@@ -309,6 +309,7 @@ if has_arg "node"; then
     export NODE_PATH='/usr/lib/node_modules'
     echo "export NODE_PATH='/usr/lib/node_modules'" >> ~/.profile
     # should be able to 'npm install -g' without sudo now
+    sudo-pkg-mgr autoremove -y
 fi
 
 if has_arg "react"; then

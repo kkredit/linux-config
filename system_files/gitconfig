@@ -68,7 +68,7 @@
     top = rev-parse --show-toplevel # See also git-extras 'git root'
     first = rev-list --max-parents=0 HEAD
     orphan = checkout --orphan orphan
-    ieee = config user.email k.kredit.us@ieee.org
+    gmail = config user.email knkredit60@gmail.com
     ieeeg = config --global user.email k.kredit.us@ieee.org
     hc = "!git config user.email kkredit@hashicorp.com && \
            git config branch.master.pushRemote no_push && \

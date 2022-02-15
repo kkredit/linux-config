@@ -60,7 +60,7 @@ sourceIfPresent ~/.iterm2_shell_integration.bash
 
 eval "$(starship init bash)"
 
-# Enable color supportC
+# Enable color support
 if [ -x /usr/bin/dircolors ] || [ -x /usr/local/bin/gdircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     COLOR_AUTO="--color=auto"
@@ -102,6 +102,7 @@ bind -r '\C-t'
 PATH=$PATH:~/bin
 [ -d ~/.yarn/bin ] && PATH=$PATH:~/.yarn/bin || true
 [ -d /snap/bin ] && PATH=$PATH:/snap/bin || true
+[ -d ~/.cargo/bin ] && PATH=$PATH:~/.cargo/bin || true
 export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(vim {})+abort'" # ctrl-o opens file in vim
 export EDITOR=/usr/bin/vim
 which bat &>/dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'" || true

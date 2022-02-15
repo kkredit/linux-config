@@ -78,8 +78,9 @@ if has_arg "alacritty"; then
     make app
     cp -r target/release/osx/Alacritty.app /Applications/
   else
-    apt-get install cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev python3
+    sudo apt-get install cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev python3
     cargo build --release
+    cp target/release/alacritty ~/bin
   fi
   popd > /dev/null || true
 fi
