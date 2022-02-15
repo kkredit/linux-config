@@ -57,6 +57,7 @@ sourceIfPresent ~/.fzf.bash
 sourceIfPresent ~/.autojump/etc/profile.d/autojump.sh
 sourceIfPresent ~/.forgit.plugin.sh
 sourceIfPresent ~/.iterm2_shell_integration.bash
+sourceIfPresent ~/.cargo/env
 
 eval "$(starship init bash)"
 
@@ -102,7 +103,6 @@ bind -r '\C-t'
 PATH=$PATH:~/bin
 [ -d ~/.yarn/bin ] && PATH=$PATH:~/.yarn/bin || true
 [ -d /snap/bin ] && PATH=$PATH:/snap/bin || true
-[ -d ~/.cargo/bin ] && PATH=$PATH:~/.cargo/bin || true
 export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(vim {})+abort'" # ctrl-o opens file in vim
 export EDITOR=/usr/bin/vim
 which bat &>/dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'" || true
