@@ -418,8 +418,8 @@ keybinds:
 plugins:
     - path: tab-bar
       tag: tab-bar
-    #- path: status-bar
-      #tag: status-bar
+    - path: status-bar
+      tag: status-bar
     - path: strider
       tag: strider
 
@@ -434,7 +434,7 @@ plugins:
 # Options:
 #   - true
 #   - false (Default)
-#simplified_ui: true
+simplified_ui: false
 
 # Choose the path to the default shell that zellij will use for opening new panes
 # Default: $SHELL
@@ -448,25 +448,25 @@ pane_frames: false
 
 # Choose the theme that is specified in the themes section.
 # Default: default
-theme: default
+theme: custom
 themes:
-  black:
-    fg: [0,0,0]
-    bg: [0,0,0]
+  custom:
+    fg: [64,64,64]
+    bg: [64,64,64]
     black: [0,0,0]
     gray: [0,0,0]
-    red: [0,0,0]
-    green: [0,0,0]
-    yellow: [0,0,0]
-    blue: [0,0,0]
-    magenta: [0,0,0]
-    cyan: [0,0,0]
-    white: [0,0,0]
-    orange: [0,0,0]
+    red: [168,0,0]
+    green: [96,128,96]
+    yellow: [255,255,0]
+    blue: [0,0,168]
+    magenta: [168,0,96]
+    cyan: [0,96,168]
+    white: [168,168,168]
+    orange: [168,64,0]
 
 # Choose the mode that zellij uses when starting up.
 # Default: normal
-#default_mode: locked
+default_mode: locked
 
 # Toggle enabling the mouse mode.
 # On certain configurations, or terminals this could
@@ -474,7 +474,7 @@ themes:
 # Options:
 #   - true (default)
 #   - false
-#mouse_mode: false
+mouse_mode: true
 
 # Configure the scroll back buffer size
 # This is the number of lines zellij stores for each pane in the scroll back
