@@ -55,7 +55,6 @@ sourceIfPresent ~/.bashrc_local
 sourceIfPresent ~/.bashrc_wsl
 sourceIfPresent ~/.fzf.bash
 sourceIfPresent ~/.autojump/etc/profile.d/autojump.sh
-sourceIfPresent ~/.forgit.plugin.sh
 sourceIfPresent ~/.iterm2_shell_integration.bash
 sourceIfPresent ~/.cargo/env
 
