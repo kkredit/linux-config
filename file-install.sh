@@ -9,7 +9,6 @@ source helper_scripts/local-helpers.sh
 FILES_DIR=system_files
 WSL_FILES_DIR=wsl
 
-install -m 644 $FILES_DIR/zshrc.zsh ~/.zshrc
 install -m 644 $FILES_DIR/bashrc.sh ~/.bashrc
 install -m 644 $FILES_DIR/bash_profile.sh ~/.bash_profile
 install -m 644 $FILES_DIR/bash_aliases.sh ~/.bash_aliases
@@ -29,7 +28,6 @@ install -m 644 $FILES_DIR/zellij_layout.yaml ~/.config/zellij/layout.yaml
 install -m 644 $FILES_DIR/coc-settings.nvim.json ~/.config/nvim/coc-settings.json
 install -m 644 $FILES_DIR/xinitrc ~/.xinitrc
 install -m 644 $FILES_DIR/Xmodmap ~/.Xmodmap
-install -m 644 $FILES_DIR/tmux.conf ~/.tmux.conf
 install -m 644 $FILES_DIR/gerrit_functions.sh ~/.gerrit_functions.sh
 install -m 644 $FILES_DIR/gitconfig ~/.gitconfig
 install -m 644 $FILES_DIR/gitignore_global ~/.gitignore_global

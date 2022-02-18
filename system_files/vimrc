@@ -55,7 +55,9 @@ let g:airline#extensions#tabline#enabled = 1
 "let g:airline_statusline_ontop = 1
 let g:airline_detect_spell = 0
 let g:airline_left_sep = ""
+let g:airline_left_alt_sep = "|"
 let g:airline_right_sep = ""
+let g:airline_right_alt_sep = "|"
 let g:gitblame_enabled = 0
 let g:auto_session_pre_save_cmds = ["tabdo NERDTreeClose"]
 " Close the tab if NERDTree is the only window remaining in it.
