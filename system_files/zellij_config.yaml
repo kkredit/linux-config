@@ -11,7 +11,7 @@ keybinds:
         - action: [SwitchToMode: Locked,]
           key: [Ctrl: 'g',]
         - action: [SwitchToMode: Pane,]
-          key: [Ctrl: 'p',]
+          key: [Ctrl: 'w',]
         - action: [SwitchToMode: Resize,]
           key: [Ctrl: 'n',]
         - action: [SwitchToMode: Tab,]
@@ -51,7 +51,7 @@ keybinds:
         - action: [SwitchToMode: Locked,]
           key: [Ctrl: 'g']
         - action: [SwitchToMode: Pane,]
-          key: [Ctrl: 'p',]
+          key: [Ctrl: 'w',]
         - action: [SwitchToMode: Tab,]
           key: [Ctrl: 't',]
         - action: [SwitchToMode: Normal,]
@@ -106,7 +106,7 @@ keybinds:
         - action: [SwitchToMode: Tab,]
           key: [Ctrl: 't',]
         - action: [SwitchToMode: Normal,]
-          key: [Ctrl: 'p', Char: "\n", Char: ' ', Esc]
+          key: [Ctrl: 'w', Char: "\n", Char: ' ', Esc]
         - action: [SwitchToMode: Scroll,]
           key: [Ctrl: 's']
         - action: [SwitchToMode: Session,]
@@ -163,7 +163,7 @@ keybinds:
         - action: [SwitchToMode: Locked,]
           key: [Ctrl: 'g']
         - action: [SwitchToMode: Pane,]
-          key: [Ctrl: 'p',]
+          key: [Ctrl: 'w',]
         - action: [SwitchToMode: Tab,]
           key: [Ctrl: 't',]
         - action: [SwitchToMode: Resize,]
@@ -210,7 +210,7 @@ keybinds:
         - action: [SwitchToMode: Locked,]
           key: [Ctrl: 'g']
         - action: [SwitchToMode: Pane,]
-          key: [Ctrl: 'p',]
+          key: [Ctrl: 'w',]
         - action: [SwitchToMode: Resize,]
           key: [Ctrl: 'n',]
         - action: [SwitchToMode: Normal,]
@@ -283,7 +283,7 @@ keybinds:
         - action: [SwitchToMode: Locked,]
           key: [Ctrl: 'g',]
         - action: [SwitchToMode: Pane,]
-          key: [Ctrl: 'p',]
+          key: [Ctrl: 'w',]
         - action: [SwitchToMode: Move,]
           key: [Ctrl: 'h',]
         - action: [SwitchToMode: Session,]
@@ -382,7 +382,7 @@ keybinds:
         - action: [SwitchToMode: Resize,]
           key: [Ctrl: 'n',]
         - action: [SwitchToMode: Pane,]
-          key: [Ctrl: 'p',]
+          key: [Ctrl: 'w',]
         - action: [SwitchToMode: Move,]
           key: [Ctrl: 'h',]
         - action: [SwitchToMode: Tab,]
@@ -466,7 +466,7 @@ themes:
 
 # Choose the mode that zellij uses when starting up.
 # Default: normal
-default_mode: locked
+default_mode: normal
 
 # Toggle enabling the mouse mode.
 # On certain configurations, or terminals this could
