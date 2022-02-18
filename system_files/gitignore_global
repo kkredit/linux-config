@@ -10,9 +10,6 @@
 **/.vscode/
 **/.vim/
 
-# VSCodium
-*.code-workspace
-
 # vim
 *.un~
 *.swp

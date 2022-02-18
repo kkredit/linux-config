@@ -131,16 +131,6 @@ if has_arg "silicon"; then
     cargo install silicon
 fi
 
-if has_arg "vscodium"; then
-    if $MAC; then
-        brew install --cask vscodium
-    else
-        snap install codium --classic
-    fi
-    FILES_DIR=system_files
-    codium --install-extension < $FILES_DIR/VSCodium/extensions.txt
-fi
-
 if has_arg "gitsecrets"; then
     wget -q https://raw.githubusercontent.com/awslabs/git-secrets/master/git-secrets
     install -m 755 git-secrets ~/bin
