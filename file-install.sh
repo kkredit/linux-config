@@ -22,6 +22,10 @@ mkdir -p ~/.config/nvim
 install -m 644 $FILES_DIR/init.vim ~/.config/nvim/init.vim
 mkdir -p ~/.config/alacritty
 install -m 644 $FILES_DIR/alacritty.yml ~/.config/alacritty/alacritty.yml
+if ! $MAC; then
+  sed -i 's/decorations: buttonless/decorations: full/' ~/.config/alacritty/alacritty.yml
+  sed -i 's/size: 13/size: 11/' ~/.config/alacritty/alacritty.yml
+fi
 mkdir -p ~/.config/zellij
 install -m 644 $FILES_DIR/zellij_config.yaml ~/.config/zellij/config.yaml
 install -m 644 $FILES_DIR/zellij_layout.yaml ~/.config/zellij/layout.yaml
