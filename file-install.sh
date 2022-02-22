@@ -19,7 +19,7 @@ install -m 644 $FILES_DIR/starship.toml ~/.config/starship.toml
 install -m 644 $FILES_DIR/dircolors.sh ~/.dircolors
 install -m 644 $FILES_DIR/vimrc ~/.vimrc
 mkdir -p ~/.config/nvim
-install -m 644 $FILES_DIR/init.vim ~/.config/nvim/init.vim
+install -m 644 $FILES_DIR/nvim_init.vim ~/.config/nvim/init.vim
 mkdir -p ~/.config/alacritty
 install -m 644 $FILES_DIR/alacritty.yml ~/.config/alacritty/alacritty.yml
 if ! $MAC; then
