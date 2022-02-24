@@ -154,10 +154,10 @@ set foldlevel=999
 " Display & format
 set cursorline
 set number
-set relativenumber
-autocmd InsertEnter * :set norelativenumber
-autocmd InsertLeave * :set relativenumber
-nnoremap <leader>vl :setl relativenumber!<CR>
+"set relativenumber
+"autocmd InsertEnter * :set norelativenumber
+"autocmd InsertLeave * :set relativenumber
+"nnoremap <leader>vl :setl relativenumber!<CR>
 "set textwidth=100
 set wrapmargin=2
 set showmatch
