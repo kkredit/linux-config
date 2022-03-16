@@ -123,6 +123,7 @@ set t_ut=
 if has('nvim')
   let g:airline_theme = 'tomorrow'
   colorscheme oak
+  hi MatchParen ctermbg=Brown guibg=Brown
 else
   let g:airline_theme = 'jellybeans'
   colorscheme codedark
