@@ -579,3 +579,8 @@ function rmqq() {
     fi
     qq
 }
+
+function kurl() {
+  curl https://earthly-tools.com/text-mode\?url\=$1 | less
+}
+alias news='kurl https://www.economist.com/the-world-in-brief'
