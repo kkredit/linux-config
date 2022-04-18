@@ -40,7 +40,8 @@ if has_arg "basic"; then
             shellcheck \
             starship \
             exa \
-            ripgrep
+            ripgrep \
+            autojump
         brew install --cask iterm2 amethyst
         curl -L https://iterm2.com/shell_integration/bash -o ~/.iterm2_shell_integration.bash
         exec bash
@@ -63,7 +64,8 @@ if has_arg "basic"; then
             inotify-tools \
             shellcheck \
             ripgrep \
-            gnome-tweak-tool
+            gnome-tweak-tool \
+            autojump
 
         $WSL || snap install nvim --classic
         which starship &>/dev/null || sh -c "$(curl -fsSL https://starship.rs/install.sh)"

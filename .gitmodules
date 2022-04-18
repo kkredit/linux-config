@@ -10,10 +10,6 @@
 	path = submodules/git-log-compact
 	url = https://github.com/mackyle/git-log-compact.git
 	shallow = true
-[submodule "submodules/autojump"]
-	path = submodules/autojump
-	url = https://github.com/wting/autojump
-	shallow = true
 [submodule "submodules/wt-context-menu"]
 	path = submodules/wt-context-menu
 	url = https://github.com/kkredit/Windows-terminal-context-menu
