@@ -65,6 +65,15 @@ install -m 755 submodules/git-log-compact/git-log-compact \
     ~/bin/git-log-compact
 install -m 755 submodules/tldr-sh-client/tldr ~/bin/tldr
 
+# Install Entr
+if has_arg "entr"; then
+  pushd submodules/entr > /dev/null || true
+  ./configure
+  make test
+  make install
+  popd > /dev/null || true
+fi
+
 # Install Alacritty
 if has_arg "alacritty"; then
   if ! which cargo &>/dev/null; then

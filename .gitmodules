@@ -26,3 +26,6 @@
 [submodule "submodules/alacritty-theme"]
 	path = submodules/alacritty-theme
 	url = https://github.com/eendroroy/alacritty-theme
+[submodule "submodules/entr"]
+	path = submodules/entr
+	url = https://github.com/eradman/entr
