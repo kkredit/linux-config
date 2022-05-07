@@ -24,6 +24,7 @@
            git rebase $(git config --get branch.$BR.remote)/$BR
     rs = reset
     rsh = reset --hard
+    default = !git checkout $(git remote show origin | sed -n '/HEAD branch/s/.*: //p')
     s = show
     st = status
     br = branch
