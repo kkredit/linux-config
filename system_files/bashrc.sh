@@ -105,7 +105,7 @@ PATH=$PATH:~/bin
 [ -d ~/.yarn/bin ] && PATH=$PATH:~/.yarn/bin || true
 [ -d /snap/bin ] && PATH=$PATH:/snap/bin || true
 export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(vim {})+abort'" # ctrl-o opens file in vim
-export EDITOR=/usr/bin/vim
+export EDITOR=nvim
 which bat &>/dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'" || true
 export RIPGREP_CONFIG_PATH=~/.ripgreprc
 
