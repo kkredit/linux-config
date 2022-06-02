@@ -42,7 +42,6 @@
     dt = difftool
     mt = mergetool
     l = log
-    rl = log -n4
     hist = log-compact --graph --decorate
     h = log-compact --graph --decorate
     re = log-compact --graph --decorate -8
@@ -54,6 +53,8 @@
     ts = log-compact --all --graph --decorate --simplify-by-decoration
     lo = !BR=$(git rev-parse --abbrev-ref HEAD) && \
           git log-compact --graph --decorate $(git config --get branch.$BR.remote)/$BR^...HEAD
+    rl = reflog
+    rls = reflog -8
 
     # archiving
     zip = !BRANCH="$(git rev-parse --abbrev-ref HEAD)" && \
