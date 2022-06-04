@@ -93,6 +93,8 @@
     myrelease = "!git release -m \"$(printf \"Release $1\\n\\n\"; git changelog --tag $1 --no-merges -x)\""
     lsd = diff --name-only
     lss = diff --name-only --staged
+[advice]
+    skippedCherryPicks = false
 [core]
     editor = vim
     pager = diff-so-fancy | perl -pe 's/\t/»\\e[1D\t/g' | less --tabs=4 -RFX
