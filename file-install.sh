@@ -45,8 +45,8 @@ if $WSL; then
   unix2dos -n $FILES_DIR/gitignore_global "$(wslpath 'C:/ProgramData/Git/gitignore_global')" 2>/dev/null
 fi
 
-if has_arg "dconf"; then
-  echo "To generate dconf dump: 'dconf dump / > system_files/dconf_ubuntu.dump'"
+  if has_arg "dconf"; then
+    echo "To generate dconf dump: 'dconf dump / > system_files/dconf_ubuntu.dump'"
   echo "To load dconf dump: 'dconf load / < system_files/dconf_ubuntu.dump'"
 fi
 

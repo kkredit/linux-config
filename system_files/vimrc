@@ -36,7 +36,7 @@ if has('nvim')
 
   Plug 'nvim-lua/plenary.nvim'
   Plug 'lewis6991/gitsigns.nvim'
-  Plug 'neoclide/coc.nvim', { 'branch': 'release', 'do': ':CocInstall coc-spell-checker' }
+  Plug 'neoclide/coc.nvim', { 'branch': 'release', 'do': ':CocInstall coc-spell-checker coc-diagnostic' },
 
   Plug 'Shatur/neovim-ayu'
   Plug 'vigoux/oak'

@@ -38,15 +38,14 @@ if has_arg "basic"; then
             htop \
             ncdu \
             shellcheck \
+            shfmt \
             starship \
             exa \
             ripgrep \
             autojump
         brew install --cask iterm2 amethyst
-        curl -L https://iterm2.com/shell_integration/bash -o ~/.iterm2_shell_integration.bash
-        exec bash
-        echo $(brew --prefix)/bin/bash | sudo tee -a /private/etc/shells
-        sudo chpass -s $(brew --prefix)/bin/bash $(whoami)
+        echo "$(brew --prefix)/bin/bash" | sudo tee -a /private/etc/shells
+        sudo chpass -s "$(brew --prefix)/bin/bash" "$(whoami)"
     else
         sudo-pkg-mgr install -y \
             vim \
@@ -63,6 +62,7 @@ if has_arg "basic"; then
             dos2unix \
             inotify-tools \
             shellcheck \
+            shfmt \
             ripgrep \
             gnome-tweak-tool \
             autojump
@@ -153,8 +153,8 @@ if has_arg "fonts"; then
         echo "wget  ${file_url} -O ${font}.zip"
         wget "${file_url}" -O "${font}.zip"
         unzip ${font}.zip -d $font
-        for otf in $font/*.otf; do
-            cp "$otf" $fonts_dir/
+        for otf in "$font"/*.otf; do
+            cp "$otf" "$fonts_dir"/
         done
         rm -rf $font ${font}.zip
     done
