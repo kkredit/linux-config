@@ -97,6 +97,7 @@ if has_arg "utilities"; then
           procs \
           shy \
           zellij
+        cargo install --git https://github.com/jez/barchart.git
     fi
 
     # Bat (https://github.com/sharkdp/bat)
