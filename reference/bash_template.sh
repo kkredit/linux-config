@@ -66,7 +66,7 @@ function wait_for_input {
 function read_input {
   # Only for reference...
   local TMP
-  read -p "$1" TMP
+  read -p "$1" TMP # add -s for silent
   echo "$TMP"
 }
 
