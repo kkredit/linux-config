@@ -441,7 +441,7 @@ shell:
   args:
     - --login
     - -c
-    - "zellij --layout-path ~/.config/zellij/layout.yaml || bash"
+    - "zellij --layout ~/.config/zellij/layout.yaml || bash"
 
 # Startup directory
 #
