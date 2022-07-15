@@ -42,7 +42,8 @@ if has_arg "basic"; then
             starship \
             exa \
             ripgrep \
-            autojump
+            autojump \
+            asdf
         brew install --cask iterm2 amethyst
         echo "$(brew --prefix)/bin/bash" | sudo tee -a /private/etc/shells
         sudo chpass -s "$(brew --prefix)/bin/bash" "$(whoami)"
