@@ -57,6 +57,7 @@ sourceIfPresent ~/.bashrc_local
 sourceIfPresent ~/.bashrc_wsl
 sourceIfPresent ~/.fzf.bash
 sourceIfPresent /usr/local/etc/profile.d/autojump.sh
+sourceIfPresent /usr/share/autojump/autojump.sh
 sourceIfPresent ~/.iterm2_shell_integration.bash
 sourceIfPresent ~/.cargo/env
 
