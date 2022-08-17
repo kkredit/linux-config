@@ -64,11 +64,16 @@ if has_arg "basic"; then
             inotify-tools \
             shellcheck \
             shfmt \
+            exa \
             ripgrep \
-            gnome-tweak-tool \
-            autojump
+            gnome-tweaks \
+            autojump \
+            entr
 
-        $WSL || snap install nvim --classic
+        sudo add-apt-repository ppa:neovim-ppa/stable -y
+        sudo-pkg-mgr install -y \
+            neovim
+
         which starship &>/dev/null || sh -c "$(curl -fsSL https://starship.rs/install.sh)"
     fi
 fi
@@ -296,7 +301,7 @@ fi
 
 if has_arg "node"; then
     sudo-pkg-mgr install npm
-    curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+    curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
     sudo-pkg-mgr install -y nodejs
     sudo chown -R "$USER":"$(id -gn "$USER")" ~/.config
     sudo chown -R "$USER":"$(id -gn "$USER")" /usr/lib/node_modules/
@@ -416,12 +421,13 @@ fi
 
 if has_arg "latex"; then
     sudo-pkg-mgr install -y \
+        texlive-latex-base \
         texlive-latex-extra \
         texlive-science \
         texlive-xetex \
-        texlive-generic-extra \
         texlive-publishers \
         latexmk
+        #texlive-generic-extra
 fi
 
 if has_arg "texstudio"; then

@@ -1,4 +1,5 @@
 [apps/update-manager]
+first-run=false
 launch-count=2
 launch-time=int64 1634393377
 
@@ -33,16 +34,20 @@ secondary-color='#2c001e'
 show-weekdate=false
 
 [org/gnome/desktop/input-sources]
+per-window=false
 sources=[('xkb', 'us')]
-xkb-options=['ctrl:swapcaps']
+xkb-options=['ctrl:nocaps']
 
 [org/gnome/desktop/interface]
 clock-show-seconds=false
 clock-show-weekday=true
+color-scheme='prefer-light'
 cursor-theme='Yaru'
 enable-hot-corners=false
+font-hinting='slight'
 gtk-im-module='ibus'
 gtk-theme='Yaru-dark'
+icon-theme='Yaru-prussiangreen'
 locate-pointer=false
 show-battery-percentage=false
 
@@ -100,8 +105,18 @@ button-layout=':minimize,maximize,close'
 migrated=true
 network-monitor-gio-name=''
 
+[org/gnome/gedit/preferences/editor]
+scheme='Yaru'
+
 [org/gnome/mutter]
 workspaces-only-on-primary=false
+
+[org/gnome/nautilus/preferences]
+default-folder-viewer='icon-view'
+search-filter-time-type='last_modified'
+
+[org/gnome/nautilus/window-state]
+maximized=true
 
 [org/gnome/settings-daemon/plugins/color]
 night-light-enabled=true
@@ -116,8 +131,10 @@ sleep-inactive-ac-type='nothing'
 hinting='slight'
 
 [org/gnome/shell]
+app-picker-layout=[{'software-properties-drivers.desktop': <{'position': <0>}>, 'htop.desktop': <{'position': <1>}>, 'gnome-language-selector.desktop': <{'position': <2>}>, 'nvim_nvim.desktop': <{'position': <3>}>, 'org.gnome.PowerStats.desktop': <{'position': <4>}>, 'gnome-control-center.desktop': <{'position': <5>}>, 'software-properties-gtk.desktop': <{'position': <6>}>, 'update-manager.desktop': <{'position': <7>}>, 'gnome-session-properties.desktop': <{'position': <8>}>, 'org.gnome.gedit.desktop': <{'position': <9>}>, 'snap-store_ubuntu-software.desktop': <{'position': <10>}>, 'vim.desktop': <{'position': <11>}>, 'Alacritty.desktop': <{'position': <12>}>, 'org.gnome.Nautilus.desktop': <{'position': <13>}>, 'firefox_firefox.desktop': <{'position': <14>}>, 'Utilities': <{'position': <15>}>}]
 enabled-extensions=@as []
-favorite-apps=['firefox.desktop', 'google-chrome.desktop', 'org.gnome.Terminal.desktop']
+favorite-apps=['firefox_firefox.desktop', 'org.gnome.Terminal.desktop', 'Alacritty.desktop']
+welcome-dialog-last-shown-version='42.2'
 
 [org/gnome/shell/extensions/dash-to-dock]
 dash-max-icon-size=34

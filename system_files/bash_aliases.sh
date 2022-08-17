@@ -7,7 +7,7 @@ alias nvr='nvr --servername /tmp/nvimsocket'
 alias V='nvim $(find * -type f | fzf)'
 alias vim=nvim
 alias vr='nvim ~/.vimrc'
-alias rmswap='rm /Users/kevinkredit/.local/share/nvim/swap/*'
+alias rmswap='rm -f /Users/kevinkredit/.local/share/nvim/swap/*'
 if $MAC; then
   alias grep="ggrep \$COLOR_AUTO"
   alias dircolors=gdircolors

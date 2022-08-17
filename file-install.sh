@@ -45,8 +45,8 @@ if $WSL; then
   unix2dos -n $FILES_DIR/gitignore_global "$(wslpath 'C:/ProgramData/Git/gitignore_global')" 2>/dev/null
 fi
 
-  if has_arg "dconf"; then
-    echo "To generate dconf dump: 'dconf dump / > system_files/dconf_ubuntu.dump'"
+if has_arg "dconf"; then
+  echo "To generate dconf dump: 'dconf dump / > system_files/dconf_ubuntu.dump'"
   echo "To load dconf dump: 'dconf load / < system_files/dconf_ubuntu.dump'"
 fi
 
@@ -89,6 +89,14 @@ if has_arg "alacritty"; then
     sudo apt-get install cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev python3
     cargo build --release
     cp target/release/alacritty ~/bin
+    if ! $WSL; then
+      # Install desktop shortcut
+      sudo cp target/release/alacritty /usr/local/bin # or anywhere else in $PATH
+      sudo cp extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
+      sudo desktop-file-install extra/linux/Alacritty.desktop
+      sudo update-desktop-database
+    fi
   fi
   popd > /dev/null || true
+
 fi
