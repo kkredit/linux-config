@@ -263,7 +263,7 @@ autocmd BufReadPost * if &filetype !~ 'gitcommit' && line("'\"") > 0 && line("'\
 "autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 "autocmd BufWinLeave * call clearmatches()
 "" Remove trailing whitespace except in markdown files
-let exceptlist = ['markdown']
+let exceptlist = ['markdown', 'rst']
 autocmd BufWritePre * if index(exceptlist, &ft) < 0 | :%s/\s\+$//e
 
 " Miscellaneous
