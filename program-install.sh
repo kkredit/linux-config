@@ -101,7 +101,6 @@ function dev {
 function utilities {
   if [[ $(which cargo) ]]; then
     cargo install \
-      watchexec \
       pipe-rename \
       procs \
       shy \
