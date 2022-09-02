@@ -19,7 +19,7 @@
 [submodule "submodules/alacritty-ligature"]
 	path = submodules/alacritty-ligature
 	url = https://github.com/zenixls2/alacritty
-	branch = ligature
+	branch = new_ligature
 [submodule "submodules/alacritty-theme"]
 	path = submodules/alacritty-theme
 	url = https://github.com/eendroroy/alacritty-theme
