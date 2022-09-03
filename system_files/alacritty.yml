@@ -441,7 +441,7 @@ shell:
   args:
     - --login
     - -c
-    - "zellij --layout ~/.config/zellij/layout.yaml || zsh"
+    - "EDITOR=nvim zellij --layout ~/.config/zellij/layout.yaml || zsh"
 
 # Startup directory
 #
