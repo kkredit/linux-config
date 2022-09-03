@@ -13,6 +13,8 @@ install -m 644 $FILES_DIR/bashrc.sh ~/.bashrc
 install -m 644 $FILES_DIR/bash_profile.sh ~/.bash_profile
 install -m 644 $FILES_DIR/bash_aliases.sh ~/.bash_aliases
 install -m 644 $FILES_DIR/bash_functions.sh ~/.bash_functions
+install -m 644 $FILES_DIR/shrc_common.sh ~/.shrc_common
+install -m 644 $FILES_DIR/zshrc.zsh ~/.zshrc
 mkdir -p ~/.config
 install -m 644 $FILES_DIR/starship.toml ~/.config/starship.toml
 ! $MAC || touch ~/.hushlogin

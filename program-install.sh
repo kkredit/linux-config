@@ -235,6 +235,16 @@ function instbash {
   fi
 }
 
+function instzsh {
+  if $MAC; then
+    brew install zsh
+  else
+    sudo-pkg-mgr install zsh
+  fi
+  which zsh | sudo tee -a /etc/shells
+  chsh -s "$(which zsh)"
+}
+
 function rvm {
   sudo-pkg-mgr install -y \
     software-properties-common
