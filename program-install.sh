@@ -619,6 +619,26 @@ function slacknzoom {
   rm ./zoom_amd64.deb
 }
 
+function tlaplus {
+  function getpathfor {
+    echo "https://github.com/$(
+      curl -s https://github.com/tlaplus/tlaplus/releases \
+        | grep "$1" -m1 \
+        | cut -d\" -f2
+    )"
+  }
+
+  if $MAC; then
+    curl "$(getpathfor macosx)" -o "TLAToolbox.zip"
+    unzip "TLAToolbox.zip"
+  else
+    curl "$(getpathfor linux)" -o "TLAToolbox.zip"
+    unzip "TLAToolbox.zip"
+  fi
+
+  curl "$(getpathfor tla2tools)" -o ~/bin/lib/tla2tools.jar
+}
+
 ## Special function: setup on a new machine
 function setup {
   update
