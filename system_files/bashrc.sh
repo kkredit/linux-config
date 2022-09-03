@@ -38,6 +38,7 @@ shopt -s checkwinsize
 
 ################################################################################
 #                                                                   customized #
+export SHELL=bash
 
 # Source other files
 function sourceIfPresent() {
@@ -61,6 +62,3 @@ eval "$(starship init bash)"
 #        fortune literature
 #    fi
 # fi
-
-# Set environment variables
-export SHELL=bash

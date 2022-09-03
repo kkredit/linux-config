@@ -241,8 +241,16 @@ function instzsh {
   else
     sudo-pkg-mgr install zsh
   fi
-  which zsh | sudo tee -a /etc/shells
-  chsh -s "$(which zsh)"
+
+  # Download git completion files
+  mkdir -p ~/.zsh
+  curl -o ~/.zsh/git-completion.bash https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
+  curl -o ~/.zsh/_git https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh
+
+  if [[ "zsh" != "$SHELL" ]]; then
+    which zsh | sudo tee -a /etc/shells
+    chsh -s "$(which zsh)"
+  fi
 }
 
 function rvm {

@@ -437,11 +437,11 @@ cursor:
 #   - (Linux/BSD) user login shell
 #   - (Windows) powershell
 shell:
-  program: /bin/bash
+  program: /usr/local/bin/zsh
   args:
     - --login
     - -c
-    - "zellij --layout ~/.config/zellij/layout.yaml || bash"
+    - "zellij --layout ~/.config/zellij/layout.yaml || zsh"
 
 # Startup directory
 #

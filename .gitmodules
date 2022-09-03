@@ -26,3 +26,6 @@
 [submodule "submodules/entr"]
 	path = submodules/entr
 	url = https://github.com/eradman/entr
+[submodule "submodules/zsh-snap"]
+	path = submodules/zsh-snap
+	url = https://github.com/marlonrichert/zsh-snap
