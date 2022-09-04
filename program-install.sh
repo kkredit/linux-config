@@ -654,6 +654,7 @@ function tlaplus {
     unzip "TLAToolbox.zip"
   fi
 
+  # TODO FIXME: broken!
   curl "$(getpathfor tla2tools)" -o ~/bin/lib/tla2tools.jar
 }
 

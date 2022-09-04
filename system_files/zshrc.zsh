@@ -32,5 +32,12 @@ sourceIfPresent ~/.shrc_common
 sourceIfPresent ~/git/linux-config/submodules/zsh-snap/znap.zsh
 znap source zsh-users/zsh-autosuggestions
 znap source zsh-users/zsh-syntax-highlighting
+function zvm_config {
+  ZVM_VI_ESCAPE_BINDKEY=jk
+}
+function zvm_after_init() {
+  sourceIfPresent ~/.fzf.zsh
+}
+znap source jeffreytse/zsh-vi-mode
 znap eval starship "starship init zsh"
 znap prompt

@@ -99,6 +99,9 @@ if has_arg "alacritty"; then
       sudo update-desktop-database
     fi
   fi
+  if ! infocmp alacritty &>/dev/null; then
+    sudo tic -xe alacritty,alacritty-direct extra/alacritty.info
+  fi
   popd > /dev/null || true
 
 fi
