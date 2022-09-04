@@ -168,6 +168,7 @@ set number
 "autocmd InsertLeave * :set relativenumber
 "nnoremap <leader>vl :setl relativenumber!<CR>
 "set textwidth=100
+set formatoptions-=tc
 set wrapmargin=2
 set showmatch
 "if exists('+colorcolumn')
