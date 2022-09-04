@@ -53,7 +53,6 @@ alias whatisthis='echo "This is $0 -$-" #'
 alias sai='sudo apt-get install'
 alias nowhitespace=$'sed -i \'s/[[:space:]]*$//\''
 alias nws=nowhitespace
-alias ddg='graphene ddg'
 alias explorer='nautilus .'
 alias txt2env='mkenvimage'
 alias dsf='git diff --no-index --color'

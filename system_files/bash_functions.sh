@@ -79,6 +79,10 @@ function o {
     done
 }
 
+function ddg {
+  o "https://www.duckduckgo.com/?q=${*// /+}"
+}
+
 function grepr {
     grep -rniIs "$@"
 }
