@@ -61,7 +61,6 @@ let g:highlightedyank_highlight_duration = 150
 let g:fzf_layout = { 'down': '30%' }
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-"let g:airline_statusline_ontop = 1
 let g:airline_detect_spell = 0
 let g:airline_left_sep = ""
 let g:airline_left_alt_sep = "|"
@@ -171,19 +170,10 @@ set number
 set formatoptions-=tc
 set wrapmargin=2
 set showmatch
-"if exists('+colorcolumn')
-"  set colorcolumn=101
-"else
-"  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>100v.\+', -1)
-"endif
 
 " Splits and windows
 set splitbelow
 set splitright
-"nnoremap <C-J> <C-W><C-J>
-"nnoremap <C-K> <C-W><C-K>
-"nnoremap <C-L> <C-W><C-L>
-"nnoremap <C-H> <C-W><C-H>
 nnoremap J :5winc +<CR>
 nnoremap K :5winc -<CR>
 nnoremap L :5winc ><CR>
