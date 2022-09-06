@@ -13,7 +13,7 @@ fi
 ## Funtions are called at the end
 
 # Update & exit
-function update {
+function install_update {
   if $MAC; then
     brew upgrade
   else
@@ -25,7 +25,7 @@ function update {
 }
 
 # Basic tools
-function basic {
+function install_basic {
   if $MAC; then
     [ -f ~/.dircolors ] || git clone https://github.com/gibbling666/dircolors.git ~/.dircolors
     brew install \
@@ -83,7 +83,7 @@ function basic {
 
 # Other tools
 
-function dev {
+function install_dev {
   sudo-pkg-mgr install -y \
     gcc \
     g++ \
@@ -98,7 +98,7 @@ function dev {
   fi
 }
 
-function utilities {
+function install_utilities {
   if [[ $(which cargo) ]]; then
     cargo install \
       pipe-rename \
@@ -129,12 +129,12 @@ function utilities {
   rm -rf fd*linux-gnu*
 }
 
-function cheat {
+function install_cheat {
   curl https://cht.sh/:cht.sh > ~/bin/cht.sh
   chmod +x ~/bin/cht.sh
 }
 
-function silicon {
+function install_silicon {
   sudo-pkg-mgr install expat
   sudo-pkg-mgr install libxml2-dev
   sudo-pkg-mgr install pkg-config libasound2-dev libssl-dev cmake libfreetype6-dev libexpat1-dev \
@@ -142,13 +142,13 @@ function silicon {
   cargo install silicon
 }
 
-function gitsecrets {
+function install_gitsecrets {
   wget -q https://raw.githubusercontent.com/awslabs/git-secrets/master/git-secrets
   install -m 755 git-secrets ~/bin
   rm git-secrets
 }
 
-function fonts {
+function install_fonts {
   if $MAC; then
     fonts_dir="${HOME}/Library/Fonts"
   else
@@ -189,17 +189,19 @@ function fonts {
   fi
 }
 
-function git {
-  # This adds a new remote repo that hosts more up-to-date versions of git
-  sudo add-apt-repository ppa:git-core/ppa
-  sudo-pkg-mgr update && sudo-pkg-mgr upgrade git -y
+function install_git {
+  if ! $MAC; then
+    # This adds a new remote repo that hosts more up-to-date versions of git
+    sudo add-apt-repository ppa:git-core/ppa
+    sudo-pkg-mgr update && sudo-pkg-mgr upgrade git -y
 
-  # Install git-extras
-  sudo-pkg-mgr install -y git-extras
-  sudo rm "$(which git-alias)" # My 'alias' alias is better!
+    # Install git-extras
+    sudo-pkg-mgr install -y git-extras
+    sudo rm "$(which git-alias)" # My 'alias' alias is better!
+  fi
 }
 
-function writing {
+function install_writing {
   sudo-pkg-mgr install -y \
     aspell \
     aiksaurus \
@@ -207,14 +209,14 @@ function writing {
     pandoc
   }
 
-function pandoc {
+function install_pandoc {
   URL="https://github.com$(curl -Ls https://github.com/jgm/pandoc/releases/latest | grep -m1 "amd64.deb" | cut -d\" -f2)"
   wget -q --show-progress "$URL"
   sudo dpkg -i pandoc-*-amd64.deb
   rm pandoc-*-amd64.deb
 }
 
-function keys {
+function install_keys {
   sudo-pkg-mgr install -y \
     gnome-tweak-tool
   gnome-tweaks &
@@ -227,7 +229,7 @@ function keys {
   echo "see also https://superuser.com/questions/229839/reduce-laptop-touch-pad-sensitivity-in-ubuntu"
 }
 
-function instbash {
+function install_bash {
   # Map /bin/sh to /bin/bash
   if [[ ! -f /bin/sh.bak ]]; then
     sudo mv /bin/sh /bin/sh.bak
@@ -235,7 +237,7 @@ function instbash {
   fi
 }
 
-function instzsh {
+function install_zsh {
   if $MAC; then
     brew install zsh
   else
@@ -253,7 +255,7 @@ function instzsh {
   fi
 }
 
-function rvm {
+function install_rvm {
   sudo-pkg-mgr install -y \
     software-properties-common
 
@@ -269,7 +271,7 @@ function rvm {
   echo
 }
 
-function ruby {
+function install_ruby {
   if [[ ! $(which rvm) ]]; then
     echo "Install RVM first"
     exit 1
@@ -280,7 +282,7 @@ function ruby {
   rvm --default use "$RUBY_VERSION"
 }
 
-function gems {
+function install_gems {
   sudo-pkg-mgr install -y \
     ruby-dev \
     ruby"$(ruby -e 'puts RUBY_VERSION[/\d+\.\d+/]')"-dev
@@ -290,17 +292,17 @@ function gems {
     solargraph
   }
 
-function postman {
+function install_postman {
   sudo snap install postman
 }
 
-function mysql {
+function install_mysql {
   sudo-pkg-mgr install -y \
     libmysqlclient-dev \
     mysql-workbench
   }
 
-function postgresql {
+function install_postgresql {
   sudo-pkg-mgr install -y \
     libpq-dev \
     postgresql-client-common \
@@ -318,7 +320,7 @@ function postgresql {
   echo "  \"psql -p 5432 -h localhost -U postgres\""
 }
 
-function node {
+function install_node {
   sudo-pkg-mgr install npm
   curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
   sudo-pkg-mgr install -y nodejs
@@ -330,7 +332,7 @@ function node {
   sudo-pkg-mgr autoremove -y
 }
 
-function react {
+function install_react {
   if [[ "" == $(which npm) ]]; then
     echo "install node first; '$0 node'"
     exit 1
@@ -338,7 +340,7 @@ function react {
   npm install -g create-react-app
 }
 
-function yarn {
+function install_yarn {
   curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
   echo "deb https://dl.yarnpkg.com/debian/ stable main" | \
     sudo tee /etc/apt/sources.list.d/yarn.list
@@ -349,7 +351,7 @@ function yarn {
   fi
 }
 
-function argdown {
+function install_argdown {
   if [[ "" == $(which npm) ]]; then
     echo "install node first; '$0 node'"
     exit 1
@@ -358,7 +360,7 @@ function argdown {
   sudo npm install -g @argdown/cli
 }
 
-function golang {
+function install_golang {
   URL="https://golang.org$(curl -s https://golang.org/dl/ | grep "linux-amd64.tar.gz" | head -1 | cut -d\" -f4)"
   FILE="$(echo "$URL" | rev | cut -d/ -f1 | rev)"
   INST_DIR=/usr/local
@@ -384,17 +386,17 @@ function golang {
   git clone https://github.com/ryboe/q "$(go env GOPATH)"/src/q
 }
 
-function haskell {
+function install_haskell {
   sudo-pkg-mgr install haskell-platform
   # Stack is a package manager for Haskell, but installation is broken :(
   #curl -sSL https://get.haskellstack.org/ | sh
 }
 
-function rust {
+function install_rust {
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 }
 
-function clojure {
+function install_clojure {
   sudo apt-get install -y \
     curl \
     rlwrap
@@ -411,7 +413,7 @@ function clojure {
   rm ./linux-install-1.10.1.536.sh
 }
 
-function python {
+function install_python {
   sudo-pkg-mgr install python3-pip python-is-python3
 
   # Virtual environments: see https://realpython.com/python-virtual-environments-a-primer/
@@ -421,7 +423,7 @@ function python {
   echo "source \$(which virtualenvwrapper.sh)" >> ~/.profile
 }
 
-function grip {
+function install_grip {
   if [[ "" == $(which pip) ]]; then
     echo "install python pip first; '$0 python'"
     exit 1
@@ -429,7 +431,7 @@ function grip {
   pip install --user grip
 }
 
-function drawio {
+function install_drawio {
   URL="$(curl -s https://about.draw.io/integrations/ | grep "draw.io-amd64-*.*.*.deb" | \
        head -1 | sed -E 's,.*(https://.*draw.io-amd64-*.*.*[0-9].deb).*,\1,')"
   wget -q --show-progress "$URL"
@@ -438,7 +440,7 @@ function drawio {
   rm draw.io-amd64-*.*.*.deb
 }
 
-function latex {
+function install_latex {
   sudo-pkg-mgr install -y \
     texlive-latex-base \
     texlive-latex-extra \
@@ -449,7 +451,7 @@ function latex {
     #texlive-generic-extra
   }
 
-function texstudio {
+function install_texstudio {
   if $WSL; then
     if [[ ! $(which xelatex) ]]; then
       echo "Install latex first"
@@ -467,7 +469,7 @@ function texstudio {
   fi
 }
 
-function docker {
+function install_docker {
   # Docker
   sudo-pkg-mgr install -y \
     apt-transport-https ca-certificates curl software-properties-common
@@ -491,7 +493,7 @@ function docker {
   sudo chmod +x /usr/local/bin/docker-compose
 }
 
-function wireshark {
+function install_wireshark {
   # Wireshark
   if $WSL; then
     sudo-pkg-mgr install -y wireshark
@@ -505,7 +507,7 @@ function wireshark {
   fi
 }
 
-function enpass {
+function install_enpass {
   # Enpass
   echo "deb http://repo.sinew.in/ stable main" | \
     sudo tee /etc/apt/sources.list.d/enpass.list > /dev/null
@@ -516,7 +518,7 @@ function enpass {
   echo "NOTICE: Install the Firefox extension from the browser."
 }
 
-function signal {
+function install_signal {
   # Signal
   curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
   echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | \
@@ -524,7 +526,7 @@ function signal {
   sudo-pkg-mgr update && sudo-pkg-mgr install signal-desktop
 }
 
-function sonarqube {
+function install_sonarqube {
   sudo mkdir -p /opt/sonarqube
   sudo chown "$USER":"$USER" -R /opt/sonarqube
 
@@ -553,7 +555,7 @@ function sonarqube {
   rm "$FILE"
 }
 
-function chrome {
+function install_chrome {
   wget -q --show-progress -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
   echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | \
     sudo tee /etc/apt/sources.list.d/google-chrome.list
@@ -561,7 +563,7 @@ function chrome {
   sudo-pkg-mgr install google-chrome-stable
 }
 
-function glow {
+function install_glow {
   URL="https://github.com$(curl -s https://github.com/charmbracelet/glow/releases | \
        grep linux_amd64.deb | head -1 | cut -d\" -f2)"
   wget -q --show-progress "$URL"
@@ -575,7 +577,7 @@ function glow {
   rm "$FILE"
 }
 
-function awscli {
+function install_awscli {
   curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
   unzip awscliv2.zip
   UPDATE=$(which aws &>/dev/null && echo '--update' || echo '')
@@ -584,7 +586,7 @@ function awscli {
   rm -r awscliv2.zip aws
 }
 
-function awseb {
+function install_awseb {
   sudo-pkg-mgr install -y \
     build-essential zlib1g-dev libssl-dev libncurses-dev \
     libffi-dev libsqlite3-dev libreadline-dev libbz2-dev
@@ -598,7 +600,7 @@ function awseb {
   fi
 }
 
-function awssam {
+function install_awssam {
   if ! which docker &>/dev/null; then
     echo "The AWS SAM CLI requires Docker. See"
     echo "https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html"
@@ -618,7 +620,7 @@ function awssam {
   rm -rf sam-installation aws-sam-cli-linux-x86_64.zip
 }
 
-function elm {
+function install_elm {
   curl -L -o elm.gz https://github.com/elm/compiler/releases/download/0.19.1/binary-for-linux-64-bit.gz
   gunzip elm.gz
   chmod +x elm
@@ -629,7 +631,7 @@ function elm {
   fi
 }
 
-function slacknzoom {
+function install_slacknzoom {
   sudo snap install slack --classic
 
   wget https://zoom.us/client/latest/zoom_amd64.deb
@@ -637,8 +639,8 @@ function slacknzoom {
   rm ./zoom_amd64.deb
 }
 
-function tlaplus {
-  function getpathfor {
+function install_tlaplus {
+  function install_getpathfor {
     echo "https://github.com/$(
       curl -s https://github.com/tlaplus/tlaplus/releases \
         | grep "$1" -m1 \
@@ -659,22 +661,23 @@ function tlaplus {
 }
 
 ## Special function: setup on a new machine
-function setup {
-  update
-  basic
-  python
-  rust
-  node
-  dev
-  utilities
-  fonts
-  git
-  instbash
+function install_setup {
+  install_update
+  install_git
+  install_basic
+  install_python
+  install_rust
+  install_node
+  install_dev
+  install_utilities
+  install_fonts
+  install_bash
+  install_zsh
 }
 
 ## Call specified functions
 for FUNC in $(declare -F | cut -d' ' -f3); do
-  if has_arg "$FUNC"; then
+  if has_arg "${FUNC/install_/}"; then
     eval "$FUNC"
   fi
 done
