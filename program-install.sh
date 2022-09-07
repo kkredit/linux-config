@@ -361,7 +361,8 @@ function install_argdown {
 }
 
 function install_golang {
-  URL="https://golang.org$(curl -s https://golang.org/dl/ | grep "linux-amd64.tar.gz" | head -1 | cut -d\" -f4)"
+  local URL FILE INST_DIR
+  URL="https://go.dev/$(curl -s https://go.dev/dl/ | grep "linux-amd64.tar.gz" | head -1 | cut -d\" -f4)"
   FILE="$(echo "$URL" | rev | cut -d/ -f1 | rev)"
   INST_DIR=/usr/local
 
@@ -371,14 +372,21 @@ function install_golang {
   sudo tar -C $INST_DIR -xzf "$FILE"
   rm "$FILE"
 
-  if echo "$PATH" | grep -v "go/bin" &>/dev/null; then
+  if echo "$PATH" | grep -q "go/bin"; then
     echo "Adding $INST_DIR/go/bin to ~/.profile..."
     echo "export PATH=\$PATH:$INST_DIR/go/bin" >> ~/.profile
     echo "Run 'export PATH=\$PATH:$INST_DIR/go/bin'"
+    export PATH=$PATH:$INST_DIR/go/bin
+    local GOPATH
+    GOPATH=$(go env GOPATH)
+    echo "Adding $GOPATH/bin to ~/.profile..."
+    echo "export PATH=\$PATH:$GOPATH/bin" >> ~/.profile
+    echo "Run 'export PATH=\$PATH:$GOPATH/bin'"
+    export PATH=$PATH:$GOPATH/bin
   fi
 
-  go get golang.org/x/tools/cmd/goimports
-  go get github.com/golobby/repl
+  go install golang.org/x/tools/cmd/goimports@latest
+  go install github.com/golobby/repl@latest
   go install github.com/golobby/repl@latest
   if $MAC; then
     brew install golang-migrate
