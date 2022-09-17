@@ -25,6 +25,8 @@ Plug 'preservim/nerdcommenter'
 Plug 'mattn/vim-goimports'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
+Plug 'jiangmiao/auto-pairs'
+Plug 'dkarter/bullets.vim'
 
 " Neovim only
 if has('nvim')
@@ -88,6 +90,13 @@ let g:compe.source.buffer = v:true
 let g:compe.source.calc = v:true
 let g:compe.source.nvim_lsp = v:true
 let g:compe.source.treesitter = v:true
+" Bullets.vim
+let g:bullets_enabled_file_types = [
+    \ 'markdown',
+    \ 'text',
+    \ 'gitcommit',
+    \ 'scratch'
+    \]
 
 
 " Keymappings
@@ -191,6 +200,15 @@ nnoremap <leader>b<BS> <C-^>
 nnoremap <leader>bn :bn<CR>
 nnoremap <leader>bN :bN<CR>
 nnoremap <leader>bd :bd<CR>
+
+" Markdown settings
+autocmd Filetype markdown call SetMarkdownOptions()
+function SetMarkdownOptions()
+  set textwidth=100
+  set colorcolumn=101
+  set formatoptions+=tc
+  " rewrap current paragraph: vip | gq
+endfunction
 
 " Golang settings
 autocmd Filetype go call SetGolangOptions()
