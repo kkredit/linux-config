@@ -153,21 +153,21 @@ function recreplace() {
 }
 
 function v() {
-    local ARGS="$@"
+    local ARGS="$*"
     if (( 1 == $# )); then
         # if argument is filename:lineno, use +N for "goto line"
-        local FILENAME="$(cut -d: -f1 <<< $1)"
+        local FILENAME="$(cut -d: -f1 <<< "$1")"
         if [ ! -f "$FILENAME" ] && [ ! -d "$FILENAME" ]; then
-          FILENAME="$(fd $FILENAME --max-results 1)"
+          FILENAME="$(fd "$FILENAME" --max-results 1)"
           ARGS="$FILENAME"
         fi
-        local LINENO="$(cut -sd: -f2 <<< $1)"
-        if [[ "" != "$LINENO" ]]; then
-          ARGS="+$LINENO $FILENAME"
+        local VLINENO="$(cut -sd: -f2 <<< "$1")"
+        if [[ "" != "$VLINENO" ]]; then
+          ARGS="+$VLINENO $FILENAME"
         fi
     fi
     # shellcheck disable=SC2086
-    vim $ARGS
+    eval "vim $ARGS"
 }
 
 function finde() {
