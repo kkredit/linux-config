@@ -56,7 +56,7 @@ endif
 call plug#end()
 
 " Language server setup helper
-command! MyLspInstall execute 'LspInstall bashls' | :exe 'LspInstall dockerls' | :exe 'LspInstall gopls' | :exe 'LspInstall hls' | :exe 'LspInstall html' | :exe 'LspInstall jsonls' | :exe 'LspInstall ltex' | :exe 'LspInstall pyright' | :exe 'LspInstall terraformls' | :exe 'LspInstall tsserver' | :exe 'LspInstall vimls' | :exe 'LspInstall yamlls'
+command! MyLspInstall execute 'LspInstall bashls' | :exe 'LspInstall dockerls' | :exe 'LspInstall gopls' | :exe 'LspInstall hls' | :exe 'LspInstall html' | :exe 'LspInstall jsonls' | :exe 'LspInstall ltex' | :exe 'LspInstall pyright' | :exe 'LspInstall terraformls' | :exe 'LspInstall tsserver' | :exe 'LspInstall vimls' | :exe 'LspInstall yamlls' | :exe 'LspInstall tflint' | :exe 'LspInstall marksman'
 
 " Plugin configuration
 let g:highlightedyank_highlight_duration = 150
