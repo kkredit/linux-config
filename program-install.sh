@@ -93,8 +93,8 @@ function install_dev {
     jq
   if $MAC; then
     brew install pre-commit
-  elif which pip &>/dev/null; then
-    pip install pre-commit
+  elif which pip3 &>/dev/null; then
+    pip3 install pre-commit jc
   fi
 }
 
