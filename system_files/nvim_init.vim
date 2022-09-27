@@ -128,7 +128,8 @@ local on_attach = function(client, bufnr)
   --buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
   --buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   buf_set_keymap('n', '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  --buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('v', '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap('n', '<leader>le', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
   buf_set_keymap('n', '<leader>lN', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
@@ -138,6 +139,8 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<leader>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
   buf_set_keymap('n', '<leader>l1', '<cmd>LspRestart<CR>', opts)
+
+  buf_set_keymap('n', '<leader>t', ':TroubleToggle<CR>', opts)
 end
 
 -- Show source in diagnostics
@@ -175,25 +178,116 @@ end
 --    vim.lsp.diagnostic.display(diagnostics, bufnr, client_id, config)
 --  end
 
--- Setup LSP Installer
--- See https://github.com/williamboman/nvim-lsp-installer
-local lsp_installer = require("nvim-lsp-installer")
+-- Setup Mason
+-- See https://github.com/williamboman/mason.nvim
+-- and https://github.com/williamboman/mason-lspconfig.nvim
+require("mason").setup()
+mason_lspconfig = require("mason-lspconfig")
+mason_lspconfig.setup()
 
 -- integrate with nvim-cmp
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-lsp_installer.on_server_ready(function(server)
-    local opts = {
+-- see https://github.com/williamboman/mason.nvim/discussions/92
+mason_lspconfig.setup_handlers({
+  function(server_name) -- Default handler (optional)
+    lspconfig[server_name].setup({
       on_attach = on_attach,
-      flags = {
-        debounce_text_changes = 150,
+      capabilities = capabilities,
+    })
+  end
+})
+
+-- Setup tool installer
+-- see https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
+require('mason-tool-installer').setup {
+  -- a list of all tools you want to ensure are installed upon
+  -- start; they should be the names Mason uses for each tool
+  ensure_installed = {
+    -- language servers
+    'bash-language-server',
+    'dockerfile-language-server',
+    'golangci-lint-langserver',
+    'gopls',
+    'grammarly-languageserver',
+    'json-lsp',
+    'ltex-ls',
+    'lua-language-server',
+    'marksman',
+    'pyright',
+    'rust-analyzer',
+    'sqls',
+    'taplo',
+    'terraform-ls',
+    'vim-language-server',
+    'yaml-language-server',
+
+    -- debug adapters
+    'delve', -- go
+
+    -- linters
+    'cspell',
+    'golangci-lint',
+    'markdownlint',
+    'shellcheck',
+    'tflint',
+    'yamllint',
+
+    -- formatters
+    'gofumpt',
+    'goimports',
+    'jq',
+    'shfmt',
+  },
+
+  auto_update = false,
+  run_on_start = false,
+  start_delay = 0,
+}
+
+-- Null-ls setup
+-- see https://github.com/jose-elias-alvarez/null-ls.nvim
+null_ls = require("null-ls")
+null_ls.setup({
+  sources = {
+    null_ls.builtins.diagnostics.cspell.with({
+      diagnostic_config = {
+        underline = true,
+        virtual_text = false,
+        signs = false,
+        update_in_insert = false,
+        severity_sort = true,
       },
-      capabilities = capabilities
-    }
-    server:setup(opts)
-end)
+      diagnostics_postprocess = function(diagnostic)
+        diagnostic.severity = vim.diagnostic.severity.HINT
+      end,
+    }),
+    null_ls.builtins.code_actions.gitsigns,
+    null_ls.builtins.code_actions.shellcheck,
+
+    null_ls.builtins.completion.spell,
+    null_ls.builtins.completion.tags,
+
+    null_ls.builtins.diagnostics.golangci_lint,
+    null_ls.builtins.diagnostics.markdownlint,
+    null_ls.builtins.diagnostics.shellcheck,
+    null_ls.builtins.diagnostics.yamllint,
+
+    null_ls.builtins.formatting.gofumpt,
+    null_ls.builtins.formatting.goimports,
+    null_ls.builtins.formatting.jq,
+    null_ls.builtins.formatting.shfmt,
+  },
+})
 EOF
 
+" Trouble
+" see https://github.com/folke/trouble.nvim
+lua << EOF
+require("trouble").setup {
+  icons = false,
+}
+EOF
 
 " Treesitter
 lua <<EOF

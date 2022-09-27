@@ -22,7 +22,6 @@ Plug 'justinmk/vim-sneak'
 Plug 'easymotion/vim-easymotion'
 Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
-Plug 'mattn/vim-goimports'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'jiangmiao/auto-pairs'
@@ -30,11 +29,15 @@ Plug 'dkarter/bullets.vim'
 
 " Neovim only
 if has('nvim')
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  " LSP and language tools
+  Plug 'williamboman/mason.nvim'
+  Plug 'williamboman/mason-lspconfig.nvim'
   Plug 'neovim/nvim-lspconfig'
-  Plug 'williamboman/nvim-lsp-installer'
-  Plug 'folke/which-key.nvim'
+  Plug 'WhoIsSethDaniel/mason-tool-installer.nvim', {'do': ':MasonToolsInstall'}
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'jose-elias-alvarez/null-ls.nvim'
 
+  " Completion
   Plug 'hrsh7th/cmp-nvim-lsp'
   Plug 'hrsh7th/cmp-buffer'
   Plug 'hrsh7th/cmp-path'
@@ -44,19 +47,19 @@ if has('nvim')
   Plug 'hrsh7th/vim-vsnip'
   Plug 'rafamadriz/friendly-snippets'
 
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'lewis6991/gitsigns.nvim'
-  Plug 'neoclide/coc.nvim', { 'branch': 'release', 'do': ':CocInstall coc-spell-checker coc-diagnostic' },
-
+  " Themes
   Plug 'Shatur/neovim-ayu'
   Plug 'vigoux/oak'
   Plug 'olimorris/onedarkpro.nvim'
+
+  " Other
+  Plug 'folke/which-key.nvim'
+  Plug 'folke/trouble.nvim'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'lewis6991/gitsigns.nvim'
 endif
 
 call plug#end()
-
-" Language server setup helper
-command! MyLspInstall execute 'LspInstall bashls' | :exe 'LspInstall dockerls' | :exe 'LspInstall gopls' | :exe 'LspInstall hls' | :exe 'LspInstall html' | :exe 'LspInstall jsonls' | :exe 'LspInstall ltex' | :exe 'LspInstall pyright' | :exe 'LspInstall terraformls' | :exe 'LspInstall tsserver' | :exe 'LspInstall vimls' | :exe 'LspInstall yamlls' | :exe 'LspInstall tflint' | :exe 'LspInstall marksman'
 
 " Plugin configuration
 let g:highlightedyank_highlight_duration = 150
@@ -113,7 +116,7 @@ inoremap jk <esc>
 inoremap kj <esc>
 nnoremap <silent> <leader>d :NERDTreeFind<CR>
 nnoremap <silent> <leader>/ :NERDTreeToggle<CR>
-nnoremap <silent> <leader>, :noh<CR>:cclose<CR>:lclose<CR>:NERDTreeClose<CR><C-l>
+nnoremap <silent> <leader>, :noh<CR>:cclose<CR>:lclose<CR>:NERDTreeClose<CR>:TroubleClose<CR><C-l>
 nnoremap <leader>z za<CR>
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y
@@ -131,6 +134,7 @@ nnoremap <leader>gm :G mergetool<CR>
 nnoremap <leader>gb :G blame<CR>
 nnoremap <leader>gl :GBrowse<CR>
 vnoremap <leader>gl :GBrowse<CR>
+nnoremap <leader>U :PlugUpdate<CR>:MasonToolsUpdate<CR>:TSUpdate all<CR>
 
 " Colors
 syntax on
@@ -210,13 +214,6 @@ function SetMarkdownOptions()
   " rewrap current paragraph: vip | gq
 endfunction
 
-" Golang settings
-autocmd Filetype go call SetGolangOptions()
-function SetGolangOptions()
-  :nnoremap <leader>t :w<CR>:!go fmt %<CR><CR>
-  :let g:goimports_local = trim(system('cd '. shellescape(expand('%:h')) .' && go list -m'))
-endfunction
-
 " Git commit settings
 autocmd Filetype gitcommit call SetGitcommitOptions()
 function SetGitcommitOptions()
@@ -255,14 +252,6 @@ set t_ti= t_te=
 " Open at same line as was last opened
 autocmd BufReadPost * if &filetype !~ 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$")
     \| exe "normal! g'\"" | endif
-
-"" Spell
-"set spell spelllang=en_us
-"hi clear SpellBad
-"hi SpellBad cterm=underline
-"hi clear SpellCap
-"hi clear SpellLocal
-"hi clear SpellRare
 
 "" Highlight whitespace at ends of lines
 "highlight ExtraWhitespace ctermbg=red guibg=red
