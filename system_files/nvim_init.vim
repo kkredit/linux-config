@@ -226,7 +226,10 @@ require('mason-tool-installer').setup {
     'delve', -- go
 
     -- linters
+    'actionlint',
+    'buf',
     'cspell',
+    'codespell',
     'golangci-lint',
     'markdownlint',
     'shellcheck',
@@ -259,8 +262,9 @@ null_ls.setup({
         severity_sort = true,
       },
       diagnostics_postprocess = function(diagnostic)
-        diagnostic.severity = vim.diagnostic.severity.HINT
+        diagnostic.severity = vim.diagnostic.severity.INFO
       end,
+      filetypes = {'markdown', 'latex', 'text'},
     }),
     null_ls.builtins.code_actions.gitsigns,
     null_ls.builtins.code_actions.shellcheck,
@@ -268,11 +272,16 @@ null_ls.setup({
     null_ls.builtins.completion.spell,
     null_ls.builtins.completion.tags,
 
+    null_ls.builtins.diagnostics.actionlint,
+    null_ls.builtins.diagnostics.buf,
+    null_ls.builtins.diagnostics.codespell,
     null_ls.builtins.diagnostics.golangci_lint,
     null_ls.builtins.diagnostics.markdownlint,
     null_ls.builtins.diagnostics.shellcheck,
     null_ls.builtins.diagnostics.yamllint,
 
+    null_ls.builtins.formatting.buf,
+    null_ls.builtins.formatting.codespell,
     null_ls.builtins.formatting.gofumpt,
     null_ls.builtins.formatting.goimports,
     null_ls.builtins.formatting.jq,
@@ -326,4 +335,3 @@ EOF
 
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
-
