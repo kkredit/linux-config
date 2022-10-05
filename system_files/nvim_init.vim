@@ -230,7 +230,6 @@ require('mason-tool-installer').setup {
     'buf',
     'cspell',
     'codespell',
-    'golangci-lint',
     'markdownlint',
     'shellcheck',
     'tflint',
@@ -250,8 +249,21 @@ require('mason-tool-installer').setup {
 
 -- Null-ls setup
 -- see https://github.com/jose-elias-alvarez/null-ls.nvim
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 null_ls = require("null-ls")
 null_ls.setup({
+  on_attach = function(client, bufnr)
+    if client.supports_method("textDocument/formatting") then
+      vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = augroup,
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.format({ bufnr = bufnr })
+        end,
+      })
+    end
+  end,
   sources = {
     null_ls.builtins.diagnostics.cspell.with({
       diagnostic_config = {
@@ -275,7 +287,6 @@ null_ls.setup({
     null_ls.builtins.diagnostics.actionlint,
     null_ls.builtins.diagnostics.buf,
     null_ls.builtins.diagnostics.codespell,
-    null_ls.builtins.diagnostics.golangci_lint,
     null_ls.builtins.diagnostics.markdownlint,
     null_ls.builtins.diagnostics.shellcheck,
     null_ls.builtins.diagnostics.yamllint,
@@ -331,6 +342,11 @@ require'nvim-treesitter.configs'.setup {
     enable = true
   },
 }
+EOF
+
+" Telescope
+lua <<EOF
+require('telescope').load_extension('fzy_native')
 EOF
 
 set foldmethod=expr

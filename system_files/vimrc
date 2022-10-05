@@ -16,8 +16,6 @@ Plug 'blueyed/vim-diminactive'
 
 " Functionality
 Plug 'machakann/vim-highlightedyank'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 Plug 'justinmk/vim-sneak'
 Plug 'easymotion/vim-easymotion'
 Plug 'preservim/nerdtree'
@@ -57,13 +55,14 @@ if has('nvim')
   Plug 'folke/trouble.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'lewis6991/gitsigns.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
+  Plug 'nvim-telescope/telescope-fzy-native.nvim'
 endif
 
 call plug#end()
 
 " Plugin configuration
 let g:highlightedyank_highlight_duration = 150
-let g:fzf_layout = { 'down': '30%' }
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_detect_spell = 0
@@ -78,11 +77,6 @@ autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTa
 " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
 autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
-" Fzf -- Rg command with preview window
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>0)
 " Completion (nvim-compe)
 let g:compe = {}
 let g:compe.enabled = v:true
@@ -110,7 +104,8 @@ nnoremap <silent> <leader>w :w<CR>
 nnoremap <leader>W :wq<CR>
 nnoremap <silent> <leader>q :q<CR>
 nnoremap <silent> <leader>1 :source $MYVIMRC<CR>
-nnoremap <C-p> :<C-u>FZF<CR>
+nnoremap <C-p> :<cmd>Telescope find_files<cr>
+nnoremap <leader>s :<cmd>Telescope live_grep<cr>
 nnoremap <leader>; :History:<CR>
 inoremap jk <esc>
 inoremap kj <esc>
@@ -122,7 +117,6 @@ nnoremap <leader>y "+y
 vnoremap <leader>y "+y
 nnoremap <leader>p "+p
 nnoremap <leader>i i_<Esc>r
-nnoremap <leader>s :Rg<CR>
 nnoremap <leader>rw ciw<C-R>0<ESC>
 vnoremap <leader>a :CocAction<CR>
 nnoremap <leader>a :CocAction<CR>
@@ -267,4 +261,3 @@ autocmd BufWritePre * if index(exceptlist, &ft) < 0 | :%s/\s\+$//e
 " Miscellaneous
 set undofile
 set autoread
-
