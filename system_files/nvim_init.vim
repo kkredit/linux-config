@@ -299,6 +299,14 @@ null_ls.setup({
 })
 EOF
 
+" Trouble
+" see https://github.com/folke/trouble.nvim
+lua << EOF
+require("trouble").setup {
+  icons = false,
+}
+EOF
+
 " Treesitter
 lua <<EOF
 -- Add proto parser

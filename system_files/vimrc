@@ -52,6 +52,7 @@ if has('nvim')
 
   " Other
   Plug 'folke/which-key.nvim'
+  Plug 'folke/trouble.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'nvim-telescope/telescope.nvim'
@@ -103,15 +104,12 @@ nnoremap <silent> <leader>w :w<CR>
 nnoremap <leader>W :wq<CR>
 nnoremap <silent> <leader>q :q<CR>
 nnoremap <silent> <leader>1 :source $MYVIMRC<CR>
-nnoremap <C-p> :<cmd>Telescope find_files<cr>
-nnoremap <leader>s :<cmd>Telescope live_grep<cr>
-nnoremap <leader>t :<cmd>Telescope diagnostics<cr>
 nnoremap <leader>; :History:<CR>
 inoremap jk <esc>
 inoremap kj <esc>
 nnoremap <silent> <leader>d :NERDTreeFind<CR>
 nnoremap <silent> <leader>/ :NERDTreeToggle<CR>
-nnoremap <silent> <leader>, :noh<CR>:cclose<CR>:lclose<CR>:NERDTreeClose<CR>
+nnoremap <silent> <leader>, :noh<CR>:cclose<CR>:lclose<CR>:NERDTreeClose<CR>:TroubleClose<CR><C-l>
 nnoremap <leader>z za<CR>
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y
@@ -123,12 +121,28 @@ nnoremap <leader>a :CocAction<CR>
 nnoremap <leader>fr :let @+=expand('%')<CR>
 nnoremap <leader>ff :let @+=expand('%:p')<CR>
 nnoremap <leader>fn :let @+=join([expand('%'),line(".")], ':')<CR>
+nnoremap <leader>U :PlugUpdate<CR>:MasonToolsUpdate<CR>:TSUpdate all<CR>
+
 nnoremap <leader>gd :G diff %<CR>
 nnoremap <leader>gm :G mergetool<CR>
 nnoremap <leader>gb :G blame<CR>
 nnoremap <leader>gl :GBrowse<CR>
 vnoremap <leader>gl :GBrowse<CR>
-nnoremap <leader>U :PlugUpdate<CR>:MasonToolsUpdate<CR>:TSUpdate all<CR>
+
+nnoremap <C-p> :<cmd>Telescope find_files<cr>
+nnoremap <leader>s :<cmd>Telescope live_grep<cr>
+nnoremap <leader>kf <cmd>Trouble document_diagnostics<cr>
+nnoremap <leader>kw <cmd>Trouble workspace_diagnostics<cr>
+nnoremap <leader>kr <cmd>Trouble lsp_references<cr>
+nnoremap <leader>kd <cmd>Trouble lsp_definitions<cr>
+nnoremap <leader>kD <cmd>Trouble lsp_type_definitions<cr>
+nnoremap <leader>kq <cmd>Trouble quickfix<cr>
+nnoremap <leader>kl <cmd>Trouble loclist<cr>
+nnoremap <leader>kgs <cmd>Telescope git_status<cr>
+nnoremap <leader>kgc <cmd>Telescope git_commits<cr>
+nnoremap <leader>kgb <cmd>Telescope git_branches<cr>
+nnoremap <leader>kt <cmd>Telescope treesitter<cr>
+nnoremap <leader>kk <cmd>Telescope builtin<cr>
 
 " Colors
 syntax on
