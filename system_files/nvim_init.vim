@@ -139,8 +139,6 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<leader>lf', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
 
   buf_set_keymap('n', '<leader>l1', '<cmd>LspRestart<CR>', opts)
-
-  buf_set_keymap('n', '<leader>t', ':TroubleToggle<CR>', opts)
 end
 
 -- Show source in diagnostics
@@ -301,14 +299,6 @@ null_ls.setup({
 })
 EOF
 
-" Trouble
-" see https://github.com/folke/trouble.nvim
-lua << EOF
-require("trouble").setup {
-  icons = false,
-}
-EOF
-
 " Treesitter
 lua <<EOF
 -- Add proto parser
@@ -346,7 +336,27 @@ EOF
 
 " Telescope
 lua <<EOF
-require('telescope').load_extension('fzy_native')
+local telescope = require 'telescope'
+local actions = require 'telescope.actions'
+telescope.load_extension('fzy_native')
+telescope.setup{
+  defaults = {
+    mappings = {
+      i = {
+        ["<C-f>"] = actions.send_selected_to_qflist + actions.open_qflist,
+        ["<C-F>"] = actions.send_to_qflist + actions.open_qflist,
+      }
+    }
+  },
+  pickers = {
+    find_files = {
+      theme = "ivy",
+    },
+    live_grep = {
+      theme = "ivy",
+    },
+  },
+}
 EOF
 
 set foldmethod=expr
