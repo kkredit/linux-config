@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-export SHELL=zsh
+export SHELL=/usr/local/bin/zsh
 export ZSH_NAME=zsh
 
 # Lines configured by zsh-newuser-install

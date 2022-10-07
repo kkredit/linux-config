@@ -8,8 +8,8 @@
 
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+*i*) ;;
+*) return ;;
 esac
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -38,11 +38,11 @@ shopt -s checkwinsize
 
 ################################################################################
 #                                                                   customized #
-export SHELL=bash
+export SHELL=/usr/local/bin/bash
 
 # Source other files
 function sourceIfPresent() {
-    [ -f "$1" ] && source "$1"
+	[ -f "$1" ] && source "$1"
 }
 
 sourceIfPresent /usr/share/bash-completion/completions/git
