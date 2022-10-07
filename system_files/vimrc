@@ -131,9 +131,10 @@ vnoremap <leader>gl :GBrowse<CR>
 
 nnoremap <C-p> :<cmd>Telescope find_files<cr>
 nnoremap <leader>s :<cmd>Telescope live_grep<cr>
+nnoremap <leader>S :<cmd>Telescope grep_string<cr>
 nnoremap <leader>kf <cmd>Trouble document_diagnostics<cr>
 nnoremap <leader>kw <cmd>Trouble workspace_diagnostics<cr>
-nnoremap <leader>kr <cmd>Trouble lsp_references<cr>
+nnoremap gr <cmd>Trouble lsp_references<cr>
 nnoremap <leader>kd <cmd>Trouble lsp_definitions<cr>
 nnoremap <leader>kD <cmd>Trouble lsp_type_definitions<cr>
 nnoremap <leader>kq <cmd>Trouble quickfix<cr>

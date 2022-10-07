@@ -130,7 +130,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('v', '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  --buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap('n', '<leader>le', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
   buf_set_keymap('n', '<leader>lN', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', '<leader>ln', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
@@ -204,6 +204,7 @@ require('mason-tool-installer').setup {
   ensure_installed = {
     -- language servers
     'bash-language-server',
+    'clangd',
     'dockerfile-language-server',
     'golangci-lint-langserver',
     'gopls',
@@ -358,9 +359,6 @@ telescope.setup{
   },
   pickers = {
     find_files = {
-      theme = "ivy",
-    },
-    live_grep = {
       theme = "ivy",
     },
   },
