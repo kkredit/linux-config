@@ -16,7 +16,6 @@ Plug 'blueyed/vim-diminactive'
 
 " Functionality
 Plug 'machakann/vim-highlightedyank'
-Plug 'justinmk/vim-sneak'
 Plug 'easymotion/vim-easymotion'
 Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
@@ -51,6 +50,7 @@ if has('nvim')
   Plug 'olimorris/onedarkpro.nvim'
 
   " Other
+  Plug 'ggandor/leap.nvim'
   Plug 'folke/which-key.nvim'
   Plug 'folke/trouble.nvim'
   Plug 'nvim-lua/plenary.nvim'
@@ -104,7 +104,6 @@ nnoremap <silent> <leader>w :w<CR>
 nnoremap <leader>W :wq<CR>
 nnoremap <silent> <leader>q :q<CR>
 nnoremap <silent> <leader>1 :source $MYVIMRC<CR>
-nnoremap <leader>; :History:<CR>
 inoremap jk <esc>
 inoremap kj <esc>
 nnoremap <silent> <leader>d :NERDTreeFind<CR>
@@ -130,6 +129,7 @@ nnoremap <leader>gl :GBrowse<CR>
 vnoremap <leader>gl :GBrowse<CR>
 
 nnoremap <C-p> :<cmd>Telescope find_files<cr>
+nnoremap <leader>; :<cmd>Telescope command_history<cr>
 nnoremap <leader>s :<cmd>Telescope live_grep<cr>
 nnoremap <leader>S :<cmd>Telescope grep_string<cr>
 nnoremap <leader>kf <cmd>Trouble document_diagnostics<cr>
@@ -217,8 +217,8 @@ nnoremap <leader>bd :bd<CR>
 " Markdown settings
 autocmd Filetype markdown call SetMarkdownOptions()
 function SetMarkdownOptions()
-  set textwidth=100
-  set colorcolumn=101
+  set textwidth=80
+  set colorcolumn=81
   set formatoptions+=tc
   " rewrap current paragraph: vip | gq
 endfunction
