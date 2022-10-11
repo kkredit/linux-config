@@ -80,6 +80,13 @@ local border = {
       {"│", "FloatBorder"},
 }
 
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = opts.border or border
+  return orig_util_open_floating_preview(contents, syntax, opts, ...)
+end
+
 -- See https://github.com/neovim/nvim-lspconfig
 local lspconfig = require('lspconfig')
 local configs = require('lspconfig')
@@ -89,10 +96,6 @@ local configs = require('lspconfig')
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-  -- Styling
-  vim.lsp.handlers["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border})
-  vim.lsp.handlers["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border})
 
   -- Enable completion triggered by <c-x><c-o>
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -124,41 +127,6 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<leader>l1', '<cmd>LspRestart<CR>', opts)
 end
 
--- Show source in diagnostics
--- See https://github.com/neovim/nvim-lspconfig/wiki/UI-customization
---vim.lsp.handlers["textDocument/publishDiagnostics"] =
---  function(_, _, params, client_id, _)
---    local config = { -- your config
---      underline = true,
---      virtual_text = {
---        prefix = "■ ",
---        spacing = 4,
---      },
---      signs = true,
---      update_in_insert = false,
---    }
---    local uri = params.uri
---    local bufnr = vim.uri_to_bufnr(uri)
---
---    if not bufnr then
---      return
---    end
---
---    local diagnostics = params.diagnostics
---
---    for i, v in ipairs(diagnostics) do
---      diagnostics[i].message = string.format("%s: %s", v.source, v.message)
---    end
---
---    vim.lsp.diagnostic.save(diagnostics, bufnr, client_id)
---
---    if not vim.api.nvim_buf_is_loaded(bufnr) then
---      return
---    end
---
---    vim.lsp.diagnostic.display(diagnostics, bufnr, client_id, config)
---  end
-
 -- Setup Mason
 -- See https://github.com/williamboman/mason.nvim
 -- and https://github.com/williamboman/mason-lspconfig.nvim
@@ -176,7 +144,14 @@ mason_lspconfig.setup_handlers({
       on_attach = on_attach,
       capabilities = capabilities,
     })
-  end
+  end,
+  ["ltex"] = function()
+    lspconfig.ltex.setup({
+      on_attach = on_attach,
+      capabilities = capabilities,
+      filetypes = {'latex'},
+    })
+  end,
 })
 
 -- Setup tool installer
@@ -234,18 +209,19 @@ require('mason-tool-installer').setup {
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 null_ls = require("null-ls")
 null_ls.setup({
-  on_attach = function(client, bufnr)
-    if client.supports_method("textDocument/formatting") then
-      vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        group = augroup,
-        buffer = bufnr,
-        callback = function()
-          vim.lsp.buf.format({ bufnr = bufnr })
-        end,
-      })
-    end
-  end,
+  -- format-on-save
+  --on_attach = function(client, bufnr)
+    --if client.supports_method("textDocument/formatting") then
+    --  vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    --  vim.api.nvim_create_autocmd("BufWritePre", {
+    --    group = augroup,
+    --    buffer = bufnr,
+    --    callback = function()
+    --      vim.lsp.buf.format({ bufnr = bufnr })
+    --    end,
+    --  })
+    --end
+  --end,
   sources = {
     null_ls.builtins.diagnostics.cspell.with({
       diagnostic_config = {
@@ -306,8 +282,8 @@ require'nvim-treesitter.configs'.setup {
     keymaps = {
       init_selection = "gnn",
       node_incremental = "grn",
-      scope_incremental = "grc",
-      node_decremental = "grm",
+      scope_incremental = "grs",
+      node_decremental = "grN",
     },
   },
   indent = {

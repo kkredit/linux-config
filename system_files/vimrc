@@ -192,6 +192,10 @@ set number
 set formatoptions-=tc
 set wrapmargin=2
 set showmatch
+set encoding=utf-8
+scriptencoding utf-8
+set listchars=tab:»\ ,trail:·
+"set list
 
 " Splits and windows
 set splitbelow
