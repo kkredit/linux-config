@@ -294,7 +294,6 @@ require'nvim-treesitter.configs'.setup {
 -- Telescope
 local telescope = require 'telescope'
 local actions = require 'telescope.actions'
-telescope.load_extension('fzy_native')
 telescope.setup{
   defaults = {
     mappings = {
@@ -305,14 +304,28 @@ telescope.setup{
     }
   },
   pickers = {
+    --grep_string = {
+    --  search = "",
+    --  only_sort_text = true,
+    --},
     find_files = {
       theme = "ivy",
+      --search_file = "",
     },
     command_history = {
       theme = "ivy",
     },
   },
+  extensions = {
+    fzf_native = {
+      fuzzy = true,
+      override_generic_sorter = true,
+      override_file_sorter = true,
+      case_mode = "smart_case",
+    }
+  }
 }
+telescope.load_extension('fzf')
 
 require("trouble").setup {
   icons = false,
