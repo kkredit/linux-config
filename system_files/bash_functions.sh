@@ -74,7 +74,7 @@ function o {
     for FILE in "$@"; do
         case $1 in
             *.drawio)   drawio "$FILE" &>/dev/null & ;;
-            *)          if $MAC; then open $FILE; else xdg-open "$FILE"; fi ;;
+            *)          if $MAC; then open "$FILE"; else xdg-open "$FILE"; fi ;;
         esac
     done
 }
@@ -156,12 +156,13 @@ function v() {
     local ARGS="$*"
     if (( 1 == $# )); then
         # if argument is filename:lineno, use +N for "goto line"
-        local FILENAME="$(cut -d: -f1 <<< "$1")"
+        local FILENAME VLINENO
+        FILENAME="$(cut -d: -f1 <<< "$1")"
         if [ ! -f "$FILENAME" ] && [ ! -d "$FILENAME" ]; then
           FILENAME="$(fd "$FILENAME" --max-results 1)"
           ARGS="$FILENAME"
         fi
-        local VLINENO="$(cut -sd: -f2 <<< "$1")"
+        VLINENO="$(cut -sd: -f2 <<< "$1")"
         if [[ "" != "$VLINENO" ]]; then
           ARGS="+$VLINENO $FILENAME"
         fi
@@ -199,7 +200,9 @@ function rand_in_range() {
 # create function "cs" to "cd" and "ls" in one command
 function cs() {
     local new_dir="$*"
-    if [[ "$*" =~ ^\.+$ ]]; then
+    if [[ "$SHELL" =~ "bash" ]] && [[ "$*" =~ ^\.+$ ]]; then
+        new_dir=${*//./.\/.}
+    elif [[ "$SHELL" =~ "zsh" ]] && [[ "$*" =~ ^\\.+$ ]]; then
         new_dir=${*//./.\/.}
     elif [[ "g" == "$*" ]]; then
         new_dir="$(git rev-parse --show-toplevel)"
@@ -207,7 +210,8 @@ function cs() {
       if [ -f "$*" ]; then
         new_dir="$(dirname "$*")"
       else
-        local file="$(fd "$*" --max-results 1)"
+        local file
+        file="$(fd "$*" --max-results 1)"
         if [ -f "$file" ]; then
           new_dir="$(dirname "$file")"
         fi
@@ -226,22 +230,11 @@ function cls() {
 }
 
 function mkcd() {
-    mkdir "$1" && cd "$1"
+    mkdir "$1" && cd "$1" || return
 }
 
 function showme() {
-    set -x; eval "$@"; set +x
-}
-
-function watchdo() {
-    function wait_for_modify() {
-        if $MAC; then
-            fswatch --event Updated "$1"
-        else
-            inotifywait -q -e modify "$1"
-        fi
-    }
-    while wait_for_modify; do eval "${@:2}"; done
+    set -x; eval "$*"; set +x
 }
 
 function libdeps() {
@@ -560,7 +553,7 @@ function maxcpu() {
 }
 
 function gan() {
-    go doc -all $1 | bat --language go --plain
+    go doc -all "$1" | bat --language go --plain
 }
 
 function qq() {
@@ -587,6 +580,6 @@ function rmqq() {
 }
 
 function kurl() {
-  curl https://earthly-tools.com/text-mode\?url\=$1 | less
+  curl https://earthly-tools.com/text-mode\?url="$1" | less
 }
 alias news='kurl https://www.economist.com/the-world-in-brief'
