@@ -136,6 +136,9 @@ nnoremap <leader>ff :let @+=expand('%:p')<CR>
 nnoremap <leader>fn :let @+=join([expand('%'),line(".")], ':')<CR>
 nnoremap <leader>U :PlugUpdate<CR>:MasonToolsUpdate<CR>:TSUpdate all<CR>
 
+let g:AutoPairsShortcutFastWrap = '<C-e>'
+let g:AutoPairsShortcutJump = '<C-n>'
+
 nnoremap <leader>gd :Gdiffsplit<CR>
 nnoremap <leader>gD :G diff %<CR>
 nnoremap <leader>gm :G mergetool<CR>
