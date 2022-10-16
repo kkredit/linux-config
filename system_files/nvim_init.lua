@@ -1,7 +1,4 @@
-set runtimepath^=~/.vim runtimepath+=~/.vim/after
-let &packpath=&runtimepath
-source ~/.vimrc
-lua << EOF
+vim.cmd('source ~/.vimrc')
 
 -- Completion (nvim-cmp)
 -- Setup nvim-cmp
@@ -70,14 +67,14 @@ cmp.setup.cmdline(':', {
 -- LSP
 -- Styling
 local border = {
-      {"╭", "FloatBorder"},
-      {"─", "FloatBorder"},
-      {"╮", "FloatBorder"},
-      {"│", "FloatBorder"},
-      {"╯", "FloatBorder"},
-      {"─", "FloatBorder"},
-      {"╰", "FloatBorder"},
-      {"│", "FloatBorder"},
+  { "╭", "FloatBorder" },
+  { "─", "FloatBorder" },
+  { "╮", "FloatBorder" },
+  { "│", "FloatBorder" },
+  { "╯", "FloatBorder" },
+  { "─", "FloatBorder" },
+  { "╰", "FloatBorder" },
+  { "│", "FloatBorder" },
 }
 
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
@@ -89,19 +86,19 @@ end
 
 -- See https://github.com/neovim/nvim-lspconfig
 local lspconfig = require('lspconfig')
-local configs = require('lspconfig')
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr) -- (client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
   -- Enable completion triggered by <c-x><c-o>
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings
-  local opts = { noremap=true, silent=true }
+  local opts = { noremap = true, silent = true }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -131,7 +128,7 @@ end
 -- See https://github.com/williamboman/mason.nvim
 -- and https://github.com/williamboman/mason-lspconfig.nvim
 require("mason").setup()
-mason_lspconfig = require("mason-lspconfig")
+local mason_lspconfig = require("mason-lspconfig")
 mason_lspconfig.setup()
 
 -- integrate with nvim-cmp
@@ -149,7 +146,26 @@ mason_lspconfig.setup_handlers({
     lspconfig.ltex.setup({
       on_attach = on_attach,
       capabilities = capabilities,
-      filetypes = {'latex'},
+      filetypes = { 'latex' },
+    })
+  end,
+  ["sumneko_lua"] = function()
+    lspconfig.sumneko_lua.setup({
+      on_attach = on_attach,
+      capabilities = capabilities,
+      settings = {
+        Lua = {
+          runtime = {
+            version = 'LuaJIT',
+          },
+          diagnostics = {
+            globals = { 'vim' },
+          },
+          workspace = {
+            library = vim.api.nvim_get_runtime_file("", true),
+          },
+        },
+      },
     })
   end,
 })
@@ -206,21 +222,21 @@ require('mason-tool-installer').setup {
 
 -- Null-ls setup
 -- see https://github.com/jose-elias-alvarez/null-ls.nvim
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-null_ls = require("null-ls")
+--local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+local null_ls = require("null-ls")
 null_ls.setup({
   -- format-on-save
   --on_attach = function(client, bufnr)
-    --if client.supports_method("textDocument/formatting") then
-    --  vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-    --  vim.api.nvim_create_autocmd("BufWritePre", {
-    --    group = augroup,
-    --    buffer = bufnr,
-    --    callback = function()
-    --      vim.lsp.buf.format({ bufnr = bufnr })
-    --    end,
-    --  })
-    --end
+  --if client.supports_method("textDocument/formatting") then
+  --  vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+  --  vim.api.nvim_create_autocmd("BufWritePre", {
+  --    group = augroup,
+  --    buffer = bufnr,
+  --    callback = function()
+  --      vim.lsp.buf.format({ bufnr = bufnr })
+  --    end,
+  --  })
+  --end
   --end,
   sources = {
     null_ls.builtins.diagnostics.cspell.with({
@@ -234,7 +250,7 @@ null_ls.setup({
       diagnostics_postprocess = function(diagnostic)
         diagnostic.severity = vim.diagnostic.severity.INFO
       end,
-      filetypes = {'markdown', 'latex', 'text'},
+      filetypes = { 'markdown', 'latex', 'text' },
     }),
     null_ls.builtins.code_actions.gitsigns,
     null_ls.builtins.code_actions.shellcheck,
@@ -264,15 +280,15 @@ local parser_config = require 'nvim-treesitter.parsers'.get_parser_configs()
 parser_config.proto = {
   install_info = {
     url = '~/git/linux-config/submodules/tree-sitter-proto',
-    files = {'src/parser.c'}
+    files = { 'src/parser.c' }
   },
   filetype = 'proto', -- if filetype does not agrees with parser name
   --used_by = {'proto'} -- additional filetypes that use this parser
 }
 -- Configure Treesitter
-require'nvim-treesitter.configs'.setup {
+require 'nvim-treesitter.configs'.setup {
   ensure_installed = "all",
-    -- one of "all", or a list of languages
+  -- one of "all", or a list of languages
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
@@ -294,7 +310,7 @@ require'nvim-treesitter.configs'.setup {
 -- Telescope
 local telescope = require 'telescope'
 local actions = require 'telescope.actions'
-telescope.setup{
+telescope.setup {
   defaults = {
     mappings = {
       i = {
@@ -333,9 +349,3 @@ require("trouble").setup {
 require('leap').set_default_keymaps()
 require('gitsigns').setup()
 require("which-key").setup()
-
-EOF
-
-set completeopt=menu,menuone,noselect
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
