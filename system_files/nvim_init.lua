@@ -262,16 +262,17 @@ null_ls.setup({
     null_ls.builtins.diagnostics.buf,
     null_ls.builtins.diagnostics.codespell,
     null_ls.builtins.diagnostics.markdownlint,
-    null_ls.builtins.diagnostics.semgrep.with({
-      args = function(_)
-        if vim.fn.isdirectory("dev-scripts/semgrep") then
-          return { "-q", "--json", "--config=dev-scripts/semgrep", "--config=auto", "$FILENAME" }
-        else
-          return { "-q", "--json", "--config=auto", "$FILENAME" }
-        end
-      end,
-      timeout = 30000, -- ms
-    }),
+    -- Semgrep -- works, but burns CPU
+    --null_ls.builtins.diagnostics.semgrep.with({
+      --args = function(_)
+        --if vim.fn.isdirectory("dev-scripts/semgrep") then
+          --return { "-q", "--json", "--config=dev-scripts/semgrep", "--config=auto", "$FILENAME" }
+        --else
+          --return { "-q", "--json", "--config=auto", "$FILENAME" }
+        --end
+      --end,
+      --timeout = 30000, -- ms
+    --}),
     null_ls.builtins.diagnostics.shellcheck,
     null_ls.builtins.diagnostics.yamllint,
 
