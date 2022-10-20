@@ -356,6 +356,7 @@ telescope.load_extension('fzf')
 
 require("trouble").setup {
   icons = false,
+  auto_preview = false,
 }
 require('leap').set_default_keymaps()
 require('gitsigns').setup()

@@ -155,16 +155,18 @@ nnoremap <leader>gl :GBrowse<CR>
 vnoremap <leader>gl :GBrowse<CR>
 
 nnoremap <C-p> :<cmd>Telescope find_files<cr>
-nnoremap <leader>; :<cmd>Telescope command_history<cr>
-nnoremap <leader>s :<cmd>Telescope live_grep<cr>
-nnoremap <leader>S :<cmd>Telescope grep_string<cr>
+nnoremap <leader>; <cmd>Telescope command_history<cr>
+nnoremap <leader>s <cmd>Telescope live_grep<cr>
+nnoremap <leader>S <cmd>Telescope grep_string<cr>
+vnoremap <leader>s "zy<cmd>exec 'Telescope grep_string search=' . escape(@z, ' ')<cr>
 nnoremap <leader>kf <cmd>Trouble document_diagnostics<cr>
 nnoremap <leader>kw <cmd>Trouble workspace_diagnostics<cr>
-nnoremap gr <cmd>Trouble lsp_references<cr>
-nnoremap <leader>kd <cmd>Trouble lsp_definitions<cr>
-nnoremap <leader>kD <cmd>Trouble lsp_type_definitions<cr>
 nnoremap <leader>kq <cmd>Trouble quickfix<cr>
 nnoremap <leader>kl <cmd>Trouble loclist<cr>
+nnoremap <leader>kd <cmd>Trouble lsp_definitions<cr>
+nnoremap <leader>kD <cmd>Trouble lsp_type_definitions<cr>
+nnoremap gr <cmd>Trouble lsp_references<cr>
+nnoremap <leader>kr <cmd>Telescope lsp_references<cr>
 nnoremap <leader>kgs <cmd>Telescope git_status<cr>
 nnoremap <leader>kgc <cmd>Telescope git_commits<cr>
 nnoremap <leader>kgb <cmd>Telescope git_branches<cr>
