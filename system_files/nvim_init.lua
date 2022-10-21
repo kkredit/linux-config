@@ -124,6 +124,23 @@ local on_attach = function(_, bufnr) -- (client, bufnr)
   buf_set_keymap('n', '<leader>l1', '<cmd>LspRestart<CR>', opts)
 end
 
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+local register_autofmt = function(bufnr)
+  vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    group = augroup,
+    buffer = bufnr,
+    callback = function()
+      vim.lsp.buf.format({ bufnr = bufnr })
+    end,
+  })
+end
+
+local on_attach_with_autofmt = function(_, bufnr)
+  on_attach(_, bufnr)
+  register_autofmt(bufnr)
+end
+
 -- Setup Mason
 -- See https://github.com/williamboman/mason.nvim
 -- and https://github.com/williamboman/mason-lspconfig.nvim
@@ -132,13 +149,19 @@ local mason_lspconfig = require("mason-lspconfig")
 mason_lspconfig.setup()
 
 -- integrate with nvim-cmp
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- see https://github.com/williamboman/mason.nvim/discussions/92
 mason_lspconfig.setup_handlers({
   function(server_name) -- Default handler (optional)
     lspconfig[server_name].setup({
       on_attach = on_attach,
+      capabilities = capabilities,
+    })
+  end,
+  ["gopls"] = function()
+    lspconfig.gopls.setup({
+      on_attach = on_attach_with_autofmt,
       capabilities = capabilities,
     })
   end,
@@ -180,7 +203,6 @@ require('mason-tool-installer').setup {
     'bash-language-server',
     'clangd',
     'dockerfile-language-server',
-    'golangci-lint-langserver',
     'gopls',
     'grammarly-languageserver',
     'json-lsp',
@@ -222,20 +244,12 @@ require('mason-tool-installer').setup {
 
 -- Null-ls setup
 -- see https://github.com/jose-elias-alvarez/null-ls.nvim
---local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local null_ls = require("null-ls")
 null_ls.setup({
   -- format-on-save
   --on_attach = function(client, bufnr)
   --if client.supports_method("textDocument/formatting") then
-  --  vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-  --  vim.api.nvim_create_autocmd("BufWritePre", {
-  --    group = augroup,
-  --    buffer = bufnr,
-  --    callback = function()
-  --      vim.lsp.buf.format({ bufnr = bufnr })
-  --    end,
-  --  })
+  --register_autofmt(bufnr)
   --end
   --end,
   sources = {
@@ -264,21 +278,20 @@ null_ls.setup({
     null_ls.builtins.diagnostics.markdownlint,
     -- Semgrep -- works, but burns CPU
     --null_ls.builtins.diagnostics.semgrep.with({
-      --args = function(_)
-        --if vim.fn.isdirectory("dev-scripts/semgrep") then
-          --return { "-q", "--json", "--config=dev-scripts/semgrep", "--config=auto", "$FILENAME" }
-        --else
-          --return { "-q", "--json", "--config=auto", "$FILENAME" }
-        --end
-      --end,
-      --timeout = 30000, -- ms
+    --args = function(_)
+    --if vim.fn.isdirectory("dev-scripts/semgrep") then
+    --return { "-q", "--json", "--config=dev-scripts/semgrep", "--config=auto", "$FILENAME" }
+    --else
+    --return { "-q", "--json", "--config=auto", "$FILENAME" }
+    --end
+    --end,
+    --timeout = 30000, -- ms
     --}),
     null_ls.builtins.diagnostics.shellcheck,
     null_ls.builtins.diagnostics.yamllint,
 
     null_ls.builtins.formatting.buf,
     null_ls.builtins.formatting.codespell,
-    null_ls.builtins.formatting.gofumpt,
     null_ls.builtins.formatting.goimports,
     null_ls.builtins.formatting.jq,
     null_ls.builtins.formatting.shfmt,
