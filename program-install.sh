@@ -10,7 +10,7 @@ if ! $MAC; then
 fi
 
 ## Install tools or packages in functions
-## Funtions are called at the end
+## Functions are called at the end
 
 # Update & exit
 function install_update {
