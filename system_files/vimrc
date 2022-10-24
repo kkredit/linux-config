@@ -31,8 +31,6 @@ if has('nvim')
   set runtimepath^=~/.vim runtimepath+=~/.vim/after
   let &packpath=&runtimepath
   set completeopt=menu,menuone,noselect
-  set foldmethod=expr
-  set foldexpr=nvim_treesitter#foldexpr()
 
   " Plugins
   " LSP and language tools

@@ -366,6 +366,8 @@ telescope.setup {
   }
 }
 telescope.load_extension('fzf')
+vim.cmd("set foldmethod=expr")
+vim.cmd("set foldexpr=nvim_treesitter#foldexpr()")
 
 require("trouble").setup {
   icons = false,
