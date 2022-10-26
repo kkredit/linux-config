@@ -159,6 +159,14 @@ mason_lspconfig.setup_handlers({
       capabilities = capabilities,
     })
   end,
+  ["clangd"] = function()
+    lspconfig.clangd.setup({
+      on_attach = on_attach,
+      capabilities = capabilities,
+      --filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' }, -- default
+      filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
+    })
+  end,
   ["gopls"] = function()
     lspconfig.gopls.setup({
       on_attach = on_attach_with_autofmt,
@@ -246,12 +254,13 @@ require('mason-tool-installer').setup {
 -- see https://github.com/jose-elias-alvarez/null-ls.nvim
 local null_ls = require("null-ls")
 null_ls.setup({
-  -- format-on-save
-  --on_attach = function(client, bufnr)
-  --if client.supports_method("textDocument/formatting") then
-  --register_autofmt(bufnr)
-  --end
-  --end,
+  on_attach = function(client, bufnr)
+    on_attach(client, bufnr)
+    -- format-on-save
+    --if client.supports_method("textDocument/formatting") then
+    --register_autofmt(bufnr)
+    --end
+  end,
   sources = {
     null_ls.builtins.diagnostics.cspell.with({
       diagnostic_config = {
