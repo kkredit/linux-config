@@ -30,8 +30,8 @@ if ! $MAC; then
   sed -i 's/size: 13/size: 11/' ~/.config/alacritty/alacritty.yml
 fi
 mkdir -p ~/.config/zellij
-install -m 644 $FILES_DIR/zellij_config.yaml ~/.config/zellij/config.yaml
-install -m 644 $FILES_DIR/zellij_layout.yaml ~/.config/zellij/layout.yaml
+install -m 644 $FILES_DIR/zellij_config.kdl ~/.config/zellij/config.kdl
+install -m 644 $FILES_DIR/zellij_layout.kdl ~/.config/zellij/layout.kdl
 install -m 644 $FILES_DIR/xinitrc ~/.xinitrc
 install -m 644 $FILES_DIR/Xmodmap ~/.Xmodmap
 install -m 644 $FILES_DIR/gerrit_functions.sh ~/.gerrit_functions.sh

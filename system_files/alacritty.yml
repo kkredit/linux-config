@@ -444,7 +444,7 @@ shell:
   args:
     - --login
     - -c
-    - "~/.cargo/bin/zellij --layout ~/.config/zellij/layout.yaml || zsh"
+    - "~/.cargo/bin/zellij --layout ~/.config/zellij/layout.kdl || zsh"
 
 # Startup directory
 #
@@ -887,4 +887,3 @@ shell:
 
   # Highlight window damage information.
   #highlight_damage: false
-
