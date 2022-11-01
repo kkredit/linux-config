@@ -261,6 +261,7 @@ null_ls.setup({
     --register_autofmt(bufnr)
     --end
   end,
+  capabilities = capabilities,
   sources = {
     null_ls.builtins.diagnostics.cspell.with({
       diagnostic_config = {
