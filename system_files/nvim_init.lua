@@ -159,7 +159,7 @@ mason_lspconfig.setup_handlers({
       capabilities = capabilities,
     })
   end,
-  ["clangd"] = function()
+  ["clangd"] = function(_)
     lspconfig.clangd.setup({
       on_attach = on_attach,
       capabilities = capabilities,
@@ -167,20 +167,20 @@ mason_lspconfig.setup_handlers({
       filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
     })
   end,
-  ["gopls"] = function()
+  ["gopls"] = function(_)
     lspconfig.gopls.setup({
       on_attach = on_attach_with_autofmt,
       capabilities = capabilities,
     })
   end,
-  ["ltex"] = function()
+  ["ltex"] = function(_)
     lspconfig.ltex.setup({
       on_attach = on_attach,
       capabilities = capabilities,
       filetypes = { 'latex' },
     })
   end,
-  ["sumneko_lua"] = function()
+  ["sumneko_lua"] = function(_)
     lspconfig.sumneko_lua.setup({
       on_attach = on_attach,
       capabilities = capabilities,
@@ -194,6 +194,7 @@ mason_lspconfig.setup_handlers({
           },
           workspace = {
             library = vim.api.nvim_get_runtime_file("", true),
+            checkThirdParty = false,
           },
         },
       },
