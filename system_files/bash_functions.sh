@@ -96,12 +96,12 @@ function krepl {
 }
 
 function krepr {
-    grep -rniIs --exclude={*.drawio,*.snap} --exclude-dir={.git,db,log,tmp,vendor,coverage,node_modules,.venv,.mypy*,.tracked*,packs,packs-test,assets,build,_build,dist,elm-stuff} -- "$*" .
+    grep -rniIs --exclude="{*.drawio,*.snap}" --exclude-dir="{.git,db,log,tmp,vendor,coverage,node_modules,.venv,.mypy*,.tracked*,packs,packs-test,assets,build,_build,dist,elm-stuff}" -- "$*" .
 }
 alias k=krepr
 
 function kreprl {
-    grep -rniIsl --exclude={*.drawio,*.snap} --exclude-dir={.git,db,log,tmp,vendor,coverage,node_modules,.venv,.mypy*,.tracked*,packs,packs-test,assets,build,_build,dist,elm-stuff} -- "$*" .
+    grep -rniIsl --exclude="{*.drawio,*.snap}" --exclude-dir="{.git,db,log,tmp,vendor,coverage,node_modules,.venv,.mypy*,.tracked*,packs,packs-test,assets,build,_build,dist,elm-stuff}" -- "$*" .
 }
 
 function kat() {
