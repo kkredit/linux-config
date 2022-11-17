@@ -24,6 +24,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'jiangmiao/auto-pairs'
 Plug 'dkarter/bullets.vim'
+Plug 'psliwka/vim-smoothie'
 
 " Neovim only
 if has('nvim')
@@ -39,6 +40,7 @@ if has('nvim')
   Plug 'neovim/nvim-lspconfig'
   Plug 'WhoIsSethDaniel/mason-tool-installer.nvim', {'do': ':MasonToolsInstall'}
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'mfussenegger/nvim-dap'
   Plug 'jose-elias-alvarez/null-ls.nvim'
   Plug 'mracos/mermaid.vim'
   Plug 'imsnif/kdl.vim'
@@ -71,6 +73,8 @@ endif
 call plug#end()
 
 " Plugin configuration
+let g:smoothie_speed_linear_factor=80
+let g:smoothie_speed_exponentiation_factor=0.6
 let g:NERDTreeGitStatusConcealBrackets = 1
 let g:NERDTreeGitStatusIndicatorMapCustom = {
                 \ 'Modified'  :'',
