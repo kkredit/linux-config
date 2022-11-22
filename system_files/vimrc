@@ -57,7 +57,9 @@ if has('nvim')
 
   " Themes
   Plug 'Shatur/neovim-ayu'
-  Plug 'vigoux/oak'
+  " TODO: get beyond this pinned commit. Pinned because it had ugly changes,
+  " but it might be for fixable reasons (or I could fork it).
+  Plug 'vigoux/oak', {'commit': '1d42ebf81d5c667f5cdee3c3b94973bade01f74f'}
   Plug 'olimorris/onedarkpro.nvim'
 
   " Other
