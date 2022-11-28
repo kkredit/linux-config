@@ -27,6 +27,9 @@ alias unix2dosr='find . -type f -exec unix2dos {} \;'
 alias tm=tmux
 alias cat='bat --plain'
 alias preview="fzf --preview 'bat --color \"always\" {}'"
+# REPO_DIR gets expanded during install
+alias files='python3 REPO_DIR/submodules/PathPicker/src/process_input.py'
+alias prevcmd='history | tail -1 | cut -d" " -f4-'
 alias www='python3 -m http.server --bind localhost --cgi 8000'
 alias sshkeygen='ssh-keygen -t rsa'
 alias sshkeyinstall='ssh-copy-id -i ~/.ssh/id_rsa.pub'

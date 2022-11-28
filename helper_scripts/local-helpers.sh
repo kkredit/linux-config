@@ -11,6 +11,9 @@ if $MAC; then
   function grep() {
     ggrep "$@"
   }
+  function sed() {
+    gsed "$@"
+  }
   function ls() {
     gls "$@"
   }

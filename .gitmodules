@@ -29,3 +29,6 @@
 [submodule "submodules/zsh-snap"]
 	path = submodules/zsh-snap
 	url = https://github.com/marlonrichert/zsh-snap
+[submodule "submodules/PathPicker"]
+	path = submodules/PathPicker
+	url = https://github.com/kkredit/PathPicker

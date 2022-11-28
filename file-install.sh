@@ -13,6 +13,7 @@ install -m 644 $FILES_DIR/bashrc.sh ~/.bashrc
 install -m 644 $FILES_DIR/bash_profile.sh ~/.bash_profile
 install -m 644 $FILES_DIR/zprofile.zsh ~/.zprofile
 install -m 644 $FILES_DIR/bash_aliases.sh ~/.bash_aliases
+sed -i "s,REPO_DIR,$(pwd),g" ~/.bash_aliases
 install -m 644 $FILES_DIR/bash_functions.sh ~/.bash_functions
 install -m 644 $FILES_DIR/shrc_common.sh ~/.shrc_common
 install -m 644 $FILES_DIR/zshrc.zsh ~/.zshrc
