@@ -33,6 +33,7 @@ sourceIfPresent ~/git/linux-config/submodules/zsh-snap/znap.zsh
 znap source zsh-users/zsh-autosuggestions
 znap source zsh-users/zsh-syntax-highlighting
 function zvm_config {
+  ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
   ZVM_VI_ESCAPE_BINDKEY=jk
 }
 function zvm_after_init() {
