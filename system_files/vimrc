@@ -179,6 +179,10 @@ nnoremap <leader>kgb <cmd>Telescope git_branches<cr>
 nnoremap <leader>kt <cmd>Telescope treesitter<cr>
 nnoremap <leader>kk <cmd>Telescope builtin<cr>
 
+" Italics?
+"let &t_ZH="\e[3m"
+"let &t_ZR="\e[23m"
+
 " Colors
 syntax on
 set t_Co=256
