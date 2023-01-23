@@ -88,6 +88,7 @@ function install_basic {
 function install_dev {
   if $MAC; then
     brew install \
+      gh \
       pre-commit \
       gcc \
       make \
@@ -96,6 +97,7 @@ function install_dev {
       jq
   else
     sudo-pkg-mgr install -y \
+      gh \
       gcc \
       g++ \
       make \

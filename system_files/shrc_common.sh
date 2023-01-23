@@ -14,6 +14,11 @@ sourceIfPresent /usr/share/autojump/autojump.sh
 sourceIfPresent /opt/homebrew/etc/profile.d/autojump.sh
 sourceIfPresent ~/.cargo/env
 
+# Nvm
+export NVM_DIR="$HOME/.nvm"
+sourceIfPresent /opt/homebrew/opt/nvm/nvm.sh
+sourceIfPresent /opt/homebrew/opt/nvm/etc/bash_completion.d/nvm
+
 # Enable color support
 if [ -x /usr/bin/dircolors ] || [ -x /usr/local/bin/gdircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
