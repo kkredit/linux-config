@@ -5,27 +5,33 @@ alias rc='source ~/.bashrc'
 alias nvim='NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim'
 alias nvr='nvr --servername /tmp/nvimsocket'
 alias V='nvim $(find * -type f | fzf)'
-alias vim=nvim
+if which nvim &>/dev/null; then
+  alias vim=nvim
+fi
 alias vr='nvim ~/.vimrc'
 if $MAC; then
-  alias grep="ggrep \$COLOR_AUTO"
-  alias dircolors=gdircolors
-  alias sed=gsed
-  alias echo=gecho
+  if which ggrep &>/dev/null; then
+    alias grep="ggrep \$COLOR_AUTO"
+    alias dircolors=gdircolors
+    alias sed=gsed
+    alias echo=gecho
+  fi
   alias rmswap='rm -f /Users/kevinkredit/.local/state/nvim/swap/*'
 else
   alias grep="grep \$COLOR_AUTO"
   alias rmswap='rm -f ~/.local/state/nvim/swap/*'
 fi
 alias p=pwd
-alias ls='exa -F'
-alias ll='exa -alFh'
+if which exa &>/dev/null; then
+  alias ls='exa -F'
+  alias ll='exa -alFh'
+  alias cat='bat --plain'
+fi
 alias cpv='rsync -ah --info=progress2'
 alias tcn='mv --force -t ~/.local/share/Trash '
 alias dos2unixr='find . -type f -exec dos2unix {} \;'
 alias unix2dosr='find . -type f -exec unix2dos {} \;'
 alias tm=tmux
-alias cat='bat --plain'
 alias preview="fzf --preview 'bat --color \"always\" {}'"
 # REPO_DIR gets expanded during install
 alias files='python3 REPO_DIR/submodules/PathPicker/src/process_input.py'
@@ -62,9 +68,6 @@ alias txt2env='mkenvimage'
 alias dsf='git diff --no-index --color'
 alias strip_term_codes="sed 's/\x1B\[[0-9;]\+[A-Za-z]//g'"
 alias t='clear -x; tree -C | less -R'
-alias cg='cd `git rev-parse --show-toplevel`'
-alias lk='exa' # ls replacement
-#alias fd='fdfind' # find replacement -- with manual install process, alias not necessary
 alias ports='sudo lsof -i -P -n'
 alias listen='sudo lsof -i -P -n | grep LISTEN'
 alias ch=cht.sh

@@ -32,6 +32,8 @@ function install_basic {
       bash \
       grep \
       coreutils \
+      gnu-sed \
+      wget \
       vim \
       neovim \
       git \
@@ -84,17 +86,25 @@ function install_basic {
 # Other tools
 
 function install_dev {
-  sudo-pkg-mgr install -y \
-    gcc \
-    g++ \
-    make \
-    lcov \
-    libc6-dev-i386 \
-    jq
   if $MAC; then
-    brew install pre-commit
-  elif which pip3 &>/dev/null; then
-    pip3 install pre-commit jc
+    brew install \
+      pre-commit \
+      gcc \
+      make \
+      cmake \
+      lcov \
+      jq
+  else
+    sudo-pkg-mgr install -y \
+      gcc \
+      g++ \
+      make \
+      lcov \
+      libc6-dev-i386 \
+      jq
+    if which pip3 &>/dev/null; then
+      pip3 install pre-commit jc
+    fi
   fi
 }
 
@@ -108,25 +118,29 @@ function install_utilities {
     cargo install --git https://github.com/jez/barchart.git
   fi
 
-  # Bat (https://github.com/sharkdp/bat)
-  curl -s https://api.github.com/repos/sharkdp/bat/releases/latest \
-    | grep "browser_download_url.*x86_64-unknown-linux-gnu.tar.gz" \
-    | cut -d : -f 2,3 \
-    | tr -d \" \
-    | wget -qi -
-  tar -xf bat*linux-gnu.tar.gz
-  cp -r bat*linux-gnu/bat bat*linux-gnu/bat.1 bat*linux-gnu/autocomplete ~/bin/
-  rm -rf bat*linux-gnu*
+  if $MAC; then
+    brew install bat fd
+  else
+    # Bat (https://github.com/sharkdp/bat)
+    curl -s https://api.github.com/repos/sharkdp/bat/releases/latest \
+      | grep "browser_download_url.*x86_64-unknown-linux-gnu.tar.gz" \
+      | cut -d : -f 2,3 \
+      | tr -d \" \
+      | wget -qi -
+    tar -xf bat*linux-gnu.tar.gz
+    cp -r bat*linux-gnu/bat bat*linux-gnu/bat.1 bat*linux-gnu/autocomplete ~/bin/
+    rm -rf bat*linux-gnu*
 
-  # Fd (https://github.com/sharkdp/fd)
-  # NOTE: Can use officially maintained package with Ubuntu 19+
-  #sudo apt install fd-find
-  URL="https://github.com$(curl -Ls https://github.com/sharkdp/fd/releases/latest |
-                 grep -m 1 "x86_64-unknown-linux-gnu.tar.gz" | cut -d\" -f2)"
-  wget -q "$URL"
-  tar -xf fd*linux-gnu.tar.gz
-  cp -r fd*linux-gnu/fd fd*linux-gnu/fd.1 fd*linux-gnu/autocomplete ~/bin/
-  rm -rf fd*linux-gnu*
+    # Fd (https://github.com/sharkdp/fd)
+    # NOTE: Can use officially maintained package with Ubuntu 19+
+    #sudo apt install fd-find
+    URL="https://github.com$(curl -Ls https://github.com/sharkdp/fd/releases/latest |
+                   grep -m 1 "x86_64-unknown-linux-gnu.tar.gz" | cut -d\" -f2)"
+    wget -q "$URL"
+    tar -xf fd*linux-gnu.tar.gz
+    cp -r fd*linux-gnu/fd fd*linux-gnu/fd.1 fd*linux-gnu/autocomplete ~/bin/
+    rm -rf fd*linux-gnu*
+  fi
 }
 
 function install_cheat {
@@ -300,7 +314,7 @@ function install_mysql {
   sudo-pkg-mgr install -y \
     libmysqlclient-dev \
     mysql-workbench
-  }
+}
 
 function install_postgresql {
   sudo-pkg-mgr install -y \
@@ -321,15 +335,19 @@ function install_postgresql {
 }
 
 function install_node {
-  sudo-pkg-mgr install npm
-  curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-  sudo-pkg-mgr install -y nodejs
-  sudo chown -R "$USER":"$(id -gn "$USER")" ~/.config
-  sudo chown -R "$USER":"$(id -gn "$USER")" /usr/lib/node_modules/
-  export NODE_PATH='/usr/lib/node_modules'
-  echo "export NODE_PATH='/usr/lib/node_modules'" >> ~/.profile
-  # should be able to 'npm install -g' without sudo now
-  sudo-pkg-mgr autoremove -y
+  if $MAC; then
+    brew install node
+  else
+    sudo-pkg-mgr install npm
+    curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+    sudo-pkg-mgr install -y nodejs
+    sudo chown -R "$USER":"$(id -gn "$USER")" ~/.config
+    sudo chown -R "$USER":"$(id -gn "$USER")" /usr/lib/node_modules/
+    export NODE_PATH='/usr/lib/node_modules'
+    echo "export NODE_PATH='/usr/lib/node_modules'" >> ~/.profile
+    # should be able to 'npm install -g' without sudo now
+    sudo-pkg-mgr autoremove -y
+  fi
 }
 
 function install_react {
@@ -341,13 +359,17 @@ function install_react {
 }
 
 function install_yarn {
-  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-  echo "deb https://dl.yarnpkg.com/debian/ stable main" | \
-    sudo tee /etc/apt/sources.list.d/yarn.list
-  if which nvm &>/dev/null; then
-    sudo apt update && sudo apt install --no-install-recommends yarn
+  if $MAC; then
+    brew install yarn
   else
-    sudo apt update && sudo apt install yarn
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | \
+      sudo tee /etc/apt/sources.list.d/yarn.list
+    if which nvm &>/dev/null; then
+      sudo apt update && sudo apt install --no-install-recommends yarn
+    else
+      sudo apt update && sudo apt install yarn
+    fi
   fi
 }
 
@@ -422,13 +444,17 @@ function install_clojure {
 }
 
 function install_python {
-  sudo-pkg-mgr install python3-pip python-is-python3
+  if $MAC; then
+    brew install python@3.11
+  else
+    sudo-pkg-mgr install python3-pip python-is-python3
 
-  # Virtual environments: see https://realpython.com/python-virtual-environments-a-primer/
-  pip install --user \
-    virtualenv \
-    virtualenvwrapper
-  echo "source \$(which virtualenvwrapper.sh)" >> ~/.profile
+    # Virtual environments: see https://realpython.com/python-virtual-environments-a-primer/
+    pip install --user \
+      virtualenv \
+      virtualenvwrapper
+    echo "source \$(which virtualenvwrapper.sh)" >> ~/.profile
+  fi
 }
 
 function install_grip {
@@ -516,22 +542,28 @@ function install_wireshark {
 }
 
 function install_enpass {
-  # Enpass
-  echo "deb http://repo.sinew.in/ stable main" | \
-    sudo tee /etc/apt/sources.list.d/enpass.list > /dev/null
-  wget -O - https://dl.sinew.in/keys/enpass-linux.key | sudo apt-key add -
-  sudo-pkg-mgr update
-  sudo-pkg-mgr install -y enpass
-  xdg-open https://www.enpass.io/downloads/#extensions
-  echo "NOTICE: Install the Firefox extension from the browser."
+  if $MAC; then
+    brew install --cask enpass
+  else
+    echo "deb http://repo.sinew.in/ stable main" | \
+      sudo tee /etc/apt/sources.list.d/enpass.list > /dev/null
+    wget -O - https://dl.sinew.in/keys/enpass-linux.key | sudo apt-key add -
+    sudo-pkg-mgr update
+    sudo-pkg-mgr install -y enpass
+    xdg-open https://www.enpass.io/downloads/#extensions
+    echo "NOTICE: Install the Firefox extension from the browser."
+  fi
 }
 
 function install_signal {
-  # Signal
-  curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
-  echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | \
-    sudo tee -a /etc/apt/sources.list.d/signal-xenial.list > /dev/null
-  sudo-pkg-mgr update && sudo-pkg-mgr install signal-desktop
+  if $MAC; then
+    brew install --cask signal
+  else
+    curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
+    echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | \
+      sudo tee -a /etc/apt/sources.list.d/signal-xenial.list > /dev/null
+    sudo-pkg-mgr update && sudo-pkg-mgr install signal-desktop
+  fi
 }
 
 function install_sonarqube {
@@ -564,11 +596,15 @@ function install_sonarqube {
 }
 
 function install_chrome {
-  wget -q --show-progress -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-  echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | \
-    sudo tee /etc/apt/sources.list.d/google-chrome.list
-  sudo-pkg-mgr update
-  sudo-pkg-mgr install google-chrome-stable
+  if $MAC; then
+    brew install --cask google-chrome
+  else
+    wget -q --show-progress -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+    echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | \
+      sudo tee /etc/apt/sources.list.d/google-chrome.list
+    sudo-pkg-mgr update
+    sudo-pkg-mgr install google-chrome-stable
+  fi
 }
 
 function install_glow {
@@ -640,11 +676,16 @@ function install_elm {
 }
 
 function install_slacknzoom {
-  sudo snap install slack --classic
+  if $MAC; then
+    brew install --cask slack
+    brew install --cask zoom
+  else
+    sudo snap install slack --classic
 
-  wget https://zoom.us/client/latest/zoom_amd64.deb
-  sudo apt install ./zoom_amd64.deb
-  rm ./zoom_amd64.deb
+    wget https://zoom.us/client/latest/zoom_amd64.deb
+    sudo apt install ./zoom_amd64.deb
+    rm ./zoom_amd64.deb
+  fi
 }
 
 function install_tlaplus {
@@ -671,6 +712,8 @@ function install_tlaplus {
 ## Special function: setup on a new machine
 function install_setup {
   install_update
+  install_enpass
+  install_chrome
   install_git
   install_basic
   install_python
@@ -679,7 +722,6 @@ function install_setup {
   install_dev
   install_utilities
   install_fonts
-  install_bash
   install_zsh
 }
 

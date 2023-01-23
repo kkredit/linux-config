@@ -53,7 +53,9 @@ sourceIfPresent ~/.fzf.bash
 sourceIfPresent ~/.iterm2_shell_integration.bash
 sourceIfPresent ~/.shrc_common
 
-eval "$(starship init bash)"
+if which starship &>/dev/null; then
+  eval "$(starship init bash)"
+fi
 
 # print a quote or fortune, for fun
 # if which fortune &>/dev/null && type rand_in_range &>/dev/null; then

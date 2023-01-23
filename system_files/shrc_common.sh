@@ -11,6 +11,7 @@ sourceIfPresent ~/.bash_functions
 sourceIfPresent ~/.bashrc_local
 sourceIfPresent /usr/local/etc/profile.d/autojump.sh
 sourceIfPresent /usr/share/autojump/autojump.sh
+sourceIfPresent /opt/homebrew/etc/profile.d/autojump.sh
 sourceIfPresent ~/.cargo/env
 
 # Enable color support

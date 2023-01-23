@@ -7,7 +7,7 @@ ARGS=$(echo "$@" | tr '[:upper:]' '[:lower:]')
 WSL=$(uname -a | grep -iq microsoft && echo 'true' || echo 'false')
 MAC=$(uname -a | grep -q Darwin && echo 'true' || echo 'false')
 
-if $MAC; then
+if $MAC && which ggrep &>/dev/null; then
   function grep() {
     ggrep "$@"
   }
@@ -24,7 +24,11 @@ fi
 
 # Returns true if the specified arg is present in $ARGS
 function has_arg() {
-  echo "$ARGS" | grep -Pq "(^| )$1( |$)"
+  if $MAC && ! which ggrep &>/dev/null; then
+    echo "$ARGS" | grep -q "\(^\| \)$1\( \|$\)"
+  else
+    echo "$ARGS" | grep -Pq "(^| )$1( |$)"
+  fi
 }
 
 # Returns true if the variable specified in $1 has the text specified in $2

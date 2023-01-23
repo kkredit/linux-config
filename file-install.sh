@@ -86,7 +86,7 @@ if has_arg "alacritty"; then
   pushd submodules/alacritty-ligature > /dev/null || true
   if $MAC; then
     make app
-    cp -r target/release/osx/Alacritty.app /Applications/
+    sudo cp -r target/release/osx/Alacritty.app /Applications/
   else
     sudo apt-get install cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev python3
     cargo build --release

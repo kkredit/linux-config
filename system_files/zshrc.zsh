@@ -40,5 +40,6 @@ function zvm_after_init() {
   sourceIfPresent ~/.fzf.zsh
 }
 znap source jeffreytse/zsh-vi-mode
-znap eval starship "starship init zsh"
-znap prompt
+#znap eval starship "starship init zsh"
+#znap prompt
+eval $(starship init zsh)
