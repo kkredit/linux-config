@@ -385,16 +385,20 @@ function install_argdown {
 }
 
 function install_golang {
-  local URL FILE INST_DIR
-  URL="https://go.dev/$(curl -s https://go.dev/dl/ | grep "linux-amd64.tar.gz" | head -1 | cut -d\" -f4)"
-  FILE="$(echo "$URL" | rev | cut -d/ -f1 | rev)"
-  INST_DIR=/usr/local
+  if $MAC; then
+    brew install go
+  else
+    local URL FILE INST_DIR
+    URL="https://go.dev/$(curl -s https://go.dev/dl/ | grep "linux-amd64.tar.gz" | head -1 | cut -d\" -f4)"
+    FILE="$(echo "$URL" | rev | cut -d/ -f1 | rev)"
+    INST_DIR=/usr/local
 
-  echo "Downloading $URL..."
-  wget -q --show-progress "$URL"
-  echo "Untarring $FILE into $INST_DIR..."
-  sudo tar -C $INST_DIR -xzf "$FILE"
-  rm "$FILE"
+    echo "Downloading $URL..."
+    wget -q --show-progress "$URL"
+    echo "Untarring $FILE into $INST_DIR..."
+    sudo tar -C $INST_DIR -xzf "$FILE"
+    rm "$FILE"
+  fi
 
   if echo "$PATH" | grep -q "go/bin"; then
     echo "Adding $INST_DIR/go/bin to ~/.profile..."
