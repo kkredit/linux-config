@@ -215,6 +215,7 @@ require('mason-tool-installer').setup {
     'elm-language-server',
     'gopls',
     'grammarly-languageserver',
+    'graphql-language-service-cli',
     'json-lsp',
     'ltex-ls',
     'lua-language-server',
@@ -352,7 +353,7 @@ telescope.setup {
     mappings = {
       i = {
         ["<C-f>"] = actions.send_selected_to_qflist + actions.open_qflist,
-        ["<C-F>"] = actions.send_to_qflist + actions.open_qflist,
+        ["<C-a>"] = actions.send_to_qflist + actions.open_qflist,
       }
     }
   },
