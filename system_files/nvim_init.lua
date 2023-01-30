@@ -237,6 +237,7 @@ require('mason-tool-installer').setup {
     'buf',
     'cspell',
     'codespell',
+    'eslint-lsp',
     'markdownlint',
     'shellcheck',
     'tflint',
@@ -474,7 +475,10 @@ require("trouble").setup {
 }
 require('leap').set_default_keymaps()
 require('gitsigns').setup()
-require("which-key").setup()
+require('which-key').setup()
+require('glow').setup {
+  glow_path = vim.env.HOME .. '/.local/share/nvim/mason/bin/glow',
+}
 
 -- Start 'Telescope find_files' when Vim is started without file arguments.
 --vim.cmd([[

@@ -45,6 +45,7 @@ if has('nvim')
   Plug 'jose-elias-alvarez/null-ls.nvim'
   Plug 'mracos/mermaid.vim'
   Plug 'imsnif/kdl.vim'
+  Plug 'ellisonleao/glow.nvim'
 
   " Completion
   Plug 'hrsh7th/cmp-nvim-lsp'
