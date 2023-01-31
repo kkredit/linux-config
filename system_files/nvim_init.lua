@@ -119,7 +119,16 @@ local on_attach = function(_, bufnr) -- (client, bufnr)
   buf_set_keymap('n', '<leader>ln', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<leader>ls', '<cmd>lua vim.diagnostic.show()<CR>', opts)
   buf_set_keymap('n', '<leader>ll', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-  buf_set_keymap('n', '<leader>lf', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
+  MyFormat = function()
+    vim.lsp.buf.format {
+      async = true,
+      filter = function(client)
+        return client.name ~= "tsserver"
+      end,
+    }
+  end
+  buf_set_keymap('n', '<leader>lf', '<cmd>lua MyFormat()<CR>', opts)
+  --buf_set_keymap('n', '<leader>lf', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
 
   buf_set_keymap('n', '<leader>l1', '<cmd>LspRestart<CR>', opts)
 end
@@ -237,6 +246,7 @@ require('mason-tool-installer').setup {
     'buf',
     'cspell',
     'codespell',
+    'editorconfig-checker',
     'eslint-lsp',
     'markdownlint',
     'shellcheck',
@@ -247,6 +257,7 @@ require('mason-tool-installer').setup {
     'gofumpt',
     'goimports',
     'jq',
+    'prettierd',
     'shfmt',
   },
 
@@ -290,6 +301,9 @@ null_ls.setup({
     null_ls.builtins.diagnostics.actionlint,
     null_ls.builtins.diagnostics.buf,
     null_ls.builtins.diagnostics.codespell,
+    null_ls.builtins.diagnostics.editorconfig_checker.with {
+      command = 'editorconfig-checker'
+    },
     null_ls.builtins.diagnostics.markdownlint,
     -- Semgrep -- works, but burns CPU
     --null_ls.builtins.diagnostics.semgrep.with({
@@ -309,6 +323,7 @@ null_ls.setup({
     null_ls.builtins.formatting.codespell,
     null_ls.builtins.formatting.goimports,
     null_ls.builtins.formatting.jq,
+    null_ls.builtins.formatting.prettierd,
     null_ls.builtins.formatting.shfmt,
   },
 })
@@ -482,6 +497,6 @@ require('glow').setup {
 
 -- Start 'Telescope find_files' when Vim is started without file arguments.
 --vim.cmd([[
-  --autocmd StdinReadPre * let s:std_in=1
-  --autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | :Telescope find_files | endif
+--autocmd StdinReadPre * let s:std_in=1
+--autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | :Telescope find_files | endif
 --]])
