@@ -43,6 +43,7 @@ if has('nvim')
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
   Plug 'mfussenegger/nvim-dap'
   Plug 'jose-elias-alvarez/null-ls.nvim'
+  Plug 'jose-elias-alvarez/typescript.nvim'
   Plug 'mracos/mermaid.vim'
   Plug 'imsnif/kdl.vim'
   Plug 'ellisonleao/glow.nvim'
