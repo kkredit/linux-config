@@ -142,7 +142,7 @@ nnoremap <silent> <leader>, :noh<CR>:cclose<CR>:lclose<CR>:NERDTreeClose<CR>:Tro
 nnoremap <leader>z za<CR>
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y
-nnoremap <leader>p "+p
+"nnoremap <leader>p "+p
 nnoremap <leader>i i_<Esc>r
 nnoremap <leader>rw ciw<C-R>0<ESC>
 vnoremap <leader>a :CocAction<CR>
