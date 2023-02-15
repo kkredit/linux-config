@@ -80,6 +80,8 @@ call plug#end()
 " Plugin configuration
 let g:smoothie_speed_linear_factor=80
 let g:smoothie_speed_exponentiation_factor=0.6
+let g:NERDSpaceDelims = 1
+let g:NERDCommentEmptyLines = 1
 let g:NERDTreeGitStatusConcealBrackets = 1
 let g:NERDTreeGitStatusIndicatorMapCustom = {
                 \ 'Modified'  :'',
@@ -130,6 +132,10 @@ let g:bullets_enabled_file_types = [
 " Keymappings
 let mapleader = " "
 let timeoutlen = 500
+
+" gi: go to last insertion and enter insert mode
+" so gl: go to last insertion and start in normal mode
+nnoremap gl `.
 
 nnoremap <silent> <leader>w :w<CR>
 nnoremap <leader>W :wq<CR>

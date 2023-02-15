@@ -93,51 +93,46 @@ end
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local keymapsSet = false
 local on_attach = function(_, bufnr) -- (client, bufnr)
-  if (not keymapsSet) then
-    keymapsSet = true -- only set via on_attach once
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+  -- Enable completion triggered by <c-x><c-o>
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-    -- Enable completion triggered by <c-x><c-o>
-    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+  -- Mappings
+  local opts = { noremap = true, silent = true }
 
-    -- Mappings
-    local opts = { noremap = true, silent = true }
-
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    --buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    --buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    --buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    --buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    --buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    --buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    buf_set_keymap('n', '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    buf_set_keymap('n', '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    buf_set_keymap('v', '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    --buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    buf_set_keymap('n', '<leader>le', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-    buf_set_keymap('n', '<leader>lN', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-    buf_set_keymap('n', '<leader>ln', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-    buf_set_keymap('n', '<leader>ls', '<cmd>lua vim.diagnostic.show()<CR>', opts)
-    buf_set_keymap('n', '<leader>ll', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-    MyFormat = function()
-      vim.lsp.buf.format {
-        async = true,
-        filter = fmtFilter,
-      }
-    end
-    buf_set_keymap('n', '<leader>lf', '<cmd>lua MyFormat()<CR>', opts)
-    --buf_set_keymap('n', '<leader>lf', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
-
-    buf_set_keymap('n', '<leader>l1', '<cmd>LspRestart<CR>', opts)
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  --buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  --buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  --buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  --buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  --buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  --buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  --buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('v', '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  --buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '<leader>le', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+  buf_set_keymap('n', '<leader>lN', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', '<leader>ln', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<leader>ls', '<cmd>lua vim.diagnostic.show()<CR>', opts)
+  buf_set_keymap('n', '<leader>ll', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+  MyFormat = function()
+    vim.lsp.buf.format {
+      async = true,
+      filter = fmtFilter,
+    }
   end
+  buf_set_keymap('n', '<leader>lf', '<cmd>lua MyFormat()<CR>', opts)
+  --buf_set_keymap('n', '<leader>lf', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
+
+  buf_set_keymap('n', '<leader>l1', '<cmd>LspRestart<CR>', opts)
 end
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -199,8 +194,8 @@ mason_lspconfig.setup_handlers({
       filetypes = { 'latex' },
     })
   end,
-  ["sumneko_lua"] = function(_)
-    lspconfig.sumneko_lua.setup({
+  ["lua_ls"] = function(_)
+    lspconfig.lua_ls.setup({
       on_attach = on_attach,
       capabilities = capabilities,
       settings = {
@@ -236,9 +231,12 @@ require("typescript").setup({
       -- normal on_attach + autofmt
       on_attach_with_autofmt(client, bufnr)
       -- override go-to-definition (requires TS 4.7)
-      --local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-      --local opts = { noremap = true, silent = true }
-      --buf_set_keymap('n', 'gd', ':silent TypescriptGoToSourceDefinition<CR>', opts)
+      local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+      local opts = { noremap = true, silent = true }
+      -- somehow, despite trying so many things, I cannot suppress the error
+      --  > go to source definition failed: requires typescript 4.7
+      -- so instead of overriding `gd`, override `gD` and use it only when necessary.
+      buf_set_keymap('n', 'gD', ':silent! TypescriptGoToSourceDefinition<CR>', opts)
     end,
     capabilities = capabilities,
   },
@@ -354,7 +352,7 @@ null_ls.setup({
     null_ls.builtins.diagnostics.yamllint,
 
     null_ls.builtins.formatting.buf,
-    null_ls.builtins.formatting.codespell,
+    -- null_ls.builtins.formatting.codespell,
     null_ls.builtins.formatting.goimports,
     null_ls.builtins.formatting.jq,
     null_ls.builtins.formatting.prettierd,
