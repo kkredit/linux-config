@@ -60,10 +60,9 @@ if has('nvim')
 
   " Themes
   Plug 'Shatur/neovim-ayu'
-  " TODO: get beyond this pinned commit. Pinned because it had ugly changes,
-  " but it might be for fixable reasons (or I could fork it).
-  Plug 'vigoux/oak', {'commit': '1d42ebf81d5c667f5cdee3c3b94973bade01f74f'}
+  Plug 'kkredit/oak'
   Plug 'olimorris/onedarkpro.nvim'
+  Plug 'norcalli/nvim-colorizer.lua'
 
   " Other
   Plug 'ggandor/leap.nvim'
@@ -187,10 +186,6 @@ nnoremap <leader>kgc <cmd>Telescope git_commits<cr>
 nnoremap <leader>kgb <cmd>Telescope git_branches<cr>
 nnoremap <leader>kt <cmd>Telescope treesitter<cr>
 nnoremap <leader>kk <cmd>Telescope builtin<cr>
-
-" Italics?
-"let &t_ZH="\e[3m"
-"let &t_ZR="\e[23m"
 
 " Colors
 syntax on
