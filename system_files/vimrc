@@ -145,7 +145,7 @@ inoremap jk <esc>
 inoremap kj <esc>
 nnoremap <silent> <leader>d :NERDTreeFind<CR>
 nnoremap <silent> <leader>/ :NERDTreeToggle<CR>
-nnoremap <silent> <leader>, :noh<CR>:cclose<CR>:lclose<CR>:NERDTreeClose<CR>:TroubleClose<CR><C-l>
+nnoremap <silent> <leader>, :noh<CR>:cclose<CR>:lclose<CR>:TroubleClose<CR>:NERDTreeClose<CR><C-l>
 nnoremap <leader>z za<CR>
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y
