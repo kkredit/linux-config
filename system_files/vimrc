@@ -49,22 +49,24 @@ if has('nvim')
   Plug 'ellisonleao/glow.nvim'
 
   " Completion
+  Plug 'hrsh7th/nvim-cmp'
   Plug 'hrsh7th/cmp-nvim-lsp'
   Plug 'hrsh7th/cmp-buffer'
   Plug 'hrsh7th/cmp-path'
   Plug 'hrsh7th/cmp-cmdline'
-  Plug 'hrsh7th/nvim-cmp'
   Plug 'hrsh7th/cmp-vsnip'
   Plug 'hrsh7th/vim-vsnip'
   Plug 'rafamadriz/friendly-snippets'
 
   " Themes
   Plug 'Shatur/neovim-ayu'
-  Plug 'kkredit/oak'
+  Plug 'vigoux/oak'
   Plug 'olimorris/onedarkpro.nvim'
   Plug 'norcalli/nvim-colorizer.lua'
 
   " Other
+  Plug 'akinsho/bufferline.nvim'
+  Plug 'RRethy/vim-illuminate'
   Plug 'ggandor/leap.nvim'
   Plug 'folke/which-key.nvim'
   Plug 'folke/trouble.nvim'
@@ -96,12 +98,7 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
                 \ }
 let g:highlightedyank_highlight_duration = 150
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
 let g:airline_detect_spell = 0
-let g:airline_left_sep = ""
-let g:airline_left_alt_sep = "|"
-let g:airline_right_sep = ""
-let g:airline_right_alt_sep = "|"
 let g:gitblame_enabled = 0
 let g:auto_session_pre_save_cmds = ["tabdo NERDTreeClose"]
 " Close the tab if NERDTree is the only window remaining in it.
@@ -109,16 +106,6 @@ autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTa
 " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
 autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
-" Completion (nvim-compe)
-let g:compe = {}
-let g:compe.enabled = v:true
-let g:compe.autocomplete = v:true
-let g:compe.source = {}
-let g:compe.source.path = v:true
-let g:compe.source.buffer = v:true
-let g:compe.source.calc = v:true
-let g:compe.source.nvim_lsp = v:true
-let g:compe.source.treesitter = v:true
 " Bullets.vim
 let g:bullets_enabled_file_types = [
     \ 'markdown',
@@ -194,6 +181,8 @@ set t_ut=
 if has('nvim')
   let g:airline_theme = 'tomorrow'
   colorscheme oak
+  call oak#hi('String', g:oak#palette.trunk5, '', 'italic')
+  call oak#hi('Identifier', g:oak#palette.leaf2)
   hi MatchParen ctermbg=Brown guibg=Brown
 else
   let g:airline_theme = 'jellybeans'
@@ -259,6 +248,7 @@ nnoremap <leader>b<BS> <C-^>
 nnoremap <leader>bn :bn<CR>
 nnoremap <leader>bN :bN<CR>
 nnoremap <leader>bd :bd<CR>
+nnoremap <leader>bp :BufferLineTogglePin<CR>
 
 " Markdown settings
 autocmd Filetype markdown call SetMarkdownOptions()

@@ -28,12 +28,13 @@ cmp.setup({
   }),
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
+    { name = 'buffer' },
+    { name = 'path' },
     { name = 'vsnip' }, -- For vsnip users.
     -- { name = 'luasnip' }, -- For luasnip users.
     -- { name = 'ultisnips' }, -- For ultisnips users.
     -- { name = 'snippy' }, -- For snippy users.
   }, {
-    { name = 'buffer' },
   })
 })
 
@@ -461,8 +462,6 @@ require 'nvim-treesitter.configs'.setup {
     },
   },
 }
-vim.api.nvim_set_hl(0, "@variable", { fg = '#2DC7D2' })
-vim.api.nvim_set_hl(0, "@string", { fg = '#FEEFE1', italic = true })
 
 local ts_repeat_move = require "nvim-treesitter.textobjects.repeatable_move"
 
@@ -530,6 +529,26 @@ require('glow').setup {
   glow_path = vim.env.HOME .. '/.local/share/nvim/mason/bin/glow',
 }
 require('colorizer').setup()
+require('illuminate').configure()
+vim.opt.termguicolors = true
+require('bufferline').setup {
+  options = {
+    mode = 'buffers',
+    show_buffer_icons = false,
+    diagnostics = 'nvim_lsp',
+    separator_style = 'thick',
+  },
+  -- highlights = {
+    -- buffer_visible = {
+      -- -- fg = '#7A5454',
+      -- bg = '#7A5454'
+    -- },
+    -- buffer_selected = {
+      -- -- fg = '#7A5454',
+      -- bg = '#7A5454'
+    -- },
+  -- }
+}
 
 -- Start 'Telescope find_files' when Vim is started without file arguments.
 --vim.cmd([[
