@@ -33,6 +33,7 @@ fi
 mkdir -p ~/.config/zellij
 install -m 644 $FILES_DIR/zellij_config.kdl ~/.config/zellij/config.kdl
 install -m 644 $FILES_DIR/zellij_layout.kdl ~/.config/zellij/layout.kdl
+install -m 644 $FILES_DIR/zellij_layout_full.kdl ~/.config/zellij/layout_full.kdl
 install -m 644 $FILES_DIR/xinitrc ~/.xinitrc
 install -m 644 $FILES_DIR/Xmodmap ~/.Xmodmap
 install -m 644 $FILES_DIR/gerrit_functions.sh ~/.gerrit_functions.sh
