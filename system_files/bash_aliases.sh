@@ -9,6 +9,7 @@ if which nvim &>/dev/null; then
   alias vim=nvim
 fi
 alias vr='nvim ~/.vimrc'
+alias rmswap='rm -rf ~/.local/state/nvim/swap/*'
 if $MAC; then
   if which ggrep &>/dev/null; then
     alias grep="ggrep \$COLOR_AUTO"
@@ -16,10 +17,8 @@ if $MAC; then
     alias sed=gsed
     alias echo=gecho
   fi
-  alias rmswap='rm -f /Users/kevinkredit/.local/state/nvim/swap/*'
 else
   alias grep="grep \$COLOR_AUTO"
-  alias rmswap='rm -f ~/.local/state/nvim/swap/*'
 fi
 alias p=pwd
 if which exa &>/dev/null; then
