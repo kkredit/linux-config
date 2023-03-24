@@ -282,6 +282,7 @@ require('mason-tool-installer').setup {
     'eslint-lsp',
     'markdownlint',
     'shellcheck',
+    'sqlfluff',
     'tflint',
     'yamllint',
 
@@ -350,6 +351,9 @@ null_ls.setup({
     --timeout = 30000, -- ms
     --}),
     null_ls.builtins.diagnostics.shellcheck,
+    null_ls.builtins.diagnostics.sqlfluff.with {
+      extra_args = { "--dialect", "postgres" },
+    },
     null_ls.builtins.diagnostics.yamllint,
 
     null_ls.builtins.formatting.buf,
@@ -358,6 +362,9 @@ null_ls.setup({
     null_ls.builtins.formatting.jq,
     null_ls.builtins.formatting.prettierd,
     null_ls.builtins.formatting.shfmt,
+    null_ls.builtins.formatting.sqlfluff.with {
+      extra_args = { "--dialect", "postgres" },
+    },
   },
 })
 
