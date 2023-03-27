@@ -94,7 +94,8 @@ function install_dev {
       make \
       cmake \
       lcov \
-      jq
+      jq \
+      tfsec
   else
     sudo-pkg-mgr install -y \
       gh \
