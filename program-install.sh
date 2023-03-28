@@ -95,7 +95,8 @@ function install_dev {
       cmake \
       lcov \
       jq \
-      tfsec
+      tfsec \
+      scc
   else
     sudo-pkg-mgr install -y \
       gh \
@@ -108,6 +109,8 @@ function install_dev {
     if which pip3 &>/dev/null; then
       pip3 install pre-commit jc
     fi
+    sudo snap install \
+      scc
   fi
 }
 
