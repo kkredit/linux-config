@@ -455,7 +455,7 @@ function install_clojure {
 
 function install_python {
   if $MAC; then
-    brew install python@3.11
+    brew install python@latest
   else
     sudo-pkg-mgr install python3-pip python-is-python3
 
@@ -465,6 +465,11 @@ function install_python {
       virtualenvwrapper
     echo "source \$(which virtualenvwrapper.sh)" >> ~/.profile
   fi
+
+  curl -sSL https://install.python-poetry.org | python3 -
+  poetry completions bash >> ~/.bash_completion
+  mkdir -p ~/.zfunc
+  poetry completions zsh > ~/.zfunc/_poetry
 }
 
 function install_grip {

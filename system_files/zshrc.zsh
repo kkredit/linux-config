@@ -16,6 +16,7 @@ zstyle :compinstall filename '/home/kevinkredcompleteit/.zshrc'
 
 zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
 fpath=(~/.zsh $fpath)
+fpath+=~/.zfunc
 
 autoload -Uz compinit && compinit
 autoload -Uz bashcompinit && bashcompinit
