@@ -377,6 +377,7 @@ function install_yarn {
       sudo apt update && sudo apt install yarn
     fi
   fi
+  yarn global add yarn-completions
 }
 
 function install_argdown {

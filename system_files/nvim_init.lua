@@ -6,13 +6,13 @@ local cmp = require('cmp')
 
 cmp.setup({
   -- snippet = {
-    -- -- REQUIRED - you must specify a snippet engine
-    -- expand = function(args)
-      -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-      -- -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-      -- -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-      -- -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-    -- end,
+  -- -- REQUIRED - you must specify a snippet engine
+  -- expand = function(args)
+  -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+  -- -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+  -- -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+  -- -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+  -- end,
   -- },
 
   window = {
@@ -215,10 +215,26 @@ mason_lspconfig.setup_handlers({
       },
     })
   end,
+  ["pylsp"] = function(_)
+    lspconfig.pylsp.setup({
+      on_attach = on_attach_with_autofmt,
+      capabilities = capabilities,
+      settings = {
+        pylsp = {
+          plugins = {
+            pycodestyle = {
+              maxLineLength = 999, -- let other tools handle this
+            }
+          }
+        }
+      }
+    })
+  end,
 })
 
 require("typescript").setup({
-  server = { -- pass options to lspconfig's setup method
+  server = {
+    -- pass options to lspconfig's setup method
     on_attach = function(client, bufnr)
       -- auto-import
       vim.api.nvim_create_autocmd("BufWritePre", {
@@ -262,8 +278,9 @@ require('mason-tool-installer').setup {
     'lua-language-server',
     'marksman',
     'pyright',
+    'python-lsp-server',
     'rust-analyzer',
-    'sqls',
+    'sqlls',
     'taplo',
     'typescript-language-server',
     'terraform-ls',
@@ -287,8 +304,10 @@ require('mason-tool-installer').setup {
     'yamllint',
 
     -- formatters
+    'black',
     'gofumpt',
     'goimports',
+    'isort',
     'jq',
     'prettierd',
     'shfmt',
@@ -358,9 +377,11 @@ null_ls.setup({
     },
     null_ls.builtins.diagnostics.yamllint,
 
+    null_ls.builtins.formatting.black,
     null_ls.builtins.formatting.buf,
     -- null_ls.builtins.formatting.codespell,
     null_ls.builtins.formatting.goimports,
+    null_ls.builtins.formatting.isort,
     null_ls.builtins.formatting.jq,
     null_ls.builtins.formatting.prettierd,
     null_ls.builtins.formatting.shfmt,
@@ -414,7 +435,7 @@ require 'nvim-treesitter.configs'.setup {
       },
       selection_modes = {
         ['@parameter.outer'] = 'v', -- charwise
-        ['@function.outer'] = 'V', -- linewise
+        ['@function.outer'] = 'V',  -- linewise
         ['@class.outer'] = '<c-v>', -- blockwise
       },
     },
@@ -549,14 +570,14 @@ require('bufferline').setup {
     separator_style = 'thick',
   },
   -- highlights = {
-    -- buffer_visible = {
-      -- -- fg = '#7A5454',
-      -- bg = '#7A5454'
-    -- },
-    -- buffer_selected = {
-      -- -- fg = '#7A5454',
-      -- bg = '#7A5454'
-    -- },
+  -- buffer_visible = {
+  -- -- fg = '#7A5454',
+  -- bg = '#7A5454'
+  -- },
+  -- buffer_selected = {
+  -- -- fg = '#7A5454',
+  -- bg = '#7A5454'
+  -- },
   -- }
 }
 
