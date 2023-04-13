@@ -345,6 +345,7 @@ null_ls.setup({
       filetypes = { 'markdown', 'latex', 'text' },
     }),
     null_ls.builtins.code_actions.gitsigns,
+    null_ls.builtins.code_actions.refactoring,
     null_ls.builtins.code_actions.shellcheck,
     require('typescript.extensions.null-ls.code-actions'),
 

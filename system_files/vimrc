@@ -47,6 +47,7 @@ if has('nvim')
   Plug 'mracos/mermaid.vim'
   Plug 'imsnif/kdl.vim'
   Plug 'ellisonleao/glow.nvim'
+  Plug 'ThePrimeagen/refactoring.nvim'
 
   " Completion
   Plug 'hrsh7th/nvim-cmp'
