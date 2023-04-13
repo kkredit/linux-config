@@ -40,6 +40,9 @@ install -m 644 $FILES_DIR/gerrit_functions.sh ~/.gerrit_functions.sh
 install -m 644 $FILES_DIR/gitconfig ~/.gitconfig
 install -m 644 $FILES_DIR/gitignore_global ~/.gitignore_global
 install -m 644 $FILES_DIR/ripgreprc ~/.ripgreprc
+if $MAC && [ -d ~/.gnupg ]; then
+  grep "pinentry" ~/.gnupg/gpg-agent.conf || echo "pinentry-program $(which pinentry-mac)" >> ~/.gnupg/gpg-agent.conf
+fi
 
 # WSL files
 if $WSL; then
