@@ -41,7 +41,7 @@ install -m 644 $FILES_DIR/gitconfig ~/.gitconfig
 install -m 644 $FILES_DIR/gitignore_global ~/.gitignore_global
 install -m 644 $FILES_DIR/ripgreprc ~/.ripgreprc
 if $MAC && [ -d ~/.gnupg ]; then
-  grep "pinentry" ~/.gnupg/gpg-agent.conf || echo "pinentry-program $(which pinentry-mac)" >> ~/.gnupg/gpg-agent.conf
+  grep "pinentry" ~/.gnupg/gpg-agent.conf >/dev/null || echo "pinentry-program $(which pinentry-mac)" >> ~/.gnupg/gpg-agent.conf
 fi
 
 # WSL files
