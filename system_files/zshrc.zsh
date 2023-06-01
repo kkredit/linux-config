@@ -12,10 +12,9 @@ unsetopt beep
 bindkey -v
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '/home/kevinkredcompleteit/.zshrc'
+zstyle :compinstall filename "$HOME/.zshrc"
 
 zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
-zstyle ':completion:*:*:gt:*' script ~/.zsh/gt-completion.bash
 fpath=(~/.zsh $fpath)
 fpath+=~/.zfunc
 
@@ -27,21 +26,27 @@ autoload -Uz bashcompinit && bashcompinit
 function sourceIfPresent() {
     [ -f "$1" ] && source "$1"
 }
-sourceIfPresent ~/.fzf.zsh
 sourceIfPresent ~/.shrc_common
 
-# Znap
-sourceIfPresent ~/git/linux-config/submodules/zsh-snap/znap.zsh
-znap source zsh-users/zsh-autosuggestions
-znap source zsh-users/zsh-syntax-highlighting
-function zvm_config {
-  ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
-  ZVM_VI_ESCAPE_BINDKEY=jk
-}
-function zvm_after_init() {
-  sourceIfPresent ~/.fzf.zsh
-}
-znap source jeffreytse/zsh-vi-mode
+# Starship
+eval $(starship init zsh)
+# these don't seem to work
 #znap eval starship "starship init zsh"
 #znap prompt
-eval $(starship init zsh)
+
+# Znap
+if [ -f ~/git/linux-config/submodules/zsh-snap/znap.zsh ]; then
+  source ~/git/linux-config/submodules/zsh-snap/znap.zsh
+
+  znap source zsh-users/zsh-autosuggestions
+  function zvm_config {
+    ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
+    ZVM_VI_ESCAPE_BINDKEY=jk
+  }
+  function zvm_after_init() {
+    sourceIfPresent ~/.fzf.zsh
+    # must be last, so do in the "after" hook of the last thing
+    znap source zsh-users/zsh-syntax-highlighting
+  }
+  znap source jeffreytse/zsh-vi-mode
+fi

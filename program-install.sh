@@ -117,9 +117,7 @@ function install_dev {
 function install_graphite {
   if $MAC; then
     brew install withgraphite/tap/graphite
-    # not sure which one is really needed
     gt completion >> ~/.zsh/_gt
-    gt completion >> ~/.zsh/gt-completion.bash
   fi
 }
 
