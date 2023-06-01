@@ -114,6 +114,15 @@ function install_dev {
   fi
 }
 
+function install_graphite {
+  if $MAC; then
+    brew install withgraphite/tap/graphite
+    # not sure which one is really needed
+    gt completion >> ~/.zsh/_gt
+    gt completion >> ~/.zsh/gt-completion.bash
+  fi
+}
+
 function install_utilities {
   if [[ $(which cargo) ]]; then
     cargo install \

@@ -15,6 +15,7 @@ bindkey -v
 zstyle :compinstall filename '/home/kevinkredcompleteit/.zshrc'
 
 zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
+zstyle ':completion:*:*:gt:*' script ~/.zsh/gt-completion.bash
 fpath=(~/.zsh $fpath)
 fpath+=~/.zfunc
 
