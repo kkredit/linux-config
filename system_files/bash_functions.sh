@@ -306,7 +306,7 @@ function serial() {
 
 	# shellcheck disable=SC2012
 	TTYS="$(ls /dev/ttyUSB? 2>/dev/null) \
-          $(ls /dev/ttyS* | perl -e 'print sort { length($a) <=> length($b) } <>')"
+					$(ls /dev/ttyS* | perl -e 'print sort { length($a) <=> length($b) } <>')"
 	CURRENT_DEV_NUM=0
 	for TTY in $TTYS; do
 		echo "Trying $TTY"
@@ -340,7 +340,7 @@ function directssh() {
 	echo " 4. Connect to the device via SSH in a new terminal."
 	echo "================================================================"
 	bash -c "sudo dnsmasq -d -C /dev/null --port=0 --domain=localdomain \
-                --interface=$1 --dhcp-range=$IP_BASE.2,$IP_BASE.9,24h"
+		--interface=$1 --dhcp-range=$IP_BASE.2,$IP_BASE.9,24h"
 	# Above waits for Ctrl-C...
 	sudo ip address del $IP_BASE.1/24 dev "$1"
 	sudo service network-manager restart
@@ -361,21 +361,21 @@ function git-author-rewrite() {
 
 	git filter-branch --env-filter '
 
-    OLD_EMAIL='"$1"'
-    CORRECT_NAME="Kevin Kredit"
-    CORRECT_EMAIL='"$2"'
+		OLD_EMAIL='"$1"'
+		CORRECT_NAME="Kevin Kredit"
+		CORRECT_EMAIL='"$2"'
 
-    if [ "$GIT_COMMITTER_EMAIL" = "$OLD_EMAIL" ]; then
-        export GIT_COMMITTER_NAME="$CORRECT_NAME"
-        export GIT_COMMITTER_EMAIL="$CORRECT_EMAIL"
-    fi
+		if [ "$GIT_COMMITTER_EMAIL" = "$OLD_EMAIL" ]; then
+				export GIT_COMMITTER_NAME="$CORRECT_NAME"
+				export GIT_COMMITTER_EMAIL="$CORRECT_EMAIL"
+		fi
 
-    if [ "$GIT_AUTHOR_EMAIL" = "$OLD_EMAIL" ]; then
-        export GIT_AUTHOR_NAME="$CORRECT_NAME"
-        export GIT_AUTHOR_EMAIL="$CORRECT_EMAIL"
-    fi
+		if [ "$GIT_AUTHOR_EMAIL" = "$OLD_EMAIL" ]; then
+				export GIT_AUTHOR_NAME="$CORRECT_NAME"
+				export GIT_AUTHOR_EMAIL="$CORRECT_EMAIL"
+		fi
 
-    ' --tag-name-filter cat -- --branches --tags
+		' --tag-name-filter cat -- --branches --tags
 }
 
 extract() {
