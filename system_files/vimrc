@@ -178,6 +178,7 @@ nnoremap <leader>kgc <cmd>Telescope git_commits<cr>
 nnoremap <leader>kgb <cmd>Telescope git_branches<cr>
 nnoremap <leader>kt <cmd>Telescope treesitter<cr>
 nnoremap <leader>kk <cmd>Telescope builtin<cr>
+nnoremap <leader>kc <cmd>Copilot panel<cr>
 
 " Colors
 syntax on
