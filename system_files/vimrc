@@ -215,8 +215,8 @@ endif
 
 nnoremap <leader>v1 :set background=dark<CR>:let g:airline_theme = 'tomorrow'<CR>:colorscheme oak<CR><C-l>
 nnoremap <leader>v2 :set background=dark<CR>:let g:airline_theme = 'jellybeans'<CR>:colorscheme ayu<CR><C-l>
-nnoremap <leader>v3 :set background=dark<CR>:let g:airline_theme = 'jellybeans'<CR>:colorscheme codedark<CR><C-l>
-nnoremap <leader>v6 :set background=light<CR>:colorscheme onedarkpro<CR><C-l>
+nnoremap <leader>v3 :set background=dark<CR>:let g:airline_theme = 'jellybeans'<CR>:colorscheme onedark_dark<CR><C-l>
+nnoremap <leader>v6 :set background=light<CR>:let g:airline_theme = 'papercolor'<CR>:colorscheme ayu-light<CR><C-l>
 
 " Indentation & tabs
 set backspace=indent,eol,start
