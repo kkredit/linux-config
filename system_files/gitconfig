@@ -71,11 +71,11 @@
     first = rev-list --max-parents=0 HEAD
     orphan = checkout --orphan orphan
     gmail = config user.email knkredit60@gmail.com
-    kx = "!git config user.email kevin@kodex.us && \
+    kx = "!git config user.email kevin@kodexglobal.com && \
            git config branch.master.pushRemote no_push && \
            git config branch.main.pushRemote no_push && \
            git config submodule.recurse true && \
-           git config user.signingkey BB54617B3A6FE87B && \
+           git config user.signingkey 6074C283D843ECC1 && \
            git config commit.gpgsign true"
     patchify = format-patch -1
     assume = update-index --assume-unchanged
