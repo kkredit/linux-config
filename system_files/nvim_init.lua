@@ -295,7 +295,7 @@ require('mason-tool-installer').setup {
     'buf',
     'cspell',
     'codespell',
-    'editorconfig-checker',
+    -- 'editorconfig-checker', -- seems to cause false alarms
     'eslint-lsp',
     'markdownlint',
     'shellcheck',
@@ -354,7 +354,9 @@ null_ls.setup({
 
     null_ls.builtins.diagnostics.actionlint,
     null_ls.builtins.diagnostics.buf,
-    null_ls.builtins.diagnostics.codespell,
+    null_ls.builtins.diagnostics.codespell.with {
+      args = { '-L requestor' },
+    },
     null_ls.builtins.diagnostics.editorconfig_checker.with {
       command = 'editorconfig-checker'
     },
