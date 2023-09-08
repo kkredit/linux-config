@@ -185,7 +185,7 @@ function install_fonts {
 
   # Nerd fonts
   for font in FiraCode Hack; do
-    file_url="https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/${font}.zip"
+    file_url="https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/${font}.zip"
     echo "wget  ${file_url} -O ${font}.zip"
     wget "${file_url}" -O "${font}.zip"
     unzip ${font}.zip -d $font
