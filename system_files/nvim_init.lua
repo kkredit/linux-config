@@ -357,9 +357,9 @@ null_ls.setup({
     null_ls.builtins.diagnostics.codespell.with {
       args = { '-L requestor' },
     },
-    null_ls.builtins.diagnostics.editorconfig_checker.with {
-      command = 'editorconfig-checker'
-    },
+    -- null_ls.builtins.diagnostics.editorconfig_checker.with {
+    -- command = 'editorconfig-checker'
+    -- },
     null_ls.builtins.diagnostics.markdownlint,
     -- Semgrep -- works, but burns CPU
     --null_ls.builtins.diagnostics.semgrep.with({
