@@ -175,14 +175,13 @@ function install_gitsecrets {
   rm git-secrets
 }
 
-if has_arg "vscodium"; then
+if has_arg "vscode"; then
     if $MAC; then
-        brew install --cask vscodium
+        brew install --cask visual-studio-code
     else
-        snap install codium --classic
+        snap install code --classic
     fi
-    FILES_DIR=system_files
-    codium --install-extension < $FILES_DIR/VSCodium/extensions.txt
+    code --install-extension < system_files/VSCode/extensions.txt
 fi
 
 function install_fonts {
@@ -243,7 +242,8 @@ function install_writing {
     aspell \
     aiksaurus \
     python3-proselint \
-    pandoc
+    pandoc \
+    vale
   }
 
 function install_pandoc {
