@@ -1,0 +1,366 @@
+{
+    "cSpell.userWords": [
+        "Argdown",
+        "GPIO",
+        "NOSONAR",
+        "POJO",
+        "Virt",
+        "another's",
+        "camkes",
+        "comms",
+        "cond",
+        "corejs",
+        "cybersecurity",
+        "dorner",
+        "dornerworks",
+        "errno",
+        "flexbox",
+        "gitlab",
+        "gvsu",
+        "gvsu's",
+        "kredit",
+        "microservice",
+        "microservices",
+        "mkdir",
+        "mosquitto",
+        "mqtt",
+        "multiselect",
+        "passthrough",
+        "pseudocode",
+        "qemu",
+        "repo",
+        "repo's",
+        "repos",
+        "reqs",
+        "struct",
+        "structs",
+        "submodule",
+        "transpiles",
+        "typeclasses",
+        "userspace",
+        "zynq"
+    ],
+    "cSpell.enabled": true,
+    "files.exclude": {
+        "**/*.un~": true
+    },
+    "editor.tabCompletion": "on",
+    "editor.suggest.localityBonus": true,
+    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\wsl.exe",
+    "terminal.integrated.shellArgs.linux": [
+        "-l"
+    ],
+    "terminal.external.linuxExec": "xterm-256color",
+    "terminal.integrated.minimumContrastRatio": 4.5,
+    "workbench.colorCustomizations": {},
+    "git.path": "C:\\wsl\\bin\\wslgit.exe",
+    "editor.minimap.maxColumn": 100,
+    "editor.minimap.renderCharacters": false,
+    "window.newWindowDimensions": "inherit",
+    "scm.diffDecorationsGutterWidth": 2,
+    "editor.rulers": [
+        120
+    ],
+    "[python]": {
+        "editor.rulers": [
+            88
+        ],
+        "editor.defaultFormatter": "Glavin001.unibeautify-vscode"
+    },
+    "simpleVim.normalModeCursorStyle": "block",
+    "search.useGlobalIgnoreFiles": true,
+    "editor.smoothScrolling": true,
+    "workbench.iconTheme": "vscode-icons",
+    "explorer.confirmDelete": false,
+    "vsicons.dontShowNewVersionMessage": true,
+    "latex-workshop.view.pdf.viewer": "tab",
+    "cSpell.enabledLanguageIds": [
+        "argdown",
+        "asciidoc",
+        "c",
+        "cmake",
+        "cpp",
+        "csharp",
+        "css",
+        "git-commit",
+        "go",
+        "handlebars",
+        "haskell",
+        "html",
+        "jade",
+        "java",
+        "javascript",
+        "javascriptreact",
+        "json",
+        "jsonc",
+        "latex",
+        "less",
+        "markdown",
+        "php",
+        "plaintext",
+        "pug",
+        "python",
+        "restructuredtext",
+        "rust",
+        "scala",
+        "scss",
+        "text",
+        "typescript",
+        "typescriptreact",
+        "yaml",
+        "yml"
+    ],
+    "editor.wrappingIndent": "deepIndent",
+    "markdown.extension.italic.indicator": "_",
+    "editor.minimap.enabled": false,
+    "files.associations": {
+        "*.camkes": "c",
+        ".babelrc": "json"
+    },
+    "editor.fontLigatures": true,
+    "editor.fontFamily": "'FiraCode Nerd Font Mono', 'Fira Code', Consolas, 'Courier New', monospace",
+    "markdown.extension.toc.githubCompatibility": true,
+    "simpleVim.visualLineModeCursorStyle": "underline",
+    "simpleVim.visualModeCursorStyle": "blockOutline",
+    "gitlens.hovers.currentLine.over": "line",
+    "gitlens.currentLine.enabled": false,
+    "gitlens.codeLens.enabled": false,
+    "gitlens.views.fileHistory.location": "scm",
+    "gitlens.views.lineHistory.location": "scm",
+    "codewall.openProblemsPane": false,
+    "readTime.fileTypes": [
+        "markdown",
+        "latex"
+    ],
+    "C_Cpp.default.cStandard": "c99",
+    "[latex]": {
+        "editor.wordWrap": "on"
+    },
+    "[markdown]": {
+        "editor.wordWrap": "on",
+        "editor.defaultFormatter": "Glavin001.unibeautify-vscode",
+    },
+    "terminal.integrated.rendererType": "dom",
+    "[json]": {
+        "editor.defaultFormatter": "Glavin001.unibeautify-vscode"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[argdown]": {
+        "editor.fontLigatures": "'dlig'",
+        "editor.fontFamily": "ArgVu Sans Mono"
+    },
+    "settings.cycle": [
+        {
+            "id": "colorTheme",
+            "overrideWorkspaceSettings": true,
+            "values": [
+                {
+                    "workbench.colorTheme": "Solarized Light",
+                    "workbench.colorCustomizations": {
+                        "terminal.background": "#303030",
+                        "terminalCursor.background": "#303030",
+                        "terminalCursor.foreground": "#97979b",
+                        "terminal.selectionBackground": "#97979b33",
+                        "terminal.foreground": "#eff0eb",
+                        "terminal.ansiBlack": "#303030",
+                        "terminal.ansiRed": "#b24b48",
+                        "terminal.ansiGreen": "#40b165",
+                        "terminal.ansiYellow": "#f3f99d",
+                        "terminal.ansiBlue": "#57c7ff",
+                        "terminal.ansiMagenta": "#ff6ac1",
+                        "terminal.ansiCyan": "#9aedfe",
+                        "terminal.ansiWhite": "#f1f1f0",
+                        "terminal.ansiBrightBlack": "#686868",
+                        "terminal.ansiBrightRed": "#ff6c67",
+                        "terminal.ansiBrightGreen": "#73e498",
+                        "terminal.ansiBrightYellow": "#f3f99d",
+                        "terminal.ansiBrightBlue": "#57c7ff",
+                        "terminal.ansiBrightMagenta": "#ff6ac1",
+                        "terminal.ansiBrightCyan": "#9aedfe",
+                        "terminal.ansiBrightWhite": "#eff0eb"
+                    }
+                },
+                {
+                    "workbench.colorTheme": "Monokai Dimmed",
+                    "workbench.colorCustomizations": {
+                        // The defaults are good for this color scheme
+                    }
+                },
+                {
+                    "workbench.colorTheme": "Default Light+",
+                    // "workbench.colorTheme": "Argdown Light (default light + Argdown token highlighting)",
+                    "workbench.colorCustomizations": {
+                        // The defaults are good for this color scheme
+                    }
+                },
+                {
+                    "workbench.colorTheme": "Default Dark+",
+                    // "workbench.colorTheme": "Argdown Dark (default dark + Argdown token highlighting)",
+                    "workbench.colorCustomizations": {
+                        // The defaults are good for this color scheme
+                    }
+                }
+            ]
+        },
+        {
+            "id": "minimap",
+            "overrideWorkspaceSettings": true,
+            "values": [
+                {
+                    "editor.minimap.enabled": false
+                },
+                {
+                    "editor.minimap.enabled": true
+                }
+            ]
+        },
+        {
+            "id": "ligatures",
+            "overrideWorkspaceSettings": true,
+            "values": [
+                {
+                    "editor.fontLigatures": true
+                },
+                {
+                    "editor.fontLigatures": false
+                }
+            ]
+        },
+        {
+            "id": "cspell",
+            "overrideWorkspaceSettings": true,
+            "values": [
+                {
+                    "cSpell.enabled": false,
+                },
+                {
+                    "cSpell.enabled": true,
+                }
+            ]
+        },
+        {
+            "id": "indent_guides",
+            "overrideWorkspaceSettings": true,
+            "values": [
+                {
+                    "editor.renderIndentGuides": false,
+                },
+                {
+                    "editor.renderIndentGuides": true,
+                }
+            ]
+        },
+    ],
+    "editor.acceptSuggestionOnEnter": "off",
+    "ghcSimple.startupCommands.custom": [
+        ":set -outputdir /tmp/ghc-vscodium-plugin"
+    ],
+    "todohighlight.keywords": [
+        {
+            "text": "NOTE:",
+            "color": "maroon",
+            "backgroundColor": "cyan",
+        },
+        {
+            "text": "IDEA:",
+            "color": "green",
+            "backgroundColor": "white",
+        },
+    ],
+    "[c]": {
+        "editor.defaultFormatter": "Glavin001.unibeautify-vscode"
+    },
+    "latex-workshop.message.update.show": false,
+    "editor.renderIndentGuides": false,
+    "update.mode": "manual",
+    "debug.allowBreakpointsEverywhere": true,
+    "editor.matchBrackets": "never",
+    "bracket-pair-colorizer-2.highlightActiveScope": true,
+    "bracket-pair-colorizer-2.showBracketsInRuler": true,
+    "bracket-pair-colorizer-2.colors": [
+        "Green",
+        "Orchid",
+        "SkyBlue"
+    ],
+    "editor.columnSelection": false,
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "explorer.autoReveal": false,
+    "workbench.list.smoothScrolling": true,
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "explorer.confirmDragAndDrop": false,
+    "argdown.preview.lockMenu": false,
+    "argdown.preview.trace": "verbose",
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "debug.toolBarLocation": "docked",
+    "solargraph.commandPath": "/home/kevinkredit/.rvm/wrappers/ruby-2.5.8/solargraph",
+    "prettier.packageManager": "yarn",
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "elmLS.elmAnalyseTrigger": "save",
+    "solargraph.formatting": true,
+    "latex-workshop.latex.autoBuild.run": "never",
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "cSpell.enableFiletypes": [
+        "elm"
+    ],
+    "workbench.colorTheme": "Default Dark+",
+    "[scss]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/**": true,
+        "**/.hg/store/**": true,
+        "**/.ignore/**": true,
+        "**/build/**": true,
+        "**/bin/**": true,
+        "**/dist/**": true,
+        "**/tmp/**": true,
+        "**/.scannerwork/**": true,
+    },
+    "python.formatting.provider": "black",
+    "workbench.editor.decorations.badges": false,
+    "unibeautify.defaultConfig": "/home/kevinkredit/.unibeautifyrc.json",
+    "vim.cursorStylePerMode.insert": "line",
+    "vim.cursorStylePerMode.normal": "block",
+    "vim.cursorStylePerMode.replace": "underline",
+    "vim.cursorStylePerMode.visual": "block-outline",
+    "vim.cursorStylePerMode.visualblock": "block-outline",
+    "vim.cursorStylePerMode.visualline": "block-outline",
+    "vim.easymotion": true,
+    "vim.enableNeovim": true,
+    "vim.highlightedyank.enable": true,
+    "vim.smartRelativeLine": true,
+    "vim.sneak": true,
+    "vim.useSystemClipboard": true,
+    "vim.vimrc.enable": true,
+    "editor.cursorSurroundingLines": 5,
+    "vim.leader": " ",
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["<leader>", ";"],
+            "commands": ["workbench.action.showCommands"]
+        },
+        {
+            "before": ["<leader>", "t"],
+            "commands": ["editor.action.formatDocument"]
+        },
+        {
+            "before": ["<leader>", "p"],
+            "commands": ["workbench.action.quickOpen"]
+        }
+    ]
+}

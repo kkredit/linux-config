@@ -175,6 +175,16 @@ function install_gitsecrets {
   rm git-secrets
 }
 
+if has_arg "vscodium"; then
+    if $MAC; then
+        brew install --cask vscodium
+    else
+        snap install codium --classic
+    fi
+    FILES_DIR=system_files
+    codium --install-extension < $FILES_DIR/VSCodium/extensions.txt
+fi
+
 function install_fonts {
   if $MAC; then
     fonts_dir="${HOME}/Library/Fonts"
