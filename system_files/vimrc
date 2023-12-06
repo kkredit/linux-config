@@ -70,6 +70,7 @@ if has('nvim')
   Plug 'vigoux/oak'
   Plug 'olimorris/onedarkpro.nvim'
   Plug 'norcalli/nvim-colorizer.lua'
+  Plug 'doki-theme/doki-theme-vim'
 
   " Other
   Plug 'akinsho/bufferline.nvim'
@@ -199,11 +200,20 @@ syntax on
 set t_Co=256
 set t_ut=
 if has('nvim')
-  let g:airline_theme = 'tomorrow'
-  colorscheme oak
-  call oak#hi('String', g:oak#palette.trunk5, '', 'italic')
-  call oak#hi('Identifier', g:oak#palette.leaf2)
-  hi MatchParen ctermbg=Brown guibg=Brown
+  " if in December, Christmas theme!
+  if strftime("%m") == "12"
+    " let g:airline_theme = 'laederon'
+    let g:airline_theme = 'serene'
+    colorscheme christmas_chocola
+    hi MatchParen ctermbg=Brown guibg=Brown
+    hi SignColumn guibg=Black
+  else
+    let g:airline_theme = 'tomorrow'
+    colorscheme oak
+    call oak#hi('String', g:oak#palette.trunk5, '', 'italic')
+    call oak#hi('Identifier', g:oak#palette.leaf2)
+    hi MatchParen ctermbg=Brown guibg=Brown
+  endif
 else
   let g:airline_theme = 'jellybeans'
   colorscheme codedark

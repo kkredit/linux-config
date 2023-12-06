@@ -262,11 +262,26 @@ mason_lspconfig.setup_handlers({
 -- })
 
 -- See https://github.com/pmizio/typescript-tools.nvim#%EF%B8%8F-configuration
--- local api = require("typescript-tools.api")
+local api = require("typescript-tools.api")
 require("typescript-tools").setup {
   on_attach = function(client, bufnr)
+    -- auto-import
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = augroup,
+      buffer = bufnr,
+      callback = function()
+        api.add_missing_imports(true)
+        api.organize_imports(true)
+      end,
+    })
     -- normal on_attach + autofmt
     on_attach_with_autofmt(client, bufnr)
+    -- key bindings
+    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+    local opts = { noremap = true, silent = true }
+    buf_set_keymap('n', 'gD', ':TSToolsGoToSourceDefinition<CR>', opts)
+    buf_set_keymap('n', '<leader>lR', ':TSToolsRenameFile<CR>', opts)
+    buf_set_keymap('n', '<leader>lF', ':TSToolsFixAll<CR>', opts)
   end,
   -- handlers = {
     -- ["textDocument/publishDiagnostics"] = api.filter_diagnostics(
@@ -275,6 +290,11 @@ require("typescript-tools").setup {
     -- ),
   -- },
   settings = {
+    tsserver_file_preferences = {
+      importModuleSpecifierPreference = "relative",
+    },
+    -- spawn additional tsserver instance to calculate diagnostics on it
+    separate_diagnostic_server = false,
     -- "change"|"insert_leave" determine when the client asks the server about diagnostic
     publish_diagnostic_on = "change",
     -- array of strings("fix_all"|"add_missing_imports"|"remove_unused"|
