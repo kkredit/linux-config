@@ -5,15 +5,15 @@ vim.cmd('source ~/.vimrc')
 local cmp = require('cmp')
 
 cmp.setup({
-  -- snippet = {
-  -- -- REQUIRED - you must specify a snippet engine
-  -- expand = function(args)
-  -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-  -- -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-  -- -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-  -- -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-  -- end,
-  -- },
+  snippet = {
+    -- REQUIRED - you must specify a snippet engine
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+      -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+      -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+      -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+    end,
+  },
 
   window = {
     completion = cmp.config.window.bordered(),
@@ -30,7 +30,7 @@ cmp.setup({
     { name = 'nvim_lsp' },
     { name = 'buffer' },
     { name = 'path' },
-    -- { name = 'vsnip' }, -- For vsnip users.
+    { name = 'vsnip' }, -- For vsnip users.
     -- { name = 'luasnip' }, -- For luasnip users.
     -- { name = 'ultisnips' }, -- For ultisnips users.
     -- { name = 'snippy' }, -- For snippy users.
@@ -79,6 +79,7 @@ local border = {
 }
 
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+---@diagnostic disable-next-line: duplicate-set-field
 function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
   opts = opts or {}
   opts.border = opts.border or border
@@ -232,32 +233,64 @@ mason_lspconfig.setup_handlers({
   end,
 })
 
-require("typescript").setup({
-  server = {
-    -- pass options to lspconfig's setup method
-    on_attach = function(client, bufnr)
-      -- auto-import
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        group = augroup,
-        buffer = bufnr,
-        callback = function()
-          require("typescript").actions.addMissingImports({ sync = true })
-          --require("typescript").actions.organizeImports({sync = true})
-        end,
-      })
-      -- normal on_attach + autofmt
-      on_attach_with_autofmt(client, bufnr)
-      -- override go-to-definition (requires TS 4.7)
-      local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-      local opts = { noremap = true, silent = true }
-      -- somehow, despite trying so many things, I cannot suppress the error
-      --  > go to source definition failed: requires typescript 4.7
-      -- so instead of overriding `gd`, override `gD` and use it only when necessary.
-      buf_set_keymap('n', 'gD', ':silent! TypescriptGoToSourceDefinition<CR>', opts)
-    end,
-    capabilities = capabilities,
+-- replacing with pmizio/typescript-tools.nvim, but leaving this for now
+-- require("typescript").setup({
+  -- server = {
+    -- -- pass options to lspconfig's setup method
+    -- on_attach = function(client, bufnr)
+      -- -- auto-import
+      -- vim.api.nvim_create_autocmd("BufWritePre", {
+        -- group = augroup,
+        -- buffer = bufnr,
+        -- callback = function()
+          -- require("typescript").actions.addMissingImports({ sync = true })
+          -- --require("typescript").actions.organizeImports({sync = true})
+        -- end,
+      -- })
+      -- -- normal on_attach + autofmt
+      -- on_attach_with_autofmt(client, bufnr)
+      -- -- override go-to-definition (requires TS 4.7)
+      -- local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+      -- local opts = { noremap = true, silent = true }
+      -- -- somehow, despite trying so many things, I cannot suppress the error
+      -- --  > go to source definition failed: requires typescript 4.7
+      -- -- so instead of overriding `gd`, override `gD` and use it only when necessary.
+      -- buf_set_keymap('n', 'gD', ':silent! TypescriptGoToSourceDefinition<CR>', opts)
+    -- end,
+    -- capabilities = capabilities,
+  -- },
+-- })
+
+-- See https://github.com/pmizio/typescript-tools.nvim#%EF%B8%8F-configuration
+-- local api = require("typescript-tools.api")
+require("typescript-tools").setup {
+  on_attach = function(client, bufnr)
+    -- normal on_attach + autofmt
+    on_attach_with_autofmt(client, bufnr)
+  end,
+  -- handlers = {
+    -- ["textDocument/publishDiagnostics"] = api.filter_diagnostics(
+      -- -- Ignore 'This may be converted to an async function' diagnostics.
+      -- { 80006 }
+    -- ),
+  -- },
+  settings = {
+    -- "change"|"insert_leave" determine when the client asks the server about diagnostic
+    publish_diagnostic_on = "change",
+    -- array of strings("fix_all"|"add_missing_imports"|"remove_unused"|
+    -- "remove_unused_imports"|"organize_imports") -- or string "all"
+    -- to include all supported code actions
+    -- specify commands exposed as code_actions
+    expose_as_code_action = "all",
+    -- JSXCloseTag
+    -- WARNING: it is disabled by default (maybe you configuration or distro already uses nvim-auto-tag,
+    -- that maybe have a conflict if enable this feature. )
+    jsx_close_tag = {
+      enable = false,
+      filetypes = { "javascriptreact", "typescriptreact" },
+    }
   },
-})
+}
 
 -- Setup tool installer
 -- see https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
@@ -282,7 +315,7 @@ require('mason-tool-installer').setup {
     'rust-analyzer',
     'sqlls',
     'taplo',
-    'typescript-language-server',
+    -- 'typescript-language-server', -- trying to replace with pmizio/typescript-tools.nvim
     'terraform-ls',
     'vim-language-server',
     'yaml-language-server',
@@ -318,10 +351,10 @@ require('mason-tool-installer').setup {
   start_delay = 0,
 }
 
--- Null-ls setup
--- see https://github.com/jose-elias-alvarez/null-ls.nvim
-local null_ls = require("null-ls")
-null_ls.setup({
+-- None-ls/Null-ls setup
+-- see https://github.com/nvimtools/none-ls.nvim
+local none_ls = require("null-ls")
+none_ls.setup({
   on_attach = function(client, bufnr)
     on_attach(client, bufnr)
     -- format-on-save
@@ -331,7 +364,7 @@ null_ls.setup({
   end,
   capabilities = capabilities,
   sources = {
-    null_ls.builtins.diagnostics.cspell.with({
+    none_ls.builtins.diagnostics.cspell.with({
       diagnostic_config = {
         underline = true,
         virtual_text = false,
@@ -344,23 +377,23 @@ null_ls.setup({
       end,
       filetypes = { 'markdown', 'latex', 'text' },
     }),
-    null_ls.builtins.code_actions.gitsigns,
-    null_ls.builtins.code_actions.refactoring,
-    null_ls.builtins.code_actions.shellcheck,
-    require('typescript.extensions.null-ls.code-actions'),
+    none_ls.builtins.code_actions.gitsigns,
+    none_ls.builtins.code_actions.refactoring,
+    none_ls.builtins.code_actions.shellcheck,
+    -- require('typescript.extensions.null-ls.code-actions'),
 
-    null_ls.builtins.completion.spell,
-    null_ls.builtins.completion.tags,
+    none_ls.builtins.completion.spell,
+    none_ls.builtins.completion.tags,
 
-    null_ls.builtins.diagnostics.actionlint,
-    null_ls.builtins.diagnostics.buf,
-    null_ls.builtins.diagnostics.codespell.with {
+    none_ls.builtins.diagnostics.actionlint,
+    none_ls.builtins.diagnostics.buf,
+    none_ls.builtins.diagnostics.codespell.with {
       args = { '-L requestor' },
     },
     -- null_ls.builtins.diagnostics.editorconfig_checker.with {
     -- command = 'editorconfig-checker'
     -- },
-    null_ls.builtins.diagnostics.markdownlint,
+    none_ls.builtins.diagnostics.markdownlint,
     -- Semgrep -- works, but burns CPU
     --null_ls.builtins.diagnostics.semgrep.with({
     --args = function(_)
@@ -372,44 +405,36 @@ null_ls.setup({
     --end,
     --timeout = 30000, -- ms
     --}),
-    null_ls.builtins.diagnostics.shellcheck,
-    null_ls.builtins.diagnostics.terraform_validate,
-    null_ls.builtins.diagnostics.tfsec,
-    null_ls.builtins.diagnostics.sqlfluff.with {
+    none_ls.builtins.diagnostics.shellcheck,
+    none_ls.builtins.diagnostics.terraform_validate,
+    none_ls.builtins.diagnostics.tfsec,
+    none_ls.builtins.diagnostics.sqlfluff.with {
       extra_args = { "--dialect", "postgres" },
     },
-    null_ls.builtins.diagnostics.yamllint,
+    none_ls.builtins.diagnostics.yamllint,
 
-    null_ls.builtins.formatting.black,
-    null_ls.builtins.formatting.buf,
+    none_ls.builtins.formatting.black,
+    none_ls.builtins.formatting.buf,
     -- null_ls.builtins.formatting.codespell,
-    null_ls.builtins.formatting.goimports,
-    null_ls.builtins.formatting.isort,
-    null_ls.builtins.formatting.jq,
-    null_ls.builtins.formatting.prettierd,
-    null_ls.builtins.formatting.shfmt,
-    null_ls.builtins.formatting.sqlfluff.with {
+    none_ls.builtins.formatting.goimports,
+    none_ls.builtins.formatting.isort,
+    none_ls.builtins.formatting.jq,
+    none_ls.builtins.formatting.prettierd,
+    none_ls.builtins.formatting.shfmt,
+    none_ls.builtins.formatting.sqlfluff.with {
       extra_args = { "--dialect", "postgres" },
     },
-    null_ls.builtins.formatting.terraform_fmt,
+    none_ls.builtins.formatting.terraform_fmt,
   },
 })
 
 -- Treesitter
--- Add proto parser
-local parser_config = require 'nvim-treesitter.parsers'.get_parser_configs()
-parser_config.proto = {
-  install_info = {
-    url = '~/git/linux-config/submodules/tree-sitter-proto',
-    files = { 'src/parser.c' }
-  },
-  filetype = 'proto', -- if filetype does not agrees with parser name
-  --used_by = {'proto'} -- additional filetypes that use this parser
-}
--- Configure Treesitter
 require 'nvim-treesitter.configs'.setup {
   ensure_installed = "all",
-  -- one of "all", or a list of languages
+  sync_install = false,
+  auto_install = false,
+  ignore_install = {},
+  modules  = {}, -- not sure what this is, but linter wants it
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
@@ -559,6 +584,7 @@ require("trouble").setup {
 require('leap').set_default_keymaps()
 require('gitsigns').setup()
 require('which-key').setup()
+---@diagnostic disable-next-line: missing-fields
 require('glow').setup {
   glow_path = vim.env.HOME .. '/.local/share/nvim/mason/bin/glow',
 }

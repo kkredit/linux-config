@@ -43,8 +43,9 @@ if has('nvim')
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
   Plug 'mfussenegger/nvim-dap'
-  Plug 'jose-elias-alvarez/null-ls.nvim'
-  Plug 'jose-elias-alvarez/typescript.nvim'
+  Plug 'nvimtools/none-ls.nvim'
+  " Plug 'jose-elias-alvarez/typescript.nvim' -- replacing with pmizio/typescript-tools.nvim
+  Plug 'pmizio/typescript-tools.nvim'
   Plug 'mracos/mermaid.vim'
   Plug 'imsnif/kdl.vim'
   Plug 'ellisonleao/glow.nvim'
@@ -56,8 +57,9 @@ if has('nvim')
   Plug 'hrsh7th/cmp-buffer'
   Plug 'hrsh7th/cmp-path'
   Plug 'hrsh7th/cmp-cmdline'
-  " Plug 'hrsh7th/cmp-vsnip'
-  " Plug 'hrsh7th/vim-vsnip'
+  Plug 'hrsh7th/cmp-vsnip'
+  Plug 'hrsh7th/vim-vsnip'
+  Plug 'hrsh7th/vim-vsnip-integ'
   " Plug 'rafamadriz/friendly-snippets'
 
   " Copilot
