@@ -294,7 +294,7 @@ require("typescript-tools").setup {
       importModuleSpecifierPreference = "relative",
     },
     -- spawn additional tsserver instance to calculate diagnostics on it
-    separate_diagnostic_server = false,
+    separate_diagnostic_server = true,
     -- "change"|"insert_leave" determine when the client asks the server about diagnostic
     publish_diagnostic_on = "change",
     -- array of strings("fix_all"|"add_missing_imports"|"remove_unused"|
