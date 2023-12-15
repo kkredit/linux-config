@@ -80,32 +80,32 @@ function o {
 }
 
 function jwt_decode() {
-  jq -R 'split(".") | .['"$1"'] | @base64d | fromjson' <<< "$2"
+	jq -R 'split(".") | .['"$1"'] | @base64d | fromjson' <<<"$2"
 }
 
 function tsify() {
-  function ts() {
-    echo "$1 ($(date -r "$1"))"
-  }
-  jq ".$1 = \"$(ts "$(jq -r ".$1" <<< "$2")")\"" <<< "$2"
+	function ts() {
+		echo "$1 ($(date -r "$1"))"
+	}
+	jq ".$1 = \"$(ts "$(jq -r ".$1" <<<"$2")")\"" <<<"$2"
 }
 
 function find_unix_timestamps() {
-  jq -r 'to_entries[] | select(.value | type == "number") | select(.value | tostring | test("^[0-9]{10}$")) | .key' <<< "$1"
+	jq -r 'to_entries[] | select(.value | type == "number") | select(.value | tostring | test("^[0-9]{10}$")) | .key' <<<"$1"
 }
 
 function jwt_section() {
-  local DECODED
-  DECODED=$(jwt_decode $1 "$2")
-  for TS in $(find_unix_timestamps "$DECODED"); do
-    DECODED=$(tsify "$TS" "$DECODED")
-  done
-  jq <<< "$DECODED"
+	local DECODED
+	DECODED=$(jwt_decode $1 "$2")
+	for TS in $(find_unix_timestamps "$DECODED"); do
+		DECODED=$(tsify "$TS" "$DECODED")
+	done
+	jq <<<"$DECODED"
 }
 
 function jwt() {
-  jwt_section 0 "$1"
-  jwt_section 1 "$1"
+	jwt_section 0 "$1"
+	jwt_section 1 "$1"
 }
 
 function ddg {
@@ -255,6 +255,8 @@ function cs() {
 			file="$(fd "$*" --max-results 1)"
 			if [ -f "$file" ]; then
 				new_dir="$(dirname "$file")"
+			elif [ -d "$file" ]; then
+				new_dir="$file"
 			fi
 		fi
 	fi
