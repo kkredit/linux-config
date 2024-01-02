@@ -25,10 +25,10 @@ install -m 644 $FILES_DIR/vimrc ~/.vimrc
 mkdir -p ~/.config/nvim
 install -m 644 $FILES_DIR/nvim_init.lua ~/.config/nvim/init.lua
 mkdir -p ~/.config/alacritty
-install -m 644 $FILES_DIR/alacritty.yml ~/.config/alacritty/alacritty.yml
+install -m 644 $FILES_DIR/alacritty.toml ~/.config/alacritty/alacritty.toml
 if ! $MAC; then
-  sed -i 's/decorations: buttonless/decorations: full/' ~/.config/alacritty/alacritty.yml
-  sed -i 's/size: 13/size: 11/' ~/.config/alacritty/alacritty.yml
+  sed -i 's/decorations = "buttonless"/decorations = "full"/' ~/.config/alacritty/alacritty.toml
+  sed -i 's/size = 13/size = 11/' ~/.config/alacritty/alacritty.toml
 fi
 mkdir -p ~/.config/zellij
 install -m 644 $FILES_DIR/zellij_config.kdl ~/.config/zellij/config.kdl

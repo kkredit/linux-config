@@ -1,0 +1,43 @@
+import = [
+  "/Users/kevin/git/linux-config/submodules/alacritty-theme/themes/tomorrow_night_bright.toml",
+]
+
+[cursor]
+vi_mode_style = "Underline"
+
+[cursor.style]
+shape = "Beam"
+
+[env]
+EDITOR = "nvim"
+SHELL = "zsh"
+
+[font]
+size = 13
+
+[font.normal]
+family = "Hack Nerd Font Mono"
+
+[[keyboard.bindings]]
+action = "None"
+key = "Q"
+mods = "Control"
+
+[shell]
+args = [
+  "--login",
+  "-c",
+  "~/.cargo/bin/zellij --layout ~/.config/zellij/layout.kdl || zsh",
+]
+program = "zsh"
+
+[window]
+decorations = "buttonless"
+dynamic_padding = true
+opacity = 0.8
+title = "Terminal"
+blur = true
+
+[window.dimensions]
+columns = 121
+lines = 32

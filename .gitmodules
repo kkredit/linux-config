@@ -20,9 +20,6 @@
 	path = submodules/alacritty-ligature
 	url = https://github.com/zenixls2/alacritty
 	branch = ligature
-[submodule "submodules/alacritty-theme"]
-	path = submodules/alacritty-theme
-	url = https://github.com/eendroroy/alacritty-theme
 [submodule "submodules/entr"]
 	path = submodules/entr
 	url = https://github.com/eradman/entr
@@ -33,3 +30,6 @@
 	path = submodules/PathPicker
 	url = https://github.com/kkredit/PathPicker
 	branch = main
+[submodule "submodules/alacritty-theme"]
+	path = submodules/alacritty-theme
+	url = https://github.com/alacritty/alacritty-theme

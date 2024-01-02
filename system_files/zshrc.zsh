@@ -29,7 +29,7 @@ function sourceIfPresent() {
 sourceIfPresent ~/.shrc_common
 
 # Starship
-eval $(starship init zsh)
+eval "$(starship init zsh)"
 # these don't seem to work
 #znap eval starship "starship init zsh"
 #znap prompt
