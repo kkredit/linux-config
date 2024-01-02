@@ -18,10 +18,13 @@ size = 13
 [font.normal]
 family = "Hack Nerd Font Mono"
 
-[[keyboard.bindings]]
-action = "None"
-key = "Q"
-mods = "Control"
+[keyboard]
+bindings = [
+  # silence control+q to quit
+  { action = "None", key = "Q", mods = "Control" },
+  # bind numpad enter to enter
+  { chars = "\u000d", key = "NumpadEnter" },
+]
 
 [shell]
 args = [
