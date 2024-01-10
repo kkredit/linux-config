@@ -30,7 +30,6 @@ disabled = false
 symbol = "!"
 map_symbol = true
 pipestatus = true
-sigint_symbol = "☇"
 
 [directory]
 truncation_symbol = "…/"

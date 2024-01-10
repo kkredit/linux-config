@@ -178,7 +178,7 @@ function recreplace() {
 	local SEP=${3:-/}
 	echo "$1 $2" | grep -vq "$SEP" || return 1
 	# shellcheck disable=SC2046
-	sed -i "s${SEP}$1${SEP}$2${SEP}g" $(kreprl "$1")
+	sed -i "s${SEP}$1${SEP}$2${SEP}g" $(rg -l "$1")
 }
 
 function v() {
@@ -201,7 +201,8 @@ function v() {
 }
 
 function lastfiles {
-	eval "$(prevcmd)" | files | sort | uniq
+	# REPO_DIR gets expanded during install
+	eval "$(prevcmd)" | python3 REPO_DIR/submodules/PathPicker/src/process_input.py | sort | uniq
 }
 
 function vo {

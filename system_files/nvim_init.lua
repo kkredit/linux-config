@@ -270,8 +270,9 @@ require("typescript-tools").setup {
       group = augroup,
       buffer = bufnr,
       callback = function()
-        api.add_missing_imports(true)
-        api.organize_imports(true)
+        -- times out all the time :(
+        -- api.add_missing_imports(true)
+        -- api.organize_imports(true)
       end,
     })
     -- normal on_attach + autofmt
@@ -282,6 +283,7 @@ require("typescript-tools").setup {
     buf_set_keymap('n', 'gD', ':TSToolsGoToSourceDefinition<CR>', opts)
     buf_set_keymap('n', '<leader>lR', ':TSToolsRenameFile<CR>', opts)
     buf_set_keymap('n', '<leader>lF', ':TSToolsFixAll<CR>', opts)
+    buf_set_keymap('n', '<leader>li', ':TSToolsAddMissingImports<CR>:TSToolsSortImports<CR>', opts)
   end,
   -- handlers = {
     -- ["textDocument/publishDiagnostics"] = api.filter_diagnostics(
@@ -292,6 +294,8 @@ require("typescript-tools").setup {
   settings = {
     tsserver_file_preferences = {
       importModuleSpecifierPreference = "relative",
+      -- importModuleSpecifierPreference = "project-relative",
+      -- importModuleSpecifierPreference = "absolute",
     },
     -- spawn additional tsserver instance to calculate diagnostics on it
     separate_diagnostic_server = true,
