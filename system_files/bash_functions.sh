@@ -261,7 +261,11 @@ function cs() {
 			fi
 		fi
 	fi
-	builtin cd "$new_dir" && ls
+	if which exa &>/dev/null; then
+		builtin cd "$new_dir" && exa -F
+	else
+		builtin cd "$new_dir" && ls
+	fi
 }
 alias d=cs
 
