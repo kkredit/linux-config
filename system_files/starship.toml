@@ -14,12 +14,17 @@ $git_metrics\
 $git_status\
 $package\
 $terraform\
-$aws\
+${custom.kx}\
 $line_break\
 $status\
 $shell\
 $character\
 """
+
+[custom.kx]
+description = "The active kodex environment"
+when = "grep -q kodex <<<$PWD"
+command = "kx which"
 
 [character]
 success_symbol = "[\\$](blue)"
@@ -60,7 +65,7 @@ untracked = "${count}"
 # Found elsewhere
 ## Use symbols instead of emoji
 [aws]
-symbol = "  "
+symbol = " "
 
 [conda]
 symbol = " "
