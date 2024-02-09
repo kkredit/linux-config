@@ -135,6 +135,17 @@ local on_attach = function(_, bufnr) -- (client, bufnr)
   --buf_set_keymap('n', '<leader>lf', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
 
   buf_set_keymap('n', '<leader>l1', '<cmd>LspRestart<CR>', opts)
+
+
+  -- DAP
+  -- buf_set_keymap('n', '<leader>Dd', '<cmd>lua require"dap".continue()<CR>:<cmd>lua require"dap".repl.open()<CR>', opts)
+  buf_set_keymap('n', '<leader>Dd', '<cmd>lua require"dap".repl.open()<CR>:<cmd>lua require"dap".continue()<CR>', opts)
+  buf_set_keymap('n', '<leader>Dc', '<cmd>lua require"dap".continue()<CR>', opts)
+  buf_set_keymap('n', '<leader>Db', '<cmd>lua require"dap".toggle_breakpoint()<CR>', opts)
+  buf_set_keymap('n', '<leader>Ds', '<cmd>lua require"dap".step_over()<CR>', opts)
+  buf_set_keymap('n', '<leader>Di', '<cmd>lua require"dap".step_into()<CR>', opts)
+  buf_set_keymap('n', '<leader>Dr', '<cmd>lua require"dap".repl.open()<CR>', opts)
+  buf_set_keymap('n', '<leader>Dx', '<cmd>lua require"dap".continue()<CR><cmd>lua require"dap".exit()<CR>', opts)
 end
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -235,30 +246,30 @@ mason_lspconfig.setup_handlers({
 
 -- replacing with pmizio/typescript-tools.nvim, but leaving this for now
 -- require("typescript").setup({
-  -- server = {
-    -- -- pass options to lspconfig's setup method
-    -- on_attach = function(client, bufnr)
-      -- -- auto-import
-      -- vim.api.nvim_create_autocmd("BufWritePre", {
-        -- group = augroup,
-        -- buffer = bufnr,
-        -- callback = function()
-          -- require("typescript").actions.addMissingImports({ sync = true })
-          -- --require("typescript").actions.organizeImports({sync = true})
-        -- end,
-      -- })
-      -- -- normal on_attach + autofmt
-      -- on_attach_with_autofmt(client, bufnr)
-      -- -- override go-to-definition (requires TS 4.7)
-      -- local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-      -- local opts = { noremap = true, silent = true }
-      -- -- somehow, despite trying so many things, I cannot suppress the error
-      -- --  > go to source definition failed: requires typescript 4.7
-      -- -- so instead of overriding `gd`, override `gD` and use it only when necessary.
-      -- buf_set_keymap('n', 'gD', ':silent! TypescriptGoToSourceDefinition<CR>', opts)
-    -- end,
-    -- capabilities = capabilities,
-  -- },
+-- server = {
+-- -- pass options to lspconfig's setup method
+-- on_attach = function(client, bufnr)
+-- -- auto-import
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+-- group = augroup,
+-- buffer = bufnr,
+-- callback = function()
+-- require("typescript").actions.addMissingImports({ sync = true })
+-- --require("typescript").actions.organizeImports({sync = true})
+-- end,
+-- })
+-- -- normal on_attach + autofmt
+-- on_attach_with_autofmt(client, bufnr)
+-- -- override go-to-definition (requires TS 4.7)
+-- local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+-- local opts = { noremap = true, silent = true }
+-- -- somehow, despite trying so many things, I cannot suppress the error
+-- --  > go to source definition failed: requires typescript 4.7
+-- -- so instead of overriding `gd`, override `gD` and use it only when necessary.
+-- buf_set_keymap('n', 'gD', ':silent! TypescriptGoToSourceDefinition<CR>', opts)
+-- end,
+-- capabilities = capabilities,
+-- },
 -- })
 
 -- See https://github.com/pmizio/typescript-tools.nvim#%EF%B8%8F-configuration
@@ -286,10 +297,10 @@ require("typescript-tools").setup {
     buf_set_keymap('n', '<leader>li', ':TSToolsAddMissingImports<CR>:TSToolsSortImports<CR>', opts)
   end,
   -- handlers = {
-    -- ["textDocument/publishDiagnostics"] = api.filter_diagnostics(
-      -- -- Ignore 'This may be converted to an async function' diagnostics.
-      -- { 80006 }
-    -- ),
+  -- ["textDocument/publishDiagnostics"] = api.filter_diagnostics(
+  -- -- Ignore 'This may be converted to an async function' diagnostics.
+  -- { 80006 }
+  -- ),
   -- },
   settings = {
     tsserver_file_preferences = {
@@ -315,6 +326,37 @@ require("typescript-tools").setup {
     }
   },
 }
+
+-- DAP
+require("dap-vscode-js").setup({
+  node_path = "node",
+  debugger_path = "(runtimedir)/site/pack/packer/opt/vscode-js-debug",
+  debugger_cmd = { "js-debug-adapter" },
+  adapters = { 'pwa-chrome', 'node-terminal' }, -- which adapters to register in nvim-dap
+  log_file_path = "(stdpath cache)/dap_vscode_js.log",
+  log_file_level = vim.log.levels.ERROR,
+  log_console_level = vim.log.levels.ERROR,
+})
+
+for _, language in ipairs({ "typescript", "javascript" }) do
+  require("dap").configurations[language] = {
+    {
+      type = "node-terminal",
+      request = "launch",
+      name = "yarn dev",
+      runtimeExecutable = "yarn",
+      runtimeArgs = { "dev" },
+      cwd = "${workspaceFolder}",
+    },
+    {
+      type = "node-terminal",
+      request = "attach",
+      name = "Attach",
+      processId = require 'dap.utils'.pick_process,
+      cwd = "${workspaceFolder}",
+    }
+  }
+end
 
 -- Setup tool installer
 -- see https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
@@ -346,6 +388,7 @@ require('mason-tool-installer').setup {
 
     -- debug adapters
     'delve', -- go
+    'js-debug-adapter',
 
     -- linters
     'actionlint',
@@ -454,12 +497,12 @@ none_ls.setup({
 
 -- Treesitter
 require 'nvim-treesitter.configs'.setup {
-  ensure_installed = "all",
-  sync_install = false,
-  auto_install = false,
-  ignore_install = {},
-  modules  = {}, -- not sure what this is, but linter wants it
-  highlight = {
+  ensure_installed      = "all",
+  sync_install          = false,
+  auto_install          = false,
+  ignore_install        = {},
+  modules               = {}, -- not sure what this is, but linter wants it
+  highlight             = {
     enable = true,
     additional_vim_regex_highlighting = false,
   },
@@ -472,10 +515,10 @@ require 'nvim-treesitter.configs'.setup {
       node_decremental = "grN",
     },
   },
-  indent = {
+  indent                = {
     enable = true
   },
-  textobjects = {
+  textobjects           = {
     select = {
       enable = true,
       lookahead = true,
