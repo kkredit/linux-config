@@ -42,9 +42,10 @@ if has('nvim')
   Plug 'WhoIsSethDaniel/mason-tool-installer.nvim', {'do': ':MasonToolsInstall'}
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'nvimtools/none-ls.nvim'
   " Plug 'jose-elias-alvarez/typescript.nvim' -- replacing with pmizio/typescript-tools.nvim
-  Plug 'pmizio/typescript-tools.nvim'
+  " Plug 'pmizio/typescript-tools.nvim'
   Plug 'mracos/mermaid.vim'
   Plug 'imsnif/kdl.vim'
   Plug 'ellisonleao/glow.nvim'

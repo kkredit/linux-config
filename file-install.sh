@@ -25,6 +25,7 @@ install -m 644 $FILES_DIR/dircolors.sh ~/.dircolors
 install -m 644 $FILES_DIR/vimrc ~/.vimrc
 mkdir -p ~/.config/nvim
 install -m 644 $FILES_DIR/nvim_init.lua ~/.config/nvim/init.lua
+install -m 644 $FILES_DIR/coc-settings.nvim.json ~/.config/nvim/coc-settings.json
 mkdir -p ~/.config/alacritty
 install -m 644 $FILES_DIR/alacritty.toml ~/.config/alacritty/alacritty.toml
 if ! $MAC; then

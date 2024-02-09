@@ -262,59 +262,59 @@ mason_lspconfig.setup_handlers({
 -- })
 
 -- See https://github.com/pmizio/typescript-tools.nvim#%EF%B8%8F-configuration
-local api = require("typescript-tools.api")
-require("typescript-tools").setup {
-  on_attach = function(client, bufnr)
-    -- auto-import
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = augroup,
-      buffer = bufnr,
-      callback = function()
-        -- times out all the time :(
-        -- api.add_missing_imports(true)
-        -- api.organize_imports(true)
-      end,
-    })
-    -- normal on_attach + autofmt
-    on_attach_with_autofmt(client, bufnr)
-    -- key bindings
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-    local opts = { noremap = true, silent = true }
-    buf_set_keymap('n', 'gD', ':TSToolsGoToSourceDefinition<CR>', opts)
-    buf_set_keymap('n', '<leader>lR', ':TSToolsRenameFile<CR>', opts)
-    buf_set_keymap('n', '<leader>lF', ':TSToolsFixAll<CR>', opts)
-    buf_set_keymap('n', '<leader>li', ':TSToolsAddMissingImports<CR>:TSToolsSortImports<CR>', opts)
-  end,
-  -- handlers = {
-    -- ["textDocument/publishDiagnostics"] = api.filter_diagnostics(
-      -- -- Ignore 'This may be converted to an async function' diagnostics.
-      -- { 80006 }
-    -- ),
+-- local api = require("typescript-tools.api")
+-- require("typescript-tools").setup {
+  -- on_attach = function(client, bufnr)
+    -- -- auto-import
+    -- vim.api.nvim_create_autocmd("BufWritePre", {
+      -- group = augroup,
+      -- buffer = bufnr,
+      -- callback = function()
+        -- -- times out all the time :(
+        -- -- api.add_missing_imports(true)
+        -- -- api.organize_imports(true)
+      -- end,
+    -- })
+    -- -- normal on_attach + autofmt
+    -- on_attach_with_autofmt(client, bufnr)
+    -- -- key bindings
+    -- local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+    -- local opts = { noremap = true, silent = true }
+    -- buf_set_keymap('n', 'gD', ':TSToolsGoToSourceDefinition<CR>', opts)
+    -- buf_set_keymap('n', '<leader>lR', ':TSToolsRenameFile<CR>', opts)
+    -- buf_set_keymap('n', '<leader>lF', ':TSToolsFixAll<CR>', opts)
+    -- buf_set_keymap('n', '<leader>li', ':TSToolsAddMissingImports<CR>:TSToolsSortImports<CR>', opts)
+  -- end,
+  -- -- handlers = {
+    -- -- ["textDocument/publishDiagnostics"] = api.filter_diagnostics(
+      -- -- -- Ignore 'This may be converted to an async function' diagnostics.
+      -- -- { 80006 }
+    -- -- ),
+  -- -- },
+  -- settings = {
+    -- tsserver_file_preferences = {
+      -- importModuleSpecifierPreference = "relative",
+      -- -- importModuleSpecifierPreference = "project-relative",
+      -- -- importModuleSpecifierPreference = "absolute",
+    -- },
+    -- -- spawn additional tsserver instance to calculate diagnostics on it
+    -- separate_diagnostic_server = true,
+    -- -- "change"|"insert_leave" determine when the client asks the server about diagnostic
+    -- publish_diagnostic_on = "change",
+    -- -- array of strings("fix_all"|"add_missing_imports"|"remove_unused"|
+    -- -- "remove_unused_imports"|"organize_imports") -- or string "all"
+    -- -- to include all supported code actions
+    -- -- specify commands exposed as code_actions
+    -- expose_as_code_action = "all",
+    -- -- JSXCloseTag
+    -- -- WARNING: it is disabled by default (maybe you configuration or distro already uses nvim-auto-tag,
+    -- -- that maybe have a conflict if enable this feature. )
+    -- jsx_close_tag = {
+      -- enable = false,
+      -- filetypes = { "javascriptreact", "typescriptreact" },
+    -- }
   -- },
-  settings = {
-    tsserver_file_preferences = {
-      importModuleSpecifierPreference = "relative",
-      -- importModuleSpecifierPreference = "project-relative",
-      -- importModuleSpecifierPreference = "absolute",
-    },
-    -- spawn additional tsserver instance to calculate diagnostics on it
-    separate_diagnostic_server = true,
-    -- "change"|"insert_leave" determine when the client asks the server about diagnostic
-    publish_diagnostic_on = "change",
-    -- array of strings("fix_all"|"add_missing_imports"|"remove_unused"|
-    -- "remove_unused_imports"|"organize_imports") -- or string "all"
-    -- to include all supported code actions
-    -- specify commands exposed as code_actions
-    expose_as_code_action = "all",
-    -- JSXCloseTag
-    -- WARNING: it is disabled by default (maybe you configuration or distro already uses nvim-auto-tag,
-    -- that maybe have a conflict if enable this feature. )
-    jsx_close_tag = {
-      enable = false,
-      filetypes = { "javascriptreact", "typescriptreact" },
-    }
-  },
-}
+-- }
 
 -- Setup tool installer
 -- see https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
