@@ -42,7 +42,6 @@ if has('nvim')
   Plug 'WhoIsSethDaniel/mason-tool-installer.nvim', {'do': ':MasonToolsInstall'}
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-  Plug 'mfussenegger/nvim-dap'
   Plug 'nvimtools/none-ls.nvim'
   " Plug 'jose-elias-alvarez/typescript.nvim' -- replacing with pmizio/typescript-tools.nvim
   Plug 'pmizio/typescript-tools.nvim'

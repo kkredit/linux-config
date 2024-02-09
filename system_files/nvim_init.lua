@@ -344,9 +344,6 @@ require('mason-tool-installer').setup {
     'vim-language-server',
     'yaml-language-server',
 
-    -- debug adapters
-    'delve', -- go
-
     -- linters
     'actionlint',
     'buf',
