@@ -338,6 +338,12 @@ autocmd BufReadPost * if &filetype !~ 'gitcommit' && line("'\"") > 0 && line("'\
 let exceptlist = ['markdown', 'rst']
 autocmd BufWritePre * if index(exceptlist, &ft) < 0 | :%s/\s\+$//e
 
+" Highlight all TODOs
+augroup HiglightTODO
+    autocmd!
+    autocmd WinEnter,VimEnter * :silent! call matchadd('Todo', 'TODO\|FIXME', -1)
+augroup END
+
 " Miscellaneous
 set undofile
 set autoread
