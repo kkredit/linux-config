@@ -36,6 +36,10 @@
     dc = diff --cached
     do = !BR=$(git rev-parse --abbrev-ref HEAD) && \
           git diff $(git config --get branch.$BR.remote)/$BR
+    db = !LAST_BR_HASH=$(git log --simplify-by-decoration --format='%H' -2 | tail -1) && \
+          LAST_BR=$(git for-each-ref --format='%(refname:short)' --points-at $LAST_BR_HASH) && \
+          echo "Diffing against most recent branch: $LAST_BR" && \
+          git diff $LAST_BR
     sns = show --compact-summary  # --name-status for old versions of git
     dns = diff --compact-summary  # --name-status for old versions of git
     lns = log --compact-summary  # --name-status for old versions of git
