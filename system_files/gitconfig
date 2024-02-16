@@ -44,17 +44,17 @@
     l = log
     hist = log-compact --graph --decorate
     h = log-compact --graph --decorate
-    re = log-compact --graph --decorate -8
+    re = log-compact --graph --decorate -12
     today = log-compact --graph --decorate --since="4AM"
     tree = log-compact --all --graph --decorate
     t = log-compact --all --graph --decorate
-    rt = log-compact --all --graph --decorate -8
+    te = log-compact --all --graph --decorate -16
     tree-simple = log-compact --all --graph --decorate --simplify-by-decoration
     ts = log-compact --all --graph --decorate --simplify-by-decoration
     lo = !BR=$(git rev-parse --abbrev-ref HEAD) && \
           git log-compact --graph --decorate $(git config --get branch.$BR.remote)/$BR^...HEAD
     rl = reflog
-    rls = reflog -8
+    rls = reflog -12
 
     # archiving
     zip = !BRANCH="$(git rev-parse --abbrev-ref HEAD)" && \
