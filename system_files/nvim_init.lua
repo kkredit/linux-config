@@ -458,7 +458,7 @@ require 'nvim-treesitter.configs'.setup {
   modules  = {}, -- not sure what this is, but linter wants it
   highlight = {
     enable = true,
-    additional_vim_regex_highlighting = false,
+    additional_vim_regex_highlighting = {'markdown'},
   },
   incremental_selection = {
     enable = true,
