@@ -17,6 +17,7 @@
     p = pull
     pl = pull
     pu = push
+    puf = push --force-with-lease
     cp = cherry-pick
     rv = revert
     rb = rebase
@@ -81,7 +82,8 @@
            git config branch.main.pushRemote no_push && \
            git config submodule.recurse true && \
            git config user.signingkey 6074C283D843ECC1 && \
-           git config commit.gpgsign true"
+           git config commit.gpgsign true && \
+           git maintenance start"
     patchify = format-patch -1
     assume = update-index --assume-unchanged
     unassume = update-index --no-assume-unchanged
@@ -113,14 +115,21 @@
     tool = nvimdiff
 [merge]
     tool = nvimmerge
+[rerere]
+    enabled = true
+    autoUpdate = true
 [log-compact]
     defaults = --two-initials --abbrev=8
+[branch]
+    sort = -committerdate
 [github]
     user = kkredit
 [credential]
     helper = store
 [push]
     default = simple
+[column]
+    ui = auto
 [color]
     ui = true
 [color "diff-highlight"]

@@ -170,7 +170,7 @@ let g:AutoPairsShortcutJump = '<C-n>'
 nnoremap <leader>gd :Gdiffsplit<CR>
 nnoremap <leader>gD :G diff %<CR>
 nnoremap <leader>gm :G mergetool<CR>
-nnoremap <leader>gb :G blame<CR>
+nnoremap <leader>gb :G blame -w -C<CR>
 nnoremap <leader>gl :GBrowse<CR>
 vnoremap <leader>gl :GBrowse<CR>
 
