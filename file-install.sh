@@ -44,6 +44,8 @@ install -m 644 $FILES_DIR/ripgreprc ~/.ripgreprc
 if $MAC && [ -d ~/.gnupg ]; then
   grep "pinentry" ~/.gnupg/gpg-agent.conf >/dev/null || echo "pinentry-program $(which pinentry-mac)" >> ~/.gnupg/gpg-agent.conf
 fi
+mkdir -p ~/.config/graphite
+install -m 644 $FILES_DIR/graphite_aliases ~/.config/graphite/aliases
 
 # WSL files
 if $WSL; then
