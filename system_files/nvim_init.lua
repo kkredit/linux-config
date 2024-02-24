@@ -400,7 +400,6 @@ none_ls.setup({
     }),
     none_ls.builtins.code_actions.gitsigns,
     none_ls.builtins.code_actions.refactoring,
-    none_ls.builtins.code_actions.shellcheck,
     -- require('typescript.extensions.null-ls.code-actions'),
 
     none_ls.builtins.completion.spell,
@@ -426,7 +425,6 @@ none_ls.setup({
     --end,
     --timeout = 30000, -- ms
     --}),
-    none_ls.builtins.diagnostics.shellcheck,
     none_ls.builtins.diagnostics.terraform_validate,
     none_ls.builtins.diagnostics.tfsec,
     none_ls.builtins.diagnostics.sqlfluff.with {
@@ -439,7 +437,6 @@ none_ls.setup({
     -- null_ls.builtins.formatting.codespell,
     none_ls.builtins.formatting.goimports,
     none_ls.builtins.formatting.isort,
-    none_ls.builtins.formatting.jq,
     none_ls.builtins.formatting.prettierd,
     none_ls.builtins.formatting.shfmt,
     none_ls.builtins.formatting.sqlfluff.with {
