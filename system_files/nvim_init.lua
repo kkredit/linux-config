@@ -347,7 +347,6 @@ require('mason-tool-installer').setup {
     -- linters
     'actionlint',
     'buf',
-    'cspell',
     'codespell',
     -- 'editorconfig-checker', -- seems to cause false alarms
     'eslint-lsp',
@@ -385,19 +384,6 @@ none_ls.setup({
   end,
   capabilities = capabilities,
   sources = {
-    none_ls.builtins.diagnostics.cspell.with({
-      diagnostic_config = {
-        underline = true,
-        virtual_text = false,
-        signs = false,
-        update_in_insert = false,
-        severity_sort = true,
-      },
-      diagnostics_postprocess = function(diagnostic)
-        diagnostic.severity = vim.diagnostic.severity.INFO
-      end,
-      filetypes = { 'markdown', 'latex', 'text' },
-    }),
     none_ls.builtins.code_actions.gitsigns,
     none_ls.builtins.code_actions.refactoring,
     -- require('typescript.extensions.null-ls.code-actions'),
