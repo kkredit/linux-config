@@ -113,8 +113,12 @@
     autoSquash = true
 [diff]
     tool = nvimdiff
+    algorithm = histogram
+[commit]
+    verbose = true
 [merge]
     tool = nvimmerge
+    conflictstyle = zdiff3
 [rerere]
     enabled = true
     autoUpdate = true
@@ -122,12 +126,21 @@
     defaults = --two-initials --abbrev=8
 [branch]
     sort = -committerdate
+[tag]
+    sort = taggerdate
 [github]
     user = kkredit
 [credential]
     helper = store
 [push]
     default = simple
+    followtags = true
+[transfer]
+    fsckobjects = true
+[fetch]
+    fsckobjects = true
+[receive]
+    fsckobjects = true
 [column]
     ui = auto
 [color]
