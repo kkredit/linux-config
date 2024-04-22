@@ -61,3 +61,4 @@ export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(vim {})+abort'" # ctrl-o opens f
 export EDITOR=nvim
 which bat &>/dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'" || true
 export RIPGREP_CONFIG_PATH=~/.ripgreprc
+export BAT_THEME="Monokai Extended Origin"
