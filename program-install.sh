@@ -45,10 +45,10 @@ function install_basic {
       shellcheck \
       shfmt \
       starship \
-      exa \
       ripgrep \
       autojump \
-      asdf
+      asdf \
+      alacritty
     brew install --cask iterm2 amethyst
     echo "$(brew --prefix)/bin/bash" | sudo tee -a /private/etc/shells
     sudo chpass -s "$(brew --prefix)/bin/bash" "$(whoami)"
@@ -127,7 +127,8 @@ function install_utilities {
       pipe-rename \
       procs \
       shy \
-      zellij
+      zellij \
+      exa
     cargo install --git https://github.com/jez/barchart.git
   fi
 
@@ -537,27 +538,31 @@ function install_texstudio {
 }
 
 function install_docker {
-  # Docker
-  sudo-pkg-mgr install -y \
-    apt-transport-https ca-certificates curl software-properties-common
+  if $MAC; then
+    brew install docker
+  else
+    # Docker
+    sudo-pkg-mgr install -y \
+      apt-transport-https ca-certificates curl software-properties-common
 
-  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-  APT_REPO="https://download.docker.com/linux/ubuntu"
-  if ! apt-cache policy | grep -q "$APT_REPO"; then
-    sudo add-apt-repository "deb [arch=amd64] $APT_REPO $UBU_REL stable"
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    APT_REPO="https://download.docker.com/linux/ubuntu"
+    if ! apt-cache policy | grep -q "$APT_REPO"; then
+      sudo add-apt-repository "deb [arch=amd64] $APT_REPO $UBU_REL stable"
+    fi
+    sudo-pkg-mgr update
+    sudo-pkg-mgr install -y \
+      docker-ce
+
+    # Docker installation process should create group 'docker'
+    # sudo groupadd docker
+    sudo usermod -aG docker "$USER"
+
+    # Docker Compose
+    URL="https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)"
+    sudo curl -L "$URL" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
   fi
-  sudo-pkg-mgr update
-  sudo-pkg-mgr install -y \
-    docker-ce
-
-  # Docker installation process should create group 'docker'
-  # sudo groupadd docker
-  sudo usermod -aG docker "$USER"
-
-  # Docker Compose
-  URL="https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)"
-  sudo curl -L "$URL" -o /usr/local/bin/docker-compose
-  sudo chmod +x /usr/local/bin/docker-compose
 }
 
 function install_wireshark {
