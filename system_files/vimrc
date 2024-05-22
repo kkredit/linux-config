@@ -66,7 +66,7 @@ if has('nvim')
 
   " Themes
   Plug 'Shatur/neovim-ayu'
-  Plug 'vigoux/oak'
+  Plug 'kkredit/oak'
   Plug 'olimorris/onedarkpro.nvim'
   Plug 'norcalli/nvim-colorizer.lua'
   Plug 'doki-theme/doki-theme-vim'
@@ -211,9 +211,11 @@ if has('nvim')
   else
     let g:airline_theme = 'tomorrow'
     colorscheme oak
-    call oak#hi('String', g:oak#palette.trunk5, '', 'italic')
+    call oak#hi('String', g:oak#palette.sky1, '', 'italic')
     call oak#hi('Identifier', g:oak#palette.leaf2)
-    hi MatchParen ctermbg=Brown guibg=Brown
+    call oak#hi('Comment', g:oak#palette.fur2)
+    " use g:oak#palette.petal2 for MatchParen
+    hi MatchParen guibg=#f0c54c
   endif
 else
   let g:airline_theme = 'jellybeans'

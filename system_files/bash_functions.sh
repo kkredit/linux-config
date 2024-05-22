@@ -178,7 +178,11 @@ function recreplace() {
 	local SEP=${3:-/}
 	echo "$1 $2" | grep -vq "$SEP" || return 1
 	# shellcheck disable=SC2046
-	sed -i "s${SEP}$1${SEP}$2${SEP}g" $(rg -l "$1")
+	if $MAC; then
+		gsed -i "s${SEP}$1${SEP}$2${SEP}g" $(rg -l "$1")
+	else
+		sed -i "s${SEP}$1${SEP}$2${SEP}g" $(rg -l "$1")
+	fi
 }
 
 function v() {
