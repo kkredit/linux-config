@@ -214,8 +214,7 @@ if has('nvim')
     call oak#hi('String', g:oak#palette.sky1, '', 'italic')
     call oak#hi('Identifier', g:oak#palette.leaf2)
     call oak#hi('Comment', g:oak#palette.fur2)
-    " use g:oak#palette.petal2 for MatchParen
-    hi MatchParen guibg=#f0c54c
+    hi MatchParen guibg=#aa4d4d
   endif
 else
   let g:airline_theme = 'jellybeans'
