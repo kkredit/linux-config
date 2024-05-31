@@ -590,7 +590,7 @@ vim.cmd("set foldmethod=expr")
 vim.cmd("set foldexpr=nvim_treesitter#foldexpr()")
 
 require("trouble").setup {
-  icons = false,
+  focus = true,
   auto_preview = false,
 }
 require('leap').set_default_keymaps()
