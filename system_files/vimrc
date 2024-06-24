@@ -182,8 +182,7 @@ nnoremap <leader>; <cmd>Telescope command_history<cr>
 nnoremap <leader>s <cmd>Telescope live_grep<cr>
 nnoremap <leader>S <cmd>Telescope grep_string<cr>
 vnoremap <leader>s "zy<cmd>exec 'Telescope grep_string search=' . escape(@z, ' ')<cr>
-nnoremap <leader>kf <cmd>Trouble document_diagnostics<cr>
-nnoremap <leader>kw <cmd>Trouble workspace_diagnostics<cr>
+nnoremap <leader>kf <cmd>Trouble diagnostics<cr>
 nnoremap <leader>kq <cmd>Trouble quickfix<cr>
 nnoremap <leader>kl <cmd>Trouble loclist<cr>
 nnoremap <leader>kd <cmd>Trouble lsp_definitions<cr>
