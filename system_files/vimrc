@@ -44,8 +44,7 @@ if has('nvim')
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
   Plug 'nvimtools/none-ls.nvim'
   " Plug 'jose-elias-alvarez/typescript.nvim' -- replacing with pmizio/typescript-tools.nvim
-  " Plug 'pmizio/typescript-tools.nvim'
-  Plug 'yioneko/nvim-vtsls'
+  Plug 'pmizio/typescript-tools.nvim'
   Plug 'mracos/mermaid.vim'
   Plug 'imsnif/kdl.vim'
   Plug 'ellisonleao/glow.nvim'
