@@ -540,7 +540,8 @@ function install_texstudio {
 
 function install_docker {
   if $MAC; then
-    brew install docker
+    brew install --cask docker # docker desktop and docker cli
+    brew install docker-compose
   else
     # Docker
     sudo-pkg-mgr install -y \
