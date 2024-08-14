@@ -32,6 +32,7 @@ function install_basic {
       bash \
       grep \
       coreutils \
+      dos2unix \
       gnu-sed \
       wget \
       vim \
