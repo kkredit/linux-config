@@ -81,7 +81,7 @@
            git config branch.master.pushRemote no_push && \
            git config branch.main.pushRemote no_push && \
            git config submodule.recurse true && \
-           git config user.signingkey 6074C283D843ECC1 && \
+           git config user.signingkey F5F752916F2428D2 && \
            git config commit.gpgsign true && \
            git maintenance start"
     patchify = format-patch -1

@@ -660,12 +660,16 @@ function install_glow {
 }
 
 function install_awscli {
-  curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-  unzip awscliv2.zip
-  UPDATE=$(which aws &>/dev/null && echo '--update' || echo '')
-  sudo ./aws/install "$UPDATE"
-  aws --version
-  rm -r awscliv2.zip aws
+  if $MAC; then
+    brew install awscli
+  else
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    unzip awscliv2.zip
+    UPDATE=$(which aws &>/dev/null && echo '--update' || echo '')
+    sudo ./aws/install "$UPDATE"
+    aws --version
+    rm -r awscliv2.zip aws
+  fi
 }
 
 function install_awseb {
@@ -751,12 +755,13 @@ function install_tlaplus {
 function install_setup {
   install_update
   install_enpass
-  install_chrome
   install_git
   install_basic
   install_python
   install_rust
   install_node
+  install_yarn
+  install_golang
   install_dev
   install_utilities
   install_fonts
