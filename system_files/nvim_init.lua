@@ -393,9 +393,10 @@ none_ls.setup({
 
     none_ls.builtins.diagnostics.actionlint,
     none_ls.builtins.diagnostics.buf,
-    none_ls.builtins.diagnostics.codespell.with {
-      args = { '-L requestor' },
-    },
+    -- Codespell -- glitchy and consuming CPU lately!
+    -- none_ls.builtins.diagnostics.codespell.with {
+      -- args = { '-L requestor' },
+    -- },
     -- null_ls.builtins.diagnostics.editorconfig_checker.with {
     -- command = 'editorconfig-checker'
     -- },
