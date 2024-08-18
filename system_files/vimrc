@@ -284,8 +284,8 @@ nnoremap <leader>bp :BufferLineTogglePin<CR>
 " Markdown settings
 autocmd Filetype markdown call SetMarkdownOptions()
 function SetMarkdownOptions()
-  set textwidth=80
-  set colorcolumn=81
+  set textwidth=100
+  set colorcolumn=101
   set formatoptions+=tc
   " rewrap current paragraph: vip | gq
 endfunction

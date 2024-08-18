@@ -400,7 +400,9 @@ none_ls.setup({
     -- null_ls.builtins.diagnostics.editorconfig_checker.with {
     -- command = 'editorconfig-checker'
     -- },
-    none_ls.builtins.diagnostics.markdownlint,
+    none_ls.builtins.diagnostics.markdownlint.with {
+      args = { '--disable', 'MD013' }, -- line-length
+    },
     -- Semgrep -- works, but burns CPU
     --null_ls.builtins.diagnostics.semgrep.with({
     --args = function(_)
