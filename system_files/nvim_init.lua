@@ -292,6 +292,7 @@ require("typescript-tools").setup {
     -- ),
   -- },
   settings = {
+    tsserver_max_memory = 8192,
     tsserver_file_preferences = {
       importModuleSpecifierPreference = "relative",
       -- importModuleSpecifierPreference = "project-relative",
