@@ -123,7 +123,7 @@
     enabled = true
     autoUpdate = true
 [log-compact]
-    defaults = --two-initials --abbrev=8
+    defaults = --full-name --abbrev=8
 [branch]
     sort = -committerdate
 [tag]
