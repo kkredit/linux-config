@@ -43,6 +43,8 @@ if has('nvim')
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
   Plug 'nvimtools/none-ls.nvim'
+  Plug 'nvimtools/none-ls-extras.nvim'
+  Plug 'Zeioth/none-ls-external-sources'
   " Plug 'jose-elias-alvarez/typescript.nvim' -- replacing with pmizio/typescript-tools.nvim
   Plug 'pmizio/typescript-tools.nvim'
   Plug 'mracos/mermaid.vim'

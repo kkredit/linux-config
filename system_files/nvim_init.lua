@@ -350,7 +350,8 @@ require('mason-tool-installer').setup {
     'buf',
     'codespell',
     -- 'editorconfig-checker', -- seems to cause false alarms
-    'eslint-lsp',
+    -- 'eslint-lsp', -- very slow
+    'eslint_d',
     'markdownlint',
     'shellcheck',
     'sqlfluff',
@@ -388,6 +389,7 @@ none_ls.setup({
     none_ls.builtins.code_actions.gitsigns,
     none_ls.builtins.code_actions.refactoring,
     -- require('typescript.extensions.null-ls.code-actions'),
+    require('none-ls-external-sources.code_actions.eslint_d'),
 
     none_ls.builtins.completion.spell,
     none_ls.builtins.completion.tags,
@@ -401,6 +403,7 @@ none_ls.setup({
     -- null_ls.builtins.diagnostics.editorconfig_checker.with {
     -- command = 'editorconfig-checker'
     -- },
+    require('none-ls-external-sources.diagnostics.eslint_d'),
     none_ls.builtins.diagnostics.markdownlint.with {
       args = { '--disable', 'MD013' }, -- line-length
     },
@@ -425,6 +428,7 @@ none_ls.setup({
     none_ls.builtins.formatting.black,
     none_ls.builtins.formatting.buf,
     -- null_ls.builtins.formatting.codespell,
+    require('none-ls-external-sources.formatting.eslint_d'),
     none_ls.builtins.formatting.goimports,
     none_ls.builtins.formatting.isort,
     none_ls.builtins.formatting.prettierd,
