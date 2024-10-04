@@ -38,6 +38,7 @@ function install_basic {
       vim \
       neovim \
       git \
+      git-absorb \
       tmux \
       lynx \
       tree \
@@ -57,6 +58,7 @@ function install_basic {
     sudo-pkg-mgr install -y \
       vim \
       git \
+      git-absorb \
       tmux \
       lynx \
       curl \

@@ -111,6 +111,9 @@
     ff = only
 [rebase]
     autoSquash = true
+[absorb]
+    autoStageIfNothingStaged = true
+    oneFixupPerCommit = true
 [diff]
     tool = nvimdiff
     algorithm = histogram
