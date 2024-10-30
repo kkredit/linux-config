@@ -1,6 +1,3 @@
-import = [
-  "/Users/kevin/git/linux-config/submodules/alacritty-theme/themes/tomorrow_night_bright.toml",
-]
 
 [cursor]
 vi_mode_style = "Underline"
@@ -26,7 +23,7 @@ bindings = [
   { chars = "\u000d", key = "NumpadEnter" },
 ]
 
-[shell]
+[terminal.shell]
 args = [
   "--login",
   "-c",
@@ -44,3 +41,8 @@ blur = true
 [window.dimensions]
 columns = 121
 lines = 32
+
+[general]
+import = [
+  "/Users/kevin/git/linux-config/submodules/alacritty-theme/themes/tomorrow_night_bright.toml",
+]
