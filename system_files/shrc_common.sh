@@ -54,7 +54,7 @@ if [ -x /usr/bin/dircolors ] || [ -x /usr/local/bin/gdircolors ]; then
 fi
 
 # Set environment variables
-PATH=$PATH:~/bin
+PATH=$PATH:~/bin:~/.local/bin
 [ -d ~/.yarn/bin ] && PATH=$PATH:~/.yarn/bin || true
 [ -d /snap/bin ] && PATH=$PATH:/snap/bin || true
 export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(vim {})+abort'" # ctrl-o opens file in vim

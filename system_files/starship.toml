@@ -12,6 +12,8 @@ $git_commit\
 $git_state\
 $git_metrics\
 $git_status\
+$nodejs\
+$python\
 $package\
 $terraform\
 ${custom.kx}\
@@ -25,6 +27,7 @@ $character\
 description = "The active kodex environment"
 when = "grep -q kodex <<<$PWD"
 command = "kx which"
+symbol = "Ⓚ "
 
 [character]
 success_symbol = "[\\$](blue)"
@@ -55,7 +58,7 @@ ahead = "↑${count}"
 diverged = "↕↑${ahead_count}↓${behind_count}"
 behind = "↓${count}"
 conflicted = "${count}"
-deleted = "﫧${count}"
+deleted = "✘${count}"
 modified = "${count}"
 stashed = "${count}"
 staged = "${count}"
@@ -67,20 +70,11 @@ untracked = "${count}"
 [aws]
 symbol = " "
 
-[conda]
-symbol = " "
-
-[dart]
-symbol = " "
-
 [docker_context]
-symbol = " "
-
-[elixir]
-symbol = " "
+symbol = "🐳 "
 
 [elm]
-symbol = " "
+symbol = "🌳 "
 
 [golang]
 symbol = " "
@@ -88,45 +82,23 @@ symbol = " "
 [hg_branch]
 symbol = " "
 
-[java]
-symbol = " "
-
-[julia]
-symbol = " "
-
 [memory_usage]
-symbol = " "
-
-[nim]
-symbol = " "
+symbol = "🐏 "
 
 [nix_shell]
-symbol = " "
+symbol = "❄️ "
+
+[nodejs]
+symbol = " "
 
 [package]
-symbol = " "
-
-[perl]
-symbol = " "
-
-[php]
-symbol = " "
+symbol = "📦 "
 
 [python]
-symbol = " "
-
-[ruby]
-symbol = " "
+symbol = "🐍 "
 
 [rust]
-symbol = " "
-
-[scala]
-symbol = " "
+symbol = "🦀 "
 
 [shlvl]
 symbol = " "
-
-[swift]
-symbol = "ﯣ "
-
