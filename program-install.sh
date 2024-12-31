@@ -58,7 +58,8 @@ function install_basic {
     sudo-pkg-mgr install -y \
       vim \
       git \
-      git-absorb \
+      cmake \
+      # git-absorb \
       tmux \
       lynx \
       curl \
@@ -76,11 +77,16 @@ function install_basic {
       ripgrep \
       gnome-tweaks \
       autojump \
-      entr
+      entr \
+      unzip
 
-    sudo add-apt-repository ppa:neovim-ppa/stable -y
-    sudo-pkg-mgr install -y \
-      neovim
+    # sudo add-apt-repository ppa:neovim-ppa/stable -y
+    # sudo apt update
+    # sudo-pkg-mgr install -y \
+      # neovim
+    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+    chmod u+x nvim.appimage
+    mv nvim.appimage ~/bin/nvim
 
     which starship &>/dev/null || sh -c "$(curl -fsSL https://starship.rs/install.sh)"
   fi
@@ -366,7 +372,7 @@ function install_node {
     brew install node
   else
     sudo-pkg-mgr install npm
-    curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+    curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
     sudo-pkg-mgr install -y nodejs
     sudo chown -R "$USER":"$(id -gn "$USER")" ~/.config
     sudo chown -R "$USER":"$(id -gn "$USER")" /usr/lib/node_modules/
@@ -455,6 +461,7 @@ function install_haskell {
 }
 
 function install_rust {
+  sudo-pkg-mgr install build-essential
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 }
 
@@ -479,7 +486,9 @@ function install_python {
   if $MAC; then
     brew install python@latest
   else
-    sudo-pkg-mgr install python3-pip python-is-python3
+    sudo add-apt-repository ppa:deadsnakes/ppa
+    sudo apt update
+    sudo-pkg-mgr install python3-pip python-is-python3 python3-venv
 
     # Virtual environments: see https://realpython.com/python-virtual-environments-a-primer/
     pip install --user \
