@@ -25,7 +25,7 @@ $character\
 
 [custom.kx]
 description = "The active kodex environment"
-when = "grep -q kodex <<<$PWD"
+when = "grep -q kodex <<<$PWD && [ 'default' != $(kx which) ]"
 command = "kx which"
 symbol = "Ⓚ "
 
