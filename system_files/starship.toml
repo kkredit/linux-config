@@ -12,7 +12,6 @@ $git_commit\
 $git_state\
 $git_metrics\
 $git_status\
-$nodejs\
 $python\
 $package\
 $terraform\
