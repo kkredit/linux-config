@@ -50,7 +50,8 @@ function install_basic {
       ripgrep \
       autojump \
       asdf \
-      alacritty
+      alacritty \
+      ghostty
     brew install --cask iterm2 amethyst
     echo "$(brew --prefix)/bin/bash" | sudo tee -a /private/etc/shells
     sudo chpass -s "$(brew --prefix)/bin/bash" "$(whoami)"
@@ -78,7 +79,8 @@ function install_basic {
       gnome-tweaks \
       autojump \
       entr \
-      unzip
+      unzip \
+      ghostty
 
     # sudo add-apt-repository ppa:neovim-ppa/stable -y
     # sudo apt update

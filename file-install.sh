@@ -31,6 +31,8 @@ if ! $MAC; then
   sed -i 's/decorations = "buttonless"/decorations = "full"/' ~/.config/alacritty/alacritty.toml
   sed -i 's/size = 13/size = 11/' ~/.config/alacritty/alacritty.toml
 fi
+mkdir -p ~/.config/ghostty
+install -m 644 $FILES_DIR/ghostty.config ~/.config/ghostty/config
 mkdir -p ~/.config/zellij
 install -m 644 $FILES_DIR/zellij_config.kdl ~/.config/zellij/config.kdl
 install -m 644 $FILES_DIR/zellij_layout.kdl ~/.config/zellij/layout.kdl
