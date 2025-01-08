@@ -42,8 +42,13 @@ export SHELL=/usr/local/bin/bash
 
 # Source other files
 function sourceIfPresent() {
+	# shellcheck disable=SC1090
 	[ -f "$1" ] && source "$1"
 }
+
+if [ -z "$BASH_PROFILE_LOADED" ]; then
+	sourceIfPresent ~/.bash_profile
+fi
 
 sourceIfPresent /usr/share/bash-completion/completions/git
 sourceIfPresent /usr/local/etc/bash_completion
@@ -54,7 +59,7 @@ sourceIfPresent ~/.iterm2_shell_integration.bash
 sourceIfPresent ~/.shrc_common
 
 if which starship &>/dev/null; then
-  eval "$(starship init bash)"
+	eval "$(starship init bash)"
 fi
 
 # print a quote or fortune, for fun

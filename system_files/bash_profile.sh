@@ -11,5 +11,5 @@ if [[ -d ~/.rvm/gems/ruby-$RUBY_VERSION/bin ]]; then
     source ~/.rails.bash
 fi
 
+export BASH_PROFILE_LOADED=1
 source ~/.bashrc
-

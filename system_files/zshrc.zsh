@@ -3,6 +3,14 @@
 export SHELL=$(which zsh)
 export ZSH_NAME=zsh
 
+# Source profile if have not already
+function sourceIfPresent() {
+    [ -f "$1" ] && source "$1"
+}
+if [ -z "$ZSH_PROFILE_LOADED" ]; then
+  sourceIfPresent ~/.zprofile
+fi
+
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -23,9 +31,6 @@ autoload -Uz bashcompinit && bashcompinit
 # End of lines added by compinstall
 
 # Source other files
-function sourceIfPresent() {
-    [ -f "$1" ] && source "$1"
-}
 sourceIfPresent ~/.shrc_common
 
 # Starship
