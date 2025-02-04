@@ -622,6 +622,10 @@ require('bufferline').setup {
   -- }
 }
 
+require("CopilotChat").setup {
+  model = "claude-3.5-sonnet",
+}
+
 -- Start 'Telescope find_files' when Vim is started without file arguments.
 --vim.cmd([[
 --autocmd StdinReadPre * let s:std_in=1

@@ -65,6 +65,7 @@ if has('nvim')
 
   " Copilot
   Plug 'github/copilot.vim'
+  Plug 'CopilotC-Nvim/CopilotChat.nvim'
 
   " Themes
   Plug 'Shatur/neovim-ayu'
