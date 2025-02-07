@@ -19,7 +19,6 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'easymotion/vim-easymotion'
 Plug 'preservim/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'preservim/nerdcommenter'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'jiangmiao/auto-pairs'
@@ -92,8 +91,6 @@ call plug#end()
 " Plugin configuration
 let g:smoothie_speed_linear_factor=80
 let g:smoothie_speed_exponentiation_factor=0.6
-let g:NERDSpaceDelims = 1
-let g:NERDCommentEmptyLines = 1
 let g:NERDTreeGitStatusConcealBrackets = 1
 let g:NERDTreeGitStatusIndicatorMapCustom = {
                 \ 'Modified'  :'',
@@ -197,6 +194,16 @@ nnoremap <leader>kgb <cmd>Telescope git_branches<cr>
 nnoremap <leader>kt <cmd>Telescope treesitter<cr>
 nnoremap <leader>kk <cmd>Telescope builtin<cr>
 nnoremap <leader>kc <cmd>Copilot panel<cr>
+
+" CopilotChat mappings
+nnoremap <leader>cc :CopilotChat<CR>
+vnoremap <leader>cc :CopilotChat<CR>
+vnoremap <leader>ce :CopilotChatExplain<CR>
+vnoremap <leader>co :CopilotChatOptimize<CR>
+vnoremap <leader>cf :CopilotChatFix<CR>
+vnoremap <leader>ct :CopilotChatTests<CR>
+nnoremap <leader>cr :CopilotChatReview<CR>
+vnoremap <leader>cr :CopilotChatReview<CR>
 
 " Colors
 syntax on
