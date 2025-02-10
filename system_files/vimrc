@@ -19,6 +19,7 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'easymotion/vim-easymotion'
 Plug 'preservim/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'jiangmiao/auto-pairs'
@@ -195,7 +196,11 @@ nnoremap <leader>kt <cmd>Telescope treesitter<cr>
 nnoremap <leader>kk <cmd>Telescope builtin<cr>
 nnoremap <leader>kc <cmd>Copilot panel<cr>
 
-" CopilotChat mappings
+" CopilotChat and Commentary mappings (note, both start with <leader>c)
+"" Commentary
+nnoremap <leader>c<space> :Commentary<CR>
+vnoremap <leader>c<space> :Commentary<CR>
+"" CopilotChat
 nnoremap <leader>cc :CopilotChat<CR>
 vnoremap <leader>cc :CopilotChat<CR>
 vnoremap <leader>ce :CopilotChatExplain<CR>
