@@ -42,7 +42,7 @@ if has('nvim')
   Plug 'WhoIsSethDaniel/mason-tool-installer.nvim', {'do': ':MasonToolsInstall'}
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-  Plug 'nvimtools/none-ls.nvim', {'commit': '20f5650988cd849e18c7f3d2dce4b0e6a260e126'}
+  Plug 'nvimtools/none-ls.nvim'
   Plug 'nvimtools/none-ls-extras.nvim'
   Plug 'Zeioth/none-ls-external-sources'
   " Plug 'jose-elias-alvarez/typescript.nvim' -- replacing with pmizio/typescript-tools.nvim
@@ -90,6 +90,7 @@ endif
 call plug#end()
 
 " Plugin configuration
+let g:copilot_node_command='~/.nvm/versions/node/v20.19.0/bin/node'
 let g:smoothie_speed_linear_factor=80
 let g:smoothie_speed_exponentiation_factor=0.6
 let g:NERDTreeGitStatusConcealBrackets = 1

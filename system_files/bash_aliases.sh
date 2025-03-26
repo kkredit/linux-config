@@ -2,8 +2,11 @@
 # ~/.bash_aliases
 
 alias rc='source ~/.bashrc'
-alias nvim='NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim'
-alias nvr='nvr --servername /tmp/nvimsocket'
+
+# This is broken as of nvim 0.11.0. I don't really use it though.
+# alias nvim='NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim'
+# alias nvr='nvr --servername /tmp/nvimsocket'
+
 alias V='nvim $(find * -type f | fzf)'
 if which nvim &>/dev/null; then
   alias vim=nvim
