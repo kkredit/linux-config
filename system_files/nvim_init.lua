@@ -157,108 +157,84 @@ local on_attach_with_autofmt = function(_, bufnr)
   register_autofmt(bufnr)
 end
 
--- Setup Mason
--- See https://github.com/williamboman/mason.nvim
--- and https://github.com/williamboman/mason-lspconfig.nvim
-require("mason").setup()
-local mason_lspconfig = require("mason-lspconfig")
-mason_lspconfig.setup()
-
 -- integrate with nvim-cmp
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
--- see https://github.com/williamboman/mason.nvim/discussions/92
-mason_lspconfig.setup_handlers({
-  function(server_name) -- Default handler (optional)
-    lspconfig[server_name].setup({
-      on_attach = on_attach,
-      capabilities = capabilities,
-    })
-  end,
-  ["clangd"] = function(_)
-    lspconfig.clangd.setup({
-      on_attach = on_attach,
-      capabilities = capabilities,
-      --filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' }, -- default
-      filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
-    })
-  end,
-  ["gopls"] = function(_)
-    lspconfig.gopls.setup({
-      on_attach = on_attach_with_autofmt,
-      capabilities = capabilities,
-    })
-  end,
-  ["ltex"] = function(_)
-    lspconfig.ltex.setup({
-      on_attach = on_attach,
-      capabilities = capabilities,
-      filetypes = { 'latex' },
-    })
-  end,
-  ["lua_ls"] = function(_)
-    lspconfig.lua_ls.setup({
-      on_attach = on_attach,
-      capabilities = capabilities,
-      settings = {
-        Lua = {
-          runtime = {
-            version = 'LuaJIT',
-          },
-          diagnostics = {
-            globals = { 'vim' },
-          },
-          workspace = {
-            library = vim.api.nvim_get_runtime_file("", true),
-            checkThirdParty = false,
-          },
-        },
+-- vim LSP setup
+vim.lsp.config('*', {
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
+vim.lsp.config('clangd', {
+  filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' }, -- default list also includes 'proto'
+})
+vim.lsp.config('gopls', {
+  on_attach = on_attach_with_autofmt,
+})
+vim.lsp.config('ltex', {
+  filetypes = { 'latex' },
+})
+vim.lsp.config('lua_ls', {
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',
       },
-    })
-  end,
-  ["pylsp"] = function(_)
-    lspconfig.pylsp.setup({
-      on_attach = on_attach_with_autofmt,
-      capabilities = capabilities,
-      settings = {
-        pylsp = {
-          plugins = {
-            pycodestyle = {
-              maxLineLength = 999, -- let other tools handle this
-            }
-          }
+      diagnostics = {
+        globals = { 'vim' },
+      },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true),
+        checkThirdParty = false,
+      },
+    },
+  },
+})
+vim.lsp.config('pylsp', {
+  on_attach = on_attach_with_autofmt,
+  settings = {
+    pylsp = {
+      plugins = {
+        pycodestyle = {
+          maxLineLength = 999, -- let other tools handle this
         }
       }
-    })
-  end,
+    }
+  }
 })
+
+-- Setup Mason
+-- See https://github.com/mason-org/mason.nvim
+-- and https://github.com/mason-org/mason-lspconfig.nvim
+require("mason").setup()
+require("mason-lspconfig").setup()
 
 -- replacing with pmizio/typescript-tools.nvim, but leaving this for now
 -- require("typescript").setup({
-  -- server = {
-    -- -- pass options to lspconfig's setup method
-    -- on_attach = function(client, bufnr)
-      -- -- auto-import
-      -- vim.api.nvim_create_autocmd("BufWritePre", {
-        -- group = augroup,
-        -- buffer = bufnr,
-        -- callback = function()
-          -- require("typescript").actions.addMissingImports({ sync = true })
-          -- --require("typescript").actions.organizeImports({sync = true})
-        -- end,
-      -- })
-      -- -- normal on_attach + autofmt
-      -- on_attach_with_autofmt(client, bufnr)
-      -- -- override go-to-definition (requires TS 4.7)
-      -- local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-      -- local opts = { noremap = true, silent = true }
-      -- -- somehow, despite trying so many things, I cannot suppress the error
-      -- --  > go to source definition failed: requires typescript 4.7
-      -- -- so instead of overriding `gd`, override `gD` and use it only when necessary.
-      -- buf_set_keymap('n', 'gD', ':silent! TypescriptGoToSourceDefinition<CR>', opts)
-    -- end,
-    -- capabilities = capabilities,
-  -- },
+-- server = {
+-- -- pass options to lspconfig's setup method
+-- on_attach = function(client, bufnr)
+-- -- auto-import
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+-- group = augroup,
+-- buffer = bufnr,
+-- callback = function()
+-- require("typescript").actions.addMissingImports({ sync = true })
+-- --require("typescript").actions.organizeImports({sync = true})
+-- end,
+-- })
+-- -- normal on_attach + autofmt
+-- on_attach_with_autofmt(client, bufnr)
+-- -- override go-to-definition (requires TS 4.7)
+-- local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+-- local opts = { noremap = true, silent = true }
+-- -- somehow, despite trying so many things, I cannot suppress the error
+-- --  > go to source definition failed: requires typescript 4.7
+-- -- so instead of overriding `gd`, override `gD` and use it only when necessary.
+-- buf_set_keymap('n', 'gD', ':silent! TypescriptGoToSourceDefinition<CR>', opts)
+-- end,
+-- capabilities = capabilities,
+-- },
 -- })
 
 -- See https://github.com/pmizio/typescript-tools.nvim#%EF%B8%8F-configuration
@@ -286,10 +262,10 @@ require("typescript-tools").setup {
     buf_set_keymap('n', '<leader>li', ':TSToolsAddMissingImports<CR>:TSToolsSortImports<CR>', opts)
   end,
   -- handlers = {
-    -- ["textDocument/publishDiagnostics"] = api.filter_diagnostics(
-      -- -- Ignore 'This may be converted to an async function' diagnostics.
-      -- { 80006 }
-    -- ),
+  -- ["textDocument/publishDiagnostics"] = api.filter_diagnostics(
+  -- -- Ignore 'This may be converted to an async function' diagnostics.
+  -- { 80006 }
+  -- ),
   -- },
   settings = {
     tsserver_max_memory = 12288,
@@ -398,7 +374,7 @@ none_ls.setup({
     none_ls.builtins.diagnostics.buf,
     -- Codespell -- glitchy and consuming CPU lately!
     -- none_ls.builtins.diagnostics.codespell.with {
-      -- args = { '-L requestor' },
+    -- args = { '-L requestor' },
     -- },
     -- null_ls.builtins.diagnostics.editorconfig_checker.with {
     -- command = 'editorconfig-checker'
@@ -442,14 +418,14 @@ none_ls.setup({
 
 -- Treesitter
 require 'nvim-treesitter.configs'.setup {
-  ensure_installed = "all",
-  sync_install = false,
-  auto_install = false,
-  ignore_install = {},
-  modules  = {}, -- not sure what this is, but linter wants it
-  highlight = {
+  ensure_installed      = "all",
+  sync_install          = false,
+  auto_install          = false,
+  ignore_install        = {},
+  modules               = {}, -- not sure what this is, but linter wants it
+  highlight             = {
     enable = true,
-    additional_vim_regex_highlighting = {'markdown'},
+    additional_vim_regex_highlighting = { 'markdown' },
   },
   incremental_selection = {
     enable = true,
@@ -460,10 +436,10 @@ require 'nvim-treesitter.configs'.setup {
       node_decremental = "grN",
     },
   },
-  indent = {
+  indent                = {
     enable = true
   },
-  textobjects = {
+  textobjects           = {
     select = {
       enable = true,
       lookahead = true,
