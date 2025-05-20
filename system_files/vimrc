@@ -90,7 +90,6 @@ endif
 call plug#end()
 
 " Plugin configuration
-let g:copilot_node_command='~/.nvm/versions/node/v20.19.0/bin/node'
 let g:smoothie_speed_linear_factor=80
 let g:smoothie_speed_exponentiation_factor=0.6
 let g:NERDTreeGitStatusConcealBrackets = 1

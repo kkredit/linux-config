@@ -599,7 +599,7 @@ require('bufferline').setup {
 }
 
 require("CopilotChat").setup {
-  model = "claude-3.7-sonnet",
+  model = "gpt-4.1",
 }
 
 -- Start 'Telescope find_files' when Vim is started without file arguments.
