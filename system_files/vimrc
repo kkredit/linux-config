@@ -143,6 +143,15 @@ let timeoutlen = 500
 " so gl: go to last insertion and start in normal mode
 nnoremap gl `.
 
+" fix common uppercase typos for Ex commands
+cabbrev W w
+cabbrev Wq wq
+cabbrev Wqa wqa
+cabbrev WQa wqa
+cabbrev Q q
+cabbrev Qa qa
+cabbrev QA qa
+
 nnoremap <silent> <leader>w :w<CR>
 nnoremap <leader>W :wq<CR>
 nnoremap <silent> <leader>q :q<CR>
