@@ -217,6 +217,28 @@ function vg {
 	nvim -c "Telescope grep_string search=$*"
 }
 
+function vd {
+  local FILES
+  FILES=$(git diff --name-only)
+  if [[ "" == "$FILES" ]]; then
+    echo "No changed files"
+    return
+  fi
+	nvim -c "Telescope find_files find_command=echo,$FILES layout_strategy=horizontal layout_config={height=50}"
+}
+
+function vs {
+  local HASH COMPARE FILES
+  HASH=${1:-HEAD}
+  COMPARE=${2:-$HASH~}
+  FILES=$(git diff --name-only "$HASH" "$COMPARE")
+  if [[ "" == "$FILES" ]]; then
+    echo "No files changed between $HASH and $COMPARE"
+    return
+  fi
+  nvim -c "Telescope find_files find_command=echo,$FILES layout_strategy=horizontal layout_config={height=50}"
+}
+
 function finde() {
 	find . -type f -iname "*.$1" 2>/dev/null
 }
