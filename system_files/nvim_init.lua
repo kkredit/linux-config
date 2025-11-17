@@ -239,29 +239,40 @@ require("mason-lspconfig").setup()
 -- })
 
 -- See https://github.com/pmizio/typescript-tools.nvim#%EF%B8%8F-configuration
-local api = require("typescript-tools.api")
-require("typescript-tools").setup {
-  on_attach = function(client, bufnr)
-    -- auto-import
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = augroup,
-      buffer = bufnr,
-      callback = function()
-        -- times out all the time :(
-        -- api.add_missing_imports(true)
-        -- api.organize_imports(true)
-      end,
-    })
-    -- normal on_attach + autofmt
-    on_attach_with_autofmt(client, bufnr)
-    -- key bindings
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-    local opts = { noremap = true, silent = true }
-    buf_set_keymap('n', 'gD', ':TSToolsGoToSourceDefinition<CR>', opts)
-    buf_set_keymap('n', '<leader>lR', ':TSToolsRenameFile<CR>', opts)
-    buf_set_keymap('n', '<leader>lF', ':TSToolsFixAll<CR>', opts)
-    buf_set_keymap('n', '<leader>li', ':TSToolsAddMissingImports<CR>:TSToolsSortImports<CR>', opts)
+
+-- Custom on_attach for typescript-tools applied via LspAttach autocmd
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client and client.name == "typescript-tools" then
+      local bufnr = args.buf
+
+      -- -- auto-import (Keeps timing out... :( )
+      -- local api = require("typescript-tools.api")
+      -- vim.api.nvim_create_autocmd("BufWritePre", {
+      --   group = augroup,
+      --   buffer = bufnr,
+      --   callback = function()
+      --     -- api.add_missing_imports(true)
+      --     -- api.organize_imports(true)
+      --   end,
+      -- })
+
+      -- normal on_attach + autofmt
+      on_attach_with_autofmt(client, bufnr)
+
+      -- key bindings
+      local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+      local opts = { noremap = true, silent = true }
+      buf_set_keymap('n', 'gD', ':TSToolsGoToSourceDefinition<CR>', opts)
+      buf_set_keymap('n', '<leader>lR', ':TSToolsRenameFile<CR>', opts)
+      buf_set_keymap('n', '<leader>lF', ':TSToolsFixAll<CR>', opts)
+      buf_set_keymap('n', '<leader>li', ':TSToolsAddMissingImports<CR>:TSToolsSortImports<CR>', opts)
+    end
   end,
+})
+
+require("typescript-tools").setup {
   -- handlers = {
   -- ["textDocument/publishDiagnostics"] = api.filter_diagnostics(
   -- -- Ignore 'This may be converted to an async function' diagnostics.
