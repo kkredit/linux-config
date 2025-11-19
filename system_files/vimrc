@@ -145,6 +145,7 @@ nnoremap gl `.
 
 " fix common uppercase typos for Ex commands
 cabbrev W w
+cabbrev Wa wa
 cabbrev Wq wq
 cabbrev Wqa wqa
 cabbrev WQa wqa
