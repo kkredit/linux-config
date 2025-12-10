@@ -72,7 +72,7 @@ if has('nvim')
   Plug 'kkredit/oak'
   Plug 'olimorris/onedarkpro.nvim'
   Plug 'norcalli/nvim-colorizer.lua'
-  Plug 'doki-theme/doki-theme-vim'
+  Plug 'chaserensberger/christmas.nvim'
 
   " Other
   Plug 'akinsho/bufferline.nvim'
@@ -227,11 +227,8 @@ set t_ut=
 if has('nvim')
   " if in December, Christmas theme!
   if strftime("%m") == "12"
-    " let g:airline_theme = 'laederon'
-    let g:airline_theme = 'serene'
-    colorscheme christmas_chocola
-    hi MatchParen ctermbg=Brown guibg=Brown
-    hi SignColumn guibg=Black
+    let g:airline_theme = 'tomorrow'
+    colorscheme christmas
   else
     let g:airline_theme = 'tomorrow'
     colorscheme oak
