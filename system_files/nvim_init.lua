@@ -280,7 +280,7 @@ require("typescript-tools").setup {
   -- ),
   -- },
   settings = {
-    tsserver_max_memory = 12288,
+    tsserver_max_memory = 16384,
     tsserver_file_preferences = {
       importModuleSpecifierPreference = "relative",
       -- importModuleSpecifierPreference = "project-relative",
@@ -323,6 +323,7 @@ require('mason-tool-installer').setup {
     'ltex-ls',
     'lua-language-server',
     'marksman',
+    'prisma-language-server',
     'pyright',
     'python-lsp-server',
     'rust-analyzer',
@@ -330,6 +331,7 @@ require('mason-tool-installer').setup {
     'taplo',
     -- 'typescript-language-server', -- trying to replace with pmizio/typescript-tools.nvim
     'terraform-ls',
+    'tree-sitter-cli',
     'vim-language-server',
     'yaml-language-server',
 
@@ -429,7 +431,7 @@ none_ls.setup({
 })
 
 -- Treesitter
-require 'nvim-treesitter.configs'.setup {
+require 'nvim-treesitter'.setup {
   ensure_installed      = "all",
   sync_install          = false,
   auto_install          = false,
@@ -522,22 +524,23 @@ require 'nvim-treesitter.configs'.setup {
   },
 }
 
-local ts_repeat_move = require "nvim-treesitter.textobjects.repeatable_move"
+-- Broken for now :/
+-- local ts_repeat_move = require "nvim-treesitter.textobjects.repeatable_move"
 
--- Repeat movement with ; and ,
--- ensure ; goes forward and , goes backward regardless of the last direction
-vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next)
-vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_previous)
+-- -- Repeat movement with ; and ,
+-- -- ensure ; goes forward and , goes backward regardless of the last direction
+-- vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next)
+-- vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_previous)
 
--- vim way: ; goes to the direction you were moving.
--- vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
--- vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
+-- -- vim way: ; goes to the direction you were moving.
+-- -- vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
+-- -- vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
 
--- Optionally, make builtin f, F, t, T also repeatable with ; and ,
-vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f)
-vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F)
-vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t)
-vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
+-- -- Optionally, make builtin f, F, t, T also repeatable with ; and ,
+-- vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f)
+-- vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F)
+-- vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t)
+-- vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
 
 -- Telescope
 local telescope = require 'telescope'

@@ -40,8 +40,8 @@ if has('nvim')
   Plug 'mason-org/mason-lspconfig.nvim'
   Plug 'neovim/nvim-lspconfig'
   Plug 'WhoIsSethDaniel/mason-tool-installer.nvim', {'do': ':MasonToolsInstall'}
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+  Plug 'nvim-treesitter/nvim-treesitter', {'branch': 'main', 'do': ':TSUpdate'}
+  Plug 'nvim-treesitter/nvim-treesitter-textobjects', {'branch': 'main'}
   Plug 'nvimtools/none-ls.nvim'
   Plug 'nvimtools/none-ls-extras.nvim'
   Plug 'Zeioth/none-ls-external-sources'
