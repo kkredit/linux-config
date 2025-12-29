@@ -261,6 +261,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
       -- normal on_attach + autofmt
       on_attach_with_autofmt(client, bufnr)
 
+      -- hack to fix inconsistent monorepo formatting behavior:
+      -- disable formatting ability when path includes '/packages/'
+      if vim.api.nvim_buf_get_name(bufnr):match("/packages/") then
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
+      end
+
       -- key bindings
       local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
       local opts = { noremap = true, silent = true }
@@ -371,11 +378,12 @@ local util = require("lspconfig.util")
 -- for eslint_d, pick markers that exist in each package
 local pkg_root = util.root_pattern(
   "eslint.config.js",
+  "eslint.config.mjs",
   ".eslintrc",
   ".eslintrc.cjs",
   ".eslintrc.js",
-  "tsconfig.json",
-  "package.json"
+  "package.json",
+  "tsconfig.json"
 )
 
 local function eslint_cwd(params)
@@ -396,7 +404,8 @@ none_ls.setup({
     none_ls.builtins.code_actions.gitsigns,
     none_ls.builtins.code_actions.refactoring,
     -- require('typescript.extensions.null-ls.code-actions'),
-    require('none-ls-external-sources.code_actions.eslint_d').with({
+    -- require('none-ls-external-sources.code_actions.eslint_d').with({
+    require('none-ls-external-sources.code_actions.eslint').with({
       cwd = eslint_cwd,
     }),
 
@@ -412,7 +421,8 @@ none_ls.setup({
     -- null_ls.builtins.diagnostics.editorconfig_checker.with {
     -- command = 'editorconfig-checker'
     -- },
-    require('none-ls-external-sources.diagnostics.eslint_d').with({
+    -- require('none-ls-external-sources.diagnostics.eslint_d').with({
+    require('none-ls-external-sources.diagnostics.eslint').with({
       cwd = eslint_cwd,
     }),
     none_ls.builtins.diagnostics.markdownlint.with {
@@ -439,7 +449,8 @@ none_ls.setup({
     none_ls.builtins.formatting.black,
     none_ls.builtins.formatting.buf,
     -- null_ls.builtins.formatting.codespell,
-    require('none-ls-external-sources.formatting.eslint_d').with({
+    -- require('none-ls-external-sources.formatting.eslint_d').with({
+    require('none-ls-external-sources.formatting.eslint').with({
       cwd = eslint_cwd,
     }),
     none_ls.builtins.formatting.goimports,
