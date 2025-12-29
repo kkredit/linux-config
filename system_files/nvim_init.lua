@@ -366,6 +366,23 @@ require('mason-tool-installer').setup {
 -- None-ls/Null-ls setup
 -- see https://github.com/nvimtools/none-ls.nvim
 local none_ls = require("null-ls")
+local util = require("lspconfig.util")
+
+-- for eslint_d, pick markers that exist in each package
+local pkg_root = util.root_pattern(
+  "eslint.config.js",
+  ".eslintrc",
+  ".eslintrc.cjs",
+  ".eslintrc.js",
+  "tsconfig.json",
+  "package.json"
+)
+
+local function eslint_cwd(params)
+  -- params.bufname is the file path
+  return pkg_root(params.bufname)
+end
+
 none_ls.setup({
   on_attach = function(client, bufnr)
     on_attach(client, bufnr)
@@ -379,7 +396,9 @@ none_ls.setup({
     none_ls.builtins.code_actions.gitsigns,
     none_ls.builtins.code_actions.refactoring,
     -- require('typescript.extensions.null-ls.code-actions'),
-    require('none-ls-external-sources.code_actions.eslint_d'),
+    require('none-ls-external-sources.code_actions.eslint_d').with({
+      cwd = eslint_cwd,
+    }),
 
     none_ls.builtins.completion.spell,
     none_ls.builtins.completion.tags,
@@ -393,7 +412,9 @@ none_ls.setup({
     -- null_ls.builtins.diagnostics.editorconfig_checker.with {
     -- command = 'editorconfig-checker'
     -- },
-    require('none-ls-external-sources.diagnostics.eslint_d'),
+    require('none-ls-external-sources.diagnostics.eslint_d').with({
+      cwd = eslint_cwd,
+    }),
     none_ls.builtins.diagnostics.markdownlint.with {
       args = { '--disable', 'MD013' }, -- line-length
     },
@@ -418,10 +439,17 @@ none_ls.setup({
     none_ls.builtins.formatting.black,
     none_ls.builtins.formatting.buf,
     -- null_ls.builtins.formatting.codespell,
-    require('none-ls-external-sources.formatting.eslint_d'),
+    require('none-ls-external-sources.formatting.eslint_d').with({
+      cwd = eslint_cwd,
+    }),
     none_ls.builtins.formatting.goimports,
     none_ls.builtins.formatting.isort,
-    none_ls.builtins.formatting.prettierd,
+    none_ls.builtins.formatting.prettierd.with {
+      runtime_condition = function(params)
+        -- disable if '/packages/' is in the path
+        return not params.bufname:match("/packages/")
+      end,
+    },
     none_ls.builtins.formatting.shfmt,
     none_ls.builtins.formatting.sqlfluff.with {
       extra_args = { "--dialect", "postgres" },
@@ -581,9 +609,9 @@ vim.cmd("set foldmethod=expr")
 vim.cmd("set foldexpr=nvim_treesitter#foldexpr()")
 
 -- Leap
-vim.keymap.set({'n', 'x', 'o'}, 's', '<Plug>(leap)')
-vim.keymap.set('n',             'S', '<Plug>(leap-from-window)')
-require('leap').opts.preview = function (ch0, ch1, ch2)
+vim.keymap.set({ 'n', 'x', 'o' }, 's', '<Plug>(leap)')
+vim.keymap.set('n', 'S', '<Plug>(leap-from-window)')
+require('leap').opts.preview = function(ch0, ch1, ch2)
   return not (
     ch1:match('%s')
     or (ch0:match('%a') and ch1:match('%a') and ch2:match('%a'))
