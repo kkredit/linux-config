@@ -225,8 +225,9 @@ syntax on
 set t_Co=256
 set t_ut=
 if has('nvim')
-  " if in December, Christmas theme!
-  if strftime("%m") == "12"
+  " if in December and January, Christmas/winter theme!
+  let month = strftime("%m")
+  if month == '12' || month == '01'
     let g:airline_theme = 'tomorrow'
     colorscheme christmas
   else
@@ -306,8 +307,8 @@ nnoremap <leader>bp :BufferLineTogglePin<CR>
 " Markdown settings
 autocmd Filetype markdown call SetMarkdownOptions()
 function SetMarkdownOptions()
-  set textwidth=100
-  set colorcolumn=101
+  " set textwidth=100
+  " set colorcolumn=101
   set formatoptions+=tc
   " rewrap current paragraph: vip | gq
 endfunction
