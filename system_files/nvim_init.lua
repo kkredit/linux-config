@@ -203,6 +203,16 @@ vim.lsp.config('pylsp', {
     }
   }
 })
+vim.lsp.config('harper_ls', {
+  on_attach = on_attach_with_autofmt,
+  settings = {
+    -- see https://writewithharper.com/docs/integrations/language-server
+    codeActions = {
+      ForceStable = true
+    },
+    diagnosticSeverity = "hint",
+  }
+})
 
 -- Setup Mason
 -- See https://github.com/mason-org/mason.nvim
@@ -324,7 +334,6 @@ require('mason-tool-installer').setup {
     'dockerfile-language-server',
     'elm-language-server',
     'gopls',
-    'grammarly-languageserver',
     'graphql-language-service-cli',
     'json-lsp',
     'ltex-ls',
@@ -345,10 +354,9 @@ require('mason-tool-installer').setup {
     -- linters
     'actionlint',
     'buf',
-    'codespell',
-    -- 'editorconfig-checker', -- seems to cause false alarms
     -- 'eslint-lsp', -- very slow
-    'eslint_d',
+    -- 'eslint_d',
+    'harper-ls',
     'markdownlint',
     'shellcheck',
     'sqlfluff',
@@ -414,13 +422,6 @@ none_ls.setup({
 
     none_ls.builtins.diagnostics.actionlint,
     none_ls.builtins.diagnostics.buf,
-    -- Codespell -- glitchy and consuming CPU lately!
-    -- none_ls.builtins.diagnostics.codespell.with {
-    -- args = { '-L requestor' },
-    -- },
-    -- null_ls.builtins.diagnostics.editorconfig_checker.with {
-    -- command = 'editorconfig-checker'
-    -- },
     -- require('none-ls-external-sources.diagnostics.eslint_d').with({
     require('none-ls-external-sources.diagnostics.eslint').with({
       cwd = eslint_cwd,
@@ -429,7 +430,7 @@ none_ls.setup({
       args = { '--disable', 'MD013' }, -- line-length
     },
     -- Semgrep -- works, but burns CPU
-    --null_ls.builtins.diagnostics.semgrep.with({
+    --none_ls.builtins.diagnostics.semgrep.with({
     --args = function(_)
     --if vim.fn.isdirectory("dev-scripts/semgrep") then
     --return { "-q", "--json", "--config=dev-scripts/semgrep", "--config=auto", "$FILENAME" }
@@ -448,7 +449,6 @@ none_ls.setup({
 
     none_ls.builtins.formatting.black,
     none_ls.builtins.formatting.buf,
-    -- null_ls.builtins.formatting.codespell,
     -- require('none-ls-external-sources.formatting.eslint_d').with({
     require('none-ls-external-sources.formatting.eslint').with({
       cwd = eslint_cwd,

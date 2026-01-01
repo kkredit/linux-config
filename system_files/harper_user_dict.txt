@@ -1,0 +1,14 @@
+Knex
+Kovalyov
+Kredit
+Lucidchart
+N/A
+NestJS
+Prisma
+RFC
+callability
+eslint
+lifecycle
+runbooks
+transactionality
+tsc
