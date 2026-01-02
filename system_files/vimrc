@@ -305,13 +305,13 @@ nnoremap <leader>bd :bd<CR>
 nnoremap <leader>bp :BufferLineTogglePin<CR>
 
 " Markdown settings
-autocmd Filetype markdown call SetMarkdownOptions()
-function SetMarkdownOptions()
-  " set textwidth=100
-  " set colorcolumn=101
-  set formatoptions+=tc
-  " rewrap current paragraph: vip | gq
-endfunction
+" autocmd Filetype markdown call SetMarkdownOptions()
+" function SetMarkdownOptions()
+"   set textwidth=100
+"   set colorcolumn=101
+"   set formatoptions+=tc
+"   rewrap current paragraph: vip | gq
+" endfunction
 
 " Git commit settings
 autocmd Filetype gitcommit call SetGitcommitOptions()
