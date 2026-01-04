@@ -272,8 +272,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
       on_attach_with_autofmt(client, bufnr)
 
       -- hack to fix inconsistent monorepo formatting behavior:
-      -- disable formatting ability when path includes '/packages/'
-      if vim.api.nvim_buf_get_name(bufnr):match("/packages/") then
+      -- disable formatting ability when path includes '/packages/' or '/apps/'
+      local bufname = vim.api.nvim_buf_get_name(bufnr)
+      if bufname:match("/apps/") or bufname:match("/packages/") then
         client.server_capabilities.documentFormattingProvider = false
         client.server_capabilities.documentRangeFormattingProvider = false
       end
@@ -457,8 +458,8 @@ none_ls.setup({
     none_ls.builtins.formatting.isort,
     none_ls.builtins.formatting.prettierd.with {
       runtime_condition = function(params)
-        -- disable if '/packages/' is in the path
-        return not params.bufname:match("/packages/")
+        -- disable if '/packages/' or '/apps/' is in the path
+        return not (params.bufname:match("/packages/") or params.bufname:match("/apps/"))
       end,
     },
     none_ls.builtins.formatting.shfmt,
