@@ -207,6 +207,9 @@ vim.lsp.config('harper_ls', {
   on_attach = on_attach_with_autofmt,
   settings = {
     -- see https://writewithharper.com/docs/integrations/language-server
+    linters = {
+      ToDoHyphen = false
+    },
     codeActions = {
       ForceStable = true
     },
