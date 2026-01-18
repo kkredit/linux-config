@@ -1,7 +1,13 @@
 ASN
+CSD
+DEK
+DEKs
 DER
 Ed25519
+GCP
 JWKS
+KAPI
+KME
 KMS
 Knex
 Kodex
@@ -11,8 +17,10 @@ Lucidchart
 N/A
 NestJS
 OIDC
+POC
 Prisma
 RFC
+S3
 SPKI
 TODO
 UID
