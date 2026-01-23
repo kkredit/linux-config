@@ -363,6 +363,8 @@ require('mason-tool-installer').setup {
     -- 'eslint_d',
     'harper-ls',
     'markdownlint',
+    'mdformat',
+    'mdformat',
     'shellcheck',
     'sqlfluff',
     'tflint',
@@ -374,7 +376,7 @@ require('mason-tool-installer').setup {
     'goimports',
     'isort',
     'jq',
-    'prettierd',
+    -- 'prettierd',
     'shfmt',
   },
 
@@ -460,11 +462,14 @@ none_ls.setup({
     }),
     none_ls.builtins.formatting.goimports,
     none_ls.builtins.formatting.isort,
-    none_ls.builtins.formatting.prettierd.with {
-      runtime_condition = function(params)
-        -- disable if '/packages/' or '/apps/' is in the path
-        return not (params.bufname:match("/packages/") or params.bufname:match("/apps/"))
-      end,
+    -- none_ls.builtins.formatting.prettierd.with {
+    --   runtime_condition = function(params)
+    --     -- disable if '/packages/' or '/apps/' is in the path
+    --     return not (params.bufname:match("/packages/") or params.bufname:match("/apps/"))
+    --   end,
+    -- },
+    none_ls.builtins.formatting.mdformat.with {
+      extra_args = { "--number" },
     },
     none_ls.builtins.formatting.shfmt,
     none_ls.builtins.formatting.sqlfluff.with {
