@@ -98,11 +98,6 @@ end
 local on_attach = function(_, bufnr) -- (client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-  -- Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
   -- Mappings
   local opts = { noremap = true, silent = true }
 
@@ -272,16 +267,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
       --   end,
       -- })
 
-      -- normal on_attach + autofmt
-      on_attach_with_autofmt(client, bufnr)
+      -- leave formatting to eslint_d via null-ls
+      client.server_capabilities.documentFormattingProvider = false
+      client.server_capabilities.documentRangeFormattingProvider = false
+      -- this left for reference if necessary; conditional disabling of formatting
+      -- -- hack to fix inconsistent monorepo formatting behavior:
+      -- -- disable formatting ability when path includes '/packages/' or '/apps/'
+      -- local bufname = vim.api.nvim_buf_get_name(bufnr)
+      -- if bufname:match("/apps/") or bufname:match("/packages/") then
+      --   client.server_capabilities.documentFormattingProvider = false
+      --   client.server_capabilities.documentRangeFormattingProvider = false
+      -- end
 
-      -- hack to fix inconsistent monorepo formatting behavior:
-      -- disable formatting ability when path includes '/packages/' or '/apps/'
-      local bufname = vim.api.nvim_buf_get_name(bufnr)
-      if bufname:match("/apps/") or bufname:match("/packages/") then
-        client.server_capabilities.documentFormattingProvider = false
-        client.server_capabilities.documentRangeFormattingProvider = false
-      end
+      on_attach_with_autofmt(client, bufnr)
 
       -- key bindings
       local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
@@ -360,7 +358,7 @@ require('mason-tool-installer').setup {
     'actionlint',
     'buf',
     -- 'eslint-lsp', -- very slow
-    -- 'eslint_d',
+    'eslint_d',
     'harper-ls',
     'markdownlint',
     'mdformat',
@@ -419,8 +417,8 @@ none_ls.setup({
     none_ls.builtins.code_actions.gitsigns,
     none_ls.builtins.code_actions.refactoring,
     -- require('typescript.extensions.null-ls.code-actions'),
-    -- require('none-ls-external-sources.code_actions.eslint_d').with({
-    require('none-ls-external-sources.code_actions.eslint').with({
+    require('none-ls-external-sources.code_actions.eslint_d').with({
+      -- require('none-ls-external-sources.code_actions.eslint').with({
       cwd = eslint_cwd,
     }),
 
@@ -429,8 +427,8 @@ none_ls.setup({
 
     none_ls.builtins.diagnostics.actionlint,
     none_ls.builtins.diagnostics.buf,
-    -- require('none-ls-external-sources.diagnostics.eslint_d').with({
-    require('none-ls-external-sources.diagnostics.eslint').with({
+    require('none-ls-external-sources.diagnostics.eslint_d').with({
+      -- require('none-ls-external-sources.diagnostics.eslint').with({
       cwd = eslint_cwd,
     }),
     none_ls.builtins.diagnostics.markdownlint.with {
@@ -456,8 +454,8 @@ none_ls.setup({
 
     none_ls.builtins.formatting.black,
     none_ls.builtins.formatting.buf,
-    -- require('none-ls-external-sources.formatting.eslint_d').with({
-    require('none-ls-external-sources.formatting.eslint').with({
+    require('none-ls-external-sources.formatting.eslint_d').with({
+      -- require('none-ls-external-sources.formatting.eslint').with({
       cwd = eslint_cwd,
     }),
     none_ls.builtins.formatting.goimports,

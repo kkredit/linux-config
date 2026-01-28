@@ -77,7 +77,7 @@ if has('nvim')
   " Other
   Plug 'akinsho/bufferline.nvim'
   Plug 'RRethy/vim-illuminate'
-  Plug 'ggandor/leap.nvim'
+  Plug 'https://codeberg.org/andyg/leap.nvim', {'branch': 'main'}
   Plug 'folke/which-key.nvim'
   Plug 'folke/trouble.nvim'
   Plug 'nvim-lua/plenary.nvim'
