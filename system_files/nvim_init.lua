@@ -477,117 +477,75 @@ none_ls.setup({
   },
 })
 
--- Treesitter
-require 'nvim-treesitter'.setup {
-  ensure_installed      = "all",
-  sync_install          = false,
-  auto_install          = false,
-  ignore_install        = {},
-  modules               = {}, -- not sure what this is, but linter wants it
-  highlight             = {
-    enable = true,
-    additional_vim_regex_highlighting = { 'markdown' },
+-- Treesitter textobjects
+require("nvim-treesitter-textobjects").setup {
+  select = {
+    lookahead = true,
+    selection_modes = {
+      ['@parameter.outer'] = 'v', -- charwise
+      ['@function.outer'] = 'V',  -- linewise
+      ['@class.outer'] = '<c-v>', -- blockwise
+    },
+    include_surrounding_whitespace = false,
   },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = "gnn",
-      node_incremental = "grn",
-      scope_incremental = "grs",
-      node_decremental = "grN",
-    },
-  },
-  indent                = {
-    enable = true
-  },
-  textobjects           = {
-    select = {
-      enable = true,
-      lookahead = true,
-      keymaps = {
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ac"] = "@class.outer",
-        ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-      },
-      selection_modes = {
-        ['@parameter.outer'] = 'v', -- charwise
-        ['@function.outer'] = 'V',  -- linewise
-        ['@class.outer'] = '<c-v>', -- blockwise
-      },
-    },
-    swap = {
-      enable = true,
-      swap_next = {
-        ["<leader>a"] = "@parameter.inner",
-      },
-      swap_previous = {
-        ["<leader>A"] = "@parameter.inner",
-      },
-    },
-    move = {
-      enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = {
-        ["]m"] = "@function.outer",
-        ["]]"] = { query = "@class.outer", desc = "Next class start" },
-        ["]o"] = "@loop.*",
-        ["]s"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
-        ["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
-        ["]b"] = { query = "@block.inner", desc = "Next block" },
-      },
-      goto_next_end = {
-        ["]M"] = "@function.outer",
-        ["]["] = "@class.outer",
-      },
-      goto_previous_start = {
-        ["[m"] = "@function.outer",
-        ["[["] = "@class.outer",
-        ["[o"] = "@loop.*",
-        ["[s"] = { query = "@scope", query_group = "locals", desc = "Previous scope" },
-        ["[z"] = { query = "@fold", query_group = "folds", desc = "Previous fold" },
-        ["[b"] = { query = "@block.inner", desc = "Previous block" },
-      },
-      goto_previous_end = {
-        ["[M"] = "@function.outer",
-        ["[]"] = "@class.outer",
-      },
-      goto_next = {
-        ["]d"] = "@conditional.outer",
-      },
-      goto_previous = {
-        ["[d"] = "@conditional.outer",
-      }
-    },
-    lsp_interop = {
-      enable = true,
-      border = 'none',
-      floating_preview_opts = {},
-      peek_definition_code = {
-        ["<leader>pf"] = "@function.outer",
-        ["<leader>pF"] = "@class.outer",
-      },
-    },
+  move = {
+    set_jumps = true,
   },
 }
 
--- Broken for now :/
--- local ts_repeat_move = require "nvim-treesitter.textobjects.repeatable_move"
+-- Treesitter textobjects keymaps
+local select = require("nvim-treesitter-textobjects.select")
+vim.keymap.set({ "x", "o" }, "af", function()
+  select.select_textobject("@function.outer", "textobjects")
+end, { desc = "Select outer function" })
+vim.keymap.set({ "x", "o" }, "if", function()
+  select.select_textobject("@function.inner", "textobjects")
+end, { desc = "Select inner function" })
+vim.keymap.set({ "x", "o" }, "ac", function()
+  select.select_textobject("@class.outer", "textobjects")
+end, { desc = "Select outer class" })
+vim.keymap.set({ "x", "o" }, "ic", function()
+  select.select_textobject("@class.inner", "textobjects")
+end, { desc = "Select inner class" })
+vim.keymap.set({ "x", "o" }, "as", function()
+  select.select_textobject("@local.scope", "locals")
+end, { desc = "Select language scope" })
 
--- -- Repeat movement with ; and ,
--- -- ensure ; goes forward and , goes backward regardless of the last direction
--- vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next)
--- vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_previous)
+-- Treesitter move keymaps
+local move = require("nvim-treesitter-textobjects.move")
+vim.keymap.set({ "n", "x", "o" }, "]m", function()
+  move.goto_next_start("@function.outer", "textobjects")
+end, { desc = "Next function start" })
+vim.keymap.set({ "n", "x", "o" }, "]M", function()
+  move.goto_next_end("@function.outer", "textobjects")
+end, { desc = "Next function end" })
+vim.keymap.set({ "n", "x", "o" }, "[m", function()
+  move.goto_previous_start("@function.outer", "textobjects")
+end, { desc = "Previous function start" })
+vim.keymap.set({ "n", "x", "o" }, "[M", function()
+  move.goto_previous_end("@function.outer", "textobjects")
+end, { desc = "Previous function end" })
+vim.keymap.set({ "n", "x", "o" }, "]]", function()
+  move.goto_next_start("@class.outer", "textobjects")
+end, { desc = "Next class start" })
+vim.keymap.set({ "n", "x", "o" }, "][", function()
+  move.goto_next_end("@class.outer", "textobjects")
+end, { desc = "Next class end" })
+vim.keymap.set({ "n", "x", "o" }, "[[", function()
+  move.goto_previous_start("@class.outer", "textobjects")
+end, { desc = "Previous class start" })
+vim.keymap.set({ "n", "x", "o" }, "[]", function()
+  move.goto_previous_end("@class.outer", "textobjects")
+end, { desc = "Previous class end" })
 
--- -- vim way: ; goes to the direction you were moving.
--- -- vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
--- -- vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
-
--- -- Optionally, make builtin f, F, t, T also repeatable with ; and ,
--- vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f)
--- vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F)
--- vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t)
--- vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
+-- Repeatable movements with ; and ,
+local ts_repeat_move = require("nvim-treesitter-textobjects.repeatable_move")
+vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next)
+vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_previous)
+vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f_expr, { expr = true })
+vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F_expr, { expr = true })
+vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t_expr, { expr = true })
+vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T_expr, { expr = true })
 
 -- Telescope
 local telescope = require 'telescope'
