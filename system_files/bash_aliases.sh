@@ -9,26 +9,26 @@ alias rc='source ~/.bashrc'
 
 alias V='nvim $(find * -type f | fzf)'
 if which nvim &>/dev/null; then
-  alias vim=nvim
-  alias vi=nvim
+	alias vim=nvim
+	alias vi=nvim
 fi
 alias vr='nvim ~/.vimrc'
 alias rmswap='rm -rf ~/.local/state/nvim/swap/*'
 if $MAC; then
-  if which ggrep &>/dev/null; then
-    alias grep="ggrep \$COLOR_AUTO"
-    alias dircolors=gdircolors
-    alias sed=gsed
-    alias echo=gecho
-  fi
+	if which ggrep &>/dev/null; then
+		alias grep="ggrep \$COLOR_AUTO"
+		alias dircolors=gdircolors
+		# alias sed=gsed -- messes with AI too much :( I can remember gsed when I need to.
+		alias echo=gecho
+	fi
 else
-  alias grep="grep \$COLOR_AUTO"
+	alias grep="grep \$COLOR_AUTO"
 fi
 alias p=pwd
 if which exa &>/dev/null; then
-  alias ls='exa -F'
-  alias ll='exa -alFh'
-  alias cat='bat --plain'
+	alias ls='exa -F'
+	alias ll='exa -alFh'
+	alias cat='bat --plain'
 fi
 alias cpv='rsync -ah --info=progress2'
 alias tcn='mv --force -t ~/.local/share/Trash '
