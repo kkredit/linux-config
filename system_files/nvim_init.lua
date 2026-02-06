@@ -362,7 +362,6 @@ require('mason-tool-installer').setup {
     'harper-ls',
     'markdownlint',
     'mdformat',
-    'mdformat',
     'shellcheck',
     'sqlfluff',
     'tflint',
@@ -382,6 +381,17 @@ require('mason-tool-installer').setup {
   run_on_start = false,
   start_delay = 0,
 }
+
+-- Install mdformat-gfm plugin after mdformat is installed
+vim.api.nvim_create_autocmd("User", {
+  pattern = "MasonToolsUpdateCompleted",
+  callback = function()
+    local mdformat_pip = vim.fn.stdpath("data") .. "/mason/packages/mdformat/venv/bin/pip"
+    if vim.fn.filereadable(mdformat_pip) == 1 then
+      vim.fn.jobstart({ mdformat_pip, "install", "mdformat-gfm" }, { detach = true })
+    end
+  end,
+})
 
 -- None-ls/Null-ls setup
 -- see https://github.com/nvimtools/none-ls.nvim
