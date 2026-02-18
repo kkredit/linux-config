@@ -8,10 +8,10 @@ alias rc='source ~/.bashrc'
 # alias nvr='nvr --servername /tmp/nvimsocket'
 
 alias V='nvim $(find * -type f | fzf)'
-if which nvim &>/dev/null; then
+# if which nvim &>/dev/null; then
 	alias vim=nvim
 	alias vi=nvim
-fi
+# fi
 alias vr='nvim ~/.vimrc'
 alias rmswap='rm -rf ~/.local/state/nvim/swap/*'
 if $MAC; then
