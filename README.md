@@ -7,8 +7,7 @@ portable and in sync. It is mostly Ubuntu-oriented.
 
 ## Usage
 
-To install config files to appropriate locations on the filesystem,
-run
+To install config files to appropriate locations on the filesystem, run
 
 ```sh
 ./file-install.sh [update] [submodules]

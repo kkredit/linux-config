@@ -477,7 +477,17 @@ none_ls.setup({
     --   end,
     -- },
     none_ls.builtins.formatting.mdformat.with {
-      extra_args = { "--number" },
+      extra_args = function()
+        local args = { "--number" }
+        if vim.fn.getcwd():match("kodex") then
+          table.insert(args, "--wrap")
+          table.insert(args, "keep")
+        else
+          table.insert(args, "--wrap")
+          table.insert(args, "80")
+        end
+        return args
+      end,
     },
     none_ls.builtins.formatting.shfmt,
     none_ls.builtins.formatting.sqlfluff.with {
