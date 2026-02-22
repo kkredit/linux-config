@@ -17,6 +17,7 @@ Lucidchart
 N/A
 NestJS
 OIDC
+PKI
 POC
 Prisma
 RFC
@@ -25,6 +26,7 @@ SPKI
 TODO
 UID
 UUID
+X.
 base64
 base64url
 callability
