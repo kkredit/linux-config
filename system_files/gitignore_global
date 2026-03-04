@@ -36,3 +36,6 @@
 .rails_*~
 .rake_*~
 .yardoc
+
+# ai tools
+.claude/settings.local.json
