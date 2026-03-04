@@ -86,9 +86,13 @@ function install_basic {
 		# sudo apt update
 		# sudo-pkg-mgr install -y \
 		# neovim
-		curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
-		chmod u+x nvim.appimage
-		mv nvim.appimage ~/bin/nvim
+		case $(uname -m) in
+		x86_64) NVIM_ARCH=x86_64 ;; aarch64 | arm64) NVIM_ARCH=arm64 ;; armv7l) NVIM_ARCH=armv7 ;;
+		esac
+		local NVIM_URL="https://github.com/neovim/neovim/releases/latest/download/nvim-linux-${NVIM_ARCH}.appimage"
+		mkdir -p ~/bin
+		curl -fL "$NVIM_URL" -o ~/bin/nvim
+		chmod u+x ~/bin/nvim
 
 		which starship &>/dev/null || sh -c "$(curl -fsSL https://starship.rs/install.sh)"
 	fi
@@ -146,25 +150,7 @@ function install_utilities {
 	if $MAC; then
 		brew install bat fd
 	else
-		# Bat (https://github.com/sharkdp/bat)
-		curl -s https://api.github.com/repos/sharkdp/bat/releases/latest |
-			grep "browser_download_url.*x86_64-unknown-linux-gnu.tar.gz" |
-			cut -d : -f 2,3 |
-			tr -d \" |
-			wget -qi -
-		tar -xf bat*linux-gnu.tar.gz
-		cp -r bat*linux-gnu/bat bat*linux-gnu/bat.1 bat*linux-gnu/autocomplete ~/bin/
-		rm -rf bat*linux-gnu*
-
-		# Fd (https://github.com/sharkdp/fd)
-		# NOTE: Can use officially maintained package with Ubuntu 19+
-		#sudo apt install fd-find
-		URL="https://github.com$(curl -Ls https://github.com/sharkdp/fd/releases/latest |
-			grep -m 1 "x86_64-unknown-linux-gnu.tar.gz" | cut -d\" -f2)"
-		wget -q "$URL"
-		tar -xf fd*linux-gnu.tar.gz
-		cp -r fd*linux-gnu/fd fd*linux-gnu/fd.1 fd*linux-gnu/autocomplete ~/bin/
-		rm -rf fd*linux-gnu*
+		sudo-pkg-mgr install -y bat fd-find
 	fi
 }
 

@@ -9,8 +9,8 @@ alias rc='source ~/.bashrc'
 
 alias V='nvim $(find * -type f | fzf)'
 # if which nvim &>/dev/null; then
-	alias vim=nvim
-	alias vi=nvim
+alias vim=nvim
+alias vi=nvim
 # fi
 alias vr='nvim ~/.vimrc'
 alias rmswap='rm -rf ~/.local/state/nvim/swap/*'
@@ -25,6 +25,10 @@ else
 	alias grep="grep \$COLOR_AUTO"
 fi
 alias p=pwd
+if ! $MAC; then
+	alias bat=batcat
+	alias fd=fdfind
+fi
 if which exa &>/dev/null; then
 	alias ls='exa -F'
 	alias ll='exa -alFh'
