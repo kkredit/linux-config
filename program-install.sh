@@ -418,19 +418,19 @@ function install_golang {
 		echo "Untarring $FILE into $INST_DIR..."
 		sudo tar -C $INST_DIR -xzf "$FILE"
 		rm "$FILE"
-	fi
 
-	if echo "$PATH" | grep -q "go/bin"; then
-		echo "Adding $INST_DIR/go/bin to ~/.profile..."
-		echo "export PATH=\$PATH:$INST_DIR/go/bin" >>~/.profile
-		echo "Run 'export PATH=\$PATH:$INST_DIR/go/bin'"
-		export PATH=$PATH:$INST_DIR/go/bin
-		local GOPATH
-		GOPATH=$(go env GOPATH)
-		echo "Adding $GOPATH/bin to ~/.profile..."
-		echo "export PATH=\$PATH:$GOPATH/bin" >>~/.profile
-		echo "Run 'export PATH=\$PATH:$GOPATH/bin'"
-		export PATH=$PATH:$GOPATH/bin
+		if echo "$PATH" | grep -vq "/go/bin"; then
+			echo "Adding $INST_DIR/go/bin to ~/.profile..."
+			echo "export PATH=\$PATH:$INST_DIR/go/bin" >>~/.profile
+			echo "Run 'export PATH=\$PATH:$INST_DIR/go/bin'"
+			export PATH=$PATH:$INST_DIR/go/bin
+			local GOPATH
+			GOPATH=$(go env GOPATH)
+			echo "Adding $GOPATH/bin to ~/.profile..."
+			echo "export PATH=\$PATH:$GOPATH/bin" >>~/.profile
+			echo "Run 'export PATH=\$PATH:$GOPATH/bin'"
+			export PATH=$PATH:$GOPATH/bin
+		fi
 	fi
 
 	go install golang.org/x/tools/cmd/goimports@latest
