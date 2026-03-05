@@ -382,13 +382,14 @@ require('mason-tool-installer').setup {
   start_delay = 0,
 }
 
--- Install mdformat-gfm plugin after mdformat is installed
+-- Install mdformat plugins after mdformat is installed
 vim.api.nvim_create_autocmd("User", {
   pattern = "MasonToolsUpdateCompleted",
   callback = function()
     local mdformat_pip = vim.fn.stdpath("data") .. "/mason/packages/mdformat/venv/bin/pip"
     if vim.fn.filereadable(mdformat_pip) == 1 then
       vim.fn.jobstart({ mdformat_pip, "install", "mdformat-gfm" }, { detach = true })
+      vim.fn.jobstart({ mdformat_pip, "install", "mdformat-frontmatter" }, { detach = true })
     end
   end,
 })
