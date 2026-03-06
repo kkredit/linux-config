@@ -65,6 +65,19 @@ cmp.setup.cmdline(':', {
   })
 })
 
+-- Configure the clipboard to use osc52, which should work in VMs
+vim.g.clipboard = {
+  name = "osc52",
+  copy = {
+    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+  },
+  paste = {
+    ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+  },
+}
+
 -- LSP
 -- Styling
 local border = {
