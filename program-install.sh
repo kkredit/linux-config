@@ -74,13 +74,11 @@ function install_basic {
 			inotify-tools \
 			shellcheck \
 			shfmt \
-			exa \
 			ripgrep \
 			gnome-tweaks \
 			autojump \
 			entr \
-			unzip \
-			ghostty # git-absorb \
+			unzip
 
 		# sudo add-apt-repository ppa:neovim-ppa/stable -y
 		# sudo apt update
