@@ -11,6 +11,13 @@ if [ -z "$ZSH_PROFILE_LOADED" ]; then
   sourceIfPresent ~/.zprofile
 fi
 
+# Ghostty shell integration (sourced early, before prompt/vi-mode plugins).
+# Must be manual because Ghostty launches zellij as its command, so automatic
+# ZDOTDIR-based injection never fires for the zsh spawned inside zellij.
+if [[ -n "${GHOSTTY_RESOURCES_DIR}" && -f "${GHOSTTY_RESOURCES_DIR}/shell-integration/zsh/ghostty-integration" ]]; then
+    source "${GHOSTTY_RESOURCES_DIR}/shell-integration/zsh/ghostty-integration"
+fi
+
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000
