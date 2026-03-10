@@ -54,6 +54,8 @@ else
 	mkdir -p ~/.config/harper-ls
 	install -m 644 $FILES_DIR/harper_user_dict.txt ~/.config/harper-ls/dictionary.txt
 fi
+mkdir -p ~/.claude
+install -m 644 $FILES_DIR/claude_settings.json ~/.claude/settings.json
 
 # WSL files
 if $WSL; then
