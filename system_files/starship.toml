@@ -101,3 +101,6 @@ symbol = "🦀 "
 
 [shlvl]
 symbol = " "
+
+[hostname]
+ssh_symbol = "🌐"
