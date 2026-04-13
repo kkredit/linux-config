@@ -40,17 +40,18 @@ autoload -Uz bashcompinit && bashcompinit
 # Source other files
 sourceIfPresent ~/.shrc_common
 
-# Completions for wrapper functions and short aliases
-compdef v=vim
-compdef cs=cd
-compdef d=cd
-compdef g=git
-compdef gg=gt
-compdef tm=tmux
-compdef tf=terraform
-compdef z=zellij
-compdef y=yarn
-compdef ai=claude
+# Completions for wrapper functions and short aliases (suppress errors for
+# commands without completion functions installed on this system)
+compdef v=vim 2>/dev/null
+compdef cs=cd 2>/dev/null
+compdef d=cd 2>/dev/null
+compdef g=git 2>/dev/null
+compdef gg=gt 2>/dev/null
+compdef tm=tmux 2>/dev/null
+compdef tf=terraform 2>/dev/null
+compdef z=zellij 2>/dev/null
+compdef y=yarn 2>/dev/null
+compdef ai=claude 2>/dev/null
 
 # Starship
 eval "$(starship init zsh)"
