@@ -40,6 +40,18 @@ autoload -Uz bashcompinit && bashcompinit
 # Source other files
 sourceIfPresent ~/.shrc_common
 
+# Completions for wrapper functions and short aliases
+compdef v=vim
+compdef cs=cd
+compdef d=cd
+compdef g=git
+compdef gg=gt
+compdef tm=tmux
+compdef tf=terraform
+compdef z=zellij
+compdef y=yarn
+compdef ai=claude
+
 # Starship
 eval "$(starship init zsh)"
 # these don't seem to work
