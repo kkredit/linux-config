@@ -83,3 +83,4 @@ alias z=zellij
 alias zt='zellij action new-tab --layout ~/.config/zellij/layout_full.kdl'
 alias killjobs='for JOB in $(jobs | cut -d[ -f2 | cut -d] -f1); do kill "%$JOB"; done'
 alias tf=terraform
+alias ai='claude --enable-auto-mode'
