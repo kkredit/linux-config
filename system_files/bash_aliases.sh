@@ -24,7 +24,6 @@ if $MAC; then
 else
 	alias grep="grep \$COLOR_AUTO"
 fi
-alias p=pwd
 if ! $MAC; then
 	alias bat=batcat
 	alias fd=fdfind
@@ -50,7 +49,8 @@ alias g='git'
 alias gg='gt'
 alias s="echo \$?"
 alias c='clear -x'
-alias y='yarn'
+alias y=yarn
+alias p=pnpm
 complete -F _cd d
 alias findf='find . -type f -iname 2>/dev/null'
 alias findd='find . -type d -iname 2>/dev/null'
