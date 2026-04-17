@@ -51,6 +51,7 @@ compdef tm=tmux 2>/dev/null
 compdef tf=terraform 2>/dev/null
 compdef z=zellij 2>/dev/null
 compdef y=yarn 2>/dev/null
+compdef p=pnpm 2>/dev/null
 compdef ai=claude 2>/dev/null
 
 # Starship
