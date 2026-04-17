@@ -672,7 +672,8 @@ alias news='kurl https://www.economist.com/the-world-in-brief'
 # Open a new Ghostty window, shell into the Kodex VM, and attach to a zellij
 # session named kx-vm inside it. Requires the `--` pass-through patch to
 # kx-vm.sh's `shell` subcommand.
-function vm() {
-	ghostty -e zsh -ic 'kx vm shell -- zellij attach -c kx-vm' &
-	disown
-}
+if $MAC; then
+	function vm() {
+		open -na Ghostty --args -e zsh -ic 'kx vm shell -- zellij attach -c kx-vm'
+	}
+fi
