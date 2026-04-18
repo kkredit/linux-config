@@ -669,6 +669,36 @@ function kurl() {
 }
 alias news='kurl https://www.economist.com/the-world-in-brief'
 
+# Prevent the machine from sleeping/idling. On macOS uses caffeinate; on Linux
+# uses systemd-inhibit (ships with systemd on Ubuntu). Runs until Ctrl+C, or
+# wraps a command if given (e.g. `nosleep make build`).
+function nosleep() {
+	if ! $MAC && command -v systemd-detect-virt >/dev/null 2>&1 && systemd-detect-virt -q; then
+		echo "nosleep: running inside a VM ($(systemd-detect-virt)); this only inhibits the guest and won't stop the host from sleeping. Run nosleep on the host instead." >&2
+	fi
+	if (($# == 0)); then
+		echo "Your computer will not sleep until you press Ctrl+C."
+	else
+		echo "Your computer will not sleep until '$*' completes."
+	fi
+	if $MAC; then
+		# -d display, -i idle, -m disk, -s system (AC only), -u user-active.
+		# Net effect: act as if someone is actively using the machine — screen
+		# stays on, nothing sleeps, disks don't spin down.
+		caffeinate -dimsu "$@"
+	else
+		if ! command -v systemd-inhibit >/dev/null 2>&1; then
+			echo "nosleep: systemd-inhibit not found (expected with systemd on Ubuntu). Install with: sudo apt install systemd" >&2
+			return 1
+		fi
+		if (($# == 0)); then
+			systemd-inhibit --what=idle:sleep --who=nosleep --why="user requested nosleep" sleep infinity
+		else
+			systemd-inhibit --what=idle:sleep --who=nosleep --why="user requested nosleep" "$@"
+		fi
+	fi
+}
+
 # Open a new Ghostty window, shell into the Kodex VM, and attach to a zellij
 # session named kx-vm inside it. Requires the `--` pass-through patch to
 # kx-vm.sh's `shell` subcommand.
