@@ -50,7 +50,6 @@ if has('nvim')
   Plug 'mracos/mermaid.vim'
   Plug 'imsnif/kdl.vim'
   Plug 'ellisonleao/glow.nvim'
-  Plug 'ThePrimeagen/refactoring.nvim'
 
   " Completion
   Plug 'hrsh7th/nvim-cmp'
@@ -71,7 +70,7 @@ if has('nvim')
   Plug 'Shatur/neovim-ayu'
   Plug 'kkredit/oak'
   Plug 'olimorris/onedarkpro.nvim'
-  Plug 'norcalli/nvim-colorizer.lua'
+  Plug 'catgoose/nvim-colorizer.lua'
   Plug 'chaserensberger/christmas.nvim'
 
   " Other

@@ -439,7 +439,6 @@ none_ls.setup({
   capabilities = capabilities,
   sources = {
     none_ls.builtins.code_actions.gitsigns,
-    none_ls.builtins.code_actions.refactoring,
     -- require('typescript.extensions.null-ls.code-actions'),
     require('none-ls-external-sources.code_actions.eslint_d').with({
       -- require('none-ls-external-sources.code_actions.eslint').with({
