@@ -65,7 +65,11 @@ cmp.setup.cmdline(':', {
   })
 })
 
--- Configure the clipboard to use osc52, which should work in VMs
+-- Configure the clipboard to use osc52, which should work in VMs.
+-- Only register copy: OSC52 paste sends a terminal query (\e]52;c;?\a) and
+-- blocks for a reply. Most terminals don't answer, so any plugin that reads
+-- "+/"* (e.g. bullets.vim's <CR>/o handlers in gitcommit) hangs and the query
+-- bytes leak into input as garbage. Paste from the host via terminal paste.
 vim.g.clipboard = {
   name = "osc52",
   copy = {
@@ -73,8 +77,8 @@ vim.g.clipboard = {
     ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
   },
   paste = {
-    ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
-    ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+    ["+"] = function() return { vim.fn.split(vim.fn.getreg('"'), '\n'), vim.fn.getregtype('"') } end,
+    ["*"] = function() return { vim.fn.split(vim.fn.getreg('"'), '\n'), vim.fn.getregtype('"') } end,
   },
 }
 
