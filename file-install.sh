@@ -58,6 +58,10 @@ mkdir -p ~/.claude
 install -m 644 $FILES_DIR/claude_settings.json ~/.claude/settings.json
 mkdir -p ~/.config/hunk
 install -m 644 $FILES_DIR/hunk_config.toml ~/.config/hunk/config.toml
+if which hunk &>/dev/null; then
+	mkdir -p ~/.claude/skills
+	ln -sfn "$(dirname "$(hunk skill path)")" ~/.claude/skills/hunk
+fi
 
 # WSL files
 if $WSL; then
