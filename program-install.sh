@@ -15,12 +15,32 @@ fi
 # Update & exit
 function install_update {
 	if $MAC; then
-		brew upgrade
+		echo "==> Updating Homebrew..."
+		brew update && brew upgrade
+		brew cleanup
 	else
-		set -e
+		echo "==> Updating system packages..."
 		sudo-pkg-mgr update && sudo-pkg-mgr upgrade -y
-		sudo-pkg-mgr autoremove
-		$WSL || sudo snap refresh
+		sudo-pkg-mgr autoremove -y
+
+		if ! $WSL && which snap &>/dev/null; then
+			echo "==> Refreshing snaps..."
+			sudo snap refresh
+		fi
+	fi
+
+	if which npm &>/dev/null; then
+		echo "==> Updating global npm packages..."
+		npm update -g
+	fi
+
+	if which cargo &>/dev/null; then
+		echo "==> Updating cargo-installed binaries..."
+		if ! cargo install-update --version &>/dev/null; then
+			echo "Installing cargo-update first..."
+			cargo install cargo-update
+		fi
+		cargo install-update -a
 	fi
 }
 
@@ -364,14 +384,20 @@ function install_node {
 	if $MAC; then
 		brew install node
 	else
-		sudo-pkg-mgr install npm
 		curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 		sudo-pkg-mgr install -y nodejs
+
+		# Use a user-owned global prefix so 'npm install -g' / 'npm update -g'
+		# work without sudo and don't get clobbered by nodejs package upgrades.
+		mkdir -p "$HOME/.npm-global"
+		npm config set prefix "$HOME/.npm-global"
+		if ! grep -q '\.npm-global/bin' ~/.profile; then
+			# shellcheck disable=SC2016
+			echo 'export PATH="$HOME/.npm-global/bin:$PATH"' >>~/.profile
+		fi
+		export PATH="$HOME/.npm-global/bin:$PATH"
 		sudo chown -R "$USER":"$(id -gn "$USER")" ~/.config
-		sudo chown -R "$USER":"$(id -gn "$USER")" /usr/lib/node_modules/
-		export NODE_PATH='/usr/lib/node_modules'
-		echo "export NODE_PATH='/usr/lib/node_modules'" >>~/.profile
-		# should be able to 'npm install -g' without sudo now
+
 		sudo-pkg-mgr autoremove -y
 	fi
 }
@@ -454,7 +480,8 @@ function install_haskell {
 }
 
 function install_rust {
-	sudo-pkg-mgr install build-essential
+	# pkg-config + libssl-dev are needed by many cargo crates (openssl-sys, etc.)
+	sudo-pkg-mgr install -y build-essential pkg-config libssl-dev
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 }
 
