@@ -713,7 +713,7 @@ if $MAC; then
 tell application "Ghostty"
 	activate
 	set cfg to new surface configuration
-	set command of cfg to "kx vm shell -- zellij attach -c kx-vm"
+	set command of cfg to "zsh -ic 'kx vm shell -- zellij attach -c kx-vm'"
 	new window with configuration cfg
 end tell
 EOF
