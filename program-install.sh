@@ -125,6 +125,13 @@ function install_dev {
 		sudo snap install \
 			scc
 	fi
+
+	# https://github.com/modem-dev/hunk
+	if which npm &>/dev/null; then
+		npm install -g hunkdiff
+	else
+		echo "npm not found; install node first to install hunk"
+	fi
 }
 
 function install_graphite {

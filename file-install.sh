@@ -56,6 +56,8 @@ else
 fi
 mkdir -p ~/.claude
 install -m 644 $FILES_DIR/claude_settings.json ~/.claude/settings.json
+mkdir -p ~/.config/hunk
+install -m 644 $FILES_DIR/hunk_config.toml ~/.config/hunk/config.toml
 
 # WSL files
 if $WSL; then

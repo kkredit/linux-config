@@ -105,7 +105,7 @@
     skippedCherryPicks = false
 [core]
     editor = nvim
-    pager = diff-so-fancy | perl -pe 's/\t/»\\e[1D\t/g' | less --tabs=4 -RFX
+    pager = hunk pager
     excludesfile = ~/.gitignore_global
 [pull]
     ff = only
