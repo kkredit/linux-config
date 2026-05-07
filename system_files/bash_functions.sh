@@ -712,9 +712,9 @@ if $MAC; then
 		osascript <<'EOF'
 tell application "Ghostty"
 	activate
-	set win to new window
-	set term to terminal 1 of selected tab of win
-	input text "kx vm shell -- zellij attach -c kx-vm" & return to term
+	set cfg to new surface configuration
+	set command of cfg to "kx vm shell -- zellij attach -c kx-vm"
+	new window with configuration cfg
 end tell
 EOF
 	}
