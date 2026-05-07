@@ -703,11 +703,19 @@ function nosleep() {
 # session named kx-vm inside it. Requires the `--` pass-through patch to
 # kx-vm.sh's `shell` subcommand.
 #
-# Invoke the binary directly (not `open -na`) so the new window attaches to
-# the running Ghostty instance instead of spawning a second app process.
+# Drive Ghostty via AppleScript: macOS Ghostty has no CLI/IPC for adding a
+# window to a running instance — any direct binary or `open` invocation
+# spawns a second app process. AppleScript talks to the live instance.
+# https://ghostty.org/docs/features/applescript
 if $MAC; then
 	function vm() {
-		/Applications/Ghostty.app/Contents/MacOS/ghostty -e zsh -ic 'kx vm shell -- zellij attach -c kx-vm' >/dev/null 2>&1 &
-		disown
+		osascript <<'EOF'
+tell application "Ghostty"
+	activate
+	set win to new window
+	set term to terminal 1 of selected tab of win
+	input text "kx vm shell -- zellij attach -c kx-vm" & return to term
+end tell
+EOF
 	}
 fi
