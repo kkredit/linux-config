@@ -702,8 +702,12 @@ function nosleep() {
 # Open a new Ghostty window, shell into the Kodex VM, and attach to a zellij
 # session named kx-vm inside it. Requires the `--` pass-through patch to
 # kx-vm.sh's `shell` subcommand.
+#
+# Invoke the binary directly (not `open -na`) so the new window attaches to
+# the running Ghostty instance instead of spawning a second app process.
 if $MAC; then
 	function vm() {
-		open -na Ghostty --args -e zsh -ic 'kx vm shell -- zellij attach -c kx-vm'
+		/Applications/Ghostty.app/Contents/MacOS/ghostty -e zsh -ic 'kx vm shell -- zellij attach -c kx-vm' >/dev/null 2>&1 &
+		disown
 	}
 fi
