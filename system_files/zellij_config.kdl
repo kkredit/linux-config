@@ -278,6 +278,12 @@ themes {
 // theme "default"
 theme "custom"
 
+// Suppress the startup tips and release-notes floating popups -- they
+// steal focus on every new session and intercept keystrokes (which
+// breaks scripted attach flows like the `vm` shell function).
+show_startup_tips false
+show_release_notes false
+
 // The name of the default layout to load on startup
 // Default: "default"
 //
