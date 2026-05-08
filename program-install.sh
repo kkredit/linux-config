@@ -215,9 +215,15 @@ function install_fonts {
 	fi
 	mkdir -p "${fonts_dir}"
 
-	# Nerd fonts
+	# Nerd fonts — latest v3.x release
+	nerd_fonts_tag="$(curl -s https://api.github.com/repos/ryanoasis/nerd-fonts/releases \
+		| grep -oE '"tag_name": "v3\.[0-9]+\.[0-9]+"' | head -1 | cut -d'"' -f4)"
+	if [ -z "$nerd_fonts_tag" ]; then
+		echo "Could not determine latest v3 nerd-fonts release; falling back to v3.4.0"
+		nerd_fonts_tag="v3.4.0"
+	fi
 	for font in FiraCode Hack; do
-		file_url="https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/${font}.zip"
+		file_url="https://github.com/ryanoasis/nerd-fonts/releases/download/${nerd_fonts_tag}/${font}.zip"
 		echo "wget  ${file_url} -O ${font}.zip"
 		wget "${file_url}" -O "${font}.zip"
 		unzip ${font}.zip -d $font
