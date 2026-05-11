@@ -229,6 +229,11 @@ vim.lsp.config('harper_ls', {
     diagnosticSeverity = "hint",
   }
 })
+-- biome only attaches when biome.json / biome.jsonc is present in the buffer's
+-- directory tree (gating handled by nvim-lspconfig's bundled biome server).
+vim.lsp.config('biome', {
+  on_attach = on_attach_with_autofmt,
+})
 
 -- Setup Mason
 -- See https://github.com/mason-org/mason.nvim
@@ -373,6 +378,7 @@ require('mason-tool-installer').setup {
 
     -- linters
     'actionlint',
+    'biome',
     'buf',
     -- 'eslint-lsp', -- very slow
     'eslint_d',
@@ -432,6 +438,26 @@ local function eslint_cwd(params)
   return pkg_root(params.bufname)
 end
 
+-- gate eslint_d on the presence of an actual eslint config; otherwise eslint_d
+-- prints "Error: Could not find config file." as plain text and none-ls fails
+-- to json-decode it ("Expected value but found invalid token at character 1")
+local eslint_config_root = util.root_pattern(
+  "eslint.config.js",
+  "eslint.config.mjs",
+  "eslint.config.cjs",
+  "eslint.config.ts",
+  ".eslintrc",
+  ".eslintrc.js",
+  ".eslintrc.cjs",
+  ".eslintrc.json",
+  ".eslintrc.yaml",
+  ".eslintrc.yml"
+)
+
+local function has_eslint_config(params)
+  return eslint_config_root(params.bufname) ~= nil
+end
+
 none_ls.setup({
   on_attach = function(client, bufnr)
     on_attach(client, bufnr)
@@ -447,6 +473,7 @@ none_ls.setup({
     require('none-ls-external-sources.code_actions.eslint_d').with({
       -- require('none-ls-external-sources.code_actions.eslint').with({
       cwd = eslint_cwd,
+      runtime_condition = has_eslint_config,
     }),
 
     none_ls.builtins.completion.spell,
@@ -457,6 +484,7 @@ none_ls.setup({
     require('none-ls-external-sources.diagnostics.eslint_d').with({
       -- require('none-ls-external-sources.diagnostics.eslint').with({
       cwd = eslint_cwd,
+      runtime_condition = has_eslint_config,
     }),
     none_ls.builtins.diagnostics.markdownlint.with {
       args = { '--disable', 'MD013' }, -- line-length
@@ -484,6 +512,7 @@ none_ls.setup({
     require('none-ls-external-sources.formatting.eslint_d').with({
       -- require('none-ls-external-sources.formatting.eslint').with({
       cwd = eslint_cwd,
+      runtime_condition = has_eslint_config,
     }),
     none_ls.builtins.formatting.goimports,
     none_ls.builtins.formatting.isort,
