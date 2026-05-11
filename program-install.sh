@@ -604,6 +604,51 @@ function install_docker {
 	fi
 }
 
+function install_terraform {
+	if $MAC; then
+		# Official HashiCorp tap for terraform; tflint is in homebrew-core
+		# https://developer.hashicorp.com/terraform/install
+		# https://github.com/terraform-linters/tflint
+		brew tap hashicorp/tap
+		brew install hashicorp/tap/terraform
+		brew install tflint
+	else
+		# Terraform: official HashiCorp apt repository
+		# https://developer.hashicorp.com/terraform/install
+		sudo-pkg-mgr install -y gnupg software-properties-common curl
+		wget -O- https://apt.releases.hashicorp.com/gpg |
+			sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+		echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $UBU_REL main" |
+			sudo tee /etc/apt/sources.list.d/hashicorp.list >/dev/null
+		sudo-pkg-mgr update
+		sudo-pkg-mgr install -y terraform
+
+		# TFLint: download official release binary, verify attestation + checksum
+		# https://github.com/terraform-linters/tflint
+		if ! which gh &>/dev/null; then
+			echo "tflint install needs 'gh' for attestation verification; install gh first ('$0 dev')" >&2
+			return 1
+		fi
+		local TFLINT_ARCH TFLINT_TMP
+		case $(uname -m) in
+		x86_64) TFLINT_ARCH=amd64 ;; aarch64 | arm64) TFLINT_ARCH=arm64 ;;
+		esac
+		TFLINT_TMP=$(mktemp -d)
+		(
+			set -e
+			cd "$TFLINT_TMP"
+			curl -sSLO "https://github.com/terraform-linters/tflint/releases/latest/download/tflint_linux_${TFLINT_ARCH}.zip"
+			curl -sSLO "https://github.com/terraform-linters/tflint/releases/latest/download/checksums.txt"
+			gh attestation verify checksums.txt -R terraform-linters/tflint
+			sha256sum --ignore-missing -c checksums.txt
+			unzip "tflint_linux_${TFLINT_ARCH}.zip"
+			mkdir -p ~/bin
+			install -c -v tflint ~/bin/
+		)
+		rm -rf "$TFLINT_TMP"
+	fi
+}
+
 function install_wireshark {
 	# Wireshark
 	if $WSL; then
