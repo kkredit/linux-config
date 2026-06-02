@@ -33,3 +33,6 @@
 [submodule "submodules/alacritty-theme"]
 	path = submodules/alacritty-theme
 	url = https://github.com/alacritty/alacritty-theme
+[submodule "submodules/ee"]
+	path = submodules/ee
+	url = https://github.com/valueof/ee

@@ -90,6 +90,18 @@ install -m 755 submodules/git-log-compact/git-log-compact \
 	~/bin/git-log-compact
 install -m 755 submodules/tldr-sh-client/tldr ~/bin/tldr
 
+# Install ee
+if has_arg "ee"; then
+	if ! which go &>/dev/null; then
+		echo "!! Must install Go to install ee (terminal file manager)"
+		exit 1
+	fi
+
+	pushd submodules/ee >/dev/null || true
+	make install
+	popd >/dev/null || true
+fi
+
 # Install Entr
 if has_arg "entr"; then
 	pushd submodules/entr >/dev/null || true
