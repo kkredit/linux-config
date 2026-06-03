@@ -699,8 +699,11 @@ function nosleep() {
 	fi
 }
 
-# Open a new Ghostty window, shell into the Kodex VM, and attach to a zellij
-# session named kx-vm inside it. Requires the `--` pass-through patch to
+# Open a new Ghostty window, shell into the Kodex VM, and start a fresh zellij
+# session named kx-vm inside it. If a *live* kx-vm session already exists it
+# bails with a message rather than attaching; only a dead/resurrectable kx-vm
+# session (the kind `attach -c` would revive) is discarded before starting
+# fresh. Requires the `--` pass-through patch to
 # kx-vm.sh's `shell` subcommand.
 #
 # Drive Ghostty via AppleScript: macOS Ghostty has no CLI/IPC for adding a
@@ -713,7 +716,7 @@ if $MAC; then
 tell application "Ghostty"
 	activate
 	set cfg to new surface configuration
-	set command of cfg to "zsh -ic 'kx vm shell -- zellij attach -c kx-vm'"
+	set command of cfg to "zsh -ic 'kx vm shell -- zsh -c \"if zellij list-sessions -n 2>/dev/null | grep kx-vm | grep -v EXITED | grep -q .; then echo You already have a live kx-vm session.; else zellij delete-session kx-vm 2>/dev/null; zellij -s kx-vm; fi\"'"
 	new window with configuration cfg
 end tell
 EOF
