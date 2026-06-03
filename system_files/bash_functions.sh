@@ -700,11 +700,14 @@ function nosleep() {
 }
 
 # Open a new Ghostty window, shell into the Kodex VM, and start a fresh zellij
-# session named kx-vm inside it. If a *live* kx-vm session already exists it
-# bails with a message rather than attaching; only a dead/resurrectable kx-vm
-# session (the kind `attach -c` would revive) is discarded before starting
-# fresh. Requires the `--` pass-through patch to
-# kx-vm.sh's `shell` subcommand.
+# session named kx-vm inside it. If a *live* kx-vm session already exists, bail
+# locally (no window is opened) rather than attaching; only a dead/resurrectable
+# kx-vm session (the kind `attach -c` would revive) is discarded before starting
+# fresh. Requires the `--` pass-through patch to kx-vm.sh's `shell` subcommand.
+#
+# The live-session check runs as its own `kx vm shell` command so the *local*
+# shell sees its exit code and can decide whether to open a window — otherwise a
+# new (and unwanted) window would already exist by the time we found out.
 #
 # Drive Ghostty via AppleScript: macOS Ghostty has no CLI/IPC for adding a
 # window to a running instance — any direct binary or `open` invocation
@@ -712,11 +715,16 @@ function nosleep() {
 # https://ghostty.org/docs/features/applescript
 if $MAC; then
 	function vm() {
+		# A live kx-vm line is one that mentions kx-vm but not EXITED.
+		if kx vm shell -- zsh -c 'zellij list-sessions -n 2>/dev/null | grep kx-vm | grep -v EXITED | grep -q .'; then
+			echo "You already have a live kx-vm session."
+			return 1
+		fi
 		osascript <<'EOF'
 tell application "Ghostty"
 	activate
 	set cfg to new surface configuration
-	set command of cfg to "zsh -ic 'kx vm shell -- zsh -c \"if zellij list-sessions -n 2>/dev/null | grep kx-vm | grep -v EXITED | grep -q .; then echo You already have a live kx-vm session.; else zellij delete-session kx-vm 2>/dev/null; zellij -s kx-vm; fi\"'"
+	set command of cfg to "zsh -ic 'kx vm shell -- zsh -c \"zellij delete-session kx-vm 2>/dev/null; zellij -s kx-vm\"'"
 	new window with configuration cfg
 end tell
 EOF
