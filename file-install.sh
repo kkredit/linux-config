@@ -63,6 +63,13 @@ if which hunk &>/dev/null; then
 	ln -sfn "$(dirname "$(hunk skill path)")" ~/.claude/skills/hunk
 fi
 
+# Claude Code skills: symlink each skill in skills/ into the system-wide location
+mkdir -p ~/.claude/skills
+for skill_dir in "$(pwd)"/skills/*/; do
+	[ -e "$skill_dir" ] || continue
+	ln -sfn "${skill_dir%/}" ~/.claude/skills/"$(basename "$skill_dir")"
+done
+
 # WSL files
 if $WSL; then
 	install -m 644 $WSL_FILES_DIR/bashrc_wsl.sh ~/.bashrc_wsl
