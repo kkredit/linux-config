@@ -57,18 +57,56 @@ For each PR, collect:
   `statusCheckRollup` from step 1). Bucket into pass / fail / pending. For
   failures, fetch logs only when about to act: `gh run view <run-id> --log-failed`
   or `gh pr checks <branch>` then follow the failing check's link.
+  - When the user names a failing job/spec, reproduce it locally with the
+    project's real runner before editing (find the package's actual name + test
+    command — e.g. `pnpm --filter <pkg> run test -- <path>`; a wrong filter
+    silently runs nothing and looks like a pass). Expect some local-only
+    failures from missing infra (LocalStack, a DB, secrets) — confirm a failure
+    is in your stack's diff (`git diff <base>..HEAD --name-only`) before
+    attributing it to your changes.
 - **Inline review comments** (where AI agents like Graphite/Diamond, CodeRabbit,
   Copilot, etc. leave actionable suggestions):
   `gh api repos/{owner}/{repo}/pulls/{number}/comments --paginate`
-  (fields of interest: `id`, `path`, `line`, `body`, `user.login`, `in_reply_to_id`).
+  (fields of interest: `id`, `path`, `line`, `body`, `user.login`,
+  `in_reply_to_id`, `created_at`). Bot logins are suffixed `[bot]` (e.g.
+  `coderabbitai[bot]`) — match on that, not the bare name.
 - **Top-level review summaries & verdicts**: from the `reviews` / `comments`
   JSON in step 1 (`reviewDecision` of `CHANGES_REQUESTED` etc.).
 - **Restack / conflict needs**: if `gt ls` shows a branch needs restack, or
   `mergeable` is `CONFLICTING`.
 
+#### Rechecking comments — AI reviewers are slow and asynchronous
+
+Treat "no comments yet" as **"not done yet,"** not "clean." Hard-won rules:
+
+- **Re-sweep every PR's comments at the start of every round** — never carry
+  forward a stale "this PR is clean." AI reviewers (CodeRabbit especially)
+  finish **large PRs minutes later** than small ones, so a PR that showed 0
+  comments on your first pass can sprout several after you've moved on. Don't
+  conclude a PR is clean until the reviewer has posted its **completion signal**
+  (CodeRabbit's "Actionable comments posted: N" / walkthrough summary; a
+  `reviews` entry; Graphite's verdict). Absence of comments ≠ reviewed-and-clean.
+- **Draft PRs skip auto-review.** CodeRabbit posts "Review skipped — Draft
+  detected" and does nothing until you either mark the PR ready or comment
+  `@coderabbitai review` on it. If the stack is draft and you want feedback to
+  grind on, trigger explicitly (see Reference) — otherwise you'll wait forever
+  for comments that never come.
+- **A re-review usually does NOT post a new top-level comment.** It adds/updates
+  *inline* comments and may just reply in-thread or edit its existing summary.
+  So polling "did a new issue-comment appear?" is unreliable — poll the **inline
+  comment set** and the reviewer's replies instead.
+- **Distinguish new findings from history and replies.** Addressed inline
+  comments are NOT deleted — they persist (often re-anchored to a shifted line),
+  so a flat count is meaningless. To find genuinely-new actionable items after a
+  push, filter `created_at` newer than your trigger AND `in_reply_to_id == null`
+  (a non-null reply is the bot acknowledging *you*, not a new finding):
+  `gh api .../pulls/{n}/comments --paginate -q '.[] | select(.user.login=="coderabbitai[bot]") | select(.created_at > "<iso>") | select(.in_reply_to_id == null)'`.
+  For true resolution state use the GraphQL `reviewThreads.isResolved` query (see
+  Reference); a fixed finding's thread stays *open* unless someone resolves it.
+
 Track which review comments are already resolved/replied so you don't re-surface
-them. (Resolution state needs GraphQL — see Reference. If you skip that, at
-least skip comments that already have a reply from the user.)
+them. If you skip the GraphQL resolution check, at least skip comments that
+already have a reply, and map each finding to the fix/branch that addressed it.
 
 ### 3. Present the round
 Show a one-screen summary of the whole stack, e.g.:
@@ -115,6 +153,13 @@ working) and either:
   later. If they want true background pacing, suggest `/loop` (e.g.
   `/loop 5m continue babysitting the stack`).
 
+When you're waiting on an **AI reviewer's re-review** (not CI), run the poll as
+a background command and watch the **inline-comment set / reviewer replies**
+(per the rechecking rules above), not "a new top-level comment" — and give large
+PRs a longer window. Don't declare "clean" the moment the poll window closes;
+declare it only when the re-review's completion signal shows **no new actionable
+findings** (filtered by `created_at` + `in_reply_to_id == null`).
+
 Then go back to step 1. **Stop when**: every PR is ✓ CI, no unresolved
 actionable comments, and `reviewDecision` is not `CHANGES_REQUESTED` — or the
 user picks Stop.
@@ -151,6 +196,8 @@ GitHub data (need `{owner}/{repo}` — get via `gh repo view --json owner,name -
 Responding:
 - `gh api repos/{owner}/{repo}/pulls/{number}/comments/{comment_id}/replies -f body="..."` — reply inline
 - `gh pr comment <branch> --body "..."` — top-level comment
+- `gh pr comment <branch> --body "@coderabbitai review"` — force an AI re-review
+  (required on **draft** PRs, which CodeRabbit otherwise skips)
 - Resolve a thread (GraphQL):
   ```
   gh api graphql -f query='mutation($id:ID!){resolveReviewThread(input:{threadId:$id}){thread{isResolved}}}' -f id=<threadId>
