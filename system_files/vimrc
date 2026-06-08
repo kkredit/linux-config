@@ -183,8 +183,8 @@ nnoremap <leader>gd :Gdiffsplit<CR>
 nnoremap <leader>gD :G diff %<CR>
 nnoremap <leader>gm :G mergetool<CR>
 nnoremap <leader>gb :G blame -w -C<CR>
-nnoremap <leader>gl :GBrowse<CR>
-vnoremap <leader>gl :GBrowse<CR>
+nnoremap <leader>gl :GBrowse!<CR>:GBrowse<CR>
+vnoremap <leader>gl :GBrowse!<CR>gv:GBrowse<CR>
 
 nnoremap <C-p> :<cmd>Telescope find_files<cr>
 nnoremap <leader>; <cmd>Telescope command_history<cr>
