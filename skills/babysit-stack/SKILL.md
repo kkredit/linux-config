@@ -71,6 +71,10 @@ For each PR, collect:
   failures, fetch logs only when about to act:
   `gh run view <run-id> --log-failed` or `gh pr checks <branch>` then follow the
   failing check's link.
+  - **Caveat**: `gh pr checks` hits the checks API, which PATs cannot access at
+    all → `403 Forbidden`. When that happens, fall back to
+    `gh run list --branch <branch>` / `gh run view <run-id>` (and the
+    `statusCheckRollup` from step 1) instead.
   - When the user names a failing job/spec, reproduce it locally with the
     project's real runner before editing (find the package's actual name + test
     command — e.g. `pnpm --filter <pkg> run test -- <path>`; a wrong filter
@@ -170,7 +174,8 @@ working) and either:
 
 - Poll: re-check `gh pr checks` for the affected PRs every ~60–90s for a few
   cycles (`gh pr checks <branch> --watch --fail-fast` blocks until done for a
-  single PR), **or**
+  single PR; under a PAT it `403`s, so poll `gh run list --branch <branch>`
+  instead), **or**
 - Hand back: report current state and let the user re-invoke / say "continue"
   later. If they want true background pacing, suggest `/loop` (e.g.
   `/loop 5m continue babysitting the stack`).
@@ -216,8 +221,11 @@ GitHub data (need `{owner}/{repo}` — get via
 
 - `gh pr view <branch> --json number,title,url,state,isDraft,reviewDecision,mergeable,mergeStateStatus,statusCheckRollup,reviews,comments`
 - `gh pr checks <branch> [--json name,state,bucket,link] [--watch --fail-fast]`
+  — note this `403`s under a PAT (PATs can't access the checks API); fall back
+  to `gh run list --branch <branch>` / `gh run view <run-id>`
 - `gh api repos/{owner}/{repo}/pulls/{number}/comments --paginate` — inline
   review comments
+- `gh run list --branch <branch>` — CI runs (PAT-safe alternative to `gh pr checks`)
 - `gh run view <run-id> --log-failed` — failing CI logs
 
 Responding:
