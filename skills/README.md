@@ -20,3 +20,6 @@ edits you make here take effect immediately — no reinstall needed.
 - `babysit-stack/` — iteratively drive a Graphite (`gt`) stack of PRs to green:
   fetch CI + reviewer/AI feedback, surface it as one-keystroke choices, fix /
   reply, resubmit, repeat. Built for low-typing, hands-off operation.
+- `resolve/` — finish an in-progress gt restack, git rebase, or merge: detect
+  which is underway, resolve the conflicts (asking when unclear), and run the
+  matching continue command until done.
