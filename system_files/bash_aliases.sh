@@ -46,7 +46,7 @@ alias www='python3 -m http.server --bind localhost --cgi 8000'
 alias sshkeygen='ssh-keygen -t rsa'
 alias sshkeyinstall='ssh-copy-id -i ~/.ssh/id_rsa.pub'
 alias g='git'
-alias gg='gt'
+# gg (gt wrapper) is defined in bash_functions
 alias s="echo \$?"
 alias c='clear -x'
 alias y=yarn

@@ -699,6 +699,42 @@ function nosleep() {
 	fi
 }
 
+# Copy stdin (or args) to the system clipboard. Falls back to OSC 52, which
+# works over SSH and in VMs (same approach as the nvim clipboard config).
+function clipcopy() {
+	local DATA
+	if (($#)); then DATA="$*"; else DATA="$(cat)"; fi
+	if which pbcopy &>/dev/null; then
+		printf '%s' "$DATA" | pbcopy
+	elif which wl-copy &>/dev/null && [[ -n "$WAYLAND_DISPLAY" ]]; then
+		printf '%s' "$DATA" | wl-copy
+	elif which xclip &>/dev/null && [[ -n "$DISPLAY" ]]; then
+		printf '%s' "$DATA" | xclip -selection clipboard
+	else
+		printf '\033]52;c;%s\007' "$(printf '%s' "$DATA" | base64 | tr -d '\n')" >/dev/tty 2>/dev/null
+	fi
+}
+
+# gt wrapper; `gg pr` also copies the PR url to the clipboard
+function gg() {
+	if [[ "$1" != "pr" ]]; then
+		gt "$@"
+		return
+	fi
+	local OUTPUT STATUS URL
+	OUTPUT="$(gt "$@" 2>&1)"
+	STATUS=$?
+	[[ -n "$OUTPUT" ]] && printf '%s\n' "$OUTPUT"
+	URL="$(grep -oE 'https://[^[:space:]]+' <<<"$OUTPUT" | head -1)"
+	if [[ -z "$URL" && 0 == "$STATUS" ]]; then
+		# gt didn't print a url (e.g. it opened a browser); get it from gh
+		URL="$(gh pr view ${2:+"$2"} --json url --jq .url 2>/dev/null)"
+		[[ -n "$URL" ]] && echo "$URL"
+	fi
+	[[ -n "$URL" ]] && clipcopy "$URL"
+	return $STATUS
+}
+
 # Open a new Ghostty window, shell into the Kodex VM, and start a fresh zellij
 # session named kx-vm inside it. If a *live* kx-vm session already exists, bail
 # locally (no window is opened) rather than attaching; only a dead/resurrectable
