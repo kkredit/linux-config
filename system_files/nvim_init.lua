@@ -470,8 +470,10 @@ none_ls.setup({
   sources = {
     none_ls.builtins.code_actions.gitsigns,
     -- require('typescript.extensions.null-ls.code-actions'),
-    require('none-ls-external-sources.code_actions.eslint_d').with({
-      -- require('none-ls-external-sources.code_actions.eslint').with({
+    -- eslint_d resolves plugins relative to a synthetic __placeholder__.js, which
+    -- can't find pnpm's non-hoisted transitive plugins (e.g. @next/eslint-plugin-next);
+    -- the plain eslint source runs node_modules/.bin/eslint, which resolves correctly.
+    require('none-ls-external-sources.code_actions.eslint').with({
       cwd = eslint_cwd,
       runtime_condition = has_eslint_config,
     }),
@@ -481,8 +483,7 @@ none_ls.setup({
 
     none_ls.builtins.diagnostics.actionlint,
     none_ls.builtins.diagnostics.buf,
-    require('none-ls-external-sources.diagnostics.eslint_d').with({
-      -- require('none-ls-external-sources.diagnostics.eslint').with({
+    require('none-ls-external-sources.diagnostics.eslint').with({
       cwd = eslint_cwd,
       runtime_condition = has_eslint_config,
     }),
@@ -509,8 +510,7 @@ none_ls.setup({
 
     none_ls.builtins.formatting.black,
     none_ls.builtins.formatting.buf,
-    require('none-ls-external-sources.formatting.eslint_d').with({
-      -- require('none-ls-external-sources.formatting.eslint').with({
+    require('none-ls-external-sources.formatting.eslint').with({
       cwd = eslint_cwd,
       runtime_condition = has_eslint_config,
     }),
