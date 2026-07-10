@@ -56,6 +56,7 @@ else
 fi
 mkdir -p ~/.claude
 install -m 644 $FILES_DIR/claude_settings.json ~/.claude/settings.json
+install -m 644 $FILES_DIR/claude_instructions.md ~/.claude/CLAUDE.md
 mkdir -p ~/.config/hunk
 install -m 644 $FILES_DIR/hunk_config.toml ~/.config/hunk/config.toml
 if which hunk &>/dev/null; then
