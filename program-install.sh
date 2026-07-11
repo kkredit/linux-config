@@ -5,7 +5,11 @@ cd "$(dirname "$0")" || exit
 # shellcheck disable=SC1091
 source helper_scripts/local-helpers.sh
 
-if ! $MAC; then
+if $MAC; then
+	# brew >= 4.6 defaults to asking "Do you want to proceed?" before
+	# installs/upgrades; suppress it so the script runs unattended
+	export HOMEBREW_NO_ASK=1
+else
 	UBU_REL=$(lsb_release -cs)
 fi
 
