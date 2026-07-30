@@ -4,6 +4,8 @@ cd "$(dirname "$0")" || exit
 
 # shellcheck disable=SC1091
 source helper_scripts/local-helpers.sh
+# shellcheck disable=SC1091
+source helper_scripts/bin-installs.sh
 
 if $MAC; then
 	# brew >= 4.6 defaults to asking "Do you want to proceed?" before
@@ -46,6 +48,27 @@ function install_update {
 		fi
 		cargo install-update -a
 	fi
+
+	install_binaries
+}
+
+# Refresh the binaries downloaded by hand into ~/bin, which no package manager
+# tracks. Only tools already present are refreshed, so this never installs
+# something new. Skips the tools brew owns on Mac.
+function install_binaries {
+	echo "==> Refreshing ~/bin binaries..."
+	local BIN
+	for BIN in nvim cht.sh git-secrets lein tflint; do
+		[ -e ~/bin/"$BIN" ] || continue
+		case $BIN in
+		nvim) $MAC || install_nvim ;;
+		cht.sh) install_cheat ;;
+		git-secrets) install_gitsecrets ;;
+		lein) install_lein ;;
+		tflint) $MAC || install_tflint ;;
+		esac
+	done
+	refresh_submodule_bins
 }
 
 # Basic tools
@@ -108,16 +131,23 @@ function install_basic {
 		# sudo apt update
 		# sudo-pkg-mgr install -y \
 		# neovim
-		case $(uname -m) in
-		x86_64) NVIM_ARCH=x86_64 ;; aarch64 | arm64) NVIM_ARCH=arm64 ;; armv7l) NVIM_ARCH=armv7 ;;
-		esac
-		local NVIM_URL="https://github.com/neovim/neovim/releases/latest/download/nvim-linux-${NVIM_ARCH}.appimage"
-		mkdir -p ~/bin
-		curl -fL "$NVIM_URL" -o ~/bin/nvim
-		chmod u+x ~/bin/nvim
+		install_nvim
 
 		which starship &>/dev/null || sh -c "$(curl -fsSL https://starship.rs/install.sh)"
 	fi
+}
+
+function install_nvim {
+	local NVIM_ARCH
+	case $(uname -m) in
+	x86_64) NVIM_ARCH=x86_64 ;; aarch64 | arm64) NVIM_ARCH=arm64 ;; armv7l) NVIM_ARCH=armv7 ;;
+	*)
+		echo "No nvim appimage is published for $(uname -m)" >&2
+		return 1
+		;;
+	esac
+	download_bin nvim \
+		"https://github.com/neovim/neovim/releases/latest/download/nvim-linux-${NVIM_ARCH}.appimage"
 }
 
 # Other tools
@@ -184,8 +214,7 @@ function install_utilities {
 }
 
 function install_cheat {
-	curl https://cht.sh/:cht.sh >~/bin/cht.sh
-	chmod +x ~/bin/cht.sh
+	download_bin cht.sh https://cht.sh/:cht.sh
 }
 
 function install_silicon {
@@ -197,9 +226,8 @@ function install_silicon {
 }
 
 function install_gitsecrets {
-	wget -q https://raw.githubusercontent.com/awslabs/git-secrets/master/git-secrets
-	install -m 755 git-secrets ~/bin
-	rm git-secrets
+	download_bin git-secrets \
+		https://raw.githubusercontent.com/awslabs/git-secrets/master/git-secrets
 }
 
 if has_arg "vscode"; then
@@ -500,9 +528,7 @@ function install_clojure {
 		curl \
 		rlwrap
 
-	wget -q https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
-	chmod +x lein
-	mv lein ~/bin/
+	install_lein
 
 	which java || sudo apt-get install -y default-jdk
 
@@ -510,6 +536,11 @@ function install_clojure {
 	chmod +x linux-install-1.10.1.536.sh
 	sudo ./linux-install-1.10.1.536.sh
 	rm ./linux-install-1.10.1.536.sh
+}
+
+function install_lein {
+	download_bin lein \
+		https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
 }
 
 function install_python {
@@ -610,12 +641,10 @@ function install_docker {
 
 function install_terraform {
 	if $MAC; then
-		# Official HashiCorp tap for terraform; tflint is in homebrew-core
+		# Official HashiCorp tap for terraform
 		# https://developer.hashicorp.com/terraform/install
-		# https://github.com/terraform-linters/tflint
 		brew tap hashicorp/tap
 		brew install hashicorp/tap/terraform
-		brew install tflint
 	else
 		# Terraform: official HashiCorp apt repository
 		# https://developer.hashicorp.com/terraform/install
@@ -626,31 +655,48 @@ function install_terraform {
 			sudo tee /etc/apt/sources.list.d/hashicorp.list >/dev/null
 		sudo-pkg-mgr update
 		sudo-pkg-mgr install -y terraform
-
-		# TFLint: download official release binary, verify attestation + checksum
-		# https://github.com/terraform-linters/tflint
-		if ! which gh &>/dev/null; then
-			echo "tflint install needs 'gh' for attestation verification; install gh first ('$0 dev')" >&2
-			return 1
-		fi
-		local TFLINT_ARCH TFLINT_TMP
-		case $(uname -m) in
-		x86_64) TFLINT_ARCH=amd64 ;; aarch64 | arm64) TFLINT_ARCH=arm64 ;;
-		esac
-		TFLINT_TMP=$(mktemp -d)
-		(
-			set -e
-			cd "$TFLINT_TMP"
-			curl -sSLO "https://github.com/terraform-linters/tflint/releases/latest/download/tflint_linux_${TFLINT_ARCH}.zip"
-			curl -sSLO "https://github.com/terraform-linters/tflint/releases/latest/download/checksums.txt"
-			gh attestation verify checksums.txt -R terraform-linters/tflint
-			sha256sum --ignore-missing -c checksums.txt
-			unzip "tflint_linux_${TFLINT_ARCH}.zip"
-			mkdir -p ~/bin
-			install -c -v tflint ~/bin/
-		)
-		rm -rf "$TFLINT_TMP"
 	fi
+
+	install_tflint
+}
+
+# Downloads the official release binary, verifying attestation + checksum
+# https://github.com/terraform-linters/tflint
+function install_tflint {
+	if $MAC; then
+		# tflint is in homebrew-core
+		brew install tflint
+		return
+	fi
+
+	if ! which gh &>/dev/null; then
+		echo "tflint install needs 'gh' for attestation verification; install gh first ('$0 dev')" >&2
+		return 1
+	fi
+	local TFLINT_ARCH TFLINT_TMP TFLINT_STATUS
+	case $(uname -m) in
+	x86_64) TFLINT_ARCH=amd64 ;; aarch64 | arm64) TFLINT_ARCH=arm64 ;;
+	*)
+		echo "No tflint release is published for $(uname -m)" >&2
+		return 1
+		;;
+	esac
+	TFLINT_TMP=$(mktemp -d)
+	(
+		set -e
+		cd "$TFLINT_TMP"
+		curl -sSLO "https://github.com/terraform-linters/tflint/releases/latest/download/tflint_linux_${TFLINT_ARCH}.zip"
+		curl -sSLO "https://github.com/terraform-linters/tflint/releases/latest/download/checksums.txt"
+		gh attestation verify checksums.txt -R terraform-linters/tflint
+		sha256sum --ignore-missing -c checksums.txt
+		unzip "tflint_linux_${TFLINT_ARCH}.zip"
+		mkdir -p ~/bin
+		install -c -v tflint ~/bin/
+	)
+	TFLINT_STATUS=$?
+	[ $TFLINT_STATUS -eq 0 ] || echo "tflint install failed; keeping existing ~/bin/tflint" >&2
+	rm -rf "$TFLINT_TMP"
+	return $TFLINT_STATUS
 }
 
 function install_wireshark {

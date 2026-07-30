@@ -4,6 +4,8 @@ cd "$(dirname "$0")" || exit
 
 # shellcheck disable=SC1091
 source helper_scripts/local-helpers.sh
+# shellcheck disable=SC1091
+source helper_scripts/bin-installs.sh
 
 # Plain files
 FILES_DIR=system_files
@@ -92,11 +94,7 @@ fi
 mkdir -p ~/bin
 
 printf 'y\ny\nn\n' | ./submodules/fzf/install &>/dev/null
-install -m 755 submodules/diff-so-fancy/diff-so-fancy ~/bin/diff-so-fancy
-cp -r submodules/diff-so-fancy/lib ~/bin/
-install -m 755 submodules/git-log-compact/git-log-compact \
-	~/bin/git-log-compact
-install -m 755 submodules/tldr-sh-client/tldr ~/bin/tldr
+install_submodule_bins
 
 # Install ee
 if has_arg "ee"; then
