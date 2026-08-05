@@ -14,6 +14,12 @@ description: >-
 Finish whatever conflicted git operation is currently in progress. Detect what
 it is, resolve the conflicts, and drive the operation to completion.
 
+**Scope — current operation only.** Resolve only the conflicts the in-progress
+operation has surfaced. Never reorder branches/PRs in a gt stack or add new
+ones to it (no `gt move`, `gt reorder`, `gt create`, etc.). Don't go looking
+for other gt stacks that need restacking — stay on the current stack unless
+the user explicitly asks otherwise.
+
 ## 1. Detect the operation (in this order)
 
 Check from the repo root (`git rev-parse --git-dir` gives the git dir path —
@@ -72,7 +78,9 @@ operation exits cleanly.
 
 - `git status` should show a clean (or pre-existing-only) state with no
   operation in progress.
-- After a gt restack, also run `gt ls` and confirm no branch still shows
-  "needs restack".
+- After a gt restack, also run `gt ls` and confirm no branch **in the current
+  stack** still shows "needs restack". Other stacks flagged as needing a
+  restack are out of scope — mention them at most; don't restack them unless
+  explicitly asked.
 - Report tersely: which operation was finished, how many conflict rounds, and
   per-file how each conflict was resolved (ours / theirs / combined).
