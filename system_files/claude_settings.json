@@ -1,4 +1,7 @@
 {
-  "defaultMode": "acceptEdits",
-  "vim": true
+  "permissions": {
+    "defaultMode": "auto"
+  },
+  "vim": true,
+  "promptSuggestionEnabled": false
 }
