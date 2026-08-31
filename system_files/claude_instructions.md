@@ -26,6 +26,8 @@ anything that hits the checks API returns `403 Forbidden`.
 LLM-written. Before publishing any human-facing prose, read that file and revise the
 draft to remove what it names.
 
-- Applies to: documentation, RFCs, website copy, runbooks, and similar prose.
-- Does not apply to: code, code comments, commit messages, PR descriptions, or other
-  non-prose text.
+- Applies to: documentation, RFCs, website copy, runbooks, PR descriptions, PR
+  comments, and similar prose.
+- Does not apply to: code, code comments, commit messages, or other non-prose text.
+- "Avoid claudisms" — in any context, about any text — is a request to consult
+  `~/.claudisms.md` and strip what it names from that text.
