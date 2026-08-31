@@ -59,6 +59,15 @@ fi
 mkdir -p ~/.claude
 install -m 644 $FILES_DIR/claude_settings.json ~/.claude/settings.json
 install -m 644 $FILES_DIR/claude_instructions.md ~/.claude/CLAUDE.md
+# Claudisms word list, referenced by ~/.claude/CLAUDE.md. Keep any existing copy
+# if the download fails so an offline install doesn't leave a dangling reference.
+CLAUDISMS_TMP=$(mktemp)
+if curl -fsSL https://claudisms.ai/claudisms.md -o "$CLAUDISMS_TMP"; then
+	install -m 644 "$CLAUDISMS_TMP" ~/.claudisms.md
+else
+	echo "claudisms.md download failed; keeping existing ~/.claudisms.md" >&2
+fi
+rm -f "$CLAUDISMS_TMP"
 mkdir -p ~/.config/hunk
 install -m 644 $FILES_DIR/hunk_config.toml ~/.config/hunk/config.toml
 if which hunk &>/dev/null; then

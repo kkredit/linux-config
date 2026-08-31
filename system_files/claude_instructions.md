@@ -19,3 +19,13 @@ anything that hits the checks API returns `403 Forbidden`.
   - `gh run list --branch <branch> --limit 10`
   - `gh run view <run-id>` (note: the ANNOTATIONS section still 403s — that's expected)
   - `gh run view <run-id> --log-failed` to see what actually failed
+
+## Human-facing prose
+
+`~/.claudisms.md` lists "claudisms" — the tics and stock phrasings that mark text as
+LLM-written. Before publishing any human-facing prose, read that file and revise the
+draft to remove what it names.
+
+- Applies to: documentation, RFCs, website copy, runbooks, and similar prose.
+- Does not apply to: code, code comments, commit messages, PR descriptions, or other
+  non-prose text.
