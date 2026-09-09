@@ -123,6 +123,14 @@ Treat "no comments yet" as **"not done yet,"** not "clean." Hard-won rules:
   For true resolution state use the GraphQL `reviewThreads.isResolved` query
   (see Reference); a fixed finding's thread stays *open* unless someone resolves
   it.
+- **A "verification is inconclusive" reply may be reading an older revision.**
+  A reviewer that says your fix is absent has re-read the branch at some SHA.
+  Compare the reply's `created_at` against the push time (the `createdAt` of the
+  workflow runs on the new head) before you believe it. If the reply predates the
+  push, the finding is stale: confirm the pushed blob yourself with
+  `gh api repos/{owner}/{repo}/contents/<path>?ref=<branch>`, then reply naming
+  the SHA and asking for a re-check. NEVER re-edit code to satisfy a stale
+  verification — the code is already correct, and the edit would undo a fix.
 
 Track which review comments are already resolved/replied so you don't re-surface
 them. If you skip the GraphQL resolution check, at least skip comments that
@@ -150,15 +158,12 @@ options (multiSelect): "Fix CI on #813", "Address review comments on #812",
   `gt modify -c -m "..."` only if the user wants a new commit instead of an
   amend. Prefer surgical edits that directly address the failing check /
   comment.
-- **Replying to inline comments**: offer canned replies as letter options; reply
-  with
-  `gh api repos/{owner}/{repo}/pulls/{number}/comments/{comment_id}/replies -f body="..."`.
-- **General PR reply**: `gh pr comment <branch> --body "..."`.
-- **Resolving threads** (optional, nice for clean state): GraphQL
-  `resolveReviewThread` — see Reference.
 - For ambiguous fixes, show the proposed diff and confirm with a yes/no
   `AskUserQuestion` before writing — but for obvious CI fixes (lint, format,
   type errors with one clear fix), just do it and report.
+- Draft the replies in this step. Do NOT post any of them yet. A reply posted
+  now points at code the reviewer cannot see, because nothing is pushed until
+  step 5.
 
 ### 5. Resubmit
 
@@ -167,7 +172,29 @@ options (multiSelect): "Fix CI on #813", "Address review comments on #812",
   Use `--restack` if branches drifted. Never pass `--ai`/`--edit` in the
   hands-off path (those open prompts).
 
-### 6. Wait & re-poll
+### 6. Reply to the threads you addressed
+
+ALWAYS push before you post a reply. An AI reviewer re-reads the branch within
+about a minute of a reply that claims a fix. If the push has not landed, it
+answers "verification is inconclusive — the checked revision still has
+`maxAttempts: 5`" and reopens a thread you had already closed, costing another
+round.
+
+- Confirm the push landed. For every branch you changed,
+  `git rev-parse <branch>` must equal `git rev-parse origin/<branch>`.
+- Name the SHA in any reply that claims a fix, e.g. "Changed in `a4aa49adf0`".
+  A reviewer that read an older revision can then see which one it read.
+- **Replying to inline comments**: offer canned replies as letter options; reply
+  with
+  `gh api repos/{owner}/{repo}/pulls/{number}/comments/{comment_id}/replies -f body="..."`.
+- **General PR reply**: `gh pr comment <branch> --body "..."`.
+- **Resolving threads** (optional, nice for clean state): GraphQL
+  `resolveReviewThread` — see Reference.
+
+A reply to a finding you are declining rather than fixing does not depend on the
+push. Send it with the rest anyway, so each round posts one batch of replies.
+
+### 7. Wait & re-poll
 
 After resubmit, CI needs time. Tell the user you're waiting (they can keep
 working) and either:
@@ -201,6 +228,8 @@ user picks Stop.
   the user's OK.
 - Preserve stack integrity: always `gt modify` (not raw `git commit --amend`) so
   descendants restack; resubmit the whole stack so PR bases stay correct.
+- Push, then reply. NEVER post a reply that claims a fix before the branch is
+  pushed — the reviewer checks the claim against the branch as it stands.
 - One round per check-in by default; only chain rounds without asking when the
   user said "just get it green" / picked an "auto" option.
 
