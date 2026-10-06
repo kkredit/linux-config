@@ -682,19 +682,18 @@ function nosleep() {
 		echo "Your computer will not sleep until '$*' completes."
 	fi
 	if $MAC; then
-		# -d display, -i idle, -m disk, -s system (AC only), -u user-active.
-		# Net effect: act as if someone is actively using the machine — screen
-		# stays on, nothing sleeps, disks don't spin down.
-		caffeinate -dimsu "$@"
+		# -i idle, -m disk, -s system (AC only). Omits -d and -u so the display
+		# still sleeps and the screen still auto-locks when unattended.
+		caffeinate -ims "$@"
 	else
 		if ! command -v systemd-inhibit >/dev/null 2>&1; then
 			echo "nosleep: systemd-inhibit not found (expected with systemd on Ubuntu). Install with: sudo apt install systemd" >&2
 			return 1
 		fi
 		if (($# == 0)); then
-			systemd-inhibit --what=idle:sleep --who=nosleep --why="user requested nosleep" sleep infinity
+			systemd-inhibit --what=sleep --who=nosleep --why="user requested nosleep" sleep infinity
 		else
-			systemd-inhibit --what=idle:sleep --who=nosleep --why="user requested nosleep" "$@"
+			systemd-inhibit --what=sleep --who=nosleep --why="user requested nosleep" "$@"
 		fi
 	fi
 }
