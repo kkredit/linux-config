@@ -664,11 +664,6 @@ function rmqq() {
 	qq
 }
 
-function kurl() {
-	curl https://earthly-tools.com/text-mode\?url="$1" | less
-}
-alias news='kurl https://www.economist.com/the-world-in-brief'
-
 # Prevent the machine from sleeping/idling. On macOS uses caffeinate; on Linux
 # uses systemd-inhibit (ships with systemd on Ubuntu). Runs until Ctrl+C, or
 # wraps a command if given (e.g. `nosleep make build`).
