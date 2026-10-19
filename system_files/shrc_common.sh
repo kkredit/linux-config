@@ -57,6 +57,9 @@ fi
 PATH=$PATH:/usr/local/bin:~/bin:~/.local/bin
 [ -d ~/.yarn/bin ] && PATH=$PATH:~/.yarn/bin || true
 [ -d /snap/bin ] && PATH=$PATH:/snap/bin || true
+[ -d ~/.bun/bin ] && export BUN_INSTALL=~/.bun && PATH=$BUN_INSTALL/bin:$PATH || true
+if $MAC; then PNPM_HOME=~/Library/pnpm; else PNPM_HOME=~/.local/share/pnpm; fi
+[ -d "$PNPM_HOME" ] && export PNPM_HOME && PATH=$PNPM_HOME:$PNPM_HOME/bin:$PATH || unset PNPM_HOME
 export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(vim {})+abort'" # ctrl-o opens file in vim
 export EDITOR=nvim
 which bat &>/dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'" || true
