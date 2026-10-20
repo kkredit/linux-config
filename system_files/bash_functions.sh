@@ -287,8 +287,8 @@ function cs() {
 			fi
 		fi
 	fi
-	if which exa &>/dev/null; then
-		builtin cd "$new_dir" && exa -F
+	if which eza &>/dev/null; then
+		builtin cd "$new_dir" && eza -F
 	else
 		builtin cd "$new_dir" && ls
 	fi

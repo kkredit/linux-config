@@ -15,6 +15,16 @@ else
 	UBU_REL=$(lsb_release -cs)
 fi
 
+# Adds a third-party apt repo signed by its own keyring. $1 names the keyring
+# and .list file, $2 is the signing key URL, $3 the repo URI and suites.
+function add_apt_repo {
+	sudo install -d -m 0755 /etc/apt/keyrings
+	curl -fsSL "$2" | sudo gpg --dearmor --yes -o /etc/apt/keyrings/"$1".gpg
+	echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/$1.gpg] $3" |
+		sudo tee /etc/apt/sources.list.d/"$1".list >/dev/null
+	sudo-pkg-mgr update
+}
+
 ## Install tools or packages in functions
 ## Functions are called at the end
 
@@ -58,7 +68,7 @@ function install_update {
 function install_binaries {
 	echo "==> Refreshing ~/bin binaries..."
 	local BIN
-	for BIN in nvim cht.sh git-secrets lein tflint; do
+	for BIN in nvim cht.sh git-secrets lein tflint vale; do
 		[ -e ~/bin/"$BIN" ] || continue
 		case $BIN in
 		nvim) $MAC || install_nvim ;;
@@ -66,6 +76,7 @@ function install_binaries {
 		git-secrets) install_gitsecrets ;;
 		lein) install_lein ;;
 		tflint) $MAC || install_tflint ;;
+		vale) $MAC || install_vale ;;
 		esac
 	done
 	refresh_submodule_bins
@@ -125,7 +136,8 @@ function install_basic {
 			gnome-tweaks \
 			autojump \
 			entr \
-			unzip
+			unzip \
+			ghostty
 
 		# sudo add-apt-repository ppa:neovim-ppa/stable -y
 		# sudo apt update
@@ -171,11 +183,10 @@ function install_dev {
 			g++ \
 			make \
 			lcov \
-			jq
+			jq \
+			pre-commit \
+			jc
 		# libc6-dev-i386 \
-		if which pip3 &>/dev/null; then
-			pip3 install pre-commit jc
-		fi
 		sudo snap install \
 			scc
 	fi
@@ -201,15 +212,14 @@ function install_utilities {
 			pipe-rename \
 			procs \
 			shy \
-			zellij \
-			exa
+			zellij
 		cargo install --git https://github.com/jez/barchart.git
 	fi
 
 	if $MAC; then
-		brew install bat fd
+		brew install bat fd eza
 	else
-		sudo-pkg-mgr install -y bat fd-find
+		sudo-pkg-mgr install -y bat fd-find eza
 	fi
 }
 
@@ -234,7 +244,7 @@ if has_arg "vscode"; then
 	if $MAC; then
 		brew install --cask visual-studio-code
 	else
-		snap install code --classic
+		sudo snap install code --classic
 	fi
 	code --install-extension <system_files/VSCode/extensions.txt
 fi
@@ -303,12 +313,26 @@ function install_writing {
 		aspell \
 		aiksaurus \
 		python3-proselint \
-		pandoc \
-		vale
+		pandoc
+	install_vale
+}
+
+function install_vale {
+	if $MAC; then
+		brew install vale
+		return
+	fi
+
+	local URL TMP
+	URL=$(gh_latest_asset vale-cli/vale 'vale_[^/]*_Linux_64-bit\.tar\.gz')
+	TMP=$(mktemp -d)
+	mkdir -p ~/bin
+	curl -fsSL "$URL" | tar -xz -C "$TMP" vale && install -m 755 "$TMP"/vale ~/bin/vale
+	rm -rf "$TMP"
 }
 
 function install_pandoc {
-	URL="https://github.com$(curl -Ls https://github.com/jgm/pandoc/releases/latest | grep -m1 "amd64.deb" | cut -d\" -f2)"
+	URL=$(gh_latest_asset jgm/pandoc 'pandoc-[^/]*-amd64\.deb')
 	wget -q --show-progress "$URL"
 	sudo dpkg -i pandoc-*-amd64.deb
 	rm pandoc-*-amd64.deb
@@ -316,7 +340,7 @@ function install_pandoc {
 
 function install_keys {
 	sudo-pkg-mgr install -y \
-		gnome-tweak-tool
+		gnome-tweaks
 	gnome-tweaks &
 	echo
 	echo "Now go to keyboard -> additional layout options"
@@ -396,8 +420,9 @@ function install_postman {
 
 function install_mysql {
 	sudo-pkg-mgr install -y \
-		libmysqlclient-dev \
-		mysql-workbench
+		libmysqlclient-dev
+	echo "MySQL Workbench is not in the Ubuntu archive; get the .deb from"
+	echo "  https://dev.mysql.com/downloads/workbench/"
 }
 
 function install_postgresql {
@@ -422,7 +447,7 @@ function install_node {
 	if $MAC; then
 		brew install node
 	else
-		curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+		curl -fsSL https://deb.nodesource.com/setup_24.x | sudo bash -
 		sudo-pkg-mgr install -y nodejs
 
 		# Use a user-owned global prefix so 'npm install -g' / 'npm update -g'
@@ -452,13 +477,12 @@ function install_yarn {
 	if $MAC; then
 		brew install yarn
 	else
-		curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-		echo "deb https://dl.yarnpkg.com/debian/ stable main" |
-			sudo tee /etc/apt/sources.list.d/yarn.list
+		add_apt_repo yarn https://dl.yarnpkg.com/debian/pubkey.gpg \
+			"https://dl.yarnpkg.com/debian/ stable main"
 		if which nvm &>/dev/null; then
-			sudo apt update && sudo apt install --no-install-recommends yarn
+			sudo-pkg-mgr install -y --no-install-recommends yarn
 		else
-			sudo apt update && sudo apt install yarn
+			sudo-pkg-mgr install -y yarn
 		fi
 	fi
 	yarn global add yarn-completions
@@ -512,9 +536,8 @@ function install_golang {
 }
 
 function install_haskell {
-	sudo-pkg-mgr install haskell-platform
-	# Stack is a package manager for Haskell, but installation is broken :(
-	#curl -sSL https://get.haskellstack.org/ | sh
+	# ghcup installs GHC, cabal, stack and HLS
+	curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
 }
 
 function install_rust {
@@ -532,10 +555,10 @@ function install_clojure {
 
 	which java || sudo apt-get install -y default-jdk
 
-	curl -O https://download.clojure.org/install/linux-install-1.10.1.536.sh
-	chmod +x linux-install-1.10.1.536.sh
-	sudo ./linux-install-1.10.1.536.sh
-	rm ./linux-install-1.10.1.536.sh
+	curl -fLO https://github.com/clojure/brew-install/releases/latest/download/linux-install.sh
+	chmod +x linux-install.sh
+	sudo ./linux-install.sh
+	rm ./linux-install.sh
 }
 
 function install_lein {
@@ -545,17 +568,17 @@ function install_lein {
 
 function install_python {
 	if $MAC; then
-		brew install python@latest
+		brew install python pipx
 	else
-		sudo add-apt-repository ppa:deadsnakes/ppa
-		sudo apt update
-		sudo-pkg-mgr install python3-pip python-is-python3 python3-venv
+		# The system Python is externally managed (PEP 668), so Python tools
+		# come from apt or pipx
+		sudo-pkg-mgr install -y python3-pip python-is-python3 python3-venv pipx \
+			virtualenvwrapper
 
 		# Virtual environments: see https://realpython.com/python-virtual-environments-a-primer/
-		pip install --user \
-			virtualenv \
-			virtualenvwrapper
-		echo "source \$(which virtualenvwrapper.sh)" >>~/.profile
+		if ! grep -q 'virtualenvwrapper\.sh' ~/.profile; then
+			echo '[ -f /usr/share/virtualenvwrapper/virtualenvwrapper.sh ] && . /usr/share/virtualenvwrapper/virtualenvwrapper.sh' >>~/.profile
+		fi
 	fi
 
 	curl -sSL https://install.python-poetry.org | python3 -
@@ -565,20 +588,19 @@ function install_python {
 }
 
 function install_grip {
-	if [[ "" == $(which pip) ]]; then
-		echo "install python pip first; '$0 python'"
+	if [[ "" == $(which pipx) ]]; then
+		echo "install pipx first; '$0 python'"
 		exit 1
 	fi
-	pip install --user grip
+	pipx install grip
 }
 
 function install_drawio {
-	URL="$(curl -s https://about.draw.io/integrations/ | grep "draw.io-amd64-*.*.*.deb" |
-		head -1 | sed -E 's,.*(https://.*draw.io-amd64-*.*.*[0-9].deb).*,\1,')"
+	URL=$(gh_latest_asset jgraph/drawio-desktop 'drawio-amd64-[^/]*\.deb')
 	wget -q --show-progress "$URL"
-	sudo dpkg -i draw.io-amd64-*.*.*.deb
+	sudo dpkg -i drawio-amd64-*.deb
 	sudo apt --fix-broken install -y
-	rm draw.io-amd64-*.*.*.deb
+	rm drawio-amd64-*.deb
 }
 
 function install_latex {
@@ -615,27 +637,22 @@ function install_docker {
 		brew install --cask docker # docker desktop and docker cli
 		brew install docker-compose
 	else
-		# Docker
+		# https://docs.docker.com/engine/install/ubuntu/
+		sudo-pkg-mgr install -y ca-certificates curl
+		# Drop any unsigned entry left by add-apt-repository
+		sudo rm -f /etc/apt/sources.list.d/archive_uri-https_download_docker_com_linux_ubuntu-*.list
+		add_apt_repo docker https://download.docker.com/linux/ubuntu/gpg \
+			"https://download.docker.com/linux/ubuntu $UBU_REL stable"
 		sudo-pkg-mgr install -y \
-			apt-transport-https ca-certificates curl software-properties-common
-
-		curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-		APT_REPO="https://download.docker.com/linux/ubuntu"
-		if ! apt-cache policy | grep -q "$APT_REPO"; then
-			sudo add-apt-repository "deb [arch=amd64] $APT_REPO $UBU_REL stable"
-		fi
-		sudo-pkg-mgr update
-		sudo-pkg-mgr install -y \
-			docker-ce
+			docker-ce \
+			docker-ce-cli \
+			containerd.io \
+			docker-buildx-plugin \
+			docker-compose-plugin
 
 		# Docker installation process should create group 'docker'
 		# sudo groupadd docker
 		sudo usermod -aG docker "$USER"
-
-		# Docker Compose
-		URL="https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)"
-		sudo curl -L "$URL" -o /usr/local/bin/docker-compose
-		sudo chmod +x /usr/local/bin/docker-compose
 	fi
 }
 
@@ -648,12 +665,9 @@ function install_terraform {
 	else
 		# Terraform: official HashiCorp apt repository
 		# https://developer.hashicorp.com/terraform/install
-		sudo-pkg-mgr install -y gnupg software-properties-common curl
-		wget -O- https://apt.releases.hashicorp.com/gpg |
-			sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-		echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $UBU_REL main" |
-			sudo tee /etc/apt/sources.list.d/hashicorp.list >/dev/null
-		sudo-pkg-mgr update
+		sudo-pkg-mgr install -y gnupg curl
+		add_apt_repo hashicorp https://apt.releases.hashicorp.com/gpg \
+			"https://apt.releases.hashicorp.com $UBU_REL main"
 		sudo-pkg-mgr install -y terraform
 	fi
 
@@ -717,10 +731,8 @@ function install_enpass {
 	if $MAC; then
 		brew install --cask enpass
 	else
-		echo "deb http://repo.sinew.in/ stable main" |
-			sudo tee /etc/apt/sources.list.d/enpass.list >/dev/null
-		wget -O - https://dl.sinew.in/keys/enpass-linux.key | sudo apt-key add -
-		sudo-pkg-mgr update
+		add_apt_repo enpass https://apt.enpass.io/keys/enpass-linux.key \
+			"https://apt.enpass.io/ stable main"
 		sudo-pkg-mgr install -y enpass
 		xdg-open https://www.enpass.io/downloads/#extensions
 		echo "NOTICE: Install the Firefox extension from the browser."
@@ -731,10 +743,11 @@ function install_signal {
 	if $MAC; then
 		brew install --cask signal
 	else
-		curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
-		echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" |
-			sudo tee -a /etc/apt/sources.list.d/signal-xenial.list >/dev/null
-		sudo-pkg-mgr update && sudo-pkg-mgr install signal-desktop
+		# Signal publishes a single 'xenial' suite for every Ubuntu release
+		sudo rm -f /etc/apt/sources.list.d/signal-xenial.list
+		add_apt_repo signal https://updates.signal.org/desktop/apt/keys.asc \
+			"https://updates.signal.org/desktop/apt xenial main"
+		sudo-pkg-mgr install -y signal-desktop
 	fi
 }
 
@@ -742,8 +755,7 @@ function install_sonarqube {
 	sudo mkdir -p /opt/sonarqube
 	sudo chown "$USER":"$USER" -R /opt/sonarqube
 
-	URL="$(curl -s https://www.sonarqube.org/downloads/ |
-		grep 'href=' | grep Community | head -1 | cut -d\" -f4)"
+	URL="https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-$(gh_latest_tag SonarSource/sonarqube).zip"
 	wget -q --show-progress "$URL"
 	FILE=$(ls sonarqube-*.zip)
 	if [[ "" == "$FILE" ]]; then
@@ -754,8 +766,7 @@ function install_sonarqube {
 	unzip "$FILE" -d /opt/sonarqube
 	rm "$FILE"
 
-	URL="$(curl -s https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/ |
-		grep 'href=' | grep Linux | rev | cut -d\" -f4 | rev)"
+	URL="https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$(gh_latest_tag SonarSource/sonar-scanner-cli)-linux-x64.zip"
 	wget -q --show-progress "$URL"
 	FILE=$(ls sonar-scanner-cli-*.zip)
 	if [[ "" == "$FILE" ]]; then
@@ -771,19 +782,17 @@ function install_chrome {
 	if $MAC; then
 		brew install --cask google-chrome
 	else
-		wget -q --show-progress -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-		echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' |
-			sudo tee /etc/apt/sources.list.d/google-chrome.list
-		sudo-pkg-mgr update
-		sudo-pkg-mgr install google-chrome-stable
+		# The .deb sets up Google's signed apt repo for future updates
+		wget -q --show-progress https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+		sudo-pkg-mgr install -y ./google-chrome-stable_current_amd64.deb
+		rm google-chrome-stable_current_amd64.deb
 	fi
 }
 
 function install_glow {
-	URL="https://github.com$(curl -s https://github.com/charmbracelet/glow/releases |
-		grep linux_amd64.deb | head -1 | cut -d\" -f2)"
+	URL=$(gh_latest_asset charmbracelet/glow 'glow_[^/]*_amd64\.deb')
 	wget -q --show-progress "$URL"
-	FILE=$(ls glow_*_linux_amd64.deb)
+	FILE=$(ls glow_*_amd64.deb)
 	if [[ "" == "$FILE" ]]; then
 		echo "Glow package download failed; update URL determination command"
 		echo "URL: $URL"
@@ -865,24 +874,18 @@ function install_slacknzoom {
 }
 
 function install_tlaplus {
-	function install_getpathfor {
-		echo "https://github.com/$(
-			curl -s https://github.com/tlaplus/tlaplus/releases |
-				grep "$1" -m1 |
-				cut -d\" -f2
-		)"
-	}
-
+	local TOOLBOX
 	if $MAC; then
-		curl "$(getpathfor macosx)" -o "TLAToolbox.zip"
-		unzip "TLAToolbox.zip"
+		TOOLBOX='TLAToolbox-[^/]*-macosx\.cocoa\.x86_64\.zip'
 	else
-		curl "$(getpathfor linux)" -o "TLAToolbox.zip"
-		unzip "TLAToolbox.zip"
+		TOOLBOX='TLAToolbox-[^/]*-linux\.gtk\.x86_64\.zip'
 	fi
+	curl -fL "$(gh_latest_asset tlaplus/tlaplus "$TOOLBOX")" -o "TLAToolbox.zip"
+	unzip "TLAToolbox.zip"
 
-	# TODO FIXME: broken!
-	curl "$(getpathfor tla2tools)" -o ~/bin/lib/tla2tools.jar
+	mkdir -p ~/bin/lib
+	curl -fL https://github.com/tlaplus/tlaplus/releases/latest/download/tla2tools.jar \
+		-o ~/bin/lib/tla2tools.jar
 }
 
 ## Special function: setup on a new machine

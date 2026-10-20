@@ -43,3 +43,16 @@ function download_bin {
 	rm -f "$TMP"
 	return $STATUS
 }
+
+# Prints the download URL of the asset in GitHub repo $1's latest release whose
+# filename matches the extended regex $2
+function gh_latest_asset {
+	curl -fsSL "https://api.github.com/repos/$1/releases/latest" |
+		grep -oE "\"browser_download_url\": \"[^\"]*/$2\"" | head -1 | cut -d'"' -f4
+}
+
+# Prints the tag of GitHub repo $1's latest release
+function gh_latest_tag {
+	curl -fsSL "https://api.github.com/repos/$1/releases/latest" |
+		grep -oE '"tag_name": "[^"]+"' | cut -d'"' -f4
+}

@@ -28,9 +28,9 @@ if ! $MAC; then
 	alias bat=batcat
 	alias fd=fdfind
 fi
-if which exa &>/dev/null; then
-	alias ls='exa -F'
-	alias ll='exa -alFh'
+if which eza &>/dev/null; then
+	alias ls='eza -F'
+	alias ll='eza -alFh'
 	alias cat='bat --plain'
 fi
 alias cpv='rsync -ah --info=progress2'
